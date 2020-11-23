@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  useEmulators: true,
+  useEmulators: false,
   enableLogging: false,
   firebaseConfig: {
     apiKey: 'AIzaSyCAEhG93u8ZxGN6y8Z1zgB55bW5Q0BYN38',
@@ -151,10 +151,14 @@ export const environment = {
       'SG SV Bliesen', 'SG Schaumberg', 'SG FC Gronig', 'SG SV Oberthal', 'SG VfB Theley'
     ],
     dfbnet: {
-      user: '43141970-01',
+      username: '43141970-01',
       password: 'SFW-2020'
     },
-    fussballId: '00ES8GNBEO00001UVV0AG08LVUPGND5I',
+    fussball: {
+      clubId: '00ES8GNBEO00001UVV0AG08LVUPGND5I',
+      endDateOffset: 3,
+      startDate: undefined
+    },
     mailing: [
       {
         isActive: true,

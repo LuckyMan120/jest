@@ -71,12 +71,14 @@ export class FirstStepComponent implements OnInit, OnDestroy {
       }),
       communities: [],
       dfbnet: this.fb.group({
-        username: environment.appDefaults.dfbnet.user || '',
+        username: environment.appDefaults.dfbnet.username || '',
         password: environment.appDefaults.dfbnet.password || ''
       }),
       fussball: this.fb.group({
-        clubId: [environment.appDefaults.fussballId || '', [Validators.required]],
-        endDateOffset: [12, [Validators.required, Validators.min(1), Validators.max(12)]],
+        clubId: [environment.appDefaults.fussball.clubId || '', [Validators.required]],
+        endDateOffset: [environment.appDefaults.fussball.endDateOffset,
+        [Validators.required, Validators.min(1), Validators.max(12)]
+        ],
         startDate,
       }),
       googleDriveMemberSheet: environment.appDefaults.memberSheetId || '',

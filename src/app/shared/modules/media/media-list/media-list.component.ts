@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Query } from '@angular/fire/firestore';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +7,6 @@ import { MediaItem } from '@shared/_interfaces/media-item.interface';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { MediaService } from '../media.service';
-import { CategoryService } from './../../../../modules/category/category.service';
 import { Category } from './../../../../modules/category/_interfaces/category.interface';
 import { FirestoreService } from './../../../services/firestore.service';
 import { LayoutUtilsService } from './../../../services/layout-utils.service';
@@ -34,7 +34,7 @@ export class MediaListComponent implements OnDestroy, OnInit {
     private layoutUtilsService: LayoutUtilsService,
     private route: ActivatedRoute,
     private firestoreService: FirestoreService,
-    private categoryService: CategoryService
+    // private categoryService: CategoryService
   ) {
     this.loading();
     this.mediaService.getMedias().pipe(take(1), tap(this.loaded)).subscribe(this.addItems);
@@ -79,7 +79,6 @@ export class MediaListComponent implements OnDestroy, OnInit {
       }
 
       this.categories$ = this.getFileCategories().pipe(
-
         tap((categories: Category[]) => categories.sort((a: Category, b: Category) =>
           a.title < b.title ? -1 : (a.title > b.title) ? 1 : 0)
         ),
@@ -95,7 +94,10 @@ export class MediaListComponent implements OnDestroy, OnInit {
   }
 
   getFileCategories(): Observable<Category[]> {
-    return this.categoryService.getCategoryListByParentCategoryTitle('Dateikategorien');
+    return this.firestoreService.col$<Category>(`categories`, (ref: Query) => {
+      ref = ref.where('assignedCategoryTitles', 'array-contains', 'Dateikategorien');
+      return ref.orderBy('title');
+    });;
   }
 
   onScroll() {

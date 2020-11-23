@@ -53,7 +53,9 @@ export class ArticleQuickPanelComponent implements OnInit {
       switchMap((params: any) => this.articleService.get(params.articleId)),
       tap((article: Article) => this.article = article)
     );
-    this.categories$ = this.categoryService.getCategoryListByParentCategoryTitle('Homepage-Menü');
+    this.categories$ = this.categoryService.getCategoryListByParentCategoryTitle('Homepage-Menü').pipe(
+      tap(console.log)
+    );
   }
 
   selectTab(tabId: number): void {

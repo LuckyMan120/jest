@@ -57,7 +57,6 @@ export class ArticleFormComponent implements OnInit {
       switchMap(params => this.articleService.get(params.articleId)),
       tap((article: Article) => {
         this.form.patchValue(article);
-        console.log(article);
         this.savedArticle = Object.freeze(Object.assign({}, article));
       })
     );

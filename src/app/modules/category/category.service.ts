@@ -23,10 +23,6 @@ export class CategoryService {
     return !!!id ? this.initNewCategory() : this.loadCategory(id);
   }
 
-  public getMenuCategories(): Observable<Category[]> {
-    return this.firestoreService.col$<Category>(`categories`, (ref: Query) => ref.where('isMenuCategory', '==', true));
-  }
-
   private loadCategory(id: string): Observable<Category | undefined> {
     return this.firestoreService.doc$<Category>(`categories/${id}`).pipe(
       map(category => {
@@ -49,8 +45,6 @@ export class CategoryService {
           title: '',
           description: '',
           isImported: false,
-          isMainCategory: false,
-          isMenuCategory: false,
           isCoreCategory: true,
           galleries: null,
           creation: this.firestoreService.getCreation({}, user),
@@ -70,9 +64,7 @@ export class CategoryService {
       creation: this.firestoreService.initCreationFormGroup(),
       publication: this.firestoreService.initPublicationFormGroup(),
       modification: this.firestoreService.initModificationFormArray(),
-      isMainCategory: null,
       isImported: null,
-      isMenuCategory: null,
       id: null,
       isCoreCategory: null
     });

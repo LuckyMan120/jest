@@ -36,6 +36,7 @@ export class UppyComponent implements AfterViewInit, OnDestroy, OnInit {
 
   private destroyed$ = new Subject<void>();
   private uppy!: Uppy.Uppy<Uppy.StrictTypes>;
+  private isInitialized = false;
 
   constructor(
     private afa: AngularFireAuth,
@@ -49,9 +50,10 @@ export class UppyComponent implements AfterViewInit, OnDestroy, OnInit {
     this.afs.doc<Config>(`config/1`).valueChanges().pipe(
       takeUntil(this.destroyed$),
       switchMap((config: Config | undefined) => {
+        console.log(config?.uppy);
         const uppyCfg = config?.uppy;
 
-        if (uppyCfg) {
+        if (uppyCfg && !this.isInitialized) {
 
           const companionUrl = uppyCfg.companionUrl;
 
@@ -79,7 +81,7 @@ export class UppyComponent implements AfterViewInit, OnDestroy, OnInit {
             this.uppy.use(GoogleDrive, { target: Dashboard, companionUrl });
           }
         }
-
+        this.isInitialized = true;
         return this.uploadService.uploadObservable; // .pipe(tap(console.log), takeUntil(this.destroyed$))
       })
     ).subscribe(() => {

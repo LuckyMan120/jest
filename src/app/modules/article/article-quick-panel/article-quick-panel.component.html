@@ -158,12 +158,11 @@
                 <div class="form-group form-group-xs row" *ngIf="form.get('displayInMenu')?.value">
                   <label class="col-12 col-form-label">Unter welchem Eintrag?</label>
                   <div class="col-12">
-                    <mat-radio-group formControlName="menuDisplay">
-                      <mat-radio-button class="app-radio" *ngFor="let category of categories | orderBy: ['title']"
-                        [value]="category.title">
+                    <mat-select formControlName="menuDisplay">
+                      <mat-option *ngFor="let category of categories | orderBy: ['title']" [value]="category.title">
                         {{category.title}}
-                      </mat-radio-button><br />
-                    </mat-radio-group>
+                      </mat-option>
+                    </mat-select>
                   </div>
                 </div>
               </ng-container>

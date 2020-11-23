@@ -8,17 +8,14 @@ import { Link } from '@application/_interfaces/link.interface';
 export class LinkByCategoryTitlePipe implements PipeTransform {
 
   transform(links: Link[] | undefined, args: LinkFilter): Link[] {
-    console.log(links, args);
     if (!links) {
       return [];
     }
     const found = links.filter(link => {
       return link.assignedCategoryTitle === args.title
         && link.isActive
-      //&& (args.displayIn ? link[args.displayIn] === true : true);
+        && (args.displayIn ? (link as any)[args.displayIn] === true : true);
     });
-
-    console.log(found);
     return found;
   }
 

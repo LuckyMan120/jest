@@ -11,14 +11,16 @@
             </tr>
             <tr>
               <th>Author</th>
-              <td>
+              <td *ngIf="creation">
                 <ng-container *ngIf="creation?.by !== 'system'">
                   <a *ngIf="creation?.user as user" [routerLink]="['/users/detail', creation?.by]">
                     {{user?.displayName }}
                   </a>
                 </ng-container>
 
-                <span *ngIf="creation?.by === 'system'">System-Import</span>
+                <span *ngIf="creation.by && (creation.by.includes('system') || creation.by.includes('Installer'))">
+                  System-Import
+                </span>
               </td>
             </tr>
           </table>

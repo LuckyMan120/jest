@@ -283,14 +283,14 @@ export class FirestoreService {
         }
       };
     }
-
-    const user = !item.creation.by.includes('Parser')
+    // console.log(item.creation);
+    const user = item.creation.by && !item.creation.by.includes('Parser')
       ? { assignedRoles: author?.assignedRoles, displayName: this.getUserTitle(author || null), photoUrl: author?.photoUrl }
-      : item.creation.by;
+      : item.creation.user;
 
     return {
       at: new Date(item.creation.at) as any || new Date(),
-      by: (item.creation.by && item.creation.by.includes('Parser') ? 'system' : item.creation.by) || author?.id,
+      by: (item.creation.by ? item.creation.by : user) || author?.id,
       user: item.creation.user || user
     };
   }
@@ -313,16 +313,7 @@ export class FirestoreService {
 
   getPublication(item: any, user?: User): Publication {
     if (!item.publication) {
-      return {
-        at: new Date(),
-        by: user?.id,
-        user: {
-          assignedRoles: user?.assignedRoles || [],
-          displayName: this.getUserTitle(user || null),
-          photoUrl: user?.photoUrl || '',
-        },
-        status: 2
-      };
+      return {};
     }
     return {
       at: item.publication.at ? new Date(item.publication.at) as any : null,

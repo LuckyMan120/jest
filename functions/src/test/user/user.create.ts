@@ -15,10 +15,6 @@ describe('my functions', () => {
 
   afterAll(() => {
     adminStub.mockRestore();
-
-    admin.firestore().collection(`users`).
-      .ref('users')
-      .remove();
   });
 
   it('should store new user in fs', async () => {
@@ -32,7 +28,6 @@ describe('my functions', () => {
 
     // we read our user from database
     const createdUser1 = (await admin.firestore().doc(`/users/${testUser1.uid}`).get()).data();
-    const createdUser2 = (await admin.firestore().doc(`/users/${testUser2.uid}`).get()).data();
 
     // we expect our newly created user to have zero points
     expect(createdUser1).toHaveProperty('points', 0);

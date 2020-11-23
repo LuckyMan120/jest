@@ -3,7 +3,7 @@ import { version } from '../../../../package.json';
 export const environment = {
   production: false,
   version: version,
-  useEmulators: true,
+  useEmulators: false,
   enableLogging: false,
   firebaseConfig: {
     apiKey: 'AIzaSyCAEhG93u8ZxGN6y8Z1zgB55bW5Q0BYN38',

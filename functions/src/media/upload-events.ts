@@ -14,7 +14,7 @@ const PATH_GROUP_REGEXP = '^medias\/([a-zA-Z0-9_]*)\/([a-zA-Z0-9_]*)\/.+$';
 /*
 * Create thumbnail based on the metada of the file
 */
-export const uploadHandler = functions
+export const onMediaUpload = functions
   .region('europe-west1')
   .runWith({ memory: '2GB', timeoutSeconds: 120 })
   .storage.object().onFinalize(async (handler, context) => {

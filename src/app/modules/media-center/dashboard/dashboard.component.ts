@@ -23,7 +23,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   showStatistics() {
-    this.layoutUtilsService.showMediaStatistics(this.mediaService.getMediaStats());
+    console.log('ToDo');
+    // this.layoutUtilsService.showMediaStatistics(this.mediaService.getMediaStats());
   }
 
 }
