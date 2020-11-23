@@ -1,0 +1,150 @@
+//
+// Widget33
+//
+
+// Base
+.app-widget33 {
+  // Head
+  .app-widget33__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 3rem;
+
+    .app-widget33__title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: app-base-color(label, 3);
+
+      &:hover {
+        color: app-brand-color();
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+  // Bady
+  .app-widget33__body {
+    .app-widget33__title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: app-base-color(label, 3);
+
+      &:hover {
+        color: app-brand-color();
+        transition: all 0.3s ease;
+      }
+    }
+
+    .app-widget33__desc {
+      display: block;
+      font-weight: 500;
+      color: app-base-color(label, 2);
+    }
+
+    .app-widget33__items {
+      .app-widget33__item {
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
+
+        .app-widget33__pic {
+          width: 8rem;
+          margin-right: 2rem;
+
+          @include app-rounded {
+            border-radius: $app-border-radius;
+          }
+        }
+
+        .app-widget33__content {
+          flex-grow: 1;
+          margin-top: -0.4rem;
+
+          .app-widget33__subtitle {
+            font-weight: 500;
+            color: app-base-color(label, 2);
+            margin-bottom: 0.5rem;
+            display: block;
+          }
+
+          .app-widget33__action {
+            display: flex;
+            align-items: center;
+
+            .app-widget33__check {
+              @include app-rounded {
+                border-radius: $app-border-radius;
+              }
+            }
+
+            .btn {
+              width: 23px;
+              height: 23px;
+              padding: 0;
+              margin: 0;
+
+              i {
+                padding: 0;
+                font-size: 0.8rem;
+              }
+            }
+
+            span {
+              font-size: 1.2rem;
+              font-weight: 600;
+              color: app-base-color(label, 3);
+              padding-left: 1rem;
+            }
+          }
+        }
+
+        .app-widget33__price {
+          display: flex;
+          flex-wrap: wrap;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: app-base-color(label, 3);
+          margin-top: -2.7rem;
+        }
+
+        border-bottom: 1px solid app-base-color(grey, 2);
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  // Foot
+  .app-widget33__foot {
+    .app-widget33__section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      .app-widget33__desc {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: app-base-color(label, 4);
+      }
+
+      .app-widget33__subtotal {
+        font-weight: 600;
+        color: app-base-color(label, 4);
+        font-size: 1.2rem;
+      }
+    }
+
+    .app-widget33__button {
+      text-align: center;
+
+      .btn {
+        width: 100%;
+        padding: 1rem 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+//
+// Header Menu
+//
+
+// Desktop Mode
+@include app-menu-hor-build-layout(app-get($app-header-config, menu, desktop));
+
+// Tablet & Mobile Mode
+@include app-menu-ver-build-layout(app-get($app-header-config, menu, tablet-and-mobile));
+//@include app-menu-ver-build-skin(app-get($app-header-config, menu, tablet-and-mobile), default);
+
+// Header Menu Mobile Offcanvas
+@include app-offcanvas-build(
+	app-header-menu-wrapper,
+	tablet-and-mobile,
+	app-get($app-header-config, menu, offcanvas-mobile)
+);
+
+@include app-desktop {
+	.app-header-menu-wrapper {
+		body:not(.app-aside--enabled) & {
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+
+			.app-header-logo {
+				padding: 0 app-get($app-page-padding, desktop);
+				display: flex;
+				align-items: center;
+				margin-right: 25px;
+			}
+		}
+	}
+
+	.app-header-menu {
+		.app-menu__nav {
+			> .app-menu__item {
+				&:first-child {
+					padding-left: 0;
+				}
+
+				> .app-menu__submenu {
+					border-top-left-radius: 0;
+					border-top-right-radius: 0;
+				}
+			}
+		}
+
+		// Layouts
+		&.app-header-menu--layout-default {
+			.app-menu__nav {
+				> .app-menu__item {
+					> .app-menu__link {
+						padding: 0.65rem 1.1rem;
+
+						@include app-not-rounded {
+							border-radius: 0 !important;
+						}
+					}
+				}
+			}
+		}
+
+		&.app-header-menu--layout-tab {
+			.app-menu__nav {
+				> .app-menu__item {
+					margin: 0 1rem;
+					align-items: stretch;
+
+					> .app-menu__link {
+						align-items: stretch;
+						background-color: transparent !important;
+						padding: 0 !important;
+						border-bottom: 1px solid transparent;
+						margin-bottom: -1px;
+
+						@include app-rounded {
+							border-radius: 0 !important;
+						}
+					}
+
+					&:first-child {
+						margin-left: 0 !important;
+					}
+
+					&.app-menu__item--here,
+					&.app-menu__item--active {
+						> .app-menu__link {
+							background-color: transparent !important;
+							border-bottom: 1px solid app-brand-color() !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@include app-tablet-and-mobile {
+	.app-header-menu-wrapper {
+		.app-header-logo {
+			display: none;
+		}
+	}
+}

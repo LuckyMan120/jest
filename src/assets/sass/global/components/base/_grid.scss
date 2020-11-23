@@ -1,0 +1,29 @@
+//
+// Grid
+//
+
+@include app-grid-generate(general);
+
+@include app-desktop {
+	@include app-grid-generate(desktop);
+}
+
+@include app-desktop-xl {
+	@include app-grid-generate(desktop-xl);
+}
+
+@include app-desktop-and-tablet {
+	@include app-grid-generate(desktop-and-tablet);
+}
+
+@include app-tablet {
+	@include app-grid-generate(tablet);
+}
+
+@include app-tablet-and-mobile {
+	@include app-grid-generate(tablet-and-mobile);
+}
+
+@include app-mobile {
+	@include app-grid-generate(mobile);
+}

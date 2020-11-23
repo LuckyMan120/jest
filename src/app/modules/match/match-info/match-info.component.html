@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="table-responsive">
+      <match-info-left [match]="match"></match-info-left>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <match-info-right [match]="match"></match-info-right>
+  </div>
+
+  <div class="col-lg-4">
+    <app-portlet class="mt-0 pt-0">
+      <app-portlet-header title="Verknüpfte Artikel"></app-portlet-header>
+      <app-portlet-body>
+        <app-alert *ngIf="!match.assignedArticleTitles" type="info" [showCloseButton]="false">
+          <p>Das Spiel wurde mit keinen Artikeln verknüpft.</p>
+        </app-alert>
+        <ul class="list-group" *ngIf="match.assignedArticleTitles && match.assignedArticleIds">
+          <li class="list-group-item" *ngFor="let articleTitle of match.assignedArticleTitles; let i = index">
+            <!-- <a *ngIf="match.assignedArticleIds.length >= i"
+              [routerLink]="['/articles/detail', match.assignedArticleIds[i]]">-->
+            {{articleTitle}}
+            <!--</a>-->
+          </li>
+        </ul>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+</div>

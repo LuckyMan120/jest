@@ -1,0 +1,29 @@
+//
+// App Mixins
+//
+
+// App aside mixins
+@mixin app-app-aside-width($width) {
+    // Media range 1024px and above(see: $app-media-breakpoints in sass/theme/_config.scss and sass/themes/core/_mixins.scss)
+    @include app-desktop {
+        width: $width;
+    }
+
+    // If beliw given width
+    @include app-media-below($width + 50px) {
+        width: $width - 50px;
+    }
+}
+
+// App aside mixins
+@mixin app-app-detail-width($width) {
+    // Media range 1024px and above(see: $app-media-breakpoints in sass/theme/_config.scss and sass/themes/core/_mixins.scss)
+    @include app-desktop {
+        width: $width;
+    }
+
+    // If beliw given width
+    @include app-media-below($width + 50px) {
+        width: $width - 50px;
+    }
+}

@@ -1,0 +1,77 @@
+//
+// Brand Light Skin
+//
+
+// Include global config
+@import "../../../../config";
+
+// Include layout config
+@import "../../config";
+
+// Include header config
+@import "../../header/config";
+
+// Include aside config
+@import "../../aside/config";
+
+// Desktop mode
+@include app-desktop {
+	.app-aside__brand {
+		background-color: app-get($app-layout-skins, light);
+		box-shadow: none;
+
+		.app-aside__brand-tools {
+			svg {
+				g {
+					[fill] {
+						fill: app-brand-color();
+					}
+				}
+			}
+			//@include app-burger-icon-skin(app-aside__brand-aside-toggler, (default: lighten(#b4b8ce, 10%), hover: app-brand-color(), active: app-brand-color()) );
+		}
+	}
+}
+
+// Tablet and mobile mode
+@include app-tablet-and-mobile {
+	.app-header-mobile {
+		background-color: app-get($app-layout-skins, light);
+		border-bottom: 1px solid #eff0f6;
+
+		// Minimize
+		.app-header-mobile--fixed.app-header--minimize & {
+			border-bottom: 0;
+			box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.1);
+		}
+
+		.app-header__topbar--mobile-on & {
+			box-shadow: none;
+		}
+
+		// Toolbar
+		.app-header-mobile__toolbar {
+			@include app-burger-icon-skin(
+				app-header-mobile__toggler,
+				(
+					default: #b4b8ce,
+					hover: app-brand-color(),
+					active: app-brand-color(),
+				)
+			);
+
+			.app-header-mobile__topbar-toggler {
+				i {
+					color: #b4b8ce;
+				}
+
+				&.app-header-mobile__topbar-toggler--active,
+				&:hover {
+					i {
+						color: app-brand-color();
+					}
+				}
+			}
+		}
+	}
+}

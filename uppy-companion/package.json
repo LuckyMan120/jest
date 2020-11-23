@@ -1,0 +1,44 @@
+{
+  "name": "uppy-companion",
+  "description": "Uppy Companion on Cloud Run",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Google Inc.",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p . && copyfiles -E favicon.ico dist",
+    "test": "npm run build && repo-tools test app -- dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "start": "node ./dist/index.js",
+    "gcp-build": "npm run build && gcloud builds submit --tag eu.gcr.io/sf-wtb/uppy && gcloud run deploy --image eu.gcr.io/sf-wtb/uppy --platform managed",
+    "serve": "npm run build && npm run start"
+  },
+  "dependencies": {
+    "@types/express-session": "^1.17.1",
+    "@types/node": "^14.14.7",
+    "@types/serve-favicon": "^2.5.1",
+    "@uppy/companion": "^2.1.0",
+    "body-parser": "^1.19.0",
+    "companion": "0.0.2",
+    "compression": "^1.7.4",
+    "copyfiles": "^2.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0",
+    "typescript": "^4.0.5"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.3.0",
+    "@types/express": "^4.17.9",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

@@ -1,0 +1,26 @@
+
+/* Color Palette */
+$primary:       #192C40;
+$secondary:     #FF0000;
+$tertiary:      #122237;
+$fourthiary:    #7B8895;
+$fifthiary:     #212529;
+$gray:          #C6CCD2;
+$gray_1:        #F4F6FA;
+$white:         #ffffff;
+$bg:            #F4F6FA;
+
+/* Font family */
+$primaryFont: 'Proxima Nova' !important;
+
+/* Font sizes */
+$fontSize-xs:             15px; // ~12px
+$fontSize-normal:         20px !default; // ~16px
+$fontSize-smallTitle:     30px !default; // ~18px
+$fontSize-normalTitle:    40px !default; // ~20px
+$fontSize-hero:    60px; // ~40px
+$font-article-teaser: 90px;
+$font-big:      180px;
+
+/*Bootstrap override*/
+$grid-gutter-width:           24px;

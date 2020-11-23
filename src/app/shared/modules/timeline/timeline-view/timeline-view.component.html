@@ -1,0 +1,32 @@
+<app-alert type="info" [showCloseButton]="false" *ngIf="!events.length">
+  <p>Es wurden noch keine Ereignisse erstellt.</p>
+</app-alert>
+
+<div class="app-timeline-v2">
+  <div class="app-timeline-v2__items  app-padding-top-25 app-padding-bottom-30">
+
+    <div class="app-timeline-v2__item" *ngFor="let event of events">
+      <span class="app-timeline-v2__item-time">
+        {{event.startDate | date: 'mediumDate'}}
+        <ng-container *ngIf="event.endDate"> <br />&ndash; {{event.endDate | date: 'mediumDate'}}</ng-container>
+      </span>
+
+      <div class="app-timeline-v2__item-cricle">
+        <i [ngClass]="[ 'app-font-' + event.colour, 'fas fa-genderless' ]"></i>
+      </div>
+
+      <div class="app-timeline-v2__item-text app-timeline-v2__item-text--bold">
+
+        <i *ngIf="event.icon" [ngClass]="event.icon"></i>&nbsp;<span> {{event.title}}</span>
+        <ng-container *ngIf="event.subTitle"><br />{{event.subTitle}}</ng-container>
+
+        <div class="block mt-3 text-right">
+          <a [routerLink]="['/articles/detail', event.assignedArticleId]" class="btn btn-primary mr-1">Zum artikel</a>
+          <a [routerLink]="['../../edit', event.id]" class="btn btn-warning mr-1">Editieren</a>
+          <a (click)="deleteEvent.emit(event)" class="btn btn-danger">Löschen</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

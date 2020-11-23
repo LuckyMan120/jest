@@ -1,0 +1,68 @@
+<app-portlet *ngIf="team$ | async as team">
+  <app-portlet-header title="Tabellenstand">
+  </app-portlet-header>
+  <app-portlet-body>
+    <div class="alert alert-info" *ngIf="!team.standings">
+      Für diese Mannschaft sind keine aktuellen Tabellenstände vorhanden
+    </div>
+
+    <tabset *ngIf="team.standings" [justified]="true">
+      <tab heading="Gesamt">
+        <ng-container [ngTemplateOutlet]="standingTable" [ngTemplateOutletContext]="{standings: team}">
+        </ng-container>
+      </tab>
+      <tab *ngIf="team.roundStandings" heading="Hin/Rückrunde">
+        <ng-container [ngTemplateOutlet]="standingTable" [ngTemplateOutletContext]="{standings: team.roundStandings}">
+        </ng-container>
+      </tab>
+      <tab heading="Heim/Auswärts">
+        <ng-container [ngTemplateOutlet]="standingTable"
+          [ngTemplateOutletContext]="{standings: team.homeAwayStandings}">
+        </ng-container>
+      </tab>
+    </tabset>
+
+  </app-portlet-body>
+</app-portlet>
+
+<ng-template #standingTable let-standings="standings">
+  <h3 *ngIf="standings.title">{{standings.title}}</h3>
+  <div class="table-responsive">
+    <table *ngIf="standings" class="table table-striped table-bordered table-sm table-hover">
+      <thead>
+        <tr>
+          <th>Rang</th>
+          <th>Mannschaft</th>
+          <th>Spiele</th>
+          <th>Siege</th>
+          <th>Unentschieden</th>
+          <th>Niederlagen</th>
+          <th>Tordifferenz</th>
+          <th>Torverhältnis</th>
+          <th>Punkte</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let standing of standings.standings">
+          <td>
+            <i [class]="standing.icon + ' text-success'" aria-hidden="true"></i>
+            {{standing.rank}}
+          </td>
+          <td>
+            <a target="_blank" [href]="standing.clubLink">
+              <img [src]="standing.clubLogo" />
+              {{standing.clubTitle}}
+            </a>
+          </td>
+          <td>{{standing.matches}}</td>
+          <td>{{standing.won}}</td>
+          <td>{{standing.draw}}</td>
+          <td>{{standing.loss}}</td>
+          <td>{{standing.goalDiff}}</td>
+          <td>{{standing.goalRatio}}</td>
+          <td>{{standing.points}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

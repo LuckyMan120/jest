@@ -1,0 +1,51 @@
+<!-- begin:: Page -->
+<ng-container *ngIf="selfLayout !== 'blank'; else blankLayout">
+  <!-- begin:: Header Mobile -->
+  <app-header-mobile></app-header-mobile>
+  <!-- end:: Header Mobile -->
+
+  <div class="app-grid app-grid--hor app-grid--root">
+    <!-- begin::Body -->
+    <div class="app-grid__item app-grid__item--fluid app-grid app-grid--ver app-page">
+      <!-- begin:: Aside Left -->
+      <ng-container *ngIf="asideDisplay">
+        <button aria-label="Close Aside Menu" class="app-aside-close" id="app_aside_close_btn">
+          <i class="fa fa-window-close"></i></button>
+        <app-aside-left></app-aside-left>
+      </ng-container>
+      <!-- end:: Aside Left -->
+
+      <div class="app-grid__item app-grid__item--fluid app-grid app-grid--hor app-wrapper" id="app_wrapper">
+        <!-- begin:: Header -->
+        <app-header *ngIf="desktopHeaderDisplay"></app-header>
+        <!-- end:: Header -->
+
+        <!-- begin:: Content -->
+        <div class="app-content app-grid__item app-grid__item--fluid app-grid app-grid--hor" id="app_content"
+          [ngClass]="{'app-content--fit-top': fitTop}">
+          <!-- begin:: Content Head -->
+          <app-subheader *ngIf="subheaderDisplay"></app-subheader>
+          <!-- end:: Content Head -->
+
+          <!-- begin:: Content Body -->
+          <div contentAnimate class="app-container app-grid__item app-grid__item--fluid"
+            [ngClass]="{'app-container--fluid': fluid}">
+            <router-outlet></router-outlet>
+          </div>
+          <!-- end:: Content Body -->
+        </div>
+        <!-- end:: Content -->
+        <!-- begin:: Footer -->
+        <app-footer *ngIf="footerDisplay"></app-footer>
+        <!-- end:: Footer -->
+      </div>
+    </div>
+
+    <app-scroll-top></app-scroll-top>
+  </div>
+</ng-container>
+
+
+<ng-template #blankLayout>
+  <router-outlet></router-outlet>
+</ng-template>

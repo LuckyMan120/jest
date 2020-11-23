@@ -1,0 +1,56 @@
+<tabset *ngIf="medias$ |async as medias">
+  <tab heading="Vorhandene Dateien">
+
+    <ng-container *ngIf="categories$ | async as categories">
+      <div class="offset-lg-8 col-lg-4 text-right px-0">
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Kategorien wählen" (selectionChange)="selectionChange($event)"
+            [formControl]="assignedCategoryIdsControl" multiple>
+            <mat-option value="all">Alle Kategorien</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.title}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="medias.length === 0" class="alert alert-warning">
+        <p>Es sind keine Dateien vorhanden</p>
+      </div>
+
+      <div class="media-grid" infiniteScroll [immediateCheck]="true" [infiniteScrollContainer]="infiniteScrollContainer"
+        [fromRoot]="fromRoot" [scrollWindow]="scrollWindow" (scrolled)="onScroll()">
+
+        <ng-container *ngFor="let media of medias;trackBy:trackById">
+          <h1 class="text-danger">ToDo</h1>
+          <pre>{{media | json}}</pre>
+          <!-- <app-media-item [categories]="categories" [media]="media" [mode]="mode" (select)="setSelect.next($event)"
+            (deSelect)="deSelect.next($event)">
+          </app-media-item>-->
+        </ng-container>
+
+      </div>
+
+    </ng-container>
+  </tab>
+  <!-- <tab *ngIf="(medias | noFileTitle).length > 0"
+    heading="Dateien ohne Titel">
+    <div *ngIf="(medias | noFileTitle).length === 0" class="alert alert-warning">
+      <p>Es sind keine Dateien ohne Titel vorhanden</p>
+    </div>
+
+    <div class="media-grid" infiniteScroll [immediateCheck]="true" [infiniteScrollContainer]="infiniteScrollContainer"
+      [fromRoot]="fromRoot" [scrollWindow]="scrollWindow" (scrolled)="onScroll()">
+
+      <ng-container *ngFor="let media of medias | noFileTitle;trackBy:trackById">
+        <app-media-item [media]="media" [mode]="mode" (onSelect)="onSelect.next($event)"
+          (onDeSelect)="onDeSelect.next($event)">
+        </app-media-item>
+      </ng-container>
+    </div>
+  </tab>-->
+
+  <tab *ngIf="allowUpload">
+    <ng-template tabHeading>Dateiupload</ng-template>
+    <uppy [autoProceed]="false"></uppy><!-- height="80vh" width="100%" -->
+  </tab>
+
+</tabset>

@@ -1,0 +1,129 @@
+<app-portlet>
+  <app-portlet-header title="Fehlende Ergebnisse">
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <input matInput placeholder="Spiel suchen" #searchInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <div class="alert alert-info" *ngIf="dataSource.data">
+      <span class="text-danger">TODO</span>
+      <p>Es sind {{dataSource.data.length}} Spiele ohne Ergebnis vorhanden.</p>
+    </div>
+
+    <form [formGroup]="form">
+      <div class="mat-tab-container mat-elevation-z8">
+        <div class="table-responsive">
+
+          <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="matchStartDate"
+            matSortDisableClear matSortDirection="desc" [trackBy]="trackById">
+
+            <ng-container matColumnDef="matchStartDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Anstoß
+              </mat-header-cell>
+              <mat-cell *matCellDef="let match; let i = index">
+                {{match.matchStartDate }}
+                <!-- | date : 'medium' -->
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Heim&ndash;<br />
+                Gastmannschaft
+              </mat-header-cell>
+              <mat-cell *matCellDef="let match; let i = index">
+                <a [routerLink]="['/matches/edit', match.id]" [innerHTML]="match.title"></a>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="result">
+              <mat-header-cell *matHeaderCellDef>
+                Ergebnis
+              </mat-header-cell>
+              <mat-cell *matCellDef="let match; let i = index">
+                <ng-container [formGroup]="form.get('matches').controls[i]">
+                  <div class="d-flex flex-column" formGroupName="result">
+                    <mat-form-field class="homeTeamGoals mat-form-field-fluid">
+                      <input matInput placeholder="Tore Heim" formControlName="homeTeamGoals" type="number">
+                    </mat-form-field>
+
+                    <mat-form-field class="guestTeamGoals mat-form-field-fluid">
+                      <input matInput placeholder="Tore Gast" formControlName="guestTeamGoals" type="number">
+                    </mat-form-field>
+                  </div>
+                </ng-container>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="otherEvent">
+              <mat-header-cell *matHeaderCellDef>Sonstiges Spielende
+              </mat-header-cell>
+              <mat-cell *matCellDef="let match; let i = index">
+                <ng-container [formGroup]="form.get('matches').controls[i]">
+                  <div class="d-flex flex-column" formGroupName="result">
+                    <div class="mat-form-field-fluid">
+                      <mat-checkbox (change)="updateInputs($event, form.get('matches').controls[i])">
+                        Anderes Spielende festlegen</mat-checkbox>
+                    </div>
+                    <mat-form-field class="mat-form-field-fluid">
+                      <mat-select matInput (selectionChange)="updateValidators($event, form.get('matches').controls[i])"
+                        placeholder="Wähle eine der Optionen" formControlName="otherEvent">
+                        <mat-option [value]="">kein anderes Spielende wählen</mat-option>
+                        <mat-option *ngFor="let event of otherMatchEvents | orderBy: ['title']" [value]="event.id">
+                          {{event.title}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </ng-container>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+              <mat-cell *matCellDef="let match; let i = index">
+                <ng-container [formGroup]="form.get('matches').controls[i]">
+                  <button type="button" class="btn btn-success btn-sm"
+                    [disabled]="!form.get('matches').controls[i].valid"
+                    (click)="saveMatch(form.get('matches').controls[i])">
+                    <span class="fa fa-save fa-fw" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm" tooltip="Löschen" (click)="deleteMatch(match)">
+                    <span class="fa fa-trash fa-fw" aria-hidden="true"></span>
+                  </button>
+                </ng-container>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </table>
+        </div>
+
+        <div class="mat-table__bottom">
+          <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" [length]="dataSource.data.length"
+            [pageSize]="pageSizes[0]">
+          </mat-paginator>
+        </div>
+      </div>
+    </form>
+  </app-portlet-body>
+</app-portlet>

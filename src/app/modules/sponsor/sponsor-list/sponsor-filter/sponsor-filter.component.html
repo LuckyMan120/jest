@@ -1,0 +1,8 @@
+<mat-form-field *ngIf="categories$ | async as categories" class="w-100">
+  <mat-select placeholder="Nach Sponsoringart filten" [formControl]="assignedCategoryIdsControl" multiple
+    name="assignedCategoryIds">
+    <mat-option *ngFor="let category of categories | orderBy: ['title']" [value]="category.id">
+      {{category.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

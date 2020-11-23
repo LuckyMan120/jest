@@ -1,0 +1,50 @@
+//
+// Widget8
+//
+
+.app-widget8 {
+    // Item
+    .app-widget8__item {
+        display: flex;
+
+        .app-widget8__pic {
+            > img {
+                width: 3rem;
+                border-radius: 50%;
+            }
+        }
+
+        // Info
+        .app-widget8__info {
+            padding-left: 1rem;
+            font-size: 1rem;
+
+            // Username
+            .app-widget8__username {
+                color: app-base-color(label, 3);
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+
+            // Description
+            .app-widget8__desc {
+                font-size: 1rem;
+                color: app-base-color(label, 2);
+            }
+        }
+
+        // Action
+        .app-widget8__action {
+        }
+
+        border-bottom: 0.07rem dashed app-base-color(grey, 2);
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: -0.71rem;
+    }
+}

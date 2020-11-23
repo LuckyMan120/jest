@@ -1,0 +1,137 @@
+<!-- BEGIN: Horizontal Menu -->
+<button aria-label="Close Mobile Menu" class="app-header-menu-wrapper-close" id="app_header_menu_mobile_close_btn">
+  <i class="fas fa-window-close"></i>
+</button>
+
+<div offCanvas [options]="offCanvasOptions" class="app-header-menu-wrapper" id="app_header_menu_wrapper">
+  <div menu [options]="menuOptions" id="app_header_menu" class="app-header-menu app-header-menu-mobile"
+    [ngClass]="htmlClassService.getClasses('header_menu', true)">
+    <ul class="app-menu__nav" [ngClass]="htmlClassService.getClasses('header_menu_nav', true)">
+      <ng-container *ngFor="let item of menuHorService.menuList$ | async">
+        <ng-container *ngIf="item.title" [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: item }">
+        </ng-container>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+<!-- END: Horizontal Menu -->
+
+
+<ng-template #menuTemplate let-item="item" let-parentItem="parentItem">
+  <li [attr.aria-haspopup]="true" [attr.data-menu-submenu-toggle]="getItemAttrSubmenuToggle(item)"
+    (mouseleave)="mouseLeave($event)" (mouseenter)="mouseEnter($event)" [ngClass]="getItemCssClasses(item)">
+
+    <!-- if item has submenu -->
+    <ng-container *ngIf="item.submenu">
+      <a href="javascript:;" [ngClass]="{ 'app-menu__toggle': item.root }" class="app-menu__link">
+
+        <ng-container [ngTemplateOutlet]="menuItemInnerTemplate"
+          [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+
+        <ng-container *ngIf="rootArrowEnabled">
+          <!-- arrow icons -->
+          <i *ngIf="item.submenu && item.root" class="app-menu__hor-arrow fa fa-arrow-down"></i>
+          <i *ngIf="item.submenu && item.root" class="app-menu__ver-arrow fa fa-arrow-right"></i>
+        </ng-container>
+        <!-- else arrow icons -->
+        <i *ngIf="item.submenu && !item.root" class="app-menu__hor-arrow fa fa-angle-right"></i>
+        <i *ngIf="item.submenu && !item.root" class="app-menu__ver-arrow fa fa-angle-right"></i>
+      </a>
+    </ng-container>
+
+    <!-- if item hasn't sumbenu -->
+    <ng-container *ngIf="!item.submenu">
+      <a [routerLink]="item.page" [ngClass]="{ 'app-menu__toggle': item.root }" class="app-menu__link">
+        <ng-container [ngTemplateOutlet]="menuItemInnerTemplate"
+          [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+      </a>
+    </ng-container>
+
+    <!-- if menu item has submenu child then recursively call new menu item component -->
+    <ng-container *ngIf="item.submenu">
+      <div class="app-menu__submenu" [ngClass]="getItemMenuSubmenuClass(item)"
+        [ngStyle]="{ 'width': item.submenu.width }">
+        <span class="app-menu__arrow" [ngClass]="{ 'app-menu__arrow--adjust': item.root }"></span>
+
+        <ul *ngIf="item.submenu?.length" class="app-menu__subnav">
+          <ng-container *ngFor="let child of item.submenu">
+            <ng-container [ngTemplateOutlet]="menuTemplate"
+              [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+            </ng-container>
+          </ng-container>
+        </ul>
+
+        <ul *ngIf="item.submenu.items?.length" class="app-menu__subnav">
+          <ng-container *ngFor="let child of item.submenu.items">
+            <ng-container [ngTemplateOutlet]="menuTemplate"
+              [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+            </ng-container>
+          </ng-container>
+        </ul>
+
+        <div *ngIf="item.submenu.type === 'mega' && item.submenu.columns?.length" class="app-menu__subnav">
+          <ul class="app-menu__content">
+            <ng-container *ngFor="let child of item.submenu.columns">
+              <ng-container [ngTemplateOutlet]="menuColumnTemplate" [ngTemplateOutletContext]="{ item: child }">
+              </ng-container>
+            </ng-container>
+          </ul>
+        </div>
+
+      </div>
+    </ng-container>
+  </li>
+</ng-template>
+
+<!-- item inner -->
+<ng-template #menuItemInnerTemplate let-item="item" let-parentItem="parentItem">
+  <!-- if menu item has icon -->
+  <i *ngIf="item.icon" class="app-menu__link-icon" [ngClass]="item.icon"></i>
+
+  <ng-container *ngIf="!item.icon">
+    <!-- if menu item using bullet -->
+    <i *ngIf="parentItem && parentItem.bullet === 'dot' || item.bullet === 'dot'"
+      class="app-menu__link-bullet app-menu__link-bullet--dot">
+      <span></span>
+    </i>
+    <i *ngIf="parentItem && parentItem.bullet === 'line' || item.bullet === 'line'"
+      class="app-menu__link-bullet app-menu__link-bullet--line">
+      <span></span>
+    </i>
+  </ng-container>
+
+  <ng-container *ngIf="!item.badge; else menuLinkBadge">
+    <span class="app-menu__item-here"></span>
+    <span class="app-menu__link-text">{{item.title}}</span>
+  </ng-container>
+
+  <ng-template #menuLinkBadge>
+    <!-- menu item with badge -->
+    <span class="app-menu__link-text">{{item.title }}</span>
+    <span class="app-menu__link-badge">
+      <span class="app-badge app-badge--brand app-badge--inline app-badge--pill" [ngClass]="item.badge.type">
+        {{item.badge }}
+      </span>
+    </span>
+  </ng-template>
+</ng-template>
+
+<!-- item column -->
+<ng-template #menuColumnTemplate let-item="item">
+  <li class="app-menu__item">
+    <h3 class="app-menu__heading app-menu__toggle">
+      <span class="app-menu__link-text">
+        {{item.heading.title}}
+      </span>
+      <i class="app-menu__ver-arrow fa fa-angle-right"></i>
+    </h3>
+    <ng-container *ngIf="item.items?.length">
+      <ul class="app-menu__inner">
+        <ng-container *ngFor="let child of item.items">
+          <ng-container [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+          </ng-container>
+        </ng-container>
+      </ul>
+    </ng-container>
+  </li>
+</ng-template>

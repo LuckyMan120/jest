@@ -1,0 +1,368 @@
+<app-portlet *ngIf="team$ | async as team">
+  <app-portlet-header title="Mannschaftsdetails anzeigen">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/teams/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/teams/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/teams/edit', team.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteTeam(team)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <app-alert *ngIf="team.isImported" type="warning" [showCloseButton]="true" [duration]="10000">
+      Diese Mannschaft wurde aus dem Vereinsspielplan importiert.
+    </app-alert>
+
+    <tabset type="pills">
+      <tab heading="Wichtigste Infos">
+        <div class="row">
+          <div class="col-lg-7">
+            <app-portlet>
+              <app-portlet-header title="Grunddaten">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <th>Titel</th>
+                      <td>{{team.title}}</td>
+                    </tr>
+                    <tr>
+                      <th>Untertitel und Logo</th>
+                      <td><img [src]="team.logoURL" /> {{team.subTitle}}</td>
+                    </tr>
+                    <tr>
+                      <th>Saison</th>
+                      <td>{{team.assignedSeasonId}}</td>
+                    </tr>
+                    <tr>
+                      <th>Mannschaftsarten</th>
+                      <td>
+                        <ul class="list-group">
+                          <li class="list-group-item"
+                            *ngFor="let category of team.assignedCategoryTitles; let i = index">
+                            <a *ngIf="team.assignedCategoryIds[i]"
+                              [routerLink]="['/categories/detail', team.assignedCategoryIds[i]]">
+                              {{category}}
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Externer Link</th>
+                      <td><a *ngIf="team.externalTeamLink" target="_blank"
+                          [href]="team.externalTeamLink">{{team.externalTeamLink}}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Infotext</th>
+                      <td>{{team.info || '-'}}</td>
+                    </tr>
+
+                    <tr>
+                      <th>Offiziel gemeldet</th>
+                      <td>{{team.isOfficialTeam ? 'ja': 'nein '}}</td>
+                    </tr>
+                    <tr>
+                      <th>Importiert</th>
+                      <td>{{team.isImported? 'ja': 'nein ' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Abgemeldet</th>
+                      <td>{{team.isSignedOut? 'ja': 'nein ' }}</td>
+                    </tr>
+                    <tr>
+                      <!-- ToDO -->
+                      <th>valide Mannschaft</th>
+                      <td>{{team.isValid? 'ja': 'nein ' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Hauptmannschaft</th>
+                      <td>{{team.isMainTeam? 'ja': 'nein ' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Im Hauptmenü anzeigen</th>
+                      <td>{{team.displayInMainMenu? 'ja': 'nein ' }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+
+          <div class="col-lg-5">
+
+            <app-portlet>
+              <app-portlet-header title="Mannschaftsfoto">
+              </app-portlet-header>
+              <app-portlet-body>
+                <img class="img-fluid img-thumbnail" [src]="team.galleries?.Mannschaftsfotos | displayFirstMedia"
+                  alt="{{team.title}} {{team.subTitle}}" />
+              </app-portlet-body>
+            </app-portlet>
+
+            <app-portlet *ngIf="team.imageUrl">
+              <app-portlet-header title="Mannschaftsfoto auf fussball.de">
+              </app-portlet-header>
+              <app-portlet-body>
+                <img class="img-fluid img-thumbnail" [src]="team.imageUrl" />
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Weitere Infos">
+        <div class="row">
+          <div class="col-lg-8">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <app-portlet>
+                  <app-portlet-header title="Trainer- und Betreuer">
+                  </app-portlet-header>
+                  <app-portlet-body>
+                    <div class="alert alert-info" *ngIf="!team.externMgmt || team.externMgmt?.length === 0">
+                      <p>Es wurden noch keine Mitglieder zum Trainer- und Betreuerstab hinzugefügt.</p>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let mgmt of team.externMgmt">
+                        <a [routerLink]="['/members/detail', mgmt.assignedMemberId]">
+                          {{mgmt.assignedMemberTitle}}</a>&nbsp;
+                        <a
+                          [routerLink]="['/categories/detail', mgmt.assignedCategoryId]">{{mgmt.assignedCategoryTitle}}</a>
+                      </li>
+                    </ul>
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+              <div class="col-lg-6">
+                <app-portlet>
+                  <app-portlet-header title="Mannschaftsinterne Aufgaben">
+                  </app-portlet-header>
+                  <app-portlet-body>
+                    <div class="alert alert-info" *ngIf="!team.internMgmt || team.internMgmt.length === 0">
+                      <p>Es wurden keinen Spielern Aufgaben in der Mannschaft erteilt.</p>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let mgmt of team.internMgmt">
+                        <a [routerLink]="['/players/detail', mgmt.assignedPlayerId]">
+                          {{mgmt.assignedPlayerTitle}}</a>&nbsp;
+                        <a
+                          [routerLink]="['/categories/detail', mgmt.assignedCategoryId]">{{mgmt.assignedCategoryTitle}}</a>
+                      </li>
+                    </ul>
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+              <div class="col-lg-12" *ngIf="team.isOfficialTeam">
+                <team-training-form [showLinks]="false"></team-training-form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Spieler der Mannschaft">
+              </app-portlet-header>
+              <app-portlet-body>
+
+                <div class="alert alert-info"
+                  *ngIf="!team.assignedPlayerTitles || team.assignedPlayerTitles?.length === 0">
+                  <p>Der Mannschaft wurden noch keine Spieler zugeordnet</p>
+                </div>
+
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between"
+                    *ngFor="let player of team.assignedPlayerTitles; let idx = index">
+                    <a *ngIf="team.assignedPlayerIds && team.assignedPlayerIds[idx]"
+                      [routerLink]="['/players/detail', team.assignedPlayerIds[idx]]">
+                      {{player}}
+                    </a>
+                  </li>
+                </ul>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Verknüpfte Inhalte">
+        <div class="row">
+          <div class="col-lg-6">
+            <team-assigned-content [edit]="false" type="articles"></team-assigned-content>
+          </div>
+          <div class="col-lg-6">
+            <team-assigned-content [edit]="false" type="matches"></team-assigned-content>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Galerien">
+        <app-media-gallery-list [galleries]="team.galleries" mode="view">
+        </app-media-gallery-list>
+      </tab>
+
+      <tab heading="Statistiken" *ngIf="team.isOfficialTeam">
+        <div class="row">
+          <div class="col-lg-6">
+            <app-standings></app-standings>
+          </div>
+          <div class="col-lg-6">
+            <app-portlet>
+              <app-portlet-header title="Fussball.de Infos">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="alert alert-info" *ngIf="!team.teamInfo">
+                  Es sind keine weiteren Informationen von fussball.de verfügbar
+                </div>
+
+                <div class="table-responsive">
+                  <table *ngIf="team.teamInfo" class="table table-striped table-bordered table-sm table-hover">
+                    <tbody>
+                      <tr>
+                        <th>Wettbewerb</th>
+                        <td>{{team.teamInfo.Wettbewerb}}</td>
+                      </tr>
+                      <tr>
+                        <th>Tabellenplatz</th>
+                        <td>{{team.teamInfo.Tabellenplatz}}</td>
+                      </tr>
+                      <tr>
+                        <th>Punkte</th>
+                        <td>{{team.teamInfo.Punkte}}</td>
+                      </tr>
+                      <tr>
+                        <th>Torverhältnis</th>
+                        <td>{{team.teamInfo['Torverhältnis']}}</td>
+                      </tr>
+                      <tr>
+                        <th>Spielklasse</th>
+                        <td>{{team.teamInfo.Spielklasse}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+
+            <app-portlet>
+              <app-portlet-header title="Fussball.de Newsticker">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="alert alert-info" *ngIf="!team.ticker || team.ticker.length === 0">
+                  Es sind keine Neuigkeiten von fussball.de vorhanden.
+                </div>
+                <ul class="list-group" *ngIf="team.ticker && team.ticker.length > 0">
+                  <li class="list-group-item" *ngFor="let tick of team.ticker">
+                    <a target="_blank" [href]="tick.link">
+                      {{tick.publicationDate}}
+                      {{tick.title}}
+                    </a>
+                  </li>
+                </ul>
+              </app-portlet-body>
+            </app-portlet>
+
+            <app-portlet>
+              <app-portlet-header title="Wettbewerbe">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="alert alert-info" *ngIf="!team.competitions || team.competitions.length === 0">
+                  Diese Mannschaft wurde auf fussball.de mit keinen Wettbewerben verknüpft.
+                </div>
+                <ul class="list-group" *ngIf="team.competitions && team.competitions.length > 0">
+                  <li class="list-group-item" *ngFor="let competition of team.competitions">
+                    <a target="_blank" [href]="competition.link">
+                      {{competition.title}}
+                    </a>
+                  </li>
+                </ul>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Erstellung und Veröffentlichung">
+        <creation-publication-info [creation]="team?.creation" [publication]="team?.publication">
+        </creation-publication-info>
+      </tab>
+    </tabset>
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/teams/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/teams/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/teams/edit', team.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteTeam(team)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

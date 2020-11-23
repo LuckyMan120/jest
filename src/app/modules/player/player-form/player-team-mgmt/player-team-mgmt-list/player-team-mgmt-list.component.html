@@ -1,0 +1,57 @@
+<app-portlet *ngIf="player$ | async as player">
+  <app-portlet-header title="Aufgaben in Mannschaften">
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <ng-container *ngIf="teams$ | async as teams">
+
+      <app-alert type="info" [showCloseButton]="false" *ngIf="teams.length === 0">
+        Das Mitglied hat noch keine Aufgaben übernommen.
+      </app-alert>
+
+      <div class="table-responsive" *ngIf="teams.length > 0">
+        <table class="table table bordered table-striped">
+          <thead>
+            <tr>
+              <th>Mannschaft</th>
+              <th>Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let team of teams">
+              <td>
+                <a [routerLink]="['/teams/detail', team.id]">
+                  {{team.title}} &ndash; {{team.subTitle}}<br />
+                  ({{team.assignedSeasonTitle}})
+                </a>
+              </td>
+              <td>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between"
+                    *ngFor="let mgmt of team.internMgmt | filterBy: ['assignedPlayerId'] : player.id; let i = index">
+                    <a [routerLink]="['/categories/detail', mgmt.assignedCategoryId]">
+                      <span *ngIf="!mgmt.assignedCategoryTitle" class="fas fa-spinner fa-spin"></span>
+                      <span *ngIf="mgmt.assignedCategoryTitle">{{mgmt.assignedCategoryTitle}}</span>
+                    </a>
+                    <button class="btn btn-sm btn-primary" type="button"
+                      (click)="removeTeamInternMgmtPosition(team, mgmt)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="col-lg-12 text-right py-3 px-5">
+      <button type="button" class="btn btn-primary" (click)="toggleList.emit()">
+        Aufgabe erstellen
+      </button>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

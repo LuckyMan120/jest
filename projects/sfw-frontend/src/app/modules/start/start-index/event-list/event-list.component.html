@@ -1,0 +1,51 @@
+<section class="event_list">
+    <span class="lat_text">Termine</span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Nächste Termine</h2>
+            </div>
+            <div class="col-md-6 all_events text-right">
+                <a itemprop="url" [routerLink]="['/club/termine']">Alle Termine ansehen</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
+        <div class="row">
+            <div class="col-xl-11 col-lg-11 col-md-12 p-0 offset-md-1">
+                <div class="variable_width">
+
+                    <ngx-slick-carousel #slickModal="slick-carousel" [config]="slideConfig">
+
+                        <div ngxSlickItem *ngFor="let event of events$ | async">
+                            <div class="event_show p-3">
+                                <div class="row">
+                                    <div class="col-md-12 p-0">
+                                        <div class="categories">
+                                            <ul>
+                                                <li><span>Montag</span></li>
+                                                <li><span>15.08.2020</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 card-content">
+                                        <h3 class="text-danger">Thomas Handle</h3>
+                                        <h3 class="text-danger">Franz Beckenbauer</h3>
+                                        <h3 class="text-danger">Ottmar Fischer</h3>
+                                        <h3 class="text-danger">Thomas Handle</h3>
+                                        <h4>Geburtstag</h4>
+                                    </div>
+                                    <!-- <div class="col-md-12 text-right card-bottom">
+                                        <a class="btn" itemprop="url" href="#">Mehr Infos zu ...</a>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </ngx-slick-carousel>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

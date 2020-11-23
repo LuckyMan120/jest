@@ -1,0 +1,156 @@
+<app-portlet>
+  <app-portlet-header title="Alle Artikel" class="app-portlet__head--lg">
+    <ng-container portletTools>
+      <div class="d-flex flex-row m-3">
+        <button [routerLink]="['/articles/create']" class="btn btn-primary m-1" type="button">
+          <i class="fas fa-plus fa-fw"></i>
+          <span class="d-none d-md-inline">Neuer Artikel</span>
+        </button>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <label>
+                <input matInput placeholder="Artikel suchen" #searchInput>
+              </label>
+              <mat-hint>Nach einem Artikels suchen</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <div class="mat-tab-container mat-elevation-z8">
+      <div class="table-responsive">
+        <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="articleDate" matSortDisableClear
+          matSortDirection="desc" [trackBy]="trackById">
+
+          <!--<ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let article">{{article.id}}</mat-cell>
+          </ng-container>-->
+
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Titel
+            </mat-header-cell>
+            <mat-cell *matCellDef="let article">{{article.title}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="articleDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Artikeldatum
+            </mat-header-cell>
+            <mat-cell *matCellDef="let article">{{article.articleDate | date : 'medium'}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="publication.at">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Veröffentlichungsdatum
+            </mat-header-cell>
+            <mat-cell *matCellDef="let article">
+              <span *ngIf="article.publication"
+                [ngClass]="article.publication.at > now ? 'font-weight-bold text-info' : ''">
+                {{article.publication.at | date : 'medium'}}
+              </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="publication.by">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Veröffentlicht von
+            </mat-header-cell>
+            <mat-cell *matCellDef="let article">
+              <ng-container *ngIf="article.publication && article.publication.user as user">
+                <div class="app-user-card-v2">
+                  <div class="app-user-card-v2__pic">
+                    <img [src]="user.photoUrl" />
+                  </div>
+                  <div class="app-user-card-v2__details">
+                    <a class="app-user-card-v2__name" [routerLink]="['/users/detail', user.id]">
+                      {{user.displayName}}
+                    </a>
+                    <span class="app-user-card-v2__desc">
+                      {{user.assignedRoles}}
+                    </span>
+                  </div>
+                </div>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedCategoryTitle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Verknüpfte Kategorie
+            </mat-header-cell>
+            <mat-cell *matCellDef="let article">{{article.assignedCategoryTitle}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let article">
+              <button [routerLink]="['/articles/detail', article.id]" class="btn btn-primary btn-sm mr-1"
+                tooltip="Details anzeigen">
+                <span class="fa fa-info" aria-hidden="true"></span>
+              </button>
+              <button [routerLink]="['/articles/edit', article.id]" class="btn btn-warning btn-sm"
+                tooltip="Artikel editieren">
+                <span class="fa fa-pen" aria-hidden="true"></span>
+              </button>&nbsp;
+              <button class="btn btn-danger btn-sm" tooltip="Artikel löschen" (click)="deleteArticle(article)">
+                <span class="fa fa-trash" aria-hidden="true"></span>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </table>
+      </div>
+
+      <div class="mat-table__bottom">
+        <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="false" [length]="dataSource.data.length"
+          [pageSize]="pageSizes[0]"></mat-paginator>
+      </div>
+    </div>
+  </app-portlet-body>
+
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 py-3">
+        <div class="d-flex flex-column flex-md-row-reverse m-3">
+          <button [routerLink]="['/articles/create']" class="btn btn-primary m-1" type="button">
+            <i class="fas fa-plus fa-fw"></i>
+            <span class="d-none d-md-inline">Neuer Artikel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

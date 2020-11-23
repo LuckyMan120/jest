@@ -1,0 +1,2850 @@
+{
+  "actions": "Aktionen",
+  "auth/internal-error": "Beim Anmeldeversuch ist ein interner Fehler aufgetreten.",
+  "auth/logged-out": "Du wurdest aus dem System ausgeloggt.",
+  "auth/not-verified": "Du hast Deine E-Mail Adresse noch nicht bestätigt.",
+  "auth/email-already-in-use": "Die verwendete E-Mail Adresse ist bereits in unserem System gespeichert. Nutze eine andere Adresse oder lass Dir Dein Passwort per Mail zusenden.",
+  "auth/invalid-email": "Du hast keine gültige E-Mail Adresse eingegeben. Bitte überprüfe Deine Eingabe.",
+  "auth/reminder-sent": "Eine E-Mail mit neuen Daten wurde versendet.",
+  "auth/too-many-requests": "Du hast zu viele Anfragen gesendet.",
+  "auth/user-not-found": "Es wurde kein Benutzer mit diesen Daten gefunden.",
+  "auth/argument-error": "Es ist ein Systemfehler aufgetreten. Bitte versuche es zu einem späteren Zeitpunkt erneut.",
+  "auth/user-disabled": "Dein Benutzeraccount wurde von einem Administrator deaktiviert.",
+  "auth/operation-not-allowed": "Diese Login-Methode wurde gesperrt.",
+  "auth/account-exists-with-different-credential": "Es existiert bereits ein Benutzer der diese Mail-Adresse verwendet.",
+  "auth/wrong-password": "Du hast ein falsches Passwort für diesen Account angegeben.",
+  "auth/send-verification": "Eine weitere E-Mail zur Bestätigung Deines Accounts wurde Dir gesendet.",
+  "auth/register-success": "Deine Registrierung war erfolgreich! Nach dem Bestätigen Deiner E-Mail Adresse muss Dein Account noch von einem Administrator freigegeben werden.",
+  "permission-denied": "Dein Account wurde noch nicht von einem Administrator aktiviert.",
+  "article": {
+    "backToList": "Zur Übersicht",
+    "buttons": {
+      "delete": "Artikel löschen"
+    },
+    "calendar": {
+      "addArticle": "Neuer Artikel",
+      "title": "Veröffentlichungskalender"
+    },
+    "dashboard": {
+      "stats": {
+        "description": "Artikel nach ihrem Status",
+        "title": "Statistik"
+      },
+      "top": {
+        "description": "Meistgelesen und meistkommentiert",
+        "title": "Top Artikel"
+      }
+    },
+    "detail": {
+      "assignedContent": "Verknüpfte Inhalte",
+      "galleries": "Medieninhalte",
+      "info": "Kurzinfos",
+      "settings": "Einstellungen"
+    },
+    "displayInArticleList": {
+      "true": "Ja",
+      "false": "Nein"
+    },
+    "displayInBackendFooter": {
+      "true": "Ja",
+      "false": "Nein"
+    },
+    "displayInFooter": {
+      "true": "Ja",
+      "false": "Nein"
+    },
+    "form": {
+      "options": {
+        "show": "Optionen",
+        "title": "Optionen"
+      },
+      "publish": {
+        "button": "Fertig",
+        "draft": {
+          "text": "Nicht veröffentlichen",
+          "description": "Der Artikel wird nicht veröffentlicht."
+        },
+        "live": {
+          "text": "Jetzt veröffentlichen",
+          "description": "Der Artikel wird direkt angezeigt."
+        },
+        "schedule": {
+          "text": "Zeitversetzt veröffentlichen",
+          "description": "Wähle ein Datum!"
+        },
+        "menuButton": "Veröffentlichung",
+        "question": "Wann soll der Artikel veröffentlicht werden?"
+      },
+      "status": {
+        "edit": "Editieren",
+        "error": "NICHT gespeichert",
+        "new": "Neu",
+        "saving": "Speichere ...",
+        "success": "Gespeichert",
+        "title": "Status"
+      },
+      "tabs": {
+        "input": "Zur Texteingabe",
+        "preview": "Vorschau anzeigen"
+      },
+      "textPlaceholder": "Fang´ mit Deiner Geschichte an ...",
+      "titlePlaceholder": "Der Titel Deines Artikels?"
+    },
+    "isFeaturedPost": {
+      "true": "Ja",
+      "false": "Nein"
+    },
+    "list": {
+      "add": {
+        "full": "Neuen Artikel erstellen",
+        "short": "Neuer Artikel"
+      },
+      "delete": "Artikel löschen",
+      "deleteMany": "{{value}} Artikel löschen",
+      "detail": "Details anzeigen",
+      "edit": "Artikel editieren",
+      "editMany": "Schnelles bearbeiten ({{counter}})",
+      "search": {
+        "hint": "Suche nach Titel oder Inhalt",
+        "placeholder": "Artikel durchsuchen ..."
+      },
+      "table": {
+        "articleDate": "Artikeldatum",
+        "id": "Id",
+        "publicationDate": "Veröffentlichungsdatum",
+        "publicationBy": "veröffentlicht von",
+        "title": "Titel"
+      },
+      "title": "Artikelübersicht"
+    },
+    "newestTitle": "Neuste Veröffentlichung",
+    "publication": {
+      "at": "veröffentlicht am",
+      "planned": "geplant{{value}}",
+      "published": "veröffentlicht{{value}}",
+      "unpublished": "Entwürfe",
+      "status": {
+        "draft": "Entwürfe",
+        "planned": "Geplante",
+        "published": "Veröffentlichte"
+      }
+    },
+    "sidebar": {
+      "articleDate": "Artikeldatum",
+      "assignedCategories": "Zugeordnete Kategorien",
+      "assignedLocations": "Verknüpfte Orte",
+      "assignedMatches": "Verknüpfte Spiele",
+      "assignedTeams": "Verknüpfte Mannschaften",
+      "assignedTags": "Verknüpfte Schlagworte",
+      "author": "Author",
+      "displayInArticleList": "Anzeige im Artikel-Listen?",
+      "displayInBackendFooter": "Anzeige im Admin-Footer?",
+      "displayInClubFooter": "Im Footer unter Verein anzeigen?",
+      "displayInFooter": "Anzeige im Footer?",
+      "displayInMenu": "Im Menü anzeigen?",
+      "menuDisplay": "Unter welchem Menüpunkt?",
+      "club": "Verein",
+      "tournament": "Dorfturnier",
+      "teams": "Mannschaften",
+      "excerpt": "Vorschautext",
+      "image": "Artikelfoto",
+      "isFeaturedPost": "Hervorgehobener Post?",
+      "linkedContent": "Verknüpfte Inhalte",
+      "links": "Meta-Daten",
+      "main": "Weitere Details",
+      "meta": {
+        "facebook": {
+          "title": "Facebook",
+          "link": "Link",
+          "description": "Foto, Link und Beschreibung für Facebook",
+          "publish": "Auf Facebook veröffentlichen?"
+        },
+        "imageURL": "Verknüpftes Foto",
+        "isPublished": "Veröffentlicht?",
+        "link": "Link",
+        "mode": "Foto oder Video-Post?",
+        "publish": "Veröffentlichung gewünscht?",
+        "main": {
+          "title": "Metadaten",
+          "description": "Titel und Beschreibung zur Anzeige im Header"
+        },
+        "title": "Titel",
+        "titleMax": "Maximal 70 Zeichen",
+        "twitter": {
+          "title": "Twitter",
+          "link": "Link",
+          "description": "Foto, Link und Beschreibung",
+          "publish": "Auf Twitter veröffentlichen?"
+        },
+        "description": "Beschreibung",
+        "descriptionMax": "Maximal 156 Zeichen"
+      },
+      "postUrl": "Feste URL",
+      "settings": "Einstellungen",
+      "subTitle": "Untertitel",
+      "visibility": "Sichtbarkeit"
+    }
+  },
+  "AUTH": {
+    "AGREE": {
+      "TEXT": "Ich akzeptiere die "
+    },
+    "ERRORS": {
+      "auth/wrong-password": "Das eingegebene Passwort ist nicht korrekt.",
+      "auth/user-not-found": "Es wurde kein Benutzer mit diesen Daten gefunden.",
+      "auth/user-disabled": "Dein Benutzeraccount wurde deaktiviert."
+    },
+    "FORBIDDEN": {
+      "TEXT": "<p>Du verfügst nicht über die notwendigen Berechtigungen um in den Administrationsbereich zu gelangen. Ein Admin wurde benachrichtigt um Deine Berechtigungen zu überprüfen.</p>",
+      "TITLE": "Fehlende Berechtigungen"
+    },
+    "GENERAL": {
+      "OR": "Oder",
+      "SUBMIT_BUTTON": "Registrieren!",
+      "NO_ACCOUNT": "Hast du kein Konto?",
+      "SIGNUP_BUTTON": "Anmelden",
+      "FORGOT_BUTTON": "Passwort vergessen",
+      "BACK_BUTTON": "Zurück",
+      "PRIVACY": "Privatsphäre",
+      "LEGAL": "Legal",
+      "CONTACT": "Kontakt"
+    },
+    "LOGIN": {
+      "TITLE": "Account erstellen",
+      "BUTTON": "Anmelden",
+      "VERIFYEMAIL": "Du musst Deine E-Mail Adresse noch bestätigen. Erst danach kannst Du Dich am System anmelden."
+    },
+    "FORGOT": {
+      "TITLE": "Passwort vergessen?",
+      "DESC": "Bitte gib Deine Email zum Zurücksetzen Deines Passwortes an.",
+      "SUCCESS": "Eine E-Mail wurde zum Zurücksetzen wurde versendet.",
+      "SUBMIT_BUTTON": "Erinnerung senden"
+    },
+    "INPUT": {
+      "EMAIL": "E-Mail",
+      "DISPLAYNAME": "Anzeigename",
+      "FIRSTNAME": "Vorname",
+      "LASTNAME": "Nachname",
+      "PASSWORD": "Passwort",
+      "PASSWORDNOMATCH": "Die beiden Passwörter stimmen nicht überein",
+      "CONFIRM_PASSWORD": "Passwort bestätigen",
+      "USERNAME": "Nutzername"
+    },
+    "REGISTER": {
+      "DISABLED": "Eine Registrierung ist zurzeit nicht möglich.",
+      "TITLE": "Registrierung",
+      "DESC": "Fülle das Formular zur Anmeldung aus.",
+      "SUCCESS": "Du hast Dich erfolgreich registriert. Bitte überprüfe Dein E-Mail Postfach. Du wirst zur Sicherheit ausgeloggt. <br /><br /> Nach dem Bestätigen Deiner Mail Adresse und der Freischaltung durch einen Administrator kannst Du Dich einloggen."
+    },
+    "REMEMBERME": "An mich erinnern?",
+    "TERMSANDCONDITIONS": "Datenschutz- und Nutzungsbedinungen",
+    "VALIDATION": {
+      "ACCEPTTERMS": "Du musst noch den Nutzungs- und Datenschutzbestimmungen zustimmen.",
+      "INVALID": "{{name}} is not valid",
+      "REQUIRED": "{{name}} is required",
+      "MIN_LENGTH": "{{name}} minimum length is {{min}}",
+      "AGREEMENT_REQUIRED": "Accepting terms & conditions are required",
+      "NOT_FOUND": "Die angegebene {{name}} wurde nicht gefunden.",
+      "INVALID_LOGIN": "The login detail is incorrect",
+      "SIGNUP": {
+        "auth/email-already-in-use": "Die angegebene E-Mail Adresse wird bereits benutzt. Benutz´ doch die 'Passwort vergessen' Funktion zum Senden einer Erinnerung.",
+        "auth/weak-password": "Dein Passwort ist zu schwach. Es werden mindestens 6 Zeichen benötigt."
+      },
+      "REQUIRED_FIELD": "Eingabe fehlt",
+      "MIN_LENGTH_FIELD": "Minimum field length:",
+      "MAX_LENGTH_FIELD": "Maximum field length:",
+      "INVALID_FIELD": "Diese Eingabe ist fehlerhaft."
+    },
+    "VERIFY": {
+      "BUTTON": "Neu versenden!",
+      "LOGIN": "Zur Anmeldung",
+      "SUCCESS": "Wir haben Dir eine erneute Mail zur Bestätigung Deines Accounts gesendet.",
+      "TEXT": "<p>Du hast Deine E-Mail Adresse noch nicht bestätigt. Wir haben Dir dazu eine E-Mail gesendet. Bitte klicke auf den Link in der Mail. </p><p>Solltest Du keine E-Mail erhalten haben kannst Du Dir über den <span class='text-uppercase'>&bdquo;Neu versenden&rdquo;&ndash;Button</span> eine neue senden lassen.</p>"
+    }
+  },
+  "author": "Author",
+  "back": "Zurück",
+  "birthday": {
+    "member": "Mitglied",
+    "player": "Spieler",
+    "senior": "AH-Mitglied"
+  },
+  "calendar": {
+    "addEvent": "Termin erstellen",
+    "chooseCalendars": "Termine filtern",
+    "createTitle": "Neuer Termin",
+    "editTitle": "Termin editieren",
+    "eventInfo": "Termindetails anzeigen",
+    "event": {
+      "allDay": {
+        "no": "Nein",
+        "yes": "Ja"
+      },
+      "allDayEvent": "Ganztägiger Termin?",
+      "description": "Infotext / Beschreibung",
+      "calendarId": "Kalender",
+      "title": "Titel des Termins",
+      "link": "Externer Link",
+      "creator": "Erstellt von",
+      "start": "Beginn",
+      "end": "Ende",
+      "showLink": "Externen Termin öffnen"
+    },
+    "title": "Vereinskalender"
+  },
+  "cancel": "Abbrechen",
+  "cancelTooltip": "Verwerfen und Vorgang abbrechen!",
+  "category": {
+    "delete": {
+      "button": "Kategorie löschen"
+    },
+    "createTitle": "Eine neue Kategorie erstellen",
+    "detailTitle": "Kategorie anzeigen",
+    "editTitle": "Kategorie editieren",
+    "backToList": "Zur Übersicht",
+    "subheader": {
+      "title": "Kategorien",
+      "desc": ""
+    },
+    "edit": {
+      "button": "Änderungen speichern",
+      "goToList": "Zur Liste aller Kategorien",
+      "isImported": "Kategorie wurde importiert",
+      "isMainCategory": "Hauptkategorie",
+      "isMenuCategory": "Kategorie im Menü anzeigen?",
+      "isEditable": "Editierbar",
+      "hints": {
+        "description": "Eine kurze Info / Beschreibung dieser Kategorie",
+        "isImported": "Wurde diese Kategorie durch ein Skript importiert?",
+        "mainCategory": "Soll die Kategorie als Hauptkategorie (z.B. im Menü) angezeigt werden?",
+        "assignedCategory": "Zu welcher übergeordneten Kategorie gehört der Eintrag?",
+        "title": "Bitte den Namen der Kategorie eingeben"
+      },
+      "inputs": {
+        "chooseParent": "Wähle die übergeordnete Kategorie",
+        "assignedCategory": "Übergeordnete Kategorie",
+        "parsingValues": "Importparameter",
+        "title": "Name der Kategorie"
+      },
+      "multiple": {
+        "description": "Du kannst über dieses Formular mehrere Kategorien gleichzeitig bearbeiten.",
+        "success": "Die Änderungen an den Kategorien wurden gespeichert.",
+        "title": "Mehrere Kategorien bearbeiten"
+      },
+      "notEditable": "Diese Kategorie kann nicht bearbeitet werden.",
+      "tabs": {
+        "creation": {
+          "title": "Erstellung und Veröffentlichung"
+        },
+        "main": {
+          "title": "Wichtigste Daten"
+        }
+      }
+    },
+    "list": {
+      "add": {
+        "short": "Neue Kategorie",
+        "full": "Neue Kategorie erstellen"
+      },
+      "button": "Zurück zur Liste",
+      "delete": "Kategorie löschen",
+      "deleteMany": "{{value}} Kategorien löschen",
+      "detail": "Details anzeigen",
+      "edit": "Kategorie editieren",
+      "editMany": "Schnelles bearbeiten ({{counter}})",
+      "noEntries": "Es wurden noch keine Kategorien gespeichert.",
+      "search": {
+        "hint": "Suche nach dem Titel oder dem Titel der übergeordneten Kategorie",
+        "placeholder": "Kategorien durchsuchen"
+      },
+      "table": {
+        "actions": "Aktionen",
+        "nr": "Nr.",
+        "id": "ID",
+        "assignedCategory": "Übergeordnete Kategorie",
+        "title": "Titel"
+      },
+      "title": "Alle Kategorien"
+    },
+    "messages": {
+      "created": "Die Kategorie wurde gespeichert",
+      "updated": "Die Änderungen an dieser Kategorie wurden gespeichert"
+    },
+    "resetForm": "Formular zurücksetzen",
+    "save": {
+      "button": "Kategorie speichern"
+    }
+  },
+  "close": "Schließen",
+  "club": {
+    "createTitle": "Verein erstellen",
+    "detail": {
+      "assignedFiles": "Dateien des Vereins",
+      "assignedGalleries": "Verknüpfte Galerien",
+      "createHonoraryTitle": "Ehrenmitglied erstellen",
+      "description": "Beschreibung des Vereins",
+      "historyTitle": "Geschichte des Vereins",
+      "honorariesTitle": "Ehrenmitglieder",
+      "honoraries": {
+        "assignedArticle": "Verknüpfter Artikel",
+        "assignedMember": "Mitglied",
+        "noHonoraries": "Es wurden noch keine Ehrenmitglieder ernannt",
+        "startDate": "Ernennung am",
+        "title": "Ehrenmitglieder des Vereins"
+      },
+      "logoTitle": "Vereinswappen",
+      "mainTitle": "Wichtigste Daten",
+      "managementTitle": "Vorstand",
+      "mediaTitle": "Verknüpfte Medien",
+      "timeLineTitle": "Zeitleiste"
+    },
+    "editTitle": "Verein editieren",
+    "form": {
+      "addAssignedContacts": "Ansprechpartner des Vereins",
+      "addAssignedLocations": "Heimspielstätten",
+      "address": {
+        "streetName": "Straße",
+        "city": "Stadt",
+        "houseNumber": "Hausnummer",
+        "county": "Landkreis",
+        "zip": "Postleitzahl",
+        "state": "Land"
+      },
+      "addressTitle": "Vereinsadresse",
+      "assignedArticle": "Bericht zur Ernennung",
+      "assignedContact": "Ansprechpartner",
+      "assignedHistoryId": "Artikel zur Geschichte des Vereins",
+      "assignedMember": "Mitglied",
+      "button": {
+        "edit": "Änderungen speichern",
+        "create": "Verein speichern"
+      },
+      "clubColours": "Vereinsfarben",
+      "description": "Vereinsbeschreibung",
+      "foundedIn": "Gründungsjahr",
+      "fussballDeClubId": "Fussball.de Vereins-ID",
+      "fussballDeClubUrl": "Fussball.de Vereins-Url",
+      "fussballTitle": "Fussball.de Daten",
+      "logoTitle": "Vereinswappen",
+      "managementPhoto": {
+        "description": "Bildbeschreibung",
+        "none": "Es wurde noch kein Foto des Vorstandes ausgewählt.",
+        "title": "Foto des Vorstandes"
+      },
+      "startDate": "Ernennungsdatum",
+      "title": "Vereinsname",
+      "visitHomepage": "Homepage aufrufen",
+      "website": "Internetseite des Vereins"
+    },
+    "hints": {
+      "assignedContact": "Wähle hier den ersten Ansprechpartner des Vereins"
+    },
+    "honorary": {
+      "assignedArticle": "Verknüpfter Artikel",
+      "assignedMember": "Verknüpftes Mitglied",
+      "button": {
+        "create": "Neues Ehrenmitglied",
+        "tooltip": "Ehrenmitglied ernennen"
+      },
+      "createHonoraryTitle": "Neues Ehrenmitglied ernennen",
+      "delete": {
+        "button": "Ehrung löschen",
+        "description": "Das Mitglied kann jederzeit wieder als Ehrenmitglied ernannt werden.",
+        "success": "Das Ehrenmitglied wurde gelöscht.",
+        "title": "Möchtest Du wirklich die Eintragung von ´{{title}}` als Ehrenmitglied aufheben?"
+      },
+      "edit": {
+        "button": "Eintrag editieren"
+      },
+      "list": {
+        "title": "Übersicht aller bisherigen Ehrenmitglieder"
+      },
+      "noHonoraries": "Es wurden noch keine Ehrenmitglieder ernannt.",
+      "save": "Ehrenmitglied speichern",
+      "showAssignedArticle": "Verknüpften Artikel anzeigen",
+      "since": "wurde am ",
+      "since2": " zum Ehrenmitglied ernannt.",
+      "startDate": "Ernennungsdatum"
+    },
+    "management": {
+      "button": {
+        "create": "Neues Vorstandsmitglied",
+        "tooltip": "Neues Vorstandsmitglied erfassen"
+      },
+      "form": {
+        "assignedMember": "Amtsträger",
+        "assignedPosition": "Bekleidetes Amt",
+        "assignedTeam": "Verknüpfte Mannschaft",
+        "createTitle": "Vorstandsmitglied erstellen",
+        "editTitle": "Vorstandsmitglied editieren",
+        "endDate": "Ende der Vorstandsaufgabe am",
+        "savePosition": "Position speichern",
+        "startDate": "Übernahme des Amtes am"
+      },
+      "list": {
+        "title": "Aufgaben in der Vereinsführung"
+      },
+      "position": {
+        "description": {
+          "title": "Aufgabenbeschreibung"
+        },
+        "memberList": {
+          "title": "Mitglieder, die diese Funktion ausgeführt haben"
+        },
+        "noPositions": "Es wurden noch keine Mitglieder für diese Vorstandsfunktion gespeichert.",
+        "table": {
+          "endDate": "Ende",
+          "name": "Name",
+          "startDate": "Beginn"
+        },
+        "tooltip": {
+          "delete": "Löschen",
+          "edit": "Editieren"
+        }
+      }
+    },
+    "tabs": {
+      "mainTitle": "Wichtigste Infos",
+      "historyTitle": "Geschichte des Vereins",
+      "honorariesTitle": "Ehrenmitglieder",
+      "managementTitle": "Foto des Vorstandes",
+      "timeLineTitle": "Zeitlinie",
+      "mediaTitle": "Dateien des Vereins",
+      "creationTitle": "Erstellung und Veröffentlichung"
+    }
+  },
+  "colors": {
+    "state": {
+      "danger": "rot"
+    }
+  },
+  "colours": {
+    "brand": "Farbe des Brandings",
+    "error": "Rot",
+    "success": "Grün",
+    "warning": "gelb",
+    "info": "Blau",
+    "secondary": "Sekundärfarbe des Templates",
+    "primary": "Primärfarbe des Templates"
+  },
+  "comments": "Kommentare",
+  "config": {
+    "title": "Konfiguration"
+  },
+  "contact": {
+    "email": "E-Mail",
+    "fax": "Fax-Nummer",
+    "name": "Ansprechpartner",
+    "phone": "Telefon",
+    "phoneHome": "Tel. (zu Hause)",
+    "phoneMobile": "Handy",
+    "phoneWork": "Tel. (dienstl.)"
+  },
+  "creation": {
+    "author": "Author",
+    "creationDate": "Erstellungsdatum",
+    "setAutomatically": "Wird beim Speichern automatisch gesetzt",
+    "title": "Erstellung",
+    "viaScript": "Durch Skript importiert"
+  },
+  "cssClasses": {
+    "danger": "rot",
+    "dark": "dunkel",
+    "info": "blau",
+    "light": "hell",
+    "primary": "Primär",
+    "secondary": "Sekundär",
+    "success": "grün",
+    "warning": "orange"
+  },
+  "dashboard": {
+    "ahChart": "Mitglieder-Statistik der Alten Herren",
+    "articleChart": "Artikel",
+    "calendar": {
+      "assignedCalendar": "Google-Kalender wählen",
+      "description": "Beschreibung",
+      "endDate": "Ende",
+      "location": "Ort",
+      "noCalendars": "Es wurden noch keine Google-Kalender verknüpft.",
+      "startDate": "Beginn",
+      "summary": "Titel",
+      "title": "Termin erstellen"
+    },
+    "chooseImageFile": "Titelbild auswählen",
+    "content": {
+      "title": "Inhaltsstatistiken"
+    },
+    "facebook": {
+      "link": "Link",
+      "message": "Nachricht",
+      "title": "Neues Facebook Posting"
+    },
+    "linkMode": "Posting mit Text und Link",
+    "matchChart": "Spiele",
+    "memberChart": "Mitglieder-Statistik des Vereins",
+    "photoMode": "Posting mit Text und Foto",
+    "playerChart": "Spieler",
+    "stats": {
+      "articleCount": "Artikel",
+      "categoryCount": "Kategorien",
+      "locationCount": "Treffpunkte",
+      "matchCount": "Spiele",
+      "memberCount": "Vereinsmitglieder",
+      "playerCount": "Spieler",
+      "seniorCount": "AH-Mitglieder",
+      "sponsorCount": "Sponsoren",
+      "teamCount": "Mannschaften",
+      "userCount": "Benutzer"
+    },
+    "titles": {
+      "imports": "Daten importieren",
+      "newArticles": "Neue Artikel",
+      "newFiles": "Neue Dateien",
+      "newUsers": "Neue Benutzer",
+      "topArticles": "Top Artikel",
+      "recentActivities": "Letzte Aktivitäten"
+    },
+    "twitter": {
+      "message": "Nachricht",
+      "title": "Neuer Twitter Post"
+    }
+  },
+  "date": {
+    "allTime": "Gesamt",
+    "month": "dieser Monat",
+    "week": "diese Woche"
+  },
+  "delete": "Löschen",
+  "dialog": {
+    "canceledMessage": "Der Vorgang wurde auf Deinen Wunsch hin abgebrochen.",
+    "detail": {
+      "allDay": "ganztägig?",
+      "creationAt": "Erstellt am",
+      "description": "Beschreibung",
+      "end": "Ende",
+      "externalUrl": "Link",
+      "id": "ID",
+      "isImported": "Automatisch importiert?",
+      "isMainCategory": "Hauptkategorie",
+      "modification": "Letzte Änderung",
+      "assignedCategory": "Übergeordnete Kategorie",
+      "assignedCategoryId": "Übergeordnete Id",
+      "assignedCategoryRef": "Eltern-Referenz",
+      "assignedCategoryTitle": "Übergeordneter Titel",
+      "parsingValues": "Parameter für den Auto-Import",
+      "publication": "Veröffentlicht am",
+      "start": "Anstoß",
+      "title": "Titel",
+      "matchUrl": "Link zu fussball.de"
+    },
+    "formErrorMessage": "Hoppla! Es scheint, als wären nicht alle Angaben korrekt. Bitte überprüfe Deine Eingaben.",
+    "titleIs": "Der Titel ist "
+  },
+  "edit": "Editieren",
+  "editAll": "Änderungen speichern",
+  "editMultiple": {
+    "chooseOption": "Bitte ausählen"
+  },
+  "false": "Nein",
+  "FIRST_PAGE_LABEL": "Zur ersten Seite",
+  "forbidden": {
+    "desc": "Du bist nicht berechtigt diese Seite aufzurufen",
+    "link": "Zur Startseite",
+    "title": "Seite gesperrt"
+  },
+  "forms": {
+    "errors": {
+      "required": "Hier ist eine Eingabe erforderlich.",
+      "minLength": "Deine Eingabe ist zu kurz. Es werden mindestens {{minLength}} Zeichen benötigt.",
+      "maxLength": "Deine Eingabe ist zu lang. Es können maximal {{maxLength}} Zeichen eingegeben werden.",
+      "title": "Hoppla!",
+      "description": "Deine Eingaben sind noch fehlerhaft. Bitte überprüfe das Formular noch einmal auf Fehler."
+    }
+  },
+  "gallery": {
+    "buttons": {
+      "edit": "Editieren",
+      "save": "Speichern"
+    },
+    "createTitle": "Eine neue Galerie erstellen",
+    "delete": {
+      "description": "<p>Möchtest Du die Galerie <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+      "success": "Die Fotogalerie wurde unwiderruflich gelöscht",
+      "title": "Fotogalerie löschen?"
+    },
+    "editTitle": "Galerie editieren",
+    "list": {
+      "add": {
+        "full": "Neue Fotogalerie erstellen",
+        "short": "Neue Galerie"
+      },
+      "delete": "Galerie löschen",
+      "detail": "Details anzeigen",
+      "edit": "Galerie editieren",
+      "noGalleries": "Es wurden noch keine Fotogalerien erstellt. Fang doch direkt damit an :)!",
+      "search": {
+        "hint": "Suche nach dem Titel einer Galerie",
+        "placeholder": "Galerien durchsuchen"
+      },
+      "table": {
+        "id": "Id",
+        "title": "Titel der Gallerie",
+        "imageCount": "Anzahl der Bilder"
+      },
+      "title": "Fotogallerien"
+    }
+  },
+  "gender": {
+    "diverse": "divers",
+    "female": "weiblich",
+    "he": "Er",
+    "male": "männlich",
+    "she": "Sie"
+  },
+  "global": {
+    "description": "Dies ist ein geschützter Bereich.",
+    "forbidden": {
+      "goTo": "Zur Homepage der {{title}}"
+    },
+    "login": {
+      "noAccountQuestion": "Noch kein Account?",
+      "or": "oder über",
+      "title": "Anmeldung"
+    },
+    "verify": {
+      "title": "E-Mail Adresse bestätigen"
+    },
+    "title": "Administration"
+  },
+  "honorary": {
+    "create": {
+      "success": "Das Ehrenmitglied wurde gespeichert."
+    },
+    "update": {
+      "success": "Die Änderungen am Ehrenmitglied wurden durchgeführt."
+    }
+  },
+  "install": {
+    "errors": {
+      "already-exists": "Die Grundkonfiguration wurde bereits importiert. Du kannst mit dem Erstellen Deines Accounts oder dem Login fortfahren."
+    },
+    "setup": {
+      "title": "Installation",
+      "description": "Datenbankimport der Einstellungen"
+    },
+    "step1": {
+      "algolia": {
+        "id": "Applikations-ID",
+        "key": "Schlüssel"
+      },
+      "algoliaTitle": "Algolia Integration",
+      "already-exists": "Die Konfiguration wurde bereits abgeschlossen - weiter zu Schritt 2?",
+      "button": "Vorgang starten",
+      "description": "Um die App nutzen zu können muss eine Grundkonfiguration in die Datenbank importiert werden. Bitte starte diesen Vorgang über das Formular auf dieser Seite.",
+      "categories": "Kategorien",
+      "categoryDescription": "Einige Kategorien werden benötigt. Weitere Kategorien können hier angelegt werden.",
+      "communities": "Spielgemeinschaften",
+      "communityDescription": "Möglichkeiten für den Namen der eigenen Mannschaft (zur Erkennung von Heim- und Auswärtsspielen)",
+      "dfbPassword": "DFB.net Passwort",
+      "dfbUser": "DFB.net Benutzer",
+      "fussballdeImport": "Automatischer Spielplan-Import von fussball.de",
+      "fussballdeStartDate": "Startdatum des ersten Imports",
+      "fussballDateOffset": "Monate, die ab dem Startdatum importiert werden",
+      "fussballID": "Vereins-ID auf Fussball.de",
+      "fussballTitle": "Fussball.de Daten",
+      "gDriveMemberSheet": "ID der Mitgliederliste",
+      "gDriveMemberSheetDescription": "Ermöglicht den Import der Mitgliederdaten aus der o.a. Datei via Cron-Job",
+      "gDriveTitle": "Google-Drive Daten",
+      "mailjet": {
+        "key": "Schlüssel",
+        "secret": "Geheimer Schlüssel"
+      },
+      "mailjetTitle": "Mailjet-Einstellungen",
+      "memberState": {
+        "add": "Erstellen",
+        "ah": "Alte Herren",
+        "club": "Verein",
+        "delete": "Löschen",
+        "title": "Bezeichnung",
+        "type": "Art (Verein oder AH)",
+        "value": "Wert"
+      },
+      "memberStateTitle": "Mitglieder-Gruppen",
+      "permissions": "Berechtigungen",
+      "permissionDescription": "Einige Berechtigungen sind vordefiniert und können nicht gelöscht werden.",
+      "roleDescription": "Die beiden Rollen Administrator und Gast können nicht gelöscht werden.",
+      "roles": "Rollen definieren",
+      "slackTitle": "Slack-Verbindung herstellen",
+      "slackUrl": "Webhook Url",
+      "step2Title": "Schritt 2",
+      "title": "Schritt 1: Rollen, Berechtigungen und Importparameter",
+      "uppy": {
+        "companionUrl": "Companion-Url",
+        "dropbox": "Aus Dropbox wählen",
+        "googleDrive": "Aus Google-Drive wählen",
+        "instagram": "Aus Instagram wählen",
+        "oneDrive": "Aus One-Drive wählen",
+        "title": "Uppy Uploader konfigurieren",
+        "unsplash": "Importieren von unsplash.com",
+        "url": "Per Url",
+        "zoom": "Aus Zoom"
+      }
+    },
+    "step2": {
+      "already-exists": "Die Konfiguration wurde bereits abgeschlossen - weiter zu Registrierung?",
+      "assignedCalendars": "Verknüpfte Kalender",
+      "button": "Daten speichern",
+      "defaultRole": "Rolle eines Benutzers nach der Registrierung",
+      "description": "In diesem Schritt wird die Grundkonfiguration der Seite und der Verein mit seinen wichtigsten Informationen angelegt. Danach werden noch vordefinierte Kategorie importiert.",
+      "mailing": "E-Mail Verteiler",
+      "registerTitle": "Installation abschließen",
+      "registrationTitle": "Registrierung neuer Benutzer",
+      "roleToPermissionDescription": "Bitte gib an, welche Berechtigungen den neu angelegten Rollen gewährt werden sollen.",
+      "roleToPermissionTitle": "Zuordnung von Rollen und Berechtigungen",
+      "site": {
+        "assignedKeywords": "Verknüpfte Schlagworte",
+        "author": "Administrator",
+        "backendUrl": "Url der Adminseite",
+        "description": "Kurzer Infotext für diese Seite",
+        "email": "E-Mail des Administrators",
+        "frontendUrl": "Url der Webseite",
+        "subTitle": "Untertitel",
+        "title": "Titel"
+      },
+      "title": "Grundkonfiguration der App, des Vereins und Import von Kategorien"
+    }
+  },
+  "ITEMS_PER_PAGE_LABEL": "Einträge pro Seite",
+  "LAST_PAGE_LABEL": "Zur letzten Seite",
+  "layout": {
+    "backend": {
+      "aside": {
+        "label": "Linkes Menü"
+      }
+    }
+  },
+  "location": {
+    "createTitle": "Neuen Treffpunkt erstellen",
+    "dashboard": {
+      "categoryChart": "Treffpunkte nach Kategorien",
+      "mostUsed": "Am meisten genutzter Treffpunkt",
+      "newestLocation": "Der neueste Treffpunkt",
+      "newLocationMedia": "Neue Treffpunapp-Dateien"
+    },
+    "detail": {
+      "address": "Addresse",
+      "assignedArticles": "Verknüpfte Artikel",
+      "assignedContacts": "Ansprechpartner",
+      "assignedGalleries": "Fotogalerien",
+      "assignedMatches": "Verknüpfte Spiele",
+      "assignedItems": "Verknüpfte Spiele & Artikel",
+      "creationTitle": "Erstellung und Veröffentlichung",
+      "description": "Freier Beschreibungstext",
+      "fields": {
+        "address": "Adresse",
+        "assignedCategory": "Verknüpfte Kategorie",
+        "fupaLink": "Link zu Fupa.net",
+        "isImported": "Automatisch importiert?",
+        "opening": "Öffnungszeiten",
+        "prices": "Preisliste",
+        "text": "Freier Text",
+        "title": "Name des Treffpunktes"
+      },
+      "files": "Verknüpfte Dateien",
+      "imageUrl": "Foto des Treffpunktes",
+      "mainTitle": "Wichtigste Informationen",
+      "mediaTitle": "Verknüpfte Gallerien",
+      "noArticles": "Dieser Ort wurden bisher mit keinen Artikeln verknüpft.",
+      "noText": "-",
+      "opening": "Öffnungszeiten",
+      "title": "Treffpunapp-Details anzeigen"
+    },
+    "edit": {
+      "assignArticle": "Artikel verknüpfen",
+      "button": "Treffpunkt editieren",
+      "placeholder": {
+        "assignedArticles": "Verknüpfte Artikel",
+        "assignedCategory": "Verknüpfte Kategorie",
+        "city": "Stadt",
+        "county": "Landkreis",
+        "fupaLink": "Link zu fupa.net",
+        "houseNumber": "Hausnummer",
+        "isImported": "Automatisch importiert?",
+        "streetName": "Straße",
+        "title": "Name des Treffpunktes",
+        "zip": "Postleitzahl"
+      }
+    },
+    "editTitle": "Treffpunkt editieren",
+    "list": {
+      "add": {
+        "full": "Neuen Treffpunkt erstellen",
+        "short": "Neuer Treffpunkt"
+      },
+      "button": "Zur Treffpunapp-Liste",
+      "delete": "Treffpunkt löschen",
+      "deleteMany": "{{value}} Treffpunkte löschen",
+      "detail": "Details anzeigen",
+      "edit": "Treffpunkt editieren",
+      "editMany": "Schnelles bearbeiten ({{counter}})",
+      "search": {
+        "hint": "Suche nach dem Titel oder der Adresse",
+        "placeholder": "Treffpunkte durchsuchen"
+      },
+      "table": {
+        "id": "ID",
+        "category": "Kategorie",
+        "title": "Name"
+      },
+      "title": "Treffpunkte und Spielorte"
+    },
+    "map": {
+      "setMarkerDescription": "Klicke auf einen Treffpunkt um eine Markierung auf der Karte hinzuzufügen oder zu entfernen",
+      "title": "Kartenansicht der Treffpunkte"
+    },
+    "messages": {
+      "created": "Der neue Treffpunkt wurde erfolgreich gespeichert.",
+      "updated": "Die Änderungen am Treffpunkt wurden durchgeführt."
+    },
+    "resetForm": "Formular zurücksetzen",
+    "save": {
+      "button": "Treffpunkt speichern"
+    }
+  },
+  "log": {
+    "categories": {
+      "application": "Anwendung",
+      "article": "Artikel",
+      "category": "Kategorien",
+      "club-honorary": "Ehrenmitglieder",
+      "club-management": "Vorstandsaufgaben",
+      "club": "Verein",
+      "club-timeline": "Ereignisse im Verein",
+      "location": "Treffpunkte",
+      "member": "Mitglieder",
+      "role": "Rollen",
+      "permission": "Berechtigungen",
+      "player": "Spieler",
+      "sponsor": "Sponsoren",
+      "team": "Mannschaften",
+      "user": "Benutzer"
+    },
+    "detailTitle": "Log-Details",
+    "listTitle": "Logeinträge",
+    "table": {
+      "item": "Verknüpftes Element",
+      "link": "Kategorie",
+      "reason": "Meldung",
+      "severity": "Schweregrad",
+      "user": "Ausführender Benutzer",
+      "date": "Fehlerdatum",
+      "title": "Titel",
+      "forReview": "Bestätigung erforderlich?"
+    }
+  },
+  "match": {
+    "assignedArticlesTitle": "Verknüpfte Artikel",
+    "button": {
+      "delete": "Spiel löschen",
+      "detail": "Details anzeigen",
+      "edit": "Spiel editieren",
+      "list": "Zu allen Spielen",
+      "save": "Spiel erstellen"
+    },
+    "createTitle": "Spiel erstellen",
+    "detail": {
+      "assignedGalleries": "Fotogalerien",
+      "date": "Spieldatum",
+      "map": "Kartenansicht",
+      "matchTitle": "Begegnung",
+      "noArticles": "Es wurden keine Artikel zu diesem Spiel gefunden.",
+      "team": "Mannschaft",
+      "title": "Details zur Spielbegegnung anzeigen"
+    },
+    "editTitle": "Spiel editieren",
+    "events": {
+      "add": "Ereignis hinzufügen",
+      "calendar": "Vereinsspielplan",
+      "createTitle": "Spielereignis erstellen",
+      "inputs": {
+        "articles": "Verknüpfte Artikel",
+        "assignedEventCategory": "Art des Geschehnisses",
+        "assist": "Vorlage durch",
+        "description": "Freier Text",
+        "from": "von",
+        "playMinute": "Spielminute",
+        "title": "Titel der Szene"
+      },
+      "noEvents": "Es wurden noch keine Szenen oder Ereignisse für dieses Spiel gespeichert.",
+      "save": "Speichern",
+      "title": "Spielbericht",
+      "titleOrDescRequired": "Es muss mindestens die Kategorie und entweder der Titel oder eine Beschreibung für diese Szene angegeben werden.",
+      "types": {
+        "additionalTime": "Verlängerung",
+        "assist": "Vorlage von",
+        "bigChance": "Großchance",
+        "conclusion": "Zusammenfassung",
+        "endExtraTime": "Ende der Verlängerung",
+        "endFirstHalf": "Ende der ersten Halbzeit",
+        "endMatch": "Spielende",
+        "endSecondHalf": "Ende der zweiten Halbzeit",
+        "for": "für den Spieler",
+        "from": "von",
+        "goal": "Tor",
+        "halfExtraTime": "Halbzeit der Verlängerung",
+        "halfTimeConclusion": "Halbzeitfazit",
+        "joins": "dafür neu im Spiel",
+        "leaves": "aus dem Spiel geht",
+        "matchAbandoned": "Spielabsage",
+        "matchPreview": "Spielvorschau",
+        "penaltyShootout": "Elfmeterschießen",
+        "redCard": "Rote Karte",
+        "startExtraTime": "Beginn der Verlängerung",
+        "startFirstHalf": "Spielbeginn",
+        "startSecondHalf": "Beginn der zweiten Halbzeit",
+        "substitution": "Auswechselung",
+        "timePunishment": "Zeitstrafe",
+        "yellowCard": "Gelbe Karte",
+        "yellowRedCard": "Gelb-rote Karte"
+      },
+      "updateTitle": "Spielereignis editieren"
+    },
+    "form": {
+      "inputs": {
+        "articles": "Verknüpfte Artikel",
+        "assignedArticles": "Das Spiel mit den folgenden Artikeln verknüpfen:",
+        "assignedCategories": "Mannschaftsarten",
+        "assignedCategory": "Mannschaftsart",
+        "assignedLocation": "Spielort",
+        "assignedTeam": "Verknüpfte Mannschaft",
+        "events": {
+          "noOtherEvent": "Kein Sonderereignis",
+          "otherEvent": "Sonderereignis auswählen",
+          "list": {
+            "administrativeDecision": "Verwaltungsentscheid",
+            "afterOvertime": "nach Verlängerung",
+            "annulment": "Annulierung",
+            "cancellation": "Abbruch",
+            "cancellationBothTeams": "Nichtantritt Beide",
+            "cancellationGuestTeam": "Nichtantritt Gast",
+            "cancellationHomeTeam": "Nichtantritt Heim",
+            "deposition": "Absetzung",
+            "gameFailure": "Spielausfall",
+            "gameRelocated": "Spiel verlegt",
+            "noInformation": "keine Angabe",
+            "onPenalties": "nach Elfmeterschießen",
+            "sportsCourtRuling": "Sportgerichtsurteil",
+            "withoutRating": "ohne Wertung",
+            "withoutResult": "ohne Ergebnis"
+          },
+          "title": "Sonderereignis"
+        },
+        "guest": {
+          "externalTeamLink": "Link zur Mannschaft",
+          "goals": "Gasttore",
+          "logoURL": "Vereinswappen",
+          "title": "Name"
+        },
+        "guestTeam": "Gastmannschaft",
+        "home": {
+          "externalTeamLink": "Link zur Mannschaft",
+          "goals": "Heimtore",
+          "logoURL": "Vereinswappen",
+          "title": "Name"
+        },
+        "homeTeam": "Heimmannschaft",
+        "isCompleted": "Beendetes Spiel?",
+        "isHomeTeam": "Heimspiel?",
+        "isImported": "Automatisch importiert?",
+        "isOfficialMatch": "Offizielles Spiel?",
+        "isOtherEvent": "Sonderereignis?",
+        "matchEndDate": "Spielende",
+        "matchLink": "Link",
+        "matchStartDate": "Spielbeginn",
+        "matchType": "Spielart",
+        "resultDescription": "Hier kannst Du das Ergebnis des Spiels eintragen - oder ein Sonderevent, wie zum Beispiel eine Spielabsage, auswählen.",
+        "resultTitle": "Ergebnis",
+        "title": "Spielpaarung"
+      },
+      "isImportedMessage": "Dieses Spiel wurde von automatisch von fussball.de importiert. Das Ändern der Daten ist nur eingeschränkt möglich.",
+      "substitute": "Ersatzspieler",
+      "startingEleven": "Startelf",
+      "bench": "Ersatzbank",
+      "playerList": "Spielerliste der Mannschaft",
+      "tacticalFormation": "Taktische Formation"
+    },
+    "import": {
+      "autoImport": {
+        "true": "automatisch",
+        "false": "manuell"
+      },
+      "button": "Import starten",
+      "noImports": "Bisher wurden noch keine Importvorgänge für den Spielplan durchgeführt.",
+      "status": {
+        "ended": "beendet",
+        "started": "gestartet"
+      },
+      "table": {
+        "addedCount": "Spiele hinzugefügt",
+        "autoImport": "Importvorgang",
+        "date": "Importvorgang vom",
+        "deletedCount": "Gelöschte Spiele",
+        "importBy": "Importiert von",
+        "status": "Status"
+      },
+      "title": "Spielplan-Import"
+    },
+    "link": "fussball.de",
+    "list": {
+      "add": {
+        "full": "Neues Spiel erstellen",
+        "short": "Neues Spiel"
+      },
+      "delete": "Begegnung löschen",
+      "deleteMany": "{{value}} Spiele löschen",
+      "detail": "Details anzeigen",
+      "edit": "Spiel editieren",
+      "editMany": "Schnelles bearbeiten ({{counter}})",
+      "noUpcomingMatches": "Es wurden keine kommenden Spiele gefunden.",
+      "search": {
+        "hint": "Nach Titel oder Spielort suchen",
+        "placeholder": "Spiele durchsuchen"
+      },
+      "table": {
+        "assignedLocationTitle": "Spielort",
+        "guestTeam": "Gastmannschaft",
+        "homeTeam": "Heimmannschaft",
+        "id": "ID",
+        "playersType": "Mannschaftsart",
+        "startDate": "Anstoß",
+        "title": "Spielbegegnung"
+      },
+      "title": "Alle Spiele"
+    },
+    "missingResults": {
+      "description": "Bei {{matchCount}} Spielen fehlen die Endergebnisse. Die Ergebnisse oder Sonderereignisse, wie Spielabsagen, können direkt über dieses Formular eingetragen werden.",
+      "noMissingMatchResults": "Es wurde für alle beendeten Spiele ein Ergebnis eingetragen.",
+      "title": "Fehlende Spielergebnisse"
+    },
+    "resetForm": "Formular zurücksetzen",
+    "stats": {
+      "draw": "Unentschieden",
+      "lost": "Niederlagen",
+      "won": "Siege",
+      "title": "Statistiken"
+    },
+    "tabs": {
+      "creationAndPublicationTitle": "Erstellung und Veröffentlichung",
+      "eventsTitle": "Spielgeschehen",
+      "mainTitle": "Wichtigste Infos",
+      "mediaTitle": "Verknüpfte Medien",
+      "startingElevenTitle": "Aufstellung und Auswechselungen"
+    },
+    "upcoming": {
+      "title": "Das nächste Spiel"
+    }
+  },
+  "media": {
+    "allCategories": "Alle Dateien anzeigen",
+    "change": "Ändern",
+    "chooseCategories": "Nach Kategorien filtern ...",
+    "current": "Ausgewählt",
+    "default": "Als Titelbild",
+    "deleteGallery": "Galerie löschen",
+    "existing": "Liste",
+    "fileDeleted": "Die Datei wurden erfolgreich gelöscht.",
+    "noFiles": "Es wurden noch keine Dateien hochgeladen.",
+    "noGalleries": "Es wurden noch keine Galerien erstellt.",
+    "remove": "Löschen",
+    "select": "Auswählen",
+    "tabs": {
+      "existing": "Vorhandene Dateien",
+      "galleries": "Gallerien",
+      "unnamedFiles": "{{count}} Unbenannte Dateien",
+      "upload": "Neuer Upload"
+    },
+    "upload": "Neuer Upload"
+  },
+  "member": {
+    "ahStates": {
+      "noMember": "Kein Mitglied",
+      "honorary": "Ehrenmitglied",
+      "member": "Mitglied"
+    },
+    "buttons": {
+      "createClubMgmt": "Amt zuweisen",
+      "createTeamMgmt": "Position zuweisen",
+      "delete": "Mitglied löschen",
+      "deleteAssignedPlayer": "Verknüpfung löschen",
+      "deleteAssignedSenior": "Verknüpfung löschen",
+      "deletePlayer": "Spieler löschen",
+      "edit": "Änderungen speichern",
+      "list": "Zur Mitgliederliste",
+      "playerList": "Zur Spielerliste",
+      "resetForm": "Formular zurücksetzen",
+      "save": "Mitglied speichern",
+      "showAssignedPlayer": "Verknüpfter Spieler",
+      "showAssignedSenior": "Verknüpftes AH-Mitglied"
+    },
+    "clubStates": {
+      "ahOnlyMembers": "AH-Only Mitglieder",
+      "child": "Kinder",
+      "family": "Familie",
+      "gymnastics": "Turner",
+      "forFree": "Beitragsfrei",
+      "member": "Mitglied",
+      "teenager": "Jugendliche",
+      "unknown": "Kein Status bekannt",
+      "noMember": "Kein Mitglied"
+    },
+    "contact": {
+      "email": "E-Mail",
+      "fax": "Fax-Nummer",
+      "phoneHome": "Tel. (zu Hause)",
+      "phoneMobile": "Handy",
+      "phoneWork": "Tel. (dienstl.)"
+    },
+    "createTitle": "Mitglied erstellen",
+    "dashboard": {
+      "birthdays": "Geburtstage",
+      "latestMembers": "Neue Anmeldungen",
+      "latestSignOuts": "Letzte Austritte",
+      "latestHonoraries": "Neue Ehrenmitglieder",
+      "motw": "Mitglied des Monats",
+      "stats": {
+        "ah": "Alte Herren",
+        "byGender": "Nach Geschlecht",
+        "children": "Kinder",
+        "gymnasts": "Turner",
+        "honoraries": "Ehrenmitglieder",
+        "players": "Spieler",
+        "title": "Mitgliederstatistiken",
+        "youth": "Jugendliche"
+      }
+    },
+    "delete": {
+      "button": "Mitglied löschen",
+      "description": "Das Mitglied wurde unwiderruflich gelöscht. Alle Verknüpfungen werden ebenfalls entfernt.",
+      "success": "Das Mitglied wurde gelöscht.",
+      "title": "Möchtest Du das Mitglied ´{{title}}` wirklich löschen?"
+    },
+    "detail": {
+      "addressTitle": "Adresse",
+      "ahAndClubDetails": "Alte Herren und Vereinsdaten",
+      "ahTitle": "AH-Daten",
+      "assignedGalleries": "Fotogalerien",
+      "assignedMember": "Verknüpftes Mitglied",
+      "assignedPlayer": "Verknüpftes Spielerprofil",
+      "assignedSenior": "Verknüpftes AH-Mitglied",
+      "clubManagement": {
+        "title": "Positionen im Vorstand"
+      },
+      "clubTitle": "Vereinsdaten",
+      "contactInfos": "Kontaktmöglichkeiten",
+      "creationAndPublicationTitle": "Erstellung und Veröffentlichung",
+      "dfbAndPlayerDetails": "DFB.net-Spielerdaten",
+      "fields": {
+        "address": {
+          "city": "Stadt",
+          "county": "Land",
+          "houseNumber": "Hausnummer",
+          "streetName": "Straße",
+          "zip": "Postleitzahl"
+        },
+        "ah": {
+          "joined": "Eintritt am",
+          "left": "Ausgetreten am",
+          "payment": "Zahlung",
+          "status": "Mitgliederstatus"
+        },
+        "birthday": "Geburtstag",
+        "club": {
+          "joined": "Vereinseintritt am",
+          "left": "Ausgetreten am",
+          "payment": "Zahlung",
+          "status": "Mitgliederstatus"
+        },
+        "dfbImport": "DFB.net",
+        "dfbImportTooltip": "Automatisch importiert aus dem DFB.net",
+        "driveImport": "G-Drive",
+        "driveImportTooltip": "Automatisch importiert aus dem Google Drive",
+        "firstName": "Vorname",
+        "gender": "Geschlecht",
+        "honorary": "Dieses Mitglied wurde am {{date}} zum Ehrenmitglied ernannt.",
+        "lastName": "Nachname",
+        "salutation": "Titel"
+      },
+      "files": "Verknüpfte Dateien",
+      "imageUrl": "Foto des Mitglieds",
+      "mainTitle": "Wichtigste Daten",
+      "mediaTitle": "Verknüpfte Inhalte",
+      "noAssignedMember": "Dieser Spieler ist mit keinem Mitglied verknüpft.",
+      "noAssignedPlayer": "Dieses Mitglied ist mit keinem Spielerportrait verknüpft.",
+      "noAssignedSenior": "Dieses Mitglied ist mit keinem AH-Mitglied verknüpft.",
+      "noClubManagement": "Das Mitglied hat noch keine Vorstandspositionen übernommen.",
+      "noTeamManagement": "Das Mitglied hat noch keine Aufgaben in der Mannschaftsbetreuung übernommen.",
+      "personalTitle": "Persönliche Infos",
+      "teamManagement": {
+        "noTeams": "Es wurden noch keine Mannschaften gespeichert.",
+        "title": "Positionen in der Mannschaftsbetreuung"
+      },
+      "title": "Mitgliederinformationen anzeigen"
+    },
+    "editTitle": "Mitglied editieren",
+    "fame": {
+      "categories": {
+        "AH": "Alte Herren",
+        "Honorary": "Ehrenmitglied",
+        "Member": "Verein",
+        "Player": "Spieler"
+      },
+      "noResult": "Es wurden noch keine Mitglieder der Woche gespeichert.",
+      "title": "Mitglieder der Woche {{currentMonth}}"
+    },
+    "form": {
+      "isImportedMessage": "Dieser Spieler wurde aus dem DFBnet geladen. Das Ändern der Daten ist nur eingeschränkt möglich.",
+      "mainTitle": "Hauptinformationen",
+      "personalTitle": "Persönliche Infos",
+      "saveFirst": "Du musst das neue Mitglied zuerst speichern. Anschließend kannst Du es mit anderen Inhalten verknüpfen.",
+      "statisticsTitle": "Statistiken",
+      "teamTitle": "Mannschaften"
+    },
+    "list": {
+      "add": {
+        "full": "Ein neues Mitglied erstellen",
+        "short": "Neues Mitglied"
+      },
+      "button": "Zur Mitgliederliste",
+      "delete": "Mitglied löschen",
+      "detail": "Details anzeigen",
+      "edit": "Mitglied editieren",
+      "export": {
+        "full": "Mitgliederliste als PDF exportieren",
+        "short": "PDF-Export"
+      },
+      "search": {
+        "hint": "Suche nach Vor- und Nachname oder Geburtsdatum",
+        "placeholder": "Mitglieder durchsuchen"
+      },
+      "stats": {
+        "full": "Detaillierte Statistiken anzeigen",
+        "short": "Details anzeigen"
+      },
+      "table": {
+        "birthday": "Geburtstag",
+        "gender": "Geschlecht",
+        "id": "Id",
+        "firstName": "Vorname",
+        "lastName": "Nachname"
+      },
+      "title": "Mitgliederliste"
+    },
+    "resetForm": "Formular zurücksetzen",
+    "messages": {
+      "created": "Das Mitglied wurde neu erstellt",
+      "noClubManagement": "Dieses Mitglied hat noch keine Vorstandspositionen bekleidet.",
+      "updated": "Die Änderungen für dieses Mitglied wurden gespeichert."
+    }
+  },
+  "MENU": {
+    "ARTICLE": {
+      "CREATE": "Artikel schreiben",
+      "DASHBOARD": "Übersicht",
+      "LIST": "Alle Artikel",
+      "MAIN": "Artikel"
+    },
+    "CALENDAR": "Kalender",
+    "CATEGORY": {
+      "MAIN": "Kategorien"
+    },
+    "CLUB": {
+      "FILES": "Dateien des Vereins",
+      "HONORARIES": "Ehrenmitglieder",
+      "MAIN": "Verein",
+      "MANAGEMENT": "Vorstand",
+      "SECTION": "Vereinsverwaltung",
+      "TIMELINE": "Zeitachse"
+    },
+    "CONTENT": "Inhalte",
+    "DASHBOARD": "Startseite",
+    "LOCATION": {
+      "CREATE": "Spielstätte erfassen",
+      "DASHBOARD": "Übersicht",
+      "LIST": "Alle Spielstätten",
+      "MAIN": "Spielstätten",
+      "MAP": "Kartenansicht"
+    },
+    "MATCH": {
+      "CALENDAR": "Spielkalender",
+      "CREATE": "Spiel anlegen",
+      "DASHBOARD": "Übersicht",
+      "IMPORT": "Spielplan importieren",
+      "LIST": "Alle Spiele",
+      "MAIN": "Spiele"
+    },
+    "MEMBER": {
+      "CREATE": "Mitglied erstellen",
+      "DASHBOARD": "Übersicht",
+      "LIST": "Alle Mitglieder",
+      "MAIN": "Mitglieder",
+      "MOTW": "Mitglieder der Woche"
+    },
+    "NEWSLETTER": {
+      "CREATE": "Newsletter schreiben",
+      "DASHBOARD": "Übersicht",
+      "SETTINGS": "Einstellungen",
+      "LIST": "Bisherige Newsletter",
+      "MAIN": "Newsletter"
+    },
+    "PAGES": "Seiten",
+    "PLAYER": {
+      "CREATE": "Spieler erstellen",
+      "DASHBOARD": "Übersicht",
+      "IMPORT": "DFB.net Import",
+      "MAIN": "Spieler",
+      "LIST": "Alle Spieler",
+      "POTW": "Spieler der Woche"
+    },
+    "SENIORS": {
+      "CREATE": "Neues AH-Mitglied",
+      "DASHBOARD": "Übersicht",
+      "LIST": "Alle AH-Mitglieder",
+      "MAIN": "Alte Herren"
+    },
+    "SETTING": {
+      "ANALYTICS": "Auswertungen",
+      "CONFIG": "Konfiguration",
+      "LAYOUT": "Layout",
+      "LOGS": "Logdateien",
+      "MAIN": "Grundeinstellungen",
+      "SECTION": "Seiten-Administration",
+      "SETTINGS": "Einstellungen",
+      "TASKS": "Geplante Aufgaben",
+      "USER": "Benutzer"
+    },
+    "SPONSOR": {
+      "MAIN": "Sponsoren"
+    },
+    "TEAM": {
+      "CREATE": "Mannschaft erstellen",
+      "DASHBOARD": "Übersicht",
+      "LIST": "Alle Mannschaften",
+      "MAIN": "Mannschaften",
+      "TOTM": "Mannschaft des Monats",
+      "TRAINING": "Trainingseinheiten"
+    },
+    "UPLOAD": {
+      "DASHBOARD": "Übersicht",
+      "FILES": "Hochgeladene Dateien",
+      "GALLERY": {
+        "MAIN": "Galerien",
+        "LIST": "Alle Galerien",
+        "CREATE": "Neue Galerie"
+      },
+      "MAIN": "Mediencenter"
+    },
+    "USER": {
+      "LIST": "Benutzerliste",
+      "PERMISSIONS": "Berechtigungen",
+      "ROLES": "Rollen"
+    }
+  },
+  "modal": {
+    "delete": {
+      "articles": {
+        "description": "<p>Möchtest Du den Artikel <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p><p> Der Artikel kann danach nicht wieder hergestellt werden und die verknüpften Einträge verlieren ihre Gültigkeit.</p>",
+        "multiple": {
+          "description": "<p>Möchtest Du die Artike {{values}} wirklich löschen? </p><p> Die Artike können danach nicht wieder hergestellt werden und die verknüpften Einträge verlieren ihre Gültigkeit.</p>",
+          "success": "Die Artike wurden unwiderruflich gelöscht.",
+          "title": "Mehrere Artike löschen"
+        },
+        "success": "Der Artike wurde unwiderruflich gelöscht.",
+        "title": "Artike löschen",
+        "deleteInProgress": "Der Artike wird gelöscht. Bitte warten ..."
+      },
+      "categories": {
+        "description": "<p>Möchtest Du die Kategorie <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p><p> Die Kategorie kann danach nicht wieder hergestellt werden und die verknüpften Einträge verlieren ihre Gültigkeit.</p>",
+        "multiple": {
+          "description": "<p>Möchtest Du die Kategorien {{values}} wirklich löschen? </p><p> Die Kategorien können danach nicht wieder hergestellt werden und die verknüpften Einträge verlieren ihre Gültigkeit.</p>",
+          "success": "Die Kategorien wurden unwiderruflich gelöscht.",
+          "title": "Mehrere Kategorien löschen"
+        },
+        "success": "Die Kategorie wurde unwiderruflich gelöscht.",
+        "title": "Kategorie löschen",
+        "deleteInProgress": "Die Kategorie wird gelöscht. Bitte warten ..."
+      },
+      "club-honorary": {
+        "description": "<p>Möchtest Du den Eintrag als Ehrenmitglied wirklich löschen?</p><p>Das Mitglied ist weiterhin in der Datenbank vorhanden, wird aber nicht mehr als Ehrenmitglied geführt.",
+        "success": "Der Eintrag als Ehrenmitglied des Vereins wurde gelöscht.",
+        "title": "Ehrenmitglied löschen",
+        "deleteInProgress": "Das Ehrenmitglied wird gelöscht. Bitte warten ..."
+      },
+      "club-management": {
+        "description": "<p>Möchtest Du den Eintrag als Vorstandsmitglied wirklich löschen?</p><p>Das Mitglied ist weiterhin in der Datenbank vorhanden, ist aber nicht mehr mit dieser Position verknüpft.",
+        "success": "Der Eintrag als Vorstandsmitglied wurde gelöscht.",
+        "title": "Vorstandsmitglied löschen",
+        "deleteInProgress": "Das Vorstandsmitglied wird gelöscht. Bitte warten ..."
+      },
+      "locations": {
+        "description": "<p>Möchtest Du den Treffpunkt <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p><p> Der Treffpunkt kann danach nicht wieder hergestellt werden und die verknüpften Einträge verlieren ihre Gültigkeit.</p>",
+        "multiple": {
+          "description": "<p>Möchtest Du die Treffpunkte {{values}} wirklich löschen? </p><p> Die Treffpunkte können danach nicht wieder hergestellt werden und die verknüpften Einträge verlieren ihre Gültigkeit.</p>",
+          "success": "Die Treffpunkte wurden unwiderruflich gelöscht.",
+          "title": "Mehrere Treffpunkte löschen"
+        },
+        "success": "Der Treffpunkt wurde unwiderruflich gelöscht.",
+        "title": "Treffpunkt löschen",
+        "deleteInProgress": "Der Treffpunkt wird gelöscht. Bitte warten ..."
+      },
+      "medias": {
+        "description": "<p>Möchtest Du die Datei <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p><p>Die Datei ist anschließend nicht mehr verfügbar.",
+        "success": "Die Datei wurde unwiderruflich gelöscht.",
+        "title": "Datei löschen",
+        "deleteInProgress": "Die Datei wird gelöscht. Bitte warten ..."
+      },
+      "members": {
+        "description": "<p>Möchtest Du das Mitglied <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+        "success": "Das Mitglied wurde unwiderruflich gelöscht.",
+        "title": "Mitglied löschen",
+        "deleteInProgress": "Das Mitglied wird gelöscht. Bitte warten ..."
+      },
+      "permissions": {
+        "description": "<p>Möchtest Du die Berechtigung <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p><p> Dadurch sind einige Bereiche der Webseite für Benutzer nicht mehr verfügbar.</p>",
+        "multiple": {
+          "description": "<p>Möchtest Du die Berechtigungen {{values}} wirklich löschen? </p><p> Dadurch sind einige Bereiche der Webseite für Benutzer nicht mehr verfügbar.</p>",
+          "success": "Die Berechtigungen wurden unwiderruflich gelöscht.",
+          "title": "Mehrere Berechtigungen löschen"
+        },
+        "success": "Die Berechtigung wurde unwiderruflich gelöscht.",
+        "title": "Berechtigung löschen",
+        "deleteInProgress": "Die Berechtigung wird gelöscht. Bitte warten ..."
+      },
+      "players": {
+        "description": "<p>Möchtest Du den Spieler <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+        "success": "Der Spieler wurde unwiderruflich gelöscht.",
+        "title": "Spieler löschen",
+        "deleteInProgress": "Der Spieler wird gelöscht. Bitte warten ..."
+      },
+      "seniors": {
+        "description": "<p>Möchtest Du das AH-Mitglied <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+        "success": "Das AH-Mitglied wurde unwiderruflich gelöscht.",
+        "title": "AH-Mitglied löschen",
+        "deleteInProgress": "Das AH-Mitglied wird gelöscht. Bitte warten ..."
+      },
+      "sponsors": {
+        "description": "<p>Möchtest Du den Sponsor <span class='font-weight-bold text-danger'>{{title}}</span wirklich  löschen?</p><p>Der Sponsor und die gespeicherten Dateien können NICHT wiederhergestellt werden!</p>",
+        "success": "Der Sponsor wurde gelöscht.",
+        "title": "Sponsor löschen"
+      },
+      "teams": {
+        "description": "<p>Möchtest Du die Mannschaft <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+        "success": "Die Mannschaft wurde unwiderruflich gelöscht.",
+        "title": "Mannschaft löschen",
+        "deleteInProgress": "Die Mannschaft wird gelöscht. Bitte warten ..."
+      },
+      "timeline": {
+        "description": "<p>Möchtest Du die das Ereignis <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+        "success": "Das Ereignis wurde unwiderruflich gelöscht.",
+        "title": "Ereignis löschen",
+        "deleteInProgress": "Das Ereignis wird gelöscht. Bitte warten ..."
+      },
+      "trainings": {
+        "description": "<p>Möchtest Du die Trainingseinheit <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p>",
+        "success": "Die Trainingseinheit wurde unwiderruflich gelöscht.",
+        "title": "Trainingseinheit löschen",
+        "deleteInProgress": "Die Trainingseinheit wird gelöscht. Bitte warten ..."
+      },
+      "users": {
+        "description": "<p>Möchtest Du den Benutzer <span class='font-weight-bold text-danger'>{{title}}</span> wirklich löschen?</p><p> Der Benutzer kann sich danach nicht mehr anmelden.</p>",
+        "multiple": {
+          "description": "<p>Möchtest Du die Benutzer {{values}} wirklich löschen? </p><p> Die Benutzer können sich anschließend nicht mehr anmelden.</p>",
+          "success": "Die Benutzer wurden unwiderruflich gelöscht.",
+          "title": "Mehrere Benutzer löschen"
+        },
+        "success": "Der Benutzer wurde unwiderruflich gelöscht.",
+        "title": "Benutzer löschen",
+        "deleteInProgress": "Der Benutzer wird gelöscht. Bitte warten ..."
+      }
+    },
+    "edit": {
+      "articles": {
+        "multiple": {
+          "description": "<p>Über das Formular unten können einige der Eigenschaften der gewählten Artikel geändert werden.</p>",
+          "success": "Die Änderungen an den Artikeln wurden durchgeführt.",
+          "title": "Mehrere Artikel editieren"
+        }
+      },
+      "categories": {
+        "multiple": {
+          "description": "<p>Über das Formular unten können einige der Eigenschaften der gewählten Kategorien geändert werden.</p>",
+          "success": "Die Änderungen an den Kategorien wurden durchgeführt.",
+          "title": "Mehrere Kategorien editieren"
+        }
+      },
+      "locations": {
+        "multiple": {
+          "description": "<p>Über das Formular unten können einige der Eigenschaften der gewählten Treffpunkte geändert werden.</p>",
+          "success": "Die Änderungen an den Treffpunkten wurden durchgeführt.",
+          "title": "Mehrere Treffpunkte editieren"
+        }
+      }
+    },
+    "media": {
+      "gallery": {
+        "addTitle": "Neue Galerie anlegen",
+        "addDescription": "Bitte gibt einen Titel für die neue Galerie ein.",
+        "button": "Galerie erstellen",
+        "placeholder": "Titel der Galerie"
+      }
+    }
+  },
+  "NEXT_PAGE_LABEL": "Nächste Seite anzeigen",
+  "notifications": {
+    "alerts": "Alarm",
+    "applications": {
+      "createError": "Beim Speichern der Einstellungen ist ein Fehler aufgetreten.",
+      "createSuccess": "Die geänderten Einstellungen wurde gespeichert.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen der Einstellungen wurden gespeichert."
+    },
+    "articles": {
+      "createError": "Beim Speichern des Artikels ist ein Fehler aufgetreten.",
+      "createSuccess": "Der geänderte Artikel wurde gespeichert.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Artikel wurden gespeichert."
+    },
+    "calendarEvents": {
+      "chooseCalendars": "Du musst mindestens einen Kalender auswählen.",
+      "getError": "Beim Laden der Termine ist ein Fehler aufgetreten.",
+      "createError": "Beim Speichern des Termins ist ein Fehler aufgetreten.",
+      "createSuccess": "Der neue Termin wurde gespeichert."
+    },
+    "categories": {
+      "createError": "Beim Speichern der Kategorie ist ein Fehler aufgetreten.",
+      "createSuccess": "Die neue Kategorie wurde gespeichert.",
+      "deleteError": "Beim Löschen der Kategorie ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Die Kategorie wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Kategorie wurden gespeichert."
+    },
+    "clubs": {
+      "createError": "Beim Speichern des Vereins ist ein Fehler aufgetreten.",
+      "createSuccess": "Der neue Verein wurde gespeichert.",
+      "deleteError": "Beim Löschen des Vereins ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Der Verein wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Verein wurden gespeichert."
+    },
+    "club-honorary": {
+      "createError": "Beim Speichern des Ehrenmitglieds ist ein Fehler aufgetreten.",
+      "createSuccess": "Das neue Ehrenmitglied wurde gespeichert.",
+      "deleteError": "Beim Löschen des Ehrenmitglieds ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Das Ehrenmitglied wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Ehrenmitglied wurden gespeichert."
+    },
+    "club-management": {
+      "createError": "Beim Verknüpfen des Mitglieds und einer Vorstandsposition ist ein Fehler aufgetreten.",
+      "createSuccess": "Das neue Vorstandsmitglied wurde gespeichert.",
+      "deleteError": "Beim Löschen des Vorstandsmitglieds ist ein Fehler aufgetreten",
+      "deleteSuccess": "Das Vorstandsmitglied wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Vorstandsmitglied wurden gespeichert."
+    },
+    "config": {
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Konfiguration wurden gespeichert."
+    },
+    "events": "Ereignis",
+    "import": {
+      "callAlgoliaExport": {
+        "error": "Beim Export der Daten ist ein Fehler aufgetreten.",
+        "success": "Die Daten wurden erfolgreich exportiert."
+      },
+      "callScrapFussballdeMatchplan": {
+        "error": "Beim Import des Vereinspielplans von fussball.de ist ein Fehler aufgetreten.",
+        "success": "Der Vereinsspielplan wurde erfolgreich von fussball.de importiert."
+      },
+      "callScrapGoogleDriveMembers": {
+        "error": "Beim Import der Mitgliederdaten aus dem GoogleDrive ist ein Fehler aufgetreten.",
+        "success": "Die Mitgliederdaten wurden erfolgreich aus dem GoogleDrive importiert."
+      },
+      "callScrapDFBnetPlayers": {
+        "error": "Beim Import der Spielerdaten aus dem DFBnet ist ein Fehler aufgetreten.",
+        "success": "Die Spielerdaten wurden erfolgreich aus dem DFBnet importiert."
+      }
+    },
+    "locations": {
+      "createError": "Beim Speichern des Treffpunktes ist ein Fehler aufgetreten.",
+      "createSuccess": "Der neue Treffpunkte wurde gespeichert.",
+      "deleteError": "Beim Löschen des Treffpunktes ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Der Treffpunkte wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Treffpunkte wurden gespeichert."
+    },
+    "logs": "Protokoll",
+    "matches": {
+      "createError": "Beim Speichern des Spiels ist ein Fehler aufgetreten.",
+      "createSuccess": "Das Spiel wurde gespeichert.",
+      "deleteError": "Beim Löschen des Spiels ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Das Spiel wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an dem Spiel wurden gespeichert."
+    },
+    "medias": {
+      "createError": "Beim Speichern der Datei ist ein Fehler aufgetreten.",
+      "createSuccess": "Die neue Datei wurde gespeichert.",
+      "deleteError": "Beim Löschen der Datei ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Die Datei wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Datei wurden gespeichert."
+    },
+    "media-galleries": {
+      "createError": "Beim Speichern der Fotogalerie ist ein Fehler aufgetreten.",
+      "createSuccess": "Die neue Fotogalerie wurde gespeichert.",
+      "deleteError": "Beim Löschen der Fotogalerie ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Die Fotogalerie wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Datei wurden gespeichert."
+    },
+    "members": {
+      "createError": "Beim Speichern des Mitglieds ist ein Fehler aufgetreten.",
+      "createSuccess": "Das neue Mitglied wurde gespeichert.",
+      "deleteError": "Beim Löschen des Mitglieds ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Das Mitglied wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Mitglied wurden gespeichert."
+    },
+    "newCount": "{{value}} neue",
+    "noNotifications": "Alles erledigt!<br/>Keine Benachrichtigungen",
+    "notifications": {
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Benachrichtigung wurde bestätigt."
+    },
+    "permissions": {
+      "createError": "Beim Speichern der Berechtigung trat ein Fehler auf.",
+      "createSuccess": "Die Berechtigung wurde gespeichert.",
+      "deleteError": "Beim Löschen der Berechtigung ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Die Berechtigung wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Berechtigung wurden gespeichert."
+    },
+    "players": {
+      "createError": "Beim Speichern des Spielers trat ein Fehler auf.",
+      "createSuccess": "Der Spieler wurde gespeichert.",
+      "deleteError": "Beim Löschen des Spielers ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Der Spieler wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an dem Spieler wurden gespeichert."
+    },
+    "roles": {
+      "createError": "Beim Speichern der Rolle trat ein Fehler auf.",
+      "createSuccess": "Die Rolle wurde gespeichert.",
+      "deleteError": "Beim Löschen der Rollen ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Die Rolle wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Rolle wurden gespeichert."
+    },
+    "sponsors": {
+      "createError": "Beim Speichern des Sponsors trat ein Fehler auf.",
+      "createSuccess": "Der Sponsor wurde gespeichert.",
+      "deleteError": "Beim Löschen des Sponsors ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Der Sponsor wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Sponsor wurden gespeichert."
+    },
+    "teams": {
+      "createError": "Beim Speichern der Mannschaft ist ein Fehler aufgetreten.",
+      "createSuccess": "Die geänderte Mannschaft wurde gespeichert.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Mannschaft wurden gespeichert."
+    },
+    "timeline": {
+      "createError": "Beim Speichern des Ereignisses trat ein Fehler auf.",
+      "createSuccess": "Das Ereignis wurde gespeichert.",
+      "deleteError": "Beim Löschen des Ereignisses ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Das Ereignis wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Ereignis wurden gespeichert."
+    },
+    "trainings": {
+      "createError": "Beim Speichern der Trainingseinheit ist ein Fehler aufgetreten.",
+      "createSuccess": "Die geänderte Trainingseinheit wurde gespeichert.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen an der Trainingseinheit wurden gespeichert."
+    },
+    "users": {
+      "createError": "Beim Speichern des Benutzers trat ein Fehler auf.",
+      "createSuccess": "Der Benutzer wurde gespeichert.",
+      "deleteError": "Beim Löschen des Benutzers ist ein Fehler aufgetreten.",
+      "deleteSuccess": "Der Benutzer wurde gelöscht.",
+      "updateError": "Beim Versuch, die Änderungen zu speichern, ist ein Fehler aufgetreten.",
+      "updateSuccess": "Die Änderungen am Benutzer wurden gespeichert."
+    },
+    "title": "Benachrichtigungen"
+  },
+  "no": "Nein",
+  "oclock": "Uhr",
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Einträge pro Seite",
+    "NEXT_PAGE": "Nächste Seite",
+    "LAST_PAGE": "Letzte Seite",
+    "PREVIOUS_PAGE": "Vorherige Seite",
+    "FIRST_PAGE": "Erste Seite",
+    "RANGE_LABEL_NO_ITEMS": "",
+    "RANGE_LABEL": "Einträge {{startIndex}} bis {{endIndex}} von {{length}}"
+  },
+  "permission": {
+    "backToList": "Zur Übersicht",
+    "button": {
+      "create": "Berechtigung speichern",
+      "delete": "Berechtigung löschen",
+      "edit": "Änderungen speichern",
+      "new": "Neue Berechtigung"
+    },
+    "createTitle": "Berechtigung erstellen",
+    "editTitle": "Berechtigung editieren",
+    "list": {
+      "deleteMany": "{{value}} Berechtigungen löschen",
+      "search": {
+        "placeholder": "Berechtigung suchen ..."
+      },
+      "table": {
+        "id": "ID",
+        "displayName": "Anzeigename",
+        "title": "Name der Berechtigung",
+        "link": "Verknüpfter Inhalt",
+        "isCorePermission": "Ist es eine grundlegende Berechtigung?"
+      },
+      "title": "Berechtigungsliste"
+    }
+  },
+  "player": {
+    "buttons": {
+      "createTeamPlayer": "Zu einer Mannschaft hinzufügen",
+      "edit": "Spieler editieren",
+      "deleteAssignedMember": "Verknüpfung löschen",
+      "deleteAssignedSenior": "Verknüpfung löschen",
+      "playerList": "Zur Spielerliste",
+      "resetForm": "Formular zurücksetzen",
+      "save": "Mitglied speichern",
+      "showAssignedMember": "Verknüpftes Vereinsmitglied",
+      "showAssignedSenior": "Verknüpftes AH-Mitglied"
+    },
+    "createTitle": "Spieler erstellen",
+    "dashboard": {
+      "detailedPlayerChart": "Detaillierte Spielerstatistik",
+      "export": {
+        "full": "Spielerstatistik als PDF exportieren",
+        "short": "PDF-Export"
+      },
+      "guestPlayers": "Gastspieler des Vereins",
+      "latestPlayers": "Neueste Spieler",
+      "oldestPlayers": "Älteste Spieler",
+      "playerChart": "Spielerstatistik",
+      "stats": {
+        "full": "Detailanzeige der Spielerstatistik",
+        "short": "Detailanzeige"
+      },
+      "youngestPlayers": "Jüngste Spieler"
+    },
+    "delete": {
+      "button": "Spieler löschen",
+      "description": "Der Spieler und alle Verknüpfungen können NICHT wiederhergestellt werden!",
+      "success": "Der Spieler wurde gelöscht.",
+      "title": "Möchtest Du wirklich den Spieler ´{{title}}` löschen?"
+    },
+    "detail": {
+      "assignedMember": "Verknüpftes Vereinsmitglied",
+      "assignedSenior": "Verknüpftes AH-Mitglied",
+      "creationAndPublicationTitle": "Erstellung und Veröffentlichung",
+      "dfbTitle": "Daten aus dem DFBnet",
+      "fields": {
+        "birthday": "Geburtstag",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "dfb": {
+          "ageGroup": "Altersklasse",
+          "allowedToPlay": "Spielberechtigung",
+          "eligibleForFriendlyMatches": "Einsetzbar in Freundschaftsspielen seit",
+          "eligibleForOfficialMatches": "Einsetzbar in offiziellen Spielen seit",
+          "guestPlayer": "Gastspielerlaubnis",
+          "passNumber": "Passnummer",
+          "passPrint": "Pass-Ausstellungsdatum",
+          "playerStatus": "Spielerstatus",
+          "signOut": "Abmeldung am"
+        },
+        "guestPlayer": {
+          "guestRight": "Recht",
+          "season": "Saison",
+          "type": "Art",
+          "since": "seit"
+        }
+      },
+      "mainTitle": "Wichtigste Daten",
+      "mediaTitle": "Fotogalerien",
+      "moreTitle": "Mannschaftsfunktionen",
+      "imageUrl": "Foto des Spielers",
+      "noAssignedMember": "Dieser Spieler ist mit keinem Vereinsmitglied verknüpft.",
+      "noAssignedSenior": "Dieser Spieler ist mit keinem AH-Mitglied verknüpft.",
+      "noAssignedTeams": "Dieser Spieler ist keinen Mannschaften zugeordnet.",
+      "managementTitle": "Aufgaben in der Mannschaftsführung",
+      "teamsTitle": "Spieler in folgenden Mannschaften",
+      "title": "Spielerinfos anzeigen"
+    },
+    "editTitle": "Spieler editieren",
+    "form": {
+      "assignedTeam": "Verknüpfte Mannschaft",
+      "isImportedMessage": "Dieser Spieler wurde aus dem DFBnet geladen. Das Ändern der Daten ist nur eingeschränkt möglich.",
+      "mainTitle": "Grunddaten",
+      "personalTitle": "Persönliche Infos",
+      "statisticsTitle": "Statistiken",
+      "teamTitle": "Mannschaften"
+    },
+    "list": {
+      "add": {
+        "full": "Einen neuen Spieler anlegen",
+        "short": "Neuer Spieler"
+      },
+      "button": "Zur Spielerliste",
+      "delete": "Spieler löschen",
+      "detail": "Details anzeigen",
+      "edit": "Spieler editieren",
+      "search": {
+        "hint": "Suche nach Vor- und Nachname, Geburtstag und Altersklasse",
+        "placeholder": "Spielerliste durchsuchen ..."
+      },
+      "table": {
+        "nr": "#",
+        "id": "ID",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "birthday": "Geburtstag",
+        "ageGroup": "Altersklasse",
+        "signOut": "Abmeldung",
+        "friendlyMatches": "Spielrecht Freundschaft / Privat",
+        "officialMatches": "Spielrecht Pflicht / Verband",
+        "passPrint": "Passdruck"
+      },
+      "title": "Spielerliste des Vereins"
+    }
+  },
+  "pleaseWait": "Bitte warten",
+  "PREVIOUS_PAGE_LABEL": "Eine Seite zurückblättern",
+  "profile": {
+    "birthday": {
+      "age": "Jahre",
+      "noBirthdays": "Es wurden keine Geburtstage gefunden.",
+      "title": "Geburtstage",
+      "infoString": {
+        "yesterday": "wurde gestern {{age}} Jahre alt",
+        "today": "wird heute {{age}} Jahre alt",
+        "tomorrow": "wird morgen {{age}} Jahre alt"
+      },
+      "today": "Heute",
+      "tomorrow": "Morgen",
+      "yesterday": "Gestern"
+    },
+    "zodiacList": {
+      "Capricorn": "Steinbock",
+      "Aquarius": "Wassermann",
+      "Pisces": "Fische",
+      "Aries": "Widder",
+      "Taurus": "Stier",
+      "Gemini": "Zwillinge",
+      "Cancer": "Krebs",
+      "Leo": "Löwe",
+      "Virgo": "Jungfrau",
+      "Libra": "Waage",
+      "Scorpio": "Scorpion",
+      "Sagittarius": "Schütze"
+    }
+  },
+  "publication": {
+    "author": "Veröffentlicht von",
+    "dontPublish": "Nicht veröffentlichen",
+    "notPublished": "Dieser Inhalt wurde noch nicht veröffentlicht und ist somit im Frontend NICHT sichtbar.",
+    "publicationDate": "Veröffentlichungsdatum",
+    "title": "Veröffentlichung"
+  },
+  "readMore": "Weiterlesen",
+  "required": "erforderlich",
+  "reset": "Zurücksetzen",
+  "resetDescription": "Das Formular zurücksetzen",
+  "role": {
+    "backToList": "Zur Übersicht",
+    "button": {
+      "create": "Rolle erstellen",
+      "edit": "Rolle editieren",
+      "delete": "Rolle löschen"
+    },
+    "createTitle": "Neue Rolle erstellen",
+    "editTitle": "Rolle editieren",
+    "list": {
+      "search": {
+        "placeholder": "Nach Rollen suchen ..."
+      },
+      "table": {
+        "assignedPermissions": "Berechtigungen",
+        "assignedUsers": "Verknüpfte Benutzer",
+        "id": "ID",
+        "isCoreRole": "Standardrolle",
+        "noAssignedUsers": "Mit keinen Benutzern verknüpfen",
+        "title": "Titel"
+      },
+      "title": "Benutzerrollen"
+    },
+    "mainTitle": "Grunddaten"
+  },
+  "save": "Speichern",
+  "saveDescription": "Speichern und Fortfahren",
+  "saveToList": "Speichern und zur Übersicht",
+  "saveToListDescription": "Speichern und zur Listenansicht zurückkehren",
+  "selectAll": "Alle auswählen",
+  "senior": {
+    "buttons": {
+      "deleteAssignedMember": "Verknüpfung löschen",
+      "deleteAssignedPlayer": "Verknüpfung löschen",
+      "edit": "Änderungen speichern",
+      "save": "Speichern",
+      "showAssignedMember": "Verknüpftes Mitglied",
+      "showAssignedPlayer": "Verknüpfter Spieler"
+    },
+    "contact": {
+      "email": "E-Mail",
+      "fax": "Fax-Nummer",
+      "phoneMobile": "Handy",
+      "phoneHome": "Tel. (zu Hause)",
+      "phoneWork": "Tel. (dienstl.)"
+    },
+    "dashboard": {
+      "chart": "Statistik",
+      "latestSeniors": "Neue AH-Mitglieder",
+      "latestSignOuts": "Letzte Austritte",
+      "honoraries": "AH-Ehrenmitglieder"
+    },
+    "detail": {
+      "addressTitle": "Adresse",
+      "ahTitle": "AH-Daten",
+      "assignedPlayerAndMember": "Spieler / Mitglied",
+      "assignedMember": "Verknüpftes Mitglied",
+      "assignedPlayer": "Verknüpfter Spieler",
+      "contactInfos": "Kontaktmöglichkeiten",
+      "creationAndPublicationTitle": "Erstellung und Veröffentlichung",
+      "fields": {
+        "address": {
+          "city": "Stadt",
+          "county": "Land",
+          "houseNumber": "Hausnummer",
+          "streetName": "Straße",
+          "zip": "Postleitzahl"
+        },
+        "ah": {
+          "joined": "Eintritt am",
+          "left": "Ausgetreten am",
+          "payment": "Beitrag",
+          "status": "Mitgliederstatus"
+        },
+        "birthday": "Geburtstag",
+        "firstName": "Vorname",
+        "honorary": "Dieses Mitglied ist ein Ehrenmitglied der Alten Herren.",
+        "gender": "Geschlecht",
+        "joined": "Eintritt am",
+        "lastName": "Nachname",
+        "left": "Ausgetreten am",
+        "payment": "Zahlung",
+        "salutation": "Titel",
+        "status": "Mitgliederstatus"
+      },
+      "imageUrl": "Foto des Mitglieds",
+      "mainTitle": "Hauptinformationen",
+      "noAssignedMember": "Dieser AH-Mitglied ist mit keinem Verinsmitglied verknüpft.",
+      "noAssignedPlayer": "Dieses AH-Mitglied ist mit keinem Spielerportrait verknüpft.",
+      "personalTitle": "Persönliche Infos",
+      "title": "AH-Mitgliederdetails"
+    },
+    "editTitle": "AH-Mitglied editieren",
+    "list": {
+      "add": {
+        "full": "AH-Mitglied erstellen",
+        "short": "Neues AH-Mitglied"
+      },
+      "button": "Zur Mitgliederliste",
+      "delete": "AH-Mitglied löschen",
+      "detail": "Details anzeigen",
+      "edit": "AH-Mitglied editieren",
+      "export": {
+        "short": "PDF-Export"
+      },
+      "search": {
+        "hint": "Suche nach Vor- und Nachname oder Geburtsdatum",
+        "placeholder": "Mitglieder durchsuchen"
+      },
+      "stats": {
+        "full": "Detaillierte AH-Mitgliederstatistik",
+        "short": "Details anzeigen"
+      },
+      "table": {
+        "birthday": "Geburtstag",
+        "entryDate": "Eintrittsdatum",
+        "exitDate": "Austrittsdatum",
+        "firstName": "Vorname",
+        "gender": "Geschlecht",
+        "lastName": "Nachname"
+      },
+      "title": "AH-Mitglieder"
+    },
+    "resetForm": "Formular zurücksetzen"
+  },
+  "saveAndClose": "Speichern und schließen",
+  "settings": {
+    "calendars": {
+      "add": "Kalender hinzufügen",
+      "delete": "Kalender löschen",
+      "hints": {
+        "link": "Der Link zum Kalender"
+      },
+      "placeholder": {
+        "cssClass": "CSS-Klasse (Farbgebung der Termine)",
+        "isActive": "Termine anzeigen?",
+        "link": "Google-Kalender-ID",
+        "manualAddingAllowed": "Manuelles Erstellen von Terminen erlauben?",
+        "title": "Name des Kalenders"
+      },
+      "noCalendars": "Es wurden noch keine Google-Kalender verknüpft.",
+      "title": "Verknüpfte Kalender"
+    },
+    "layout": {
+      "options": {
+        "backend": {
+          "title": "Admin-Oberfläche",
+          "aside": {
+            "footer": {
+              "self": {
+                "display": "Footer anzeigen",
+                "title": "Menü-Fußzeilen-Optionen"
+              },
+              "title": "Menü-Fußzeilen"
+            },
+            "menu": {
+              "title": "Menü"
+            },
+            "self": {
+              "display": "Menü anzeigen?",
+              "title": "Menü-Darstellung",
+              "fixed": "Fixiertes Menü",
+              "minimize": {
+                "default": "Default",
+                "title": "Menü minimieren",
+                "toggle": "Menü auf-/ und zuklappbar"
+              }
+            },
+            "title": "Menü"
+          },
+          "brand": {
+            "title": "Branding"
+          },
+          "colors": {
+            "base": {
+              "title": "Basisfarben"
+            },
+            "title": "Farbgebung",
+            "state": {
+              "brand": {
+                "title": "Brand"
+              },
+              "danger": {
+                "title": "Fehler"
+              },
+              "dark": {
+                "title": "Dunkel"
+              },
+              "info": {
+                "title": "Info"
+              },
+              "light": {
+                "title": "Hell"
+              },
+              "primary": {
+                "title": "Primär"
+              },
+              "success": {
+                "title": "Erfolg"
+              },
+              "title": "Farben für verschiedene Stati",
+              "warning": {
+                "title": "Warnungen"
+              }
+            }
+          },
+          "content": {
+            "fit-top": "Content Fit Top Title",
+            "width": "Content width Title",
+            "title": "Inhalt"
+          },
+          "footer": {
+            "title": "Fußzeile",
+            "self": {
+              "fixed": "Fußzeile fixieren",
+              "title": "Fußzeilen-Optionen"
+            }
+          },
+          "header": {
+            "title": "Erste Kopfzeile"
+          },
+          "loader": {
+            "enabled": "Ladeanzeige aktivieren",
+            "title": "Ladeanzeige",
+            "type": "Art der Anzeige",
+            "logo": "Logo für den Ladebildschirm",
+            "message": "Nachricht während dem Ladevorgang"
+          },
+          "portlet": {
+            "title": "Boxen / Portlets",
+            "sticky": {
+              "title": "Fixierte Portlets",
+              "offset": "Offset Size in Pixel"
+            }
+          },
+          "self": {
+            "layout": "Layout",
+            "body": {
+              "background-image": "Hintergrundbild",
+              "title": "Body Layout"
+            },
+            "logo": {
+              "title": "Logo"
+            },
+            "mainLogo": "Hauptlogo",
+            "stickyLogo": "Festes Logo",
+            "title": "SELF??????"
+          },
+          "subheader": {
+            "title": "Zweite Kopfzeile"
+          }
+        },
+        "frontend": {
+          "title": "Homepage"
+        }
+      },
+      "title": "Layout-Optionen"
+    },
+    "links": {
+      "add": "Link hinzufügen",
+      "delete": "Link löschen",
+      "hints": {
+        "noUrl": "Dies ist keine gültige URL",
+        "url": "Die URL des Links"
+      },
+      "noLinks": "Es wurden noch keine Links erstellt.",
+      "placeholder": {
+        "category": "Kategorie",
+        "displayInFooter": "Anzeige im Footer?",
+        "displayInHeader": "Anzeige im Header?",
+        "icon": "Soll ein Icon angezeigt werden?",
+        "isActive": "Link anzeigen?",
+        "isMailLink": "Ist es eine E-Mail Adresse?",
+        "target": "Wie soll der Link geöffnet werden?",
+        "link": "URL des Links oder Mail-Adresse",
+        "title": "Name des Links"
+      },
+      "targets": {
+        "_blank": "Neues Fenster",
+        "_self": "Selbes Fenster"
+      },
+      "title": "Links"
+    },
+    "mailing": {
+      "add": "Neuer Verteiler",
+      "delete": "Liste löschen",
+      "placeholder": {
+        "emails": "E-Mail Empfängerliste",
+        "isActive": "Verteiler aktiv?",
+        "title": "Name der E-Mail-Liste"
+      },
+      "noMailListCategories": "Du musst zunächst eine Kategorie für einen E-Mail Verteiler anlegen.",
+      "noMailLists": "Es wurden noch keine E-Mail Verteiler angelegt.",
+      "title": "E-Mail Verteiler"
+    },
+    "main": {
+      "downtime": "Wartungsmodus",
+      "errors": {
+        "email": "Bitte gib eine gültige E-Mail Adresse an."
+      },
+      "hints": {
+        "email": "E-Mail Adresse für Benachrichtigungen",
+        "subTitle": "Untertitel für die Statuszeile",
+        "title": "Der Titel, der in der Statuszeile angezeigt wird",
+        "link": "Link {{moreText}}"
+      },
+      "placeholder": {
+        "assignedKeywords": {
+          "text": "Komma-separierte Liste mit Schlagwörtern",
+          "title": "Verknüpfte Schlagwörter"
+        },
+        "author": "Author",
+        "description": {
+          "text": "Gib hier eine kurze Beschreibung (max XX Zeichen) für Suchmaschinen an",
+          "title": "Beschreibung für Suchmaschinen."
+        },
+        "downtime": {
+          "headerTitle": "Wartungsmodus",
+          "isEnabled": {
+            "text": "Wartungsmodus aktiviert?",
+            "title": "Soll die Seite in den Wartungsmodus gesetzt werden?"
+          },
+          "message": {
+            "text": "Schreib hier kurz, warum die Seite im Wartungsmodus ist, wie lange es dauert etc.",
+            "title": "Hinweistext für die Benutzer"
+          }
+        },
+        "email": "E-Mail",
+        "isEnabled": {
+          "text": "Ist die Seite aktiviert?",
+          "title": "Seite aktiv"
+        },
+        "registration": {
+          "defaultRole": {
+            "placeholder": "Standard-Rolle für die Neuanmeldung?",
+            "title": "Welche Rolle sollen Benutzer nach einer erfolgreichen Registrierung erhalten?"
+          },
+          "isEnabled": {
+            "text": "Registrierung aktiviert?",
+            "title": "Dürfen sich Benutzer neu registrieren?"
+          },
+          "title": "Registrierung"
+        },
+        "subTitle": "Untertitel",
+        "themeColor": "Farbe des Themes",
+        "title": "Titel der Seite"
+      },
+      "registration": "Registrierung",
+      "title": "Grundeinstellungen"
+    },
+    "save": {
+      "button": "Einstellungen speichern"
+    },
+    "title": "Einstellungen",
+    "subheader": {
+      "title": "Einstellungen",
+      "desc": ""
+    }
+  },
+  "sponsor": {
+    "buttons": {
+      "detail": "Details anzeigen",
+      "edit": "Sponsor editieren",
+      "delete": "Sponsor löschen",
+      "list": "Zur Sponsorliste",
+      "save": "Sponsor speichern"
+    },
+    "create": {
+      "button": "Neuer Sponsor",
+      "tooltip": "Einen neuen Sponsor erstellen"
+    },
+    "createTitle": "Sponsor erstellen",
+    "delete": {
+      "button": "Sponsor löschen"
+    },
+    "detail": {
+      "address": {
+        "title": "Addresse"
+      },
+      "assignedArticles": "Verknüpfte Artikel",
+      "assignedCategories": "Sponsoring-Art",
+      "assignedFiles": "Verknüpfte Dokumente",
+      "assignedGalleries": "Verknüpfte Galerien",
+      "contact": {
+        "title": "Kontaktdaten / Ansprechpartner"
+      },
+      "contactImage": "Foto des Ansprechpartners",
+      "description": "Infotext zum Sponsor",
+      "displayInFooter": "Anzeige im Footer?",
+      "displayAsTopSponsor": "Anzeige des Firmenlogos als Top-Sponsor?",
+      "displayOnHomepage": "Anzeige des Firmenlogos auf der Startseite unten?",
+      "endDate": "Sponsoring-Ende",
+      "files": "Verknüpfte Dateien",
+      "imageUrl": "Logo des Sponsors",
+      "internalInfo": "Interne Informationen zum Sponsor",
+      "link": "Homepage",
+      "mainTitle": "Hauptinformationen",
+      "name": "Name des Sponsors",
+      "noAssignedArticles": "Der Sponsor wurde mit keinen Artikeln verknüpft.",
+      "startDate": "Beginn des Sponsorings",
+      "title": "Detailanzeige für Sponsoren"
+    },
+    "edit": {
+      "placeholder": {
+        "assignedCategories": "Sponsoring-Art",
+        "endDate": "Ende",
+        "externalLink": "Homepage",
+        "startDate": "Beginn des Sponsorings",
+        "title": "Name des Sponsors"
+      }
+    },
+    "editTitle": "Editieren {{title}}",
+    "list": {
+      "chooseAssignedCategories": "Sponsoren filtern ...",
+      "resetFilters": "Filter löschen"
+    },
+    "messages": {
+      "created": "Der Sponsor wurde gespeichert",
+      "updated": "Die Änderungen am Sponsor wurden durchgeführt."
+    },
+    "noFilteredSponsorsFound": "Es wurden keine Sponsoren mit diesen Suchkriterien gefunden",
+    "noSponsorsFound": "Es wurden noch keine Sponsoren angelegt.",
+    "resetForm": "Formular zurücksetzen",
+    "revenue": "Einnahmen",
+    "save": {
+      "button": "Sponsor speichern"
+    },
+    "tabs": {
+      "creationTitle": "Erstellung und Veröffentlichung",
+      "existing": "Vorhandene Dateien",
+      "filesTitle": "Fotos und Galerien",
+      "mainTitle": "Wichtigste Daten",
+      "moreTitle": "Adresse und Kontakt",
+      "upload": "Neuer Upload"
+    },
+    "title": "Sponsoren"
+  },
+  "statistics": {
+    "memberTitle": "Aktuelle Mitgliederstatistik",
+    "playerTitle": "Aktuelle Spielerstatistik",
+    "seniorTitle": "Mitgliederstatistik Senioren",
+    "total": {
+      "articles": "Artikel",
+      "matches": "Spiele",
+      "members": "Mitglieder",
+      "players": "Spieler"
+    }
+  },
+  "tasks": {
+    "auto": "Auto",
+    "button": "Import starten",
+    "description": "Hier findest Du alle bisherigen Spielplan-Importe von fussball.de und ein Formular zum Starten des Imports für ein gewähltes Start- und Enddatum. Wenn Du mit dem Mauszeiger über den 'Import erfolgreich?'-Eintrag klickst erhälst Du weitere Informationen.",
+    "dfbnet": {
+      "title": "DFB.net Spielerimport"
+    },
+    "fussball": {
+      "endDate": "bis",
+      "startDate": "Spiele vom",
+      "title": "Spielplan-Import von fussball.de"
+    },
+    "hide": "ausblenden",
+    "importDate": "Import am",
+    "importBy": "Importiert von",
+    "isLoading": "noch laufend?",
+    "isFinished": "Import erfolgreich?",
+    "manual": "manuell",
+    "messages": {
+      "created": "Der Importvorgang wurde angestartet.",
+      "errored": "Bei einem Importvorgang ist ein Fehler aufgetreten.",
+      "success": "Der Import wurde erfolgreich ausgeführt."
+    },
+    "newImport": "Neuer Importvorgang",
+    "noTasks": "Es wurden noch keine Imports durchgeführt.",
+    "type": "Art"
+  },
+  "team": {
+    "addPosition": "Aufgabe hinzufügen",
+    "assignedCategory": "Position / Aufgabe",
+    "assignedMember": "Verknüpftes Mitglied",
+    "assignedPlayer": "Verknüpfter Spieler",
+    "button": {
+      "delete": "Mannschaft löschen",
+      "edit": "Mannschaft editieren",
+      "list": "Zur Mannschaftsübersicht",
+      "resetForm": "Formular zurücksetzen",
+      "save": "Mannschaft speichern",
+      "savePositions": "Positionen speichern"
+    },
+    "competitions": "Wettbewerbe",
+    "createTitle": "Mannschaft erstellen",
+    "delete": {
+      "button": "Mannschaft löschen",
+      "description": "Die Mannschaft und alle Verknüpfungen können NICHT wiederhergestellt werden!",
+      "success": "Die Mannschaft wurde gelöscht.",
+      "title": "Möchtest Du wirklich die Mannschaft ´{{title}}` löschen?"
+    },
+    "detail": {
+      "assignedGalleries": "Verknüpfte Galerien",
+      "creationTitle": "Erstellung und Veröffentlichung",
+      "imageUrl": "Mannschaftsfoto",
+      "title": "Mannschaftsdetails anzeigen"
+    },
+    "editTitle": "Mannschaft editieren",
+    "mgmt": {
+      "externMgmt": "Mitglied",
+      "internMgmt": "Spieler"
+    },
+    "fame": {
+      "title": "Mannschaft des Monats"
+    },
+    "form": {
+      "isImportedMessage": "Dieser Mannschaft wurde von fussball.de geladen. Das Ändern der Daten ist nur eingeschränkt möglich."
+    },
+    "image": {
+      "fussballde": "Foto auf Fussball.de"
+    },
+    "inputs": {
+      "articles": "Verknüpfte Artikel",
+      "assignedPlayers": "Spieler der Mannschaft",
+      "isOfficialTeam": "Offiziell gemeldete Mannschaft",
+      "isImported": "Mannschaft automatisch importiert",
+      "isSignedOut": "Mannschaft wurde vom Spielbetrieb abgemeldet",
+      "isMainTeam": "Ist es eine erste Mannschaft",
+      "displayInMainMenu": "Im Hauptmenü anzeigen?",
+      "info": "Freier Infotext",
+      "externalTeamLink": "Link zur externen Mannschaftsseite",
+      "assignedTeamCategories": "Verknüpfte Mannschaftsarten",
+      "matches": "Verknüpfte Spiele",
+      "title": "Titel",
+      "subTitle": "Untertitel",
+      "assignedSeason": "Verknüpfte Saison",
+      "isValid": "XXXXXXXXXXXXXXXXXXXXXXXX Mannschaft?"
+    },
+    "list": {
+      "add": {
+        "full": "Eine Mannschaft erstellen",
+        "short": "Neue Mannschaft"
+      },
+      "delete": "Mannschaft löschen",
+      "detail": "Details anzeigen",
+      "edit": "Mannschaft editieren",
+      "search": {
+        "hint": "Hier kann nach dem Mannschaftsnamen, dem Untertitel und der Saison gesucht werden.",
+        "placeholder": "Suche nach einer Mannschaft ..."
+      },
+      "table": {
+        "assignedSeason": "Saison",
+        "id": "Nr.",
+        "subTitle": "Untertitel",
+        "title": "Mannschaftsname"
+      },
+      "title": "Alle Mannschaften"
+    },
+    "messages": {
+      "created": "Die Mannschaft wurde gespeichert",
+      "noArticle": "Mit dieser Mannschaft wurden bisher keine Artikel verknüpft.",
+      "noMatch": "Mit dieser Mannschaft wurden bisher keine Spiele verknüpft.",
+      "noPlayers": "Dieser Mannschaft wurden noch keine Spieler zugeordnet.",
+      "noPositions": "Es wurden bisher keine Positionen festgelegt.",
+      "noTrainings": "Es wurden noch keine Trainingseinheiten gespeichert.",
+      "updated": "Die Änderungen für diese Mannschaft wurden gespeichert."
+    },
+    "noCompetitions": "Mit dieser Mannschaft wurden keine Wettbewerbe verknüpft.",
+    "noStandings": "Es sind keine Tabellenstände verfügbar",
+    "noTeamInfo": "Keine Informationen von fussball.de vorhanden.",
+    "noTicker": "Es wurden keine News für diese Mannschaft auf fussball.de veröffentlicht",
+    "standings": {
+      "homeAway": "Heim/Auswärts",
+      "overall": "Gesamt",
+      "round": "Hin-/Rückrunde",
+      "title": "Tabelle",
+      "rank": "Rang",
+      "team": "Mannschaft",
+      "matches": "Spiele",
+      "won": "G",
+      "draw": "U",
+      "loss": "V",
+      "goalDiff": "Torverhältnis",
+      "goalRatio": "Tordifferenz",
+      "points": "Punkte"
+    },
+    "tabs": {
+      "creationAndPublicationTitle": "Erstellung und Veröffentlichung",
+      "details": {
+        "trainerTitle": "Trainer und Betreuer",
+        "trainingTitle": "Trainingszeiten und -orte",
+        "playersTitle": "Mannschaftskader",
+        "teamExternTitle": "Aufgaben in der Mannschaftsbetreuung",
+        "teamInternTitle": "Mannschaftsinterne Aufgaben"
+      },
+      "detailsTitle": "Kader, Aufgaben und Training",
+      "mainTitle": "Hauptinformationen",
+      "mediaTitle": "Verknüpfte Medien",
+      "stats": {
+        "serieTitle": "Aktuelle Serie",
+        "standingsTitle": "Tabelle",
+        "topTitle": "Höchste Ergebnisse",
+        "matchTitle": "Spielstatistik"
+      },
+      "statsTitle": "Statistiken",
+      "links": {
+        "articlesTitle": "Verknüpfte Artikel",
+        "matchesTitle": "Spiele der Mannschaft"
+      },
+      "linksTitle": "Spiele und Artikel"
+    },
+    "teamInfo": {
+      "competition": "Wettberwerb",
+      "place": "Tabellenplatz",
+      "league": "Spielklasse",
+      "title": "Infos von Fussball.de"
+    },
+    "ticker": "Fussball.de Newsticker",
+    "training": {
+      "add": {
+        "full": "Trainingseinheit erstellen",
+        "short": "Neue Einheit"
+      },
+      "allLocations": "Alle Trainingsorte",
+      "formTitle": {
+        "add": "Training erstellen",
+        "edit": "Training editieren"
+      },
+      "input": {
+        "comment": "Kommentar",
+        "day": "Wochentag",
+        "endTime": "Trainingsende",
+        "location": "Trainingsort",
+        "season": "Saison",
+        "startTime": "Trainingsbeginn",
+        "team": "Mannschaften"
+      },
+      "title": "Trainingseinheiten"
+    }
+  },
+  "table": {
+    "id": "Nr.",
+    "title": "Titel"
+  },
+  "time": "Uhrzeit",
+  "timeline": {
+    "addEvent": "Ereignis hinzufügen",
+    "button": {
+      "create": "Ereignis speichern",
+      "edit": "Änderungen speichern",
+      "line": {
+        "btn": "In Zeitleiste anzeigen",
+        "title": "Zeitleistenansicht"
+      },
+      "table": {
+        "btn": "In Tabelle anzeigen",
+        "title": "Tabellenansicht"
+      }
+    },
+    "createEvent": "Ereignis speichern",
+    "deleteEvent": "Event löschen",
+    "editEvent": "Editieren",
+    "form": {
+      "assignedArticle": "Verknüpfter Artikel",
+      "colour": "Farbgebung auf der Webseite",
+      "endDate": "Ende des Ereignisses",
+      "icon": "Verknüpftes Icon",
+      "noColour": "Keine besondere Hervorhebung",
+      "startAndEndDate": "Beginn und Ende des Ereignisses",
+      "startDate": "Beginn des Ereignisses",
+      "subTitle": "Untertitel",
+      "title": "Titel"
+    },
+    "noEvents": "Es wurden noch keine Ereignisse gespeichert.",
+    "showArticle": "Verknüpften Artikel anzeigen",
+    "title": "Zeitachse für {{type}}"
+  },
+  "today": "heute",
+  "TRANSLATOR": {
+    "SELECT": "Wähle deine Sprache"
+  },
+  "true": "Ja",
+  "undo": "Rückgängig machen",
+  "unnamedItem": "Unbenannt",
+  "updateMultiple": "Die Änderungen wurden gespeichert.",
+  "uploader": {
+    "assignedCategories": "Verknüpfte Kategorien",
+    "buttons": {
+      "delete": "Datei löschen",
+      "info": "Dateiinfos anzeigen"
+    },
+    "chooseCategories": "Zugeordnete Kategorien",
+    "file": {
+      "assignedTags": "Verknüpfte Schlagworte",
+      "changeTitle": "Titel ändern",
+      "creation": {
+        "at": "Hochgeladen am",
+        "by": "Hochgeladen von"
+      },
+      "id": "Id",
+      "size": "Dateigräße",
+      "title": "Dateiname",
+      "type": "Dateityp"
+    },
+    "noFiles": "Es wurden noch keine Dateien hochgeladen oder es wurden keine Ergebnisse mit diesen Filtern gefunden.",
+    "stats": {
+      "audioCount": "Audiodateien",
+      "docsCount": "Dokumente",
+      "imageCount": "Bilder und Fotos",
+      "videoCount": "Videos",
+      "othersCount": "Sonstige Dateien",
+      "title": "Statistiken der Dateiverwaltung"
+    },
+    "statistics": "Statistiken",
+    "title": "Dateiverwaltung"
+  },
+  "user": {
+    "backToList": "Zur Benutzerliste",
+    "createTitle": "Benuter erstellen",
+    "dashboard": {
+      "description": "In diesem Bereich können Benutzer verwaltet und Rollen vergeben oder entzogen werden.",
+      "title": "Benutzer- und Rollenverwaltung"
+    },
+    "delete": {
+      "button": "Benuter löschen"
+    },
+    "detail": {
+      "title": "Benutzerdetails anzeigen"
+    },
+    "edit": {
+      "button": "Benutzer editieren",
+      "inputs": {
+        "assignedRoles": "Verknüpfte Rollen",
+        "displayName": "Anzeigename",
+        "email": "E-Mail",
+        "emailVerified": "E-Mail Adresse bestätigt?",
+        "firstName": "Vorname",
+        "isDisabled": "Benutzer gesperrt?",
+        "lastName": "Nachname",
+        "lastSignInTime": "Letzer Login",
+        "main": "Benutzerdaten",
+        "phoneNumber": "Telefon",
+        "rolesAndStatus": "Benutzerstatus und Rolle",
+        "providerId": "Anmeldetyp"
+      },
+      "isDisabled": "Dieser Benutzer wurde gesperrt. Eine Anmeldung an der Administrationsoberfläche ist deshalb nicht mehr möglich.",
+      "notEditableMessage": "Du kannst Dein eigenes Profil nur bedingt anpassen. Das Ändern der E-Mail Adresse und das Sperren des Accounts ist daher nicht möglich.",
+      "photoUrl": "Avatar des Benutzers"
+    },
+    "editTitle": "Benuter editieren",
+    "list": {
+      "add": {
+        "short": "Neuer Benutzer"
+      },
+      "create": {
+        "tooltip": "Einen neuen Benutzer anlegen",
+        "title": "Neuer Benutzer"
+      },
+      "delete": {
+        "one": "Benutzer löschen",
+        "title": "Alle löschen",
+        "tooltip": "Alle ausgewählten Benutzer löschen"
+      },
+      "deleteMany": "{{value}} Benutzer löschen",
+      "detail": "Details anzeigen",
+      "edit": "Benutzer editieren",
+      "noRoles": "keine",
+      "search": {
+        "description": "",
+        "fields": "Vorname, Nachname, E-Mail und Anzeigename",
+        "placeholder": "Benutzer suchen ...",
+        "title": "Suche nach "
+      },
+      "selectedCount": "Es wurden {{count}} Benutzer ausgewählt.",
+      "table": {
+        "id": "Id",
+        "assignedRoles": "Verknüpfte Rollen",
+        "displayName": "Anzeigename",
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "lastName": "Nachname"
+      },
+      "title": "Registrierte Benutzer"
+    },
+    "menu": {
+      "profile": {
+        "description": "Deine Account-Einstellungen",
+        "title": "Mein Profil"
+      },
+      "logout": "Abmelden"
+    },
+    "permission": {
+      "create": {
+        "title": "Berechtigung erstellen",
+        "tooltip": "Eine neue Berechtigung erstellen"
+      },
+      "delete": {
+        "one": "Berechtigung löschen",
+        "title": "Berechtigungen löschen",
+        "tooltip": "Alle ausgewählten Berechtigungen löschen."
+      },
+      "dialog": {
+        "name": {
+          "placeholder": "Name der Berechtigung",
+          "pleaseEnter": "Bitte gib den Namen für die Berechtigung an."
+        },
+        "parentId": {
+          "none": "Keine übergeordnete Berechtigung",
+          "placeholder": "Übergebordnete Berechtigung"
+        },
+        "saveTooltip": "Berechtigung speichern",
+        "title": {
+          "edit": "Die Berechtigung {{permission}} editieren",
+          "new": "Neue Berechtigung erstellen",
+          "placeholder": "Titel der Berechtigung",
+          "pleaseEnter": "Bitte gib den Titel der Berechtigung an."
+        }
+      },
+      "detail": "Details anzeigen",
+      "edit": "Berechtigung editieren",
+      "permissions": {
+        "title": "Berechtigungen"
+      },
+      "search": {
+        "fields": "Titel",
+        "placeholder": "Nach Berechtigungen suchen ...",
+        "title": "Suchen nach"
+      },
+      "selectedCount": "Es wurden {{count}} Berechtigungen ausgewählt.",
+      "table": {
+        "id": "Id",
+        "title": "Titel"
+      },
+      "title": "Berechtigungen"
+    },
+    "role": {
+      "create": {
+        "title": "Rolle erstellen",
+        "tooltip": "Eine neue Rolle erstellen"
+      },
+      "delete": {
+        "one": "Rolle löschen",
+        "title": "Rollen löschen",
+        "tooltip": "Alle ausgewählten Rollen löschen"
+      },
+      "dialog": {
+        "saveTooltip": "Rolle speichern",
+        "title": {
+          "edit": "Die Rolle {{role}} editieren",
+          "new": "Neue Rolle erstellen",
+          "placeholder": "Titel der Rolle",
+          "pleaseEnter": "Bitte gib den Titel der Rolle an."
+        }
+      },
+      "detail": "Details anzeigen",
+      "edit": "Rolle editieren",
+      "permissions": {
+        "title": "Berechtigungen"
+      },
+      "search": {
+        "fields": "Titel",
+        "placeholder": "Nach Rollen suchen ...",
+        "title": "Suchen nach"
+      },
+      "selectedCount": "Es wurden {{count}} Rollen ausgewählt.",
+      "table": {
+        "id": "Id",
+        "title": "Titel"
+      },
+      "title": "Rollen"
+    },
+    "roles": {
+      "admin": "Administrator"
+    },
+    "subheader": {
+      "desc": "",
+      "title": "Benutzer"
+    }
+  },
+  "views": "Ansichten",
+  "yes": "Ja"
+}

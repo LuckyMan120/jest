@@ -1,0 +1,57 @@
+<app-portlet *ngIf="birthdayList$ | async as birthdayList">
+  <app-portlet-header title="Geburtstage"></app-portlet-header>
+  <app-portlet-body>
+
+    <tabset>
+      <tab *ngFor="let day of days">
+        <ng-template tabHeading>{{ day.title }}</ng-template>
+
+        <div class="alert alert-info" *ngIf="(birthdayList| filterBy: ['birthMonthDay'] : day.value).length === 0">
+          <p>Für diesen Tag wurden keine Geburtstage gefunden.</p>
+        </div>
+
+        <div class="app-notes" *ngIf="birthdayList.length > 0">
+          <div class="app-notes__items">
+            <div class="app-notes__item"
+              *ngFor="let entry of birthdayList | filterBy: ['birthMonthDay'] : day.value | orderBy: ['lastName', 'firstName']">
+
+              <div class="app-notes__media">
+                <span class="app-notes__icon">
+                  <i class="fa app-font-brand" [ngClass]="entry.gender === 'männlich' ? 'fa-male' : 'fa-female'"></i>
+                </span>
+              </div>
+
+              <div class="app-notes__content">
+                <div class="app-notes__section">
+                  <div class="app-notes__info d-flex justify-content-between">
+                    <span class="app-notes__title"> {{entry.lastName}}
+                      {{entry.firstName}}
+                    </span>
+                    <span class="app-badge app-badge--brand app-badge--inline float-right">
+                      TODO {{ entry.zodiac }}
+                    </span>
+                  </div>
+                </div>
+                <span class="app-notes__body text-danger">TODO</span>
+
+                TODO
+                <!-- <div class="d-flex justify-content-start pt-3">
+                  <a class="pr-3" [routerLink]="['/members/detail', entry.id]"
+                    *ngIf="entry.types.indexOf('members') > -1">&#10152;
+                    'birthday.member'</a>
+                  <a class="pr-3" [routerLink]="['/players/detail', entry.id]"
+                    *ngIf="entry.types.indexOf('players') > -1">&#10152;
+                    'birthday.player'</a>
+                  <a [routerLink]="['/seniors/detail', entry.id]" *ngIf="entry.types.indexOf('seniors') > -1">&#10152;
+                    'birthday.senior'</a>
+                </div> -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+
+  </app-portlet-body>
+</app-portlet>

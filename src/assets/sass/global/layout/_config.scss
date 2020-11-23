@@ -1,0 +1,29 @@
+//
+// Layout Config
+//
+
+// Layout
+$app-aside-default-width: 265px;
+$app-aside-minimize-width: 70px;
+$app-aside-offcanvas-width: 255px;
+
+// Layout Skins
+$app-layout-skins: (
+	dark: #1e1e2d,
+	light: #ffffff,
+);
+
+// content bg color
+$app-content-bg-color: #f2f3f8;
+
+// Border Radius
+$app-border-radius: 4px;
+
+// Page padding
+$app-page-padding: (
+	desktop: 25px,
+	mobile: 15px,
+);
+
+// Page container width
+$app-page-container-width: 1380px;

@@ -1,0 +1,75 @@
+//
+// Form
+//
+
+.app-form {
+	.app-form__group {
+		&.app-form__group--inline {
+			display: table;
+			padding: 0;
+
+			> .app-form__label {
+				display: table-cell;
+				vertical-align: middle;
+				margin: 0;
+				padding-right: 1rem;
+
+				&.app-form__label-no-wrap {
+					white-space: nowrap;
+				}
+
+				> label {
+					margin: 0;
+				}
+			}
+
+			> .app-form__control {
+				display: table-cell;
+				vertical-align: middle;
+				margin: 0;
+				width: 100%;
+			}
+		}
+	}
+
+	// Action bar
+	.app-form__actions {
+		&.app-form__actions--right {
+			text-align: right;
+		}
+
+		&.app-form__actions--center {
+			text-align: center;
+		}
+	}
+
+	&.app-form--center {
+		width: 60%;
+		margin: 0 auto;
+	}
+}
+
+// Validation feedback
+.is-valid {
+	.valid-feedback {
+		display: inline-block;
+	}
+}
+
+.is-invalid {
+	.invalid-feedback {
+		display: inline-block;
+	}
+}
+
+@include app-desktop {
+	.app-form {
+		&.app-form--label-right {
+			.form-group {
+				label:not(.app-checkbox):not(.app-radio):not(.app-option) {
+					text-align: right;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,12 @@
+<app-portlet>
+  <app-portlet-header title="Dateien hochladen">
+    <ng-container portletTools>
+      <button type="button" class="btn btn-info mr-1" (click)="showStatistics()">Statistik</button>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <app-media-list [allowUpload]="true"></app-media-list>
+
+  </app-portlet-body>
+</app-portlet>

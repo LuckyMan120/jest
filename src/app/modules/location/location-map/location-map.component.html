@@ -1,0 +1,51 @@
+<app-portlet>
+  <app-portlet-header title="Kartenansicht aller Spielorte" icon="fa fa-map-signs"></app-portlet-header>
+  <app-portlet-body>
+    <div class="row" *ngIf="locations$ | async as locations">
+      <div class="col-lg-9">
+
+        <!--<google-map height="400px" width="750px" [center]="center" [zoom]="zoom" (mapClick)="addMarker($event)"
+          (mapMousemove)="move($event)" (mapRightclick)="removeLastMarker()">
+          <map-marker #marker *ngFor="let markerPosition of markerPositions" [position]="markerPosition"
+            [options]="markerOptions" (mapClick)="openInfoWindow(marker)"></map-marker>
+          <map-info-window>Info Window content</map-info-window>
+        </google-map>-->
+
+        <!-- <agm-map [latitude]="mapCenter.lat" [zoom]="zoom" [longitude]="mapCenter.lng">
+          <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label">
+            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+              <ng-template>
+                {{m.label}}
+              </ng-template>
+            </agm-snazzy-info-window>
+          </agm-marker>
+        </agm-map>-->
+      </div>
+      <div class="col-lg-3">
+        <div class="app-notification-v2 ps" style="position: relative; max-width: 600px; max-height: 78vh;"
+          [perfectScrollbar]="config">
+          <div class="alert alert-info">
+            TODO
+            <p>'location.map.setMarkerDescription'</p>
+          </div>
+          <ng-container *ngFor="let location of locations | orderBy: ['title']">
+            <a style="cursor: pointer;" (click)="addMarker(location)" class="app-notification-v2__item">
+              <div class="app-notification-v2__item-icon">
+                <img src="/assets/images/default-logo.png" />
+              </div>
+              <div class="app-notification-v2__itek-wrapper">
+                <div class="app-notification-v2__item-title">
+                  {{location.title}}
+                </div>
+                <div class="app-notification-v2__item-desc">
+                  {{location.address.streetName}} {{location.address.houseNumber}},
+                  {{location.address.zip}} {{location.address.city}} ({{location.address.county}})
+                </div>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </app-portlet-body>
+</app-portlet>

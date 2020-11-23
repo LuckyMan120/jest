@@ -1,0 +1,62 @@
+<app-portlet *ngIf="match$ | async as match">
+  <app-portlet-header title="Spielszenen & Ereignisse" class="app-portlet__head--lg">
+    <ng-container portletTools>
+      <button *ngIf="!showForm" type="button" (click)="toggleForm()" class="btn btn-primary">
+        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">Neues Spielszene</span>
+      </button>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <ng-container *ngIf="!showForm">
+      <div class="alert alert-warning" *ngIf="!match.matchEvents || !match.matchEvents.length">
+        Es sind noch keine Spielereignisse vorhanden.
+      </div>
+
+      <div class="app-timeline-v2" *ngIf="match.matchEvents">
+        <div class="app-timeline-v2__items  app-padding-top-25 app-padding-bottom-30">
+
+          <ng-container *ngFor="let event of match.matchEvents | orderBy: ['playMinute']; let i = index">
+
+            <div *ngIf="(eventCategories | filterBy: ['id'] : event.assignedCategoryId : true)[0] as assignedCategory"
+              class="app-timeline-v2__item">
+
+              <span class="app-timeline-v2__item-time">{{event.playMinute}}</span>
+              <div class="app-timeline-v2__item-cricle">
+                <i class="fa fa-genderless" [style.background-color]="assignedCategory.color || ''"></i>
+              </div>
+
+              <div class="app-timeline-v2__item-text" [ngClass]="event.title ? 'app-timeline-v2__item-text--bold' : ''">
+                <span style="color: #cecece;">{{assignedCategory.title}}</span><br />
+                {{ event.title }}
+                <!-- | setMemberPlaceholder : [event.assignedPlayerOneId, event.assignedPlayerTwoId] | async -->
+                <br />
+                <span class="font-weight-normal" [innerHTML]="event.description">
+                  <!-- | setMemberPlaceholder : [ event.playerOne, event.playerTwo ] | async -->
+                </span>
+
+                <div class="d-flex flex-row justify-content-end">
+                  <button type="button" class="btn btn-warning btn-icon mr-1" (click)="editMatchEvent(event)">
+                    <i class="fa fa-pen"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-danger btn-icon" (click)="deleteMatchEvent(event)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="showForm">
+      <match-event-form (toggleForm)="toggleForm()" [match]="match" [selectedEvent]="selectedEvent">
+      </match-event-form>
+    </ng-container>
+
+  </app-portlet-body>
+</app-portlet>

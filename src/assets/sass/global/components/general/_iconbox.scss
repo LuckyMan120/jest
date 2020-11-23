@@ -1,0 +1,128 @@
+//
+// Iconbox
+//
+
+.app-iconbox {
+	padding: 1.5rem;
+
+	.app-iconbox__body {
+		display: flex;
+		flex-wrap: nowrap;
+
+		.app-iconbox__icon {
+			$svg-size: 50px;
+			flex: 0 0 $svg-size;
+			padding-right: 20px;
+
+			svg {
+				height: $svg-size;
+				width: $svg-size;
+			}
+		}
+
+		.app-iconbox__desc {
+			display: flex;
+			flex-direction: column;
+
+			.app-iconbox__title {
+				font-size: 1.55rem;
+				color: app-base-color(label, 4);
+
+				.app-link {
+					color: app-base-color(label, 4);
+				}
+			}
+
+			.app-iconbox__content {
+				font-size: 1.1rem;
+				font-weight: 400;
+				color: #9392a0;
+			}
+		}
+	}
+
+	a.app-iconbox__body {
+		cursor: pointer;
+	}
+
+	&--wave {
+		@include wave;
+
+		&:after {
+			transform: rotate(45deg);
+		}
+	}
+
+	&--animate {
+		@include wave;
+
+		&:after {
+			animation: wave 15s infinite linear;
+		}
+
+		&-slower {
+			@include wave;
+
+			&:after {
+				animation: wave 30s infinite linear;
+			}
+		}
+
+		&-slow {
+			@include wave;
+
+			&:after {
+				animation: wave 25s infinite linear;
+			}
+		}
+
+		&-fast {
+			@include wave;
+
+			&:after {
+				animation: wave 10s infinite linear;
+			}
+		}
+
+		&-faster {
+			@include wave;
+
+			&:after {
+				animation: wave 5s infinite linear;
+			}
+		}
+	}
+
+	@each $name, $color in $app-state-colors {
+		&--#{$name} {
+			.app-iconbox__body {
+				.app-iconbox__icon {
+					svg {
+						g {
+							[fill] {
+								fill: app-get($color, base) !important;
+							}
+						}
+					}
+				}
+			}
+
+			&.app-iconbox--animate,
+			&.app-iconbox--animate-slow,
+			&.app-iconbox--animate-slower,
+			&.app-iconbox--animate-fast,
+			&.app-iconbox--animate-faster {
+				background-color: rgba(app-state-color(#{$name}), 0.07) !important;
+			}
+		}
+	}
+}
+
+@keyframes wave {
+	from {
+		transform: rotate(0deg);
+	}
+	from {
+		transform: rotate(360deg);
+	}
+}

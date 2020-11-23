@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-lg-12 text-right">
+
+    <button *ngIf="mode !== 'view'" class="btn btn-warning mb-1 text-white" type="button" (click)="addGallery()">
+      <i class="fas fa-plus"></i>
+      Galerie löschen
+    </button>
+  </div>
+
+  <div class="col-lg-12">
+    TODO
+    <!--<ng-container *ngIf="galleries$ | async | keyvalue as galleries">
+
+      <div class="alert alert-info" *ngIf="!galleries">
+        Es sind noch keine Galerien erstellt worden.
+      </div>
+
+      <ng-container *ngFor="let gallery of galleries;trackBy:trackByGallery">
+        <h1 class="text-danger">ToDo</h1>
+        <pre>{{ gallery | json}}</pre>
+        <app-media-gallery [gallery]="gallery.value" (galleryChanged)="updateGallery(gallery.key, $event)"
+          (deleteGallery)="deleteGallery(gallery.key)" [mode]="mode"></app-media-gallery>
+      </ng-container>
+    </ng-container>-->
+  </div>
+</div>

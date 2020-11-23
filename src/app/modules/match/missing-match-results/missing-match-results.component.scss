@@ -1,0 +1,12 @@
+.homeTeamGoals,
+.guestTeamGoals {
+  // width: 5rem !important;
+}
+
+tr {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+tr.fadeOut {
+    opacity:0;
+}

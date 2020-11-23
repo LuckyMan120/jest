@@ -1,0 +1,14 @@
+:host {
+	.app-aside {
+		height: 100%;
+
+		.app-aside-menu {
+			margin: 0;
+		}
+	}
+
+	// fixed text line break issue on minimized aside hover
+	.app-menu__link-text {
+		white-space: nowrap;
+	}
+}

@@ -1,0 +1,95 @@
+//
+// Kanban Board
+//
+
+// Base
+.kanban-container {
+	width: 100% !important;
+	display: flex;
+	flex-wrap: wrap;
+
+	.kanban-board {
+		width: calc(20% - 1.25rem) !important;
+		border-radius: $app-border-radius;
+		margin-bottom: 1.25rem;
+		margin-right: 1.25rem !important;
+		background-color: app-base-color(grey, 1);
+
+		.kanban-title-board {
+			font-weight: 600;
+			font-size: 1.2rem;
+		}
+
+		@each $name, $color in $app-state-colors {
+			.#{$name} {
+				background-color: app-state-color(#{$name}, base);
+				color: app-state-color(#{$name}, inverse);
+			}
+
+			.#{$name}-light {
+				background-color: rgba(app-state-color(#{$name}, base), 0.1);
+				color: app-state-color(#{$name}, base);
+			}
+		}
+
+		@include app-minimal-desktop-and-below {
+			width: calc(33% - 1.25rem) !important;
+		}
+
+		@include app-tablet-and-mobile {
+			width: calc(50% - 1.25rem) !important;
+		}
+
+		@include app-mobile {
+			width: 100% !important;
+			margin-right: 0 !important;
+		}
+	}
+
+	.kanban-board-header {
+		border-top-left-radius: $app-border-radius;
+		border-top-right-radius: $app-border-radius;
+	}
+
+	.kanban-item {
+		border-radius: $app-border-radius;
+		font-weight: 500;
+		box-shadow: 0px 0px 13px 0px rgba(#000, 0.05);
+
+		@each $name, $color in $app-state-colors {
+			&[data-class="#{$name}"] {
+				background-color: rgba(app-state-color(#{$name}, base), 0.1);
+				color: app-state-color(#{$name}, base);
+				box-shadow: none;
+			}
+		}
+	}
+}
+
+.app-kanban__badge {
+	display: flex;
+	align-content: center;
+
+	.app-kanban__title {
+		font-weight: 500;
+		margin-bottom: 0.5rem;
+	}
+
+	.app-kanban__image {
+		margin-right: 1.25rem;
+		flex: 0 0 50px;
+	}
+}
+
+.kanban-toolbar {
+	padding: 1rem 0;
+
+	.kanban-toolbar__title {
+		font-weight: 500;
+		margin-bottom: 0.75rem;
+	}
+
+	.form-control {
+		align-items: center;
+	}
+}

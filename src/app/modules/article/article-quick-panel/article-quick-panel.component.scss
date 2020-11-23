@@ -1,0 +1,11 @@
+:host {
+	::ng-deep {
+		tabset > .nav-tabs {
+			display: none;
+		}
+	}
+}
+
+.app-quick-panel__content-padding-x {
+	padding-top: 2rem;
+}

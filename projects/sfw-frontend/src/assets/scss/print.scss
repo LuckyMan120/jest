@@ -1,0 +1,32 @@
+@media print {
+    @page {
+      margin: 20px 30px;
+    } 
+    .slick-arrow, .latest_results, .newsletter, .footer_main{
+        display:none;
+    }
+    .header{
+        position: relative;
+    }
+    .banner_slider{
+        padding:40px 0;
+    }
+    .sponsership{
+        padding:60px 0;
+        .spons_text{
+            display:none;
+        }
+    }
+    .next_match{
+        padding:40px 0;
+    }
+    .article_list {
+        padding:40px 0;
+        .articles{
+            margin:0;
+        }
+    }
+    .footer {
+        padding: 40px 0;
+    }
+}

@@ -1,0 +1,49 @@
+<ng-container *ngIf="user$ | async as _user">
+  <div dropdown placement="bottom-right" class="app-header__topbar-item app-header__topbar-item--user">
+
+    <div dropdownToggle class="app-header__topbar-wrapper">
+      <div class="app-header__topbar-user">
+        <span class="app-header__topbar-welcome app-hidden-mobile">Hi,</span>
+        <span class="app-header__topbar-username app-hidden-mobile">{{_user.displayName}}</span>
+        <img [hidden]="true" alt="Pic" [attr.src]="_user.photoUrl">
+        <span
+          class="app-badge app-badge--username app-badge--unified-success app-badge--lg app-badge--rounded app-badge--bold">
+          {{_user.displayName | firstLetter}}
+        </span>
+      </div>
+    </div>
+    <div *dropdownMenu
+      class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+      <div class="app-user-card app-user-card--skin-dark app-notification-item-padding-x"
+        style="background-image: url('../../../../../../assets/media/misc/bg-1.jpg')">
+        <div class="app-user-card__avatar">
+          <img [src]="_user.photoUrl" [alt]="_user.displayName" />
+          <span [hidden]="true" class="app-badge app-badge--lg app-badge--rounded app-badge--bold app-font-success">
+            {{_user.displayName }}
+          </span>
+        </div>
+        <div class="app-user-card__name">
+          {{_user.displayName }}
+        </div>
+      </div>
+
+      <div class="app-notification">
+        <a [routerLink]="['/users/detail', _user.id]" href="" class="app-notification__item">
+          <div class="app-notification__item-icon">
+            <i class="fa fa-user-lock app-font-success"></i>
+          </div>
+          <div class="app-notification__item-details">
+            <div class="app-notification__item-title app-font-bold">Mein Profil</div>
+            <div class="app-notification__item-time">Deine Account-Einstellungen</div>
+          </div>
+        </a>
+
+        <div class="app-notification__custom">
+          <button (click)="logout()" class="btn btn-outline-brand btn-upper btn-sm btn-bold">
+            Abmelden
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

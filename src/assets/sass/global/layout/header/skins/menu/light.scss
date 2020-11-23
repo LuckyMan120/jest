@@ -1,0 +1,18 @@
+//
+// Header Menu light Skin
+//
+
+// Include global config
+@import "../../../../../config";
+
+// Include layout config
+@import "../../../config";
+
+// Include header config
+@import "../../config";
+
+// Build Desktop Header Menu Skin
+@include app-menu-hor-build-skin(app-get($app-header-config, menu, desktop), light);
+
+// Build Mobile Header Menu Skin
+@include app-menu-ver-build-skin(app-get($app-header-config, menu, tablet-and-mobile), light);

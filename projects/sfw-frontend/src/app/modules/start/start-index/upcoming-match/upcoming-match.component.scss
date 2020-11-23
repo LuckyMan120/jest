@@ -1,0 +1,120 @@
+@import '../../../../../assets/scss/myvariables';
+@import '../../../../../assets/scss/mymixins';
+
+.next_match {
+    padding: 195px 0 235px;
+    h2 {
+        font-size: $fontSize-hero;
+        color: $primary;
+        position: relative;
+        &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            background: $gray_1;
+            width: 75%;
+            height: 2px;
+            left: -50%;
+            top: 0;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            background: $gray_1;
+            width: 75%;
+            height: 2px;
+            right: -50%;
+            top: 0;
+        }
+        @include phone_wide {
+            font-size: $fontSize-smallTitle;
+        }
+    }
+    .next_match_table {
+        max-width: 760px;
+        margin: 20px auto;
+        .match_name {
+            margin-bottom: 20px;
+            p {
+                font-size: $fontSize-xs + 1;
+                font-weight: bold;
+                color: $primary;
+                span {
+                    color: $secondary;
+                    text-transform: uppercase;
+                    display: block;
+                }
+            }
+        }
+        .team_result {
+            padding: 0 20px;
+            img {
+                margin: 0 auto;
+            }
+            p {
+                color: $primary;
+                font-weight: bold;
+                line-height: 17px;
+                margin-top: 10px;
+            }
+            .team_score {
+                .result_number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: $fontSize-smallTitle;
+                    color: $gray;
+                    font-weight: 800;
+                    span {
+                        font-size: $fontSize-hero;
+                        color: $primary;
+                        padding: 0 55px;
+                    }
+                }
+                .team_score_small {
+                    font-size: $fontSize-xs + 1;
+                    color: $gray;
+                    span {
+                        padding: 0 2px;
+                    }
+                }
+            }
+        }
+        .match_dtime {
+            margin-bottom: 20px;
+            span {
+                font-size: $fontSize-xs - 1;
+                font-weight: bold;
+                color: $primary;
+                margin: 0 10px;
+            }
+        }
+    }
+    .btn {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        line-height: 23px;
+        span.bg-arrow {
+            display: inline-block;
+        }
+    }
+    .all_match {
+        margin-top: 30px;
+        a {
+            font-size: $fontSize-xs - 1;
+            line-height: 20px;
+            color: $secondary;
+            text-transform: uppercase;
+            border-bottom: 2px solid $secondary;
+            &:hover {
+                color: $primary;
+                border-color: $primary;
+            }
+        }
+    }
+    @include phone_wide {
+        padding: 150px 0 170px;
+    }
+}

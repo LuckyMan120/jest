@@ -1,0 +1,71 @@
+//
+// Widget3
+//
+
+.app-widget3 {
+    // widjet header
+    .app-widget3__item {
+        margin-bottom: 1rem;
+
+        .app-widget3__header {
+            margin-top: 1.5rem;
+            padding-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .app-widget3__user-img {
+                .app-widget3__img {
+                    width: 3.2rem;
+                    border-radius: 50%;
+                }
+            }
+
+            // widget info
+            .app-widget3__info {
+                padding-left: 1rem;
+
+                .app-widget3__username {
+                    font-weight: 500;
+                    color: app-base-color(label, 3);
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: app-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+
+                .app-widget3__time {
+                    font-size: 0.9rem;
+                    font-weight: 400;
+                    color: app-base-color(label, 2);
+                }
+            }
+
+            // widget status
+            .app-widget3__status {
+                font-weight: 500;
+                flex-grow: 1;
+                text-align: right;
+            }
+        }
+
+        // widget body
+        .app-widget3__body {
+            .app-widget3__text {
+                color: app-base-color(label, 2);
+            }
+        }
+
+        border-bottom: 0.07rem dashed app-base-color(grey, 2);
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        &:first-child .app-widget3__header {
+            margin-top: 0;
+        }
+    }
+}

@@ -1,0 +1,333 @@
+<app-portlet *ngIf="team$ | async as team">
+  <form [formGroup]="form" (submit)="onSubmit(false)">
+    <app-portlet-header [title]="(team.id ? 'team.editTitle' : 'team.createTitle') ">
+      <ng-container portletTools>
+
+        <div class="d-flex flex-row m-3">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">{{ team.id ? 'Editieren' : 'Speichern'  }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/teams/list']">
+                  <i class="fas fa-list-ul fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="team.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteTeam(team)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body>
+
+      <app-alert *ngIf="hasFormErrors" type="warning" [showCloseButton]="true" [duration]="10000"
+        (close)="onAlertClose()">
+        Achtung! Beim Speicherversuch sind Fehler aufgetreten. Bitte überprüfe Deine Eingaben!
+      </app-alert>
+
+      <app-alert *ngIf="team.isImported" type="warning" [showCloseButton]="true" [duration]="10000"
+        (close)="onAlertClose()">
+        Diese Mannschaft wurde aus dem Vereinsspielplan importiert.
+      </app-alert>
+
+      <tabset type="pills">
+
+        <tab heading="Wichtigste Infos">
+          <div class="row">
+
+            <div class="col-lg-7">
+              <app-portlet>
+                <app-portlet-header title="Grunddaten">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput maxlength="100" placeholder="Titel der Mannschaft" formControlName="title">
+                  </mat-form-field>
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput maxlength="100" placeholder="Untertitel" formControlName="subTitle">
+                  </mat-form-field>
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-select placeholder="Verknüpfte Saison" formControlName="assignedSeasonId">
+                      <mat-option *ngFor="let season of seasons$ | async | orderBy: ['title']" [value]="season.id">
+                        {{season.title}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-select placeholder="Verknüpfte Kategorien" multiple formControlName="assignedCategoryIds">
+                      <mat-option *ngFor="let category of categories$ | async | orderBy: ['title']"
+                        [value]="category.id">
+                        {{category.title}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Externer Link" formControlName="externalTeamLink">
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field-fluid">
+                    <textarea matInput formControlName="info" placeholder="Weitere Infos" rows="5" cols="20"></textarea>
+                  </mat-form-field>
+
+                  <div class="mat-form-field-fluid">
+                    <mat-checkbox formControlName="isOfficialTeam">Offiziell gemeldete Mannschaft
+                    </mat-checkbox>
+                  </div>
+                  <div class="mat-form-field-fluid">
+                    <mat-checkbox formControlName="isImported"> importierte Mannschaft
+                    </mat-checkbox>
+                  </div>
+                  <div class="mat-form-field-fluid">
+                    <mat-checkbox formControlName="isSignedOut"> abgemeldete Mannschaft
+                    </mat-checkbox>
+                  </div>
+                  <!-- ToDO -->
+                  <div class="mat-form-field-fluid text-danger">
+                    <mat-checkbox formControlName="isValid"> valide Mannschaft</mat-checkbox>
+                  </div>
+                  <div class="mat-form-field-fluid">
+                    <mat-checkbox formControlName="isMainTeam"> Hauptmannschaft
+                    </mat-checkbox>
+                  </div>
+                  <div class="mat-form-field-fluid">
+                    <mat-checkbox formControlName="displayInMainMenu"> im Hauptmenü anzeigen
+                    </mat-checkbox>
+                  </div>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+
+            <div class="col-lg-5">
+              <app-portlet>
+                <app-portlet-header title="Mannschaftsfoto">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <img class="img-fluid img-thumbnail" [src]="team.galleries?.Mannschaftsfotos | displayFirstMedia"
+                    alt="{{team.title}}" />
+                </app-portlet-body>
+              </app-portlet>
+
+              <app-portlet *ngIf="team.imageUrl">
+                <app-portlet-header title="Foto auf fussball.de">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <img class="img-fluid img-thumbnail" [src]="team.imageUrl" />
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+
+          </div>
+        </tab>
+
+        <tab heading="Mannschaftsdetails">
+          <div class="row">
+            <div class="col-lg-6">
+              <team-positions-form [form]="form" title="Trainer- und Betreuerstab" managementType="externMgmt">
+              </team-positions-form>
+            </div>
+            <div class="col-lg-6">
+              <team-positions-form [form]="form" title="Mannschaftsinterne Aufgaben" managementType="internMgmt">
+              </team-positions-form>
+            </div>
+            <div class="col-lg-6" *ngIf="form.get('isOfficialTeam')?.value">
+              <team-training-form [showLinks]="true"></team-training-form>
+            </div>
+
+            <div class="col-lg-6">
+              <app-portlet>
+                <app-portlet-header title="Spieler der Mannschaft">
+                </app-portlet-header>
+                <app-portlet-body>
+
+                  <div class="alert alert-info" *ngIf="!team.assignedPlayerIds">
+                    <p>Dieser Mannschaft wurden noch keine Spieler zugewiesen</p>
+                  </div>
+
+                  <app-autocomplete itemsType="players" placeholder="Verknüpfte Spieler" [multiple]="true"
+                    [control]="assignedPlayersControl">
+                  </app-autocomplete>
+
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Verknüpfte Inhalte">
+          <div class="row">
+            <div class="col-lg-6">
+              <team-assigned-content [edit]="true" type="articles"></team-assigned-content>
+            </div>
+            <div class="col-lg-6">
+              <team-assigned-content [edit]="true" type="matches"></team-assigned-content>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Galerien">
+          <app-media-gallery-list [galleries]="form.value.galleries" (galleriesChanged)="updateControl($event)"
+            mode="remove-with-default">
+          </app-media-gallery-list>
+        </tab>
+
+        <tab heading="Statistiken" *ngIf="team.isOfficialTeam">
+          <div class="row">
+            <div class="col-lg-6">
+              <app-standings></app-standings>
+            </div>
+            <div class="col-lg-6">
+              <app-portlet>
+                <app-portlet-header title="Offizielle Daten">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <div class="alert alert-info" *ngIf="!team.teamInfo">
+                    Es sind keine weiteren offiziellen Daten zu dieser Mannschaft vorhanden.
+                  </div>
+
+                  <div class="table-responsive">
+                    <table *ngIf="team.teamInfo" class="table table-striped table-bordered table-sm table-hover">
+                      <tbody>
+                        <tr>
+                          <th>Wettbewerb</th>
+                          <td>{{team.teamInfo.Wettbewerb}}</td>
+                        </tr>
+                        <tr>
+                          <th>Tabellenplatz</th>
+                          <td>{{team.teamInfo.Tabellenplatz}}</td>
+                        </tr>
+                        <tr>
+                          <th>Punkte</th>
+                          <td>{{team.teamInfo.Punkte}}</td>
+                        </tr>
+                        <tr>
+                          <th>Torverhältnis</th>
+                          <td>{{team.teamInfo['Torverhältnis']}}</td>
+                        </tr>
+                        <tr>
+                          <th>Spielklasse</th>
+                          <td>{{team.teamInfo.Spielklasse}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </app-portlet-body>
+              </app-portlet>
+
+              <app-portlet>
+                <app-portlet-header title="Fussball.de Newsticker">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <div class="alert alert-info" *ngIf="!team.ticker || team.ticker.length === 0">
+                    Es sind keine Neuigkeiten von fussball.de für diese Mannschaft vorhanden
+                  </div>
+                  <ul class="list-group" *ngIf="team.ticker && team.ticker.length > 0">
+                    <li class="list-group-item" *ngFor="let tick of team.ticker">
+                      <a target="_blank" [href]="tick.link">
+                        {{tick.publicationDate}}
+                        {{tick.title}}
+                      </a>
+                    </li>
+                  </ul>
+                </app-portlet-body>
+              </app-portlet>
+
+              <app-portlet>
+                <app-portlet-header title="Wettbewerbe">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <div class="alert alert-info" *ngIf="!team.competitions || team.competitions.length === 0">
+                    Für diese Mannschaft wurden keine Wettbewerbe gefunden.
+                  </div>
+                  <ul class="list-group" *ngIf="team.competitions && team.competitions.length > 0">
+                    <li class="list-group-item" *ngFor="let competition of team.competitions">
+                      <a target="_blank" [href]="competition.link">
+                        {{competition.title}}
+                      </a>
+                    </li>
+                  </ul>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Erstellung und Veröffentlichung">
+          <div class="row">
+            <div class="col-lg-6">
+              <creation-form [form]="form"></creation-form>
+            </div>
+            <div class="col-lg-6">
+              <publication-form [form]="form"></publication-form>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+
+    </app-portlet-body>
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">{{ team.id ? 'Editieren' : 'Speichern'  }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/teams/list']">
+                  <i class="fas fa-list-ul fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="team.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteTeam(team)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

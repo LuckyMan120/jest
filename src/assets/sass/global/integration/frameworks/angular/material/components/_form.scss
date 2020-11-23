@@ -1,0 +1,52 @@
+.ml-auto {
+	margin-left: auto;
+}
+
+.example-full-width {
+	width: 100%;
+}
+
+.form-group .app-timeline-3 {
+	&::before {
+		background-color: transparent;
+	}
+}
+
+// app-form
+.app-form {
+	.app-form__filtration,
+	.app-form__group-action {
+		margin: 0 0 30px;
+	}
+	.app-form__actions.app-form__actions--sm {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+	.app-form__actions {
+		padding: 30px;
+		&.app-form__actions--solid {
+			padding: 30px;
+			background-color: #f7f8fa;
+			border-color: #f7f8fa;
+		}
+	}
+}
+
+.app-margin {
+	&-top-20 {
+		margin-top: 20px;
+	}
+	&-bottom-20 {
+		margin-bottom: 20px;
+	}
+}
+
+.app-padding-0 {
+	padding: 0;
+}
+
+.app-form.app-form--group-seperator .app-form__group,
+.app-form.app-form--group-seperator-dashed .app-form__group {
+	padding-top: 25px;
+	padding-bottom: 25px;
+}

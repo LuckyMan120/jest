@@ -1,0 +1,35 @@
+//
+// Container
+//
+
+// Base
+.app-container {
+    &,
+    &.app-container--fluid {
+        width: 100%;
+        margin: 0;
+    }
+
+    &.app-container--fit {
+        padding: 0 !important;
+    }
+
+    &.app-container--fit-left {
+        padding-left: 0 !important;
+    }
+
+    &.app-container--fit-right {
+        padding-right: 0 !important;
+    }
+}
+@media (min-width: #{$app-page-container-width + (2 * app-get($app-page-padding, desktop)) - 1px}) {
+    .app-container {
+        width: $app-page-container-width;
+        margin: 0 auto;
+
+        &.app-container--fluid {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}

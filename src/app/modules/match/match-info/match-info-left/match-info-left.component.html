@@ -1,0 +1,50 @@
+<table class="table table-striped table-hover table-bordered">
+  <tr>
+    <th>Spiel</th>
+    <td>{{match.assignedTeamTitle}}: {{match.homeTeam?.title}} &ndash; {{match.guestTeam?.title}}
+    </td>
+  </tr>
+  <tr>
+    <th>Kategorien</th>
+    <td>
+      <ng-container *ngFor="let categoryTitle of match.assignedCategoryTitles; let i = index; let last = last">
+        <a *ngIf="match.assignedCategoryIds && match.assignedCategoryIds[i]"
+          [routerLink]="['/categories/detail', match.assignedCategoryIds[i]]">{{categoryTitle}}</a>
+        <ng-container *ngIf="!last">,&nbsp; </ng-container>
+      </ng-container>
+    </td>
+  </tr>
+  <tr>
+    <th>Spielort</th>
+    <td>
+      <a [routerLink]="['/locations/detail', match.assignedLocationId]">{{match.assignedLocationTitle}}</a>
+    </td>
+  </tr>
+  <tr>
+    <th>Verknüpfte Mannschaft</th>
+    <td>
+      <a [routerLink]="['/teams/detail', match.assignedTeamId]">{{match.assignedTeamTitle}}</a>
+    </td>
+  </tr>
+  <tr>
+    <th>importiert</th>
+    <td>{{match.isImported ? 'ja' : 'nein' }}</td>
+  </tr>
+  <tr>
+    <th>Heimspiel</th>
+    <td>{{match.isHomeTeam ? 'ja' : 'nein' }}</td>
+  </tr>
+  <tr>
+    <th>offizielles Spiel</th>
+    <td>{{match.isOfficialMatch ? 'ja' : 'nein' }}</td>
+  </tr>
+  <tr>
+    <th>Externer Link zum Spiel</th>
+    <td><a target="_blank" [href]="match.matchLink">Anzeigen</a>
+    </td>
+  </tr>
+  <tr>
+    <th>Spielart</th>
+    <td>{{match.matchType}}</td>
+  </tr>
+</table>

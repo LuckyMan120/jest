@@ -1,0 +1,114 @@
+//
+// Widget5
+//
+
+.app-widget5 {
+    .app-widget5__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+
+        .app-widget5__content {
+            display: flex;
+            align-items: center;
+
+            .app-widget5__pic {
+                padding-right: 1.25rem;
+
+                img {
+                    max-width: 8.5rem;
+
+                    @include app-rounded {
+                        border-radius: $app-border-radius;
+                    }
+                }
+            }
+
+            .app-widget5__title {
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: app-base-color(label, 3);
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: app-brand-color();
+                    transition: color 0.3s ease;
+                }
+            }
+
+            .app-widget5__desc {
+                margin: 0;
+                padding: 0.4rem 0;
+                font-size: 1rem;
+                font-weight: 400;
+                color: app-base-color(label, 2);
+            }
+
+            .app-widget5__info {
+                span:nth-child(even) {
+                    font-weight: 500;
+                    margin-right: 0.71rem;
+                }
+            }
+
+            .app-widget5__stats {
+                display: flex;
+                flex-direction: column;
+
+                .app-widget5__number {
+                    font-size: 1.3rem;
+                    font-weight: 500;
+                    color: app-base-color(label, 3);
+                }
+
+                &:first-child {
+                    padding-right: 3rem;
+                }
+            }
+
+            &:last-child {
+                flex-grow: 1;
+                text-align: right;
+                justify-content: flex-end;
+                padding-left: 1rem;
+            }
+        }
+
+        border-bottom: 0.07rem dashed app-base-color(grey, 2);
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget5 {
+        padding: 1rem;
+
+        .app-widget5__item {
+            .app-widget5__content {
+                .app-widget5__pic {
+                    padding-right: 0.5rem;
+
+                    img {
+                        max-width: 4rem;
+                    }
+                }
+
+                .app-widget5__stats {
+                    .app-widget5__number {
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                    }
+
+                    &:first-child {
+                        padding-right: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

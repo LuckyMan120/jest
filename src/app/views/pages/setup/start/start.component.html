@@ -1,0 +1,35 @@
+<div class="app-grid app-grid--hor app-grid--root app-login app-login--v1" id="app_login">
+  <div
+    class="app-grid__item app-grid__item--fluid app-grid app-grid--desktop app-grid--ver-desktop app-grid--hor-tablet-and-mobile">
+    <div class="app-grid__item app-grid__item--order-tablet-and-mobile-2 app-grid app-grid--hor app-login__aside"
+      style="background-image: url('/assets/media/misc/bg-1.jpg'); max-width: 500px;">
+
+      <div class="app-grid__item">
+        <a [routerLink]="['/']" class="app-login__logo" [title]="env.appDefaults.site.title">
+          <img [src]="env.appDefaults.site.logo" style="width: 160px;" [alt]="env.appDefaults.site.title">
+        </a>
+        <h3 class="app-login__title mt-5">{{ env.appDefaults.site.title }}</h3>
+        <h4 class="app-login__subtitle">{{ env.appDefaults.site.description }}</h4>
+      </div>
+
+      <div class="app-grid__item app-grid__item--fluid app-grid app-grid--ver">
+        <div class="app-grid__item app-grid__item--middle">
+          <!-- <h3 class="app-login__title">{{ env.appDefaults.site.title }}</h3>
+          <h4 class="app-login__subtitle">{{ env.appDefaults.site.description }}</h4>-->
+        </div>
+      </div>
+      <div class="app-grid__item">
+        <div class="app-login__info">
+          <div class="app-login__copyright">
+            © {{today | date: 'mediumDate'}} {{env.appDefaults.site.title}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-grid__item app-grid__item--fluid  app-grid__item--order-tablet-and-mobile-1 app-login__wrapper">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

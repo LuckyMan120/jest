@@ -1,0 +1,85 @@
+<app-portlet *ngIf="event$ | async as event">
+  <app-portlet-header title="Szene / Ereignis erstellen">
+  </app-portlet-header>
+
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <app-portlet-body>
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="alert alert-warning"
+            *ngIf="hasFormErrors && form.touched && form.get('title')?.hasError('notEmpty')">
+            Das Ereignis muss einen Titel haben!
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <mat-form-field class="mat-form-field-fluid">
+                <input matInput placeholder="Titel" formControlName="title" />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select placeholder="Art des Ereignisses" (selectionChange)="changeMatchEvent($event)"
+                  formControlName="assignedCategoryId">
+                  <mat-option *ngFor="let category of eventCategories | orderBy: ['title']" [value]="category.id">
+                    {{ category.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="mat-form-field-fluid">
+                <input matInput placeholder="Spielminute" formControlName="playMinute" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="selectedMatchEventCategory">
+            <div class="col-lg-6">
+              <app-autocomplete *ngIf="selectedMatchEventCategory && selectedMatchEventCategory.showPlayerOneInput"
+                itemsType="players" [placeholder]="selectedMatchEventCategory.playerOneTitle " [multiple]="false"
+                [control]="assignedPlayerOneControl">
+              </app-autocomplete>
+            </div>
+            <div class="col-lg-6">
+              <app-autocomplete *ngIf="selectedMatchEventCategory && selectedMatchEventCategory.showPlayerTwoInput"
+                itemsType="players" [placeholder]="selectedMatchEventCategory.playerTwoTitle " [multiple]="false"
+                [control]="assignedPlayerTwoControl">
+              </app-autocomplete>
+            </div>
+          </div>
+
+
+          <div class="mat-form-field-fluid">
+            <label for="description" class="text-hide">Zusatztext</label>
+            <textarea class="w-100 form-control" id="description" placeholder="Zusatztext"
+              formControlName="description">
+						</textarea>
+          </div>
+
+        </div>
+      </div>
+
+    </app-portlet-body>
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+          <div class="btn-group" role="group">
+
+            <button type="submit" formtarget="form" [disabled]="!form.valid"
+              [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+              <i class="fa fa-save" aria-hidden="true"></i>
+              Speichern
+            </button>
+
+            <button class="btn btn-danger" (click)="toggleForm.emit()">
+              <i class="fa fa-cancel" aria-hidden="true"></i>Abbrechen
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </app-portlet-footer>
+  </form>
+</app-portlet>

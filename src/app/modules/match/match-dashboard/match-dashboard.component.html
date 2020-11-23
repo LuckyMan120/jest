@@ -1,0 +1,54 @@
+<div class="row">
+
+  <div class="col-lg-4">
+    <app-portlet>
+      <app-portlet-header icon="fa fa-chart-area" title="Statistik">
+      </app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="matchStatistics$ | async as statistics">
+          <app-chart type="doughnut" [data]="statistics.datasets" [options]="chartOptions"></app-chart>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+
+    <ng-container *ngIf="upcomingMatches$ | async as matches; else noMatchTemplate">
+      <app-portlet *ngIf="matches && matches.length > 0">
+        <app-portlet-header title="Nächstes Spiel"></app-portlet-header>
+        <app-portlet-body>
+          <match-info-right [match]="matches[0]"></match-info-right>
+        </app-portlet-body>
+        <app-portlet-footer>
+          <div class="row">
+            <div class="col-lg-12 text-right pr-5 py-2">
+              <button [routerLink]="['/matches/detail', matches[0]?.id]" class="btn btn-primary btn-sm">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                <span class="d-none d-sm-inline">Spieldetails anzeigen</span>
+              </button>
+            </div>
+          </div>
+        </app-portlet-footer>
+      </app-portlet>
+    </ng-container>
+
+    <app-portlet>
+      <!-- *ngIf="statistics$ | async as statistics" -->
+      <app-portlet-header title="Spielstatistiken">
+      </app-portlet-header><!-- statistics.matchCount + ' ' + -->
+      <app-portlet-body>
+        TODO!!!!
+        <!-- <app-chart *ngIf="matchStats$ | async as stats" [options]="chartOptions" type="doughnut" [data]="stats">
+        </app-chart>-->
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-8">
+    <missing-match-results></missing-match-results>
+  </div>
+</div>
+
+<ng-template #noMatchTemplate>
+  <app-portlet-body>
+    <div class="alert alert-info">Es sind keine Spiele geplant.</div>
+  </app-portlet-body>
+</ng-template>

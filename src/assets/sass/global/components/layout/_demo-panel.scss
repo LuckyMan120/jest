@@ -1,0 +1,253 @@
+//
+// Quick Panel
+//
+
+$app-demo-panel: (
+	self: (
+		bg-color: #fff,
+		shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13),
+		offcanvas: (
+			layout: (
+				self: (
+					zindex: 1001,
+					direction: right,
+					transition: all 0.3s ease,
+					width: 350px,
+				),
+				close: (
+					size: 25px,
+					font-size: 1.4rem,
+				),
+			),
+			skin: (
+				overlay: (
+					bg-color: rgba(#000000, 0.05),
+				),
+			),
+		),
+	),
+);
+
+// Base
+.app-demo-panel-toggle {
+	background-color: #fff;
+	cursor: pointer;
+	position: fixed;
+	z-index: app-get($app-demo-panel, self, offcanvas, layout, self, zindex) - 1;
+	right: 0;
+	top: 200px;
+	width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.5rem 0;
+	box-shadow: app-get($app-demo-panel, self, shadow);
+
+	span {
+		writing-mode: vertical-rl;
+		text-orientation: mixed;
+		font-size: 1.3rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		color: app-brand-color();
+		letter-spacing: 3px;
+	}
+
+	@include app-rounded {
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
+	}
+}
+
+.app-demo-panel {
+	background-color: app-get($app-demo-panel, self, bg-color);
+	box-shadow: app-get($app-demo-panel, self, shadow);
+	padding: 2.5rem;
+
+	// Head
+	.app-demo-panel__head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 3rem;
+
+		.app-demo-panel__title {
+			font-size: 1.4rem;
+			font-weight: 500;
+			color: app-base-color(label, 4);
+			margin: 0;
+			padding: 0;
+
+			small {
+				color: app-base-color(label, 2);
+				font-size: 1.1rem;
+			}
+		}
+
+		.app-demo-panel__close {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 28px;
+			height: 28px;
+			background-color: app-base-color(grey, 1);
+			@include app-transition();
+
+			i {
+				@include app-transition();
+				font-size: 0.8rem;
+				color: app-base-color(label, 2);
+			}
+
+			@include app-rounded {
+				border-radius: $app-border-radius;
+			}
+
+			&:hover {
+				@include app-transition();
+				background-color: app-brand-color();
+
+				i {
+					@include app-transition();
+					color: app-brand-color(inverse);
+				}
+			}
+		}
+	}
+
+	// Content
+	.app-demo-panel__body {
+		position: relative;
+
+		.ps__rail-y {
+			opacity: 1;
+		}
+
+		.app-demo-panel__item {
+			display: block;
+			margin-bottom: 2rem;
+			outline: 0;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+
+			.app-demo-panel__item-title {
+				font-size: 1.1rem;
+				font-weight: 500;
+				color: app-base-color(label, 3);
+				text-align: center;
+				margin-bottom: 0.5rem;
+			}
+
+			.app-demo-panel__item-preview {
+				overflow: hidden;
+				position: relative;
+				@include app-transition();
+				border: 4px solid app-base-color(grey, 2);
+
+				img {
+					width: 100%;
+				}
+
+				.app-demo-panel__item-preview-overlay {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: rgba(#000, 0.15);
+					@include app-transition();
+					opacity: 0;
+
+					.btn {
+						margin-right: 5px;
+
+						&:last-child {
+							margin-right: 0;
+						}
+
+						&.btn-light {
+							background-color: #fff;
+							color: app-base-color(label, 2);
+
+							&:hover {
+								background-color: #fff;
+								color: app-base-color(label, 3);
+							}
+						}
+					}
+				}
+
+				@include app-rounded {
+					border-radius: 4px;
+				}
+			}
+
+			&.app-demo-panel__item--active {
+				.app-demo-panel__item-preview {
+					@include app-transition();
+					border: 4px solid app-brand-color();
+				}
+			}
+
+			&:hover {
+				.app-demo-panel__item-preview {
+					@include app-transition();
+
+					.app-demo-panel__item-preview-overlay {
+						@include app-transition();
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		.app-demo-panel__purchase {
+			margin-bottom: 2rem;
+			display: block;
+		}
+	}
+}
+
+// Desktop view
+@include app-desktop {
+	.app-demo-panel {
+		.app-demo-panel__body {
+			padding-right: 1.5rem;
+			margin-right: -1.5rem;
+		}
+	}
+}
+
+// Build offcanvas mode
+@include app-offcanvas-build(app-demo-panel, default, app-get($app-demo-panel, self, offcanvas));
+
+// Mobile view
+@include app-tablet-and-mobile {
+	.app-demo-panel-toggle {
+		width: 30px;
+		padding: 1rem 0;
+
+		span {
+			font-size: 1.2rem;
+			font-weight: 600;
+			letter-spacing: 2px;
+		}
+	}
+
+	.app-demo-panel {
+		padding: 1rem;
+	}
+
+	.app-demo-panel-toggle {
+		top: 20%;
+	}
+}

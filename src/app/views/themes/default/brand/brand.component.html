@@ -1,0 +1,16 @@
+<!-- begin:: Brand -->
+<div class="app-aside__brand m-grid__item" [ngClass]="htmlClassService.getClasses('brand', true)" id="app_aside_brand">
+  <div class="app-aside__brand-logo">
+    <a href="javascript:;" routerLink="/">
+      <img alt="logo" [attr.src]="headerLogo" />
+    </a>
+  </div>
+  <div class="app-aside__brand-tools">
+    <button toggle [options]="toggleOptions" class="app-aside__brand-aside-toggler app-aside__brand-aside-toggler--left"
+      id="app_aside_toggler">
+      <span inlineSVG="/assets/media/icons/svg/Navigation/Angle-double-left.svg"></span>
+      <span inlineSVG="/assets/media/icons/svg/Navigation/Angle-double-right.svg"></span>
+    </button>
+  </div>
+</div>
+<!-- end:: Brand -->

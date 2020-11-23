@@ -1,0 +1,61 @@
+//
+// Separator
+//
+
+.app-separator {
+    height: 0;
+    margin: 20px 0;
+    border-bottom: 1px solid app-base-color(grey, 2);
+
+    // Dashed style
+    &.app-separator--border-dashed,
+    &.app-separator--dashed {
+        border-bottom: 1px dashed app-base-color(grey, 2);
+    }
+
+    &.app-separator--border-2x {
+        border-bottom-width: 2px;
+    }
+
+    // No border
+    &.app-separator--space {
+        border-bottom: 0;
+    }
+
+    // Sizing
+    &.app-separator--space-sm,
+    &.app-separator--sm {
+        margin: 0.5rem 0;
+    }
+
+    &.app-separator--space-md,
+    &.app-separator--md {
+        margin: 2rem 0;
+    }
+
+    &.app-separator--space-lg,
+    &.app-separator--lg {
+        margin: 2.5rem 0;
+    }
+
+    &.app-separator--space-xl,
+    &.app-separator--xl {
+        margin: 3rem 0;
+    }
+
+    &.app-separator--fit {
+        margin-left: -(app-get($app-portlet, space, desktop));
+        margin-right: -(app-get($app-portlet, space, desktop));
+    }
+
+    // States
+    @each $name, $color in $app-state-colors {
+        &.app-separator--#{$name} {
+            border-bottom: 1px solid app-get($color, base);
+
+            &.app-separator--dashed {
+                border-bottom: 1px dashed app-get($color, base);
+            }
+        }
+    }
+}

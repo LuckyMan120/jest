@@ -1,0 +1,290 @@
+<app-portlet *ngIf="sponsor$ | async as sponsor">
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+
+    <app-portlet-header icon="fa fa-pen" [title]="sponsor.id ? 'Sponsor editieren' : 'Sponsor erstellen'">
+      <ng-container portletTools>
+
+        <div class="d-flex flex-row m-3">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ sponsor.id ? 'Editieren' : 'Speichern'  }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/sponsors/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="sponsor.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteSponsor(sponsor)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body *ngIf="categories$ | async as categories">
+
+      <app-alert *ngIf="hasFormErrors" type="warning" [showCloseButton]="true" [duration]="10000"
+        (close)="onAlertClose()">
+        Achtung! Beim Speicherversuch sind Fehler aufgetreten. Bitte überprüfe Deine Eingaben!
+      </app-alert>
+
+      <tabset>
+        <tab heading="Wichtigste Infos">
+          <div class="row">
+            <div class="col-md-4">
+
+              <app-portlet>
+                <app-portlet-header title="Grunddaten">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <mat-form-field class="mat-form-field-fluid" hintLabel="Maximal {{titleMaxLength}} Zeichen">
+                    <input matInput maxLength="{{titleMaxLength}}" placeholder="Name des Sponsors"
+                      formControlName="title">
+                    <mat-hint align="end">
+                      {{form.get('title')?.value.length || 0}}/{{titleMaxLength}}
+                    </mat-hint>
+                  </mat-form-field>
+
+                  <mat-form-field class=" mat-form-field-fluid my-3">
+                    <mat-select placeholder="Sponsoring-Art" formControlName="assignedCategoryIds" multiple>
+                      <mat-option *ngFor="let category of categories | orderBy: ['title']" [value]="category.id"
+                        size="3">
+                        {{category.title}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div class="row my-3">
+                    <div class="col-lg-6">
+                      <mat-form-field color="accent" appearance="fill">
+                        <mat-label>Beginn des Sponsorings</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                      <mat-form-field color="accent" appearance="fill">
+                        <mat-label>Ende</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Link zur Homepage des Sponsors" formControlName="externalLink">
+                  </mat-form-field>
+
+                  <mat-checkbox formControlName="displayInFooter"> im Footer anzeigen
+                  </mat-checkbox>
+
+                  <mat-checkbox formControlName="displayOnHomepage" class="mat-form-field-fluid"> auf der Startseite
+                    anzeigen
+                  </mat-checkbox>
+
+                  <mat-checkbox formControlName="displayAsTopSponsor" class="mat-form-field-fluid"> Topsponsor
+                  </mat-checkbox>
+
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+
+
+            <div class="col-md-4">
+              <app-portlet>
+                <app-portlet-header title="Kontakt">
+                </app-portlet-header>
+                <app-portlet-body formGroupName="contact">
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Ansprechpartner" formControlName="name">
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="E-Mail" formControlName="email">
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Telefon" formControlName="phoneWork">
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Fax" formControlName="fax">
+                  </mat-form-field>
+
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+
+            <div class="col-md-4">
+              <app-portlet>
+                <app-portlet-header title="Adresse">
+                </app-portlet-header>
+                <app-portlet-body formGroupName="address">
+                  <div class="row">
+                    <div class="col-lg-9">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Straße" formControlName="streetName" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Hausnummer" formControlName="houseNumber" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Postleitzahl" formControlName="zip" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-9">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Stadt" formControlName="city" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Landkreis" formControlName="county" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Bundesland" formControlName="state" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+
+            <div class="col-md-6">
+              <app-portlet>
+                <app-portlet-header title="Freier Beschreibungstext">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <app-kolkov-editor inputName="description" [inputControl]="descriptionControl"></app-kolkov-editor>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+            <div class="col-md-6">
+              <app-portlet>
+                <app-portlet-header title="Interne Informationen">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <app-kolkov-editor inputName="internalInfo" [inputControl]="internalInfoControl">
+                  </app-kolkov-editor>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+            <div class="col-lg-4">
+              <app-portlet>
+                <app-portlet-header title="Artikel">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <app-autocomplete itemsType="articles" placeholder="Verknüpfte Artikel" [multiple]="true"
+                        [control]="assignedArticleControl">
+                      </app-autocomplete>
+                    </div>
+                  </div>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Galerien">
+          <app-media-gallery-list [galleries]="form.value.galleries"
+            (galleriesChanged)="updateControl('galleries',$event)" mode="remove-with-default">
+          </app-media-gallery-list>
+        </tab>
+
+        <tab heading="Dateien">
+          <app-media-gallery-list [galleries]="form.value.files" (galleriesChanged)="updateControl('files',$event)"
+            mode="remove-with-default">
+          </app-media-gallery-list>
+        </tab>
+
+        <tab heading="Erstellung und Veröffentlichung">
+          <div class="row">
+            <div class="col-lg-6">
+              <creation-form [form]="form"></creation-form>
+            </div>
+            <div class="col-lg-6">
+              <publication-form [form]="form"></publication-form>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </app-portlet-body>
+
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ sponsor.id ? 'Editieren' : 'Speichern'  }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/sponsors/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="sponsor.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteSponsor(sponsor)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

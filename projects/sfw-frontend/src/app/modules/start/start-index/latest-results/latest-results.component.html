@@ -1,0 +1,63 @@
+<section class="latest_results">
+  <span class="lat_text">Letzte</span>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Letzte Ergebnisse</h2>
+      </div>
+      <div class="col-md-6 all_match text-right">
+        <a itemprop="url" [routerLink]="['/mannschaften/spielplan']">Alle Ergebnisse ansehen</a>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
+    <div class="row">
+      <div class="col-xl-11 col-lg-11 col-md-12 p-0 offset-md-1">
+        <div class="variable_width">
+
+          <ngx-slick-carousel #slickModal="slick-carousel" [config]="slideConfig">
+
+            <div ngxSlickItem *ngFor="let match of matches$ | async">
+              <div class="result_show text-center">
+                <div class="team_verses">
+                  <p>{{match.matchType}}</p>
+                </div>
+                <div class="team_result">
+                  <div class="row">
+                    <div class="team1 col-md-3">
+                      <img [src]="match.homeTeam?.logoURL" [alt]="match.homeTeam?.title"
+                        [title]="match.homeTeam?.title">
+                      <p>{{match.homeTeam?.title}}</p>
+                    </div>
+                    <div class="team_score col-md-6">
+                      <div class="result_number">
+                        <span *ngIf="match.result">{{match.result?.homeTeamGoals}}</span>:<span
+                          *ngIf="match.result">{{match.result?.guestTeamGoals}}</span>
+                      </div>
+                      <div class="team_score_small" *ngIf="match.halfTime">
+                        (<span>{{match.halfTime.homeTeamGoals}}</span>:<span>{{match.halfTime.guestTeamGoals}}</span>)
+                      </div>
+                    </div>
+                    <div class="team2 col-md-3">
+                      <img [src]="match.guestTeam?.logoURL" [alt]="match.guestTeam?.title"
+                        [title]="match.guestTeam?.title">
+                      <p>{{match.guestTeam?.title}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="categories">
+                  <ul>
+                    <li><span>{{match.playersType}}</span></li>
+                    <li><span>{{match.matchStartDate | date: 'medium'}}</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </ngx-slick-carousel>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

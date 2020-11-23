@@ -1,0 +1,31 @@
+<app-portlet [formGroup]="form">
+  <app-portlet-header title="Erstellung"></app-portlet-header>
+
+  <app-portlet-body formGroupName="creation">
+    <div class="form-group app-form__group row mb-5">
+      <div class="col-lg-6 app-margin-bottom-20-mobile">
+        <mat-form-field class="mat-form-field-fluid">
+          <mat-select placeholder="Author" formControlName="by">
+            <mat-option value="system">Automatischer Import</mat-option>
+            <mat-option *ngFor="let user of users$ | async | orderBy: ['firstName', 'lastName', 'email']"
+              [value]="user.id">
+              {{user.firstName && user.lastName ? user.firstName + ' ' + user.lastName : (user.email ? user.email : user.displayName)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 app-margin-bottom-20-mobile">
+        <mat-form-field>
+          <mat-placeholder>Erstellungsdatum</mat-placeholder>
+          <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+          <mat-datetimepicker #datetimePicker2 type="datetime" [openOnFocus]="true" [timeInterval]="5">
+          </mat-datetimepicker>
+          <input matInput formControlName="at" [matDatetimepicker]="datetimePicker2" required autocomplete="false">
+          <mat-hint *ngIf="!form.get('creation.at')?.value">-</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </app-portlet-body>
+</app-portlet>

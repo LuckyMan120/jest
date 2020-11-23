@@ -1,0 +1,86 @@
+<ng-container *ngIf="calendars$ | async as calendars">
+  <form [formGroup]="form" (submit)="onSubmit()">
+
+    <div class="app-portlet">
+      <div class="app-portlet__head app-portlet__head__custom">
+        <div class="app-portlet__head-label">
+          <h3 class="app-portlet__head-title">
+            {{ event && event.id ? 'calendar.editTitle' : 'calendar.createTitle' }}
+          </h3>
+        </div>
+      </div>
+      <div class="app-portlet__body">
+        <div class="row">
+
+          <div class="col-md-12 mb-3">
+            <mat-form-field class="mat-form-field-fluid">
+              <input matInput placeholder="Titel des Termins" formControlName="summary">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field">
+              <mat-select placeholder="Kalender, in dem der Termin gespeichert wird" formControlName="calendarId">
+                <mat-option *ngFor="let calendar of calendars" [value]="calendar.calendarId">
+                  {{calendar.title}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field">
+              <mat-select placeholder="Ganztägig?" formControlName="allDayEvent">
+                <mat-option [value]="true">Ja</mat-option>
+                <mat-option [value]="false">Nein</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid">
+              <mat-placeholder>Beginn</mat-placeholder>
+              <mat-datetimepicker-toggle [for]="datetimePicker" matSuffix></mat-datetimepicker-toggle>
+              <mat-datetimepicker #datetimePicker type="datetime" [openOnFocus]="true" [timeInterval]="15">
+              </mat-datetimepicker>
+              <input matInput formControlName="start" [matDatetimepicker]="datetimePicker" required
+                autocomplete="false">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid">
+              <mat-placeholder>Ende</mat-placeholder>
+              <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+              <mat-datetimepicker #datetimePicker2 type="datetime" [openOnFocus]="true" [timeInterval]="15">
+              </mat-datetimepicker>
+              <input matInput formControlName="at" [matDatetimepicker]="datetimePicker2" required autocomplete="false">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12 mt-3">
+            <div class="mat-form-field-fluid">
+              <label>Beschreibungstext (optional)</label>
+              <div class="mat-form-field-fluid">
+                <app-kolkov-editor inputName="description" [inputControl]="descriptionControl"></app-kolkov-editor>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-portlet__foot app-portlet__no-border app-portlet__foot--fit text-right">
+        <div class="app-form__actions app-form__actions--sm pt-3">
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              Speichern
+            </span>
+          </button>
+          <button class="btn btn-primary" (click)="close()">Schließen
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>

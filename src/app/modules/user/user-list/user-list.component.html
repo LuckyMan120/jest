@@ -1,0 +1,90 @@
+<app-portlet>
+  <app-portlet-header title="Benutzerliste">
+  </app-portlet-header>
+
+  <app-portlet-body>
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <input matInput placeholder="Benutzer suchen" #searchInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-tab-container mat-elevation-z8" *ngIf="roles$ | async as roles">
+      <div class="table-container">
+        <mat-table class="table" [dataSource]="dataSource" matSort matSortActive="title" matSortDisableClear
+          matSortDirection="asc">
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.id}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="displayName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Anzeigename
+            </mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.displayName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Vorname
+            </mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.firstName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nachname
+            </mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.lastName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedRoles">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Rollen
+            </mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <ng-container *ngFor="let roleTitle of user.assignedRoles; let last = last">
+                <ng-container *ngIf="(roles | filterBy: ['title'] : roleTitle) as role">
+                  <a [routerLink]="['/roles/edit', role[0].id]">
+                    {{roleTitle}}
+                  </a><span *ngIf="!last">, </span>
+                </ng-container>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <a [routerLink]="['../detail', user.id]" class="btn btn-primary btn-sm mr-1">
+                <span class="fa fa-info" aria-hidden="true"></span>
+              </a>
+              <a [routerLink]="['../edit', user.id]" class="btn btn-warning btn-sm mr-1">
+                <span class="fa fa-pen" aria-hidden="true"></span>
+              </a>
+              <button class="btn btn-danger btn-sm" *ngIf="!user.isGodAdmin" (click)="deleteUser(user)">
+                <span class="fa fa-trash" aria-hidden="true"></span>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+
+      <div class="mat-table__bottom">
+        <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" [length]="dataSource.data.length"
+          [pageSize]="pageSizes[0]">
+        </mat-paginator>
+      </div>
+    </div>
+
+  </app-portlet-body>
+</app-portlet>

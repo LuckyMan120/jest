@@ -1,0 +1,39 @@
+//
+// Widget 26
+//
+
+.app-widget26 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .app-widget26__content {
+        display: flex;
+        padding-bottom: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+
+        .app-widget26__number {
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .app-widget26__desc {
+            color: app-base-color(label, 2);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 0.55rem;
+        }
+    }
+
+    .app-widget26__chart {
+        position: relative;
+
+        canvas {
+            border-bottom-left-radius: $app-border-radius;
+            border-bottom-right-radius: $app-border-radius;
+        }
+    }
+}

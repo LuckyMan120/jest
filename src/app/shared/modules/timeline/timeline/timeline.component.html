@@ -1,0 +1,32 @@
+<div class="row" *ngIf="data$ | async as data">
+  <div class="col-lg-12">
+    <app-portlet *ngIf="view$ | async as view">
+      <app-portlet-header icon="fa fa-clock" [title]="data.data.title">
+        <ng-container portletTools>
+
+          <a *ngIf="view" [routerLink]="['../../create']" class="btn btn-primary mr-1">
+            Ereignis erstellen
+          </a>
+
+
+          <a *ngIf="view !== 'table'" [routerLink]="['../table']" class="btn btn-outline-secondary">
+            Tabellenansicht
+          </a>
+
+          <a *ngIf="view === 'table'" [routerLink]="['../line']" class="btn btn-outline-secondary">
+            Zeitachsenansicht
+          </a>
+
+        </ng-container>
+      </app-portlet-header>
+      <app-portlet-body *ngIf="view$ | async as view">
+        <ng-container *ngIf="events$ | async as events">
+          <timeline-table (deleteEvent)="deleteEvent($event)" *ngIf="view === 'table'" [events]="events">
+          </timeline-table>
+          <timeline-view (deleteEvent)="deleteEvent($event)" *ngIf="view === 'line'" [events]="events">
+          </timeline-view>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+</div>

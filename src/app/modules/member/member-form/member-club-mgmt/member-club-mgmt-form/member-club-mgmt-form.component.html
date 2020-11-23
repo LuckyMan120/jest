@@ -1,0 +1,61 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+
+  <app-portlet>
+    <app-portlet-header title="Vorstandsaufgaben">
+    </app-portlet-header>
+    <app-portlet-body>
+
+      <div class="row">
+        <div class="col-lg-6" *ngIf="filteredMember$ | async as member">
+          <mat-form-field class="mat-form-field-fluid">
+            <mat-select placeholder="Verknüpftes Mitglied" formControlName="assignedMemberId">
+              <mat-option [value]="member?.id">
+                {{member?.lastName}} {{member?.firstName}}
+                {{ member?.birthDate | date:'shortDate'}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6" *ngIf="categories$ | async as categories">
+          <mat-form-field class="mat-form-field-fluid">
+            <mat-select placeholder="Vorstandsaufgabe" formControlName="assignedCategoryId">
+              <mat-option *ngFor="let category of categories | orderBy: ['title']" [value]="category.id">
+                {{category.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field color="accent" appearance="fill" class="mat-form-field-fluid">
+            <mat-label>Start</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker color="primary"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field color="accent" appearance="fill" class="mat-form-field-fluid">
+            <mat-label>Ende</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </app-portlet-body>
+    <app-portlet-footer>
+      <div class="col-lg-12 text-right py-3">
+        <div class="btn-group" role="group">
+          <button class="btn btn-warning mr-1" type="button" (click)="toggleList.emit()">Abbrechen
+          </button>
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save" aria-hidden="true"></i>
+            Speichern
+          </button>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </app-portlet>
+</form>

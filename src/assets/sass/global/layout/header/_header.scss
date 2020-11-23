@@ -1,0 +1,43 @@
+//
+// Header
+//
+
+// Desktop mode
+@include app-desktop {
+	.app-header {
+		display: flex;
+		justify-content: space-between;
+		height: app-get($app-header-config, base, desktop, default, height);
+		transition: app-get($app-aside-config, base, minimize, transition);
+		position: relative;
+		z-index: 2;
+
+		// Fixed
+		&.app-header--fixed {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: app-get($app-header-config, base, desktop, fixed, zindex);
+		}
+
+		// Aside enabled
+		.app-aside--enabled & {
+			&.app-header--fixed {
+				left: app-get($app-aside-config, base, default, width);
+			}
+		}
+
+		// Fixed and minimized header
+		.app-header--fixed.app-header--minimize & {
+			height: app-get($app-header-config, base, desktop, fixed, minimizeHeight);
+			transition: height 0.3s ease;
+		}
+
+		// Minimize Aside
+		.app-header--fixed.app-aside--minimize & {
+			left: app-get($app-aside-config, base, minimize, width);
+			transition: app-get($app-aside-config, base, minimize, transition);
+		}
+	}
+}

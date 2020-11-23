@@ -1,0 +1,42 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <app-portlet *ngIf="player$ | async as player">
+    <app-portlet-header title="Aufgaben in einer Mannschaft">
+    </app-portlet-header>
+    <app-portlet-body>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <app-autocomplete itemsType="teams" placeholder="Mannschaft" [multiple]="false"
+            [control]="assignedTeamControl">
+          </app-autocomplete>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field class="mat-form-field-fluid">
+            <mat-select placeholder="Aufgabe" formControlName="assignedCategoryId">
+              <mat-option *ngFor="let category of filteredCategories$ | async | orderBy: ['title']"
+                [value]="category.id">
+                {{category.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </app-portlet-body>
+    <app-portlet-footer>
+      <div class="col-lg-12 text-right py-3">
+        <div class="btn-group" role="group">
+          <button class="btn btn-warning mr-1" type="button" (click)="toggleList.emit()">
+            Abbrechen
+          </button>
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save" aria-hidden="true"></i>
+            Speichern
+          </button>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </app-portlet>
+</form>

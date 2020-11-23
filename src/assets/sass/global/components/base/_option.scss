@@ -1,0 +1,112 @@
+//
+// Option
+//
+
+// Base
+@mixin app-option-base() {
+    .app-option {
+        display: flex;
+        padding: 1.4em;
+        border: 1px solid app-base-color(grey, 2);
+
+        @include app-rounded {
+            border-radius: $app-border-radius;
+        }
+
+        .app-option__control {
+            width: 2.7rem;
+            padding-top: 0.1rem;
+
+            .app-radio {
+                display: block;
+            }
+        }
+
+        .app-option__label {
+            width: 100%;
+
+            .app-option__head {
+                display: flex;
+                justify-content: space-between;
+
+                .app-option__title {
+                    font-size: 1.1rem;
+                    font-weight: 400;
+                    color: app-base-color(label, 3);
+                }
+
+                .app-option__focus {
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    color: app-base-color(label, 4);
+                }
+            }
+
+            .app-option__body {
+                display: block;
+                padding-top: 0.7rem;
+                font-size: 0.9rem;
+                color: app-base-color(label, 2);
+            }
+        }
+
+        &.app-option--plain {
+            border: 0;
+            padding: 0;
+            margin-top: -0.2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+
+            .app-option__control {
+                vertical-align: middle;
+                width: 2.7rem;
+
+                .app-radio {
+                    margin-bottom: 1.6rem;
+                }
+            }
+
+            .app-option__label {
+                .app-option__head {
+                    .app-option__title {
+                    }
+                }
+
+                .app-option__body {
+                    padding-top: 0.2rem;
+                }
+            }
+        }
+
+        // Validation
+        .is-valid & {
+            border-color: app-state-color(success, base);
+        }
+
+        .is-invalid & {
+            border-color: app-state-color(danger, base);
+        }
+    }
+}
+
+// Validation State
+@mixin app-option-validation-state($state, $color) {
+    .has-#{$state} {
+        .app-option {
+            .app-option__label {
+                .app-option__head {
+                    .app-option__title {
+                        color: $color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Base
+@include app-option-base();
+
+// Validation States
+@include app-option-validation-state(success, app-get($app-state-colors, success, base));
+@include app-option-validation-state(error, app-get($app-state-colors, warning, base));

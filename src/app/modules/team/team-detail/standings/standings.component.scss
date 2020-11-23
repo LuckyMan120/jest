@@ -1,0 +1,21 @@
+:host {
+    ::ng-deep {
+      tabset > .nav-tabs {
+        border: 0;
+        border-bottom: 1px solid #ceceec;
+
+        li.nav-item:hover {
+          border-color: transparent;
+        }
+
+        .nav-link {
+          border-color: transparent;
+        }
+
+        .nav-link.active {
+          border-bottom: 3px solid #0abb87;
+        }
+      }
+    }
+  }
+

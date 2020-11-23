@@ -1,0 +1,27 @@
+//
+// Header Menu Dark Skin
+//
+
+// Include global config
+@import "../../../../../config";
+
+// Include layout config
+@import "../../../config";
+
+// Include header config
+@import "../../config";
+
+// Build Desktop Header Menu Skin
+@include app-menu-hor-build-skin(app-get($app-header-config, menu, desktop), dark);
+
+// Build Mobile Header Menu Skin
+@include app-menu-ver-build-skin(app-get($app-header-config, menu, tablet-and-mobile), dark);
+
+@include app-tablet-and-mobile {
+	.app-header-menu-wrapper {
+		background-color: app-get($app-layout-skins, dark);
+
+		// Scrollbar
+		@include app-perfect-scrollbar-skin(#637099);
+	}
+}

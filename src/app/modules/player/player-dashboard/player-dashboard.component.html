@@ -1,0 +1,140 @@
+<div class="row">
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Neue Spieler"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="latestPlayers$ | async as latestPlayers">
+          <ul class="list-group">
+            <ng-container *ngFor="let player of latestPlayers | orderBy: ['-friendlyMatches']">
+              <li class="list-group-item">
+                <a [routerLink]="['/players/detail', player.id]" class="d-flex justify-content-between">
+                  <span>{{player.lastName}} {{player.firstName}}</span>
+                  <span class="font-weight-bold">
+                    {{player.friendlyMatches | date: 'mediumDate'}}
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Älteste Spieler"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="oldestPlayers$ | async as oldestPlayers">
+          <ul class="list-group">
+            <ng-container *ngFor="let player of oldestPlayers">
+              <li class="list-group-item">
+                <a [routerLink]="['/players/detail', player.id]" class="d-flex justify-content-between">
+                  <span>{{player.lastName}} {{player.firstName}}</span>
+                  <span class="font-weight-bold">
+                    {{player.birthDate | date: 'mediumDate'}} ({{player.age}} Jahre)
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Jüngste Spieler"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="youngestPlayers$ | async as youngestPlayers">
+          <ul class="list-group">
+            <ng-container *ngFor="let player of youngestPlayers">
+              <li class="list-group-item">
+                <a [routerLink]="['/players/detail', player.id]" class="d-flex justify-content-between">
+                  <span>{{player.lastName}} {{player.firstName}}</span>
+                  <span class="font-weight-bold">
+                    {{player.birthDate | date: 'mediumDate'}} ({{player.age}} Jahre)
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Gastspieler"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="guestPlayers$ | async as guestPlayers">
+          <ul class="list-group">
+            <ng-container *ngFor="let player of guestPlayers | orderBy: ['-friendlyMatches']">
+              <li class="list-group-item">
+                <a [routerLink]="['/players/detail', player.id]" class="d-flex justify-content-between">
+                  <span>{{player.lastName}} {{player.firstName}}</span>
+                  <span class="font-weight-bold">
+                    Gastspieler seit {{player.guestPlayer.guestRight}}
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-12">
+    <app-portlet>
+      <app-portlet-header icon="fa fa-chart-area" title="Spielerstatistik">
+        <ng-container portletTools>
+
+          <div class="d-flex flex-row m-3">
+
+            <div class="btn-group" dropdown>
+              <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle
+                type="button">
+                <span class="fas fa-bars"></span>
+              </button>
+
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="exportPlayerStats()" style="cursor: pointer;">
+                    <!-- <i *ngIf="isLoading$ | async" class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                    <i *ngIf="isLoading$ | async" class="fas fa-file-download" aria-hidden="true"></i>-->
+                    Exportieren
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="showDetailedPlayerStats()" style="cursor: pointer;">
+                    <!--<i *ngIf="!!(isLoadingStats$ | async)" class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                    <i *ngIf="!(isLoadingStats$ | async)" class="fas fa-binoculars" aria-hidden="true"></i>-->
+                    Details anzeigen
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-container>
+      </app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="statistics$ | async as statistics; else loadingTemplate">
+          <app-chart [data]="statistics" [options]="barChartOptions"></app-chart>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="row">
+    <div class="col-lg-12">
+      <i class="fas fa-spinner fa-spin"></i>
+    </div>
+  </div>
+</ng-template>

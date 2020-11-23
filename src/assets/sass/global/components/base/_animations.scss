@@ -1,0 +1,95 @@
+//
+// Base Animations
+//
+
+// Classes
+.app-animate-fade-in-up {
+    animation: app-animate-fade-in-up 0.5s;
+}
+
+.app-animate-fade-out {
+    animation: app-animate-fade-out 0.5s;
+}
+
+.app-animate-fade-in {
+    animation: app-animate-fade-in 0.5s;
+}
+
+.app-animate-blink {
+    animation: app-animate-blink 1s step-start 0s infinite;
+    animation-fill-mode: initial;
+}
+
+.app-animate-shake {
+    animation: app-animate-shake 0.1s ease-in 0.1s infinite alternate;
+    animation-fill-mode: initial;
+}
+
+.app-animate-pause {
+    animation-play-state: paused;
+}
+
+.app-notransition {
+    transition: none !important;
+}
+
+// Animations
+
+@keyframes app-animate-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes app-animate-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes app-animate-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes app-animate-fade-out-up {
+    from {
+        opacity: 1;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes app-animate-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes app-animate-shake {
+    from {
+        transform: rotate(13deg);
+    }
+
+    to {
+        -webkit-transform-origin: center center;
+        transform: rotate(-13deg);
+    }
+}

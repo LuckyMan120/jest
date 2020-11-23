@@ -1,0 +1,75 @@
+//
+// Widget24
+//
+
+.app-widget24 {
+    padding: app-get($app-portlet, space, desktop);
+    flex: 1;
+
+    .app-widget24__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .app-widget24__info {
+            .app-widget24__title {
+                display: flex;
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: app-base-color(label, 3);
+                transition: color 0.3s ease;
+
+                &:hover {
+                    transition: color 0.3s ease;
+                    color: app-brand-color();
+                }
+            }
+
+            .app-widget24__desc {
+                color: app-base-color(label, 2);
+                font-weight: 400;
+            }
+        }
+
+        .app-widget24__stats {
+            font-size: 1.75rem;
+            font-weight: 500;
+            padding-left: 0.5rem;
+        }
+    }
+
+    .progress {
+        height: 0.5rem;
+        margin: 2rem 0 0.5rem 0;
+    }
+
+    .app-widget24__action {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 400;
+
+        .app-widget24__change {
+            color: app-base-color(label, 2);
+        }
+
+        .app-widget24__number {
+            color: app-base-color(label, 2);
+        }
+    }
+
+    // solid bg
+    &.app-widget24--solid {
+        border: 1px solid app-base-color(grey, 2);
+        padding: 1rem;
+
+        @include app-rounded {
+            border-radius: $app-border-radius;
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget24 {
+        padding: app-get($app-portlet, space, mobile);
+    }
+}

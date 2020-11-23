@@ -1,0 +1,520 @@
+//
+// Helpers
+//
+
+// Margin & Padding Helpers
+@mixin app-margin-and-padding($mode) {
+	@if $mode == general {
+		$mode: "";
+	} @else {
+		$mode: "-" + $mode;
+	}
+
+	@for $i from 0 through 20 {
+		$num: $i * 5;
+
+		.app-margin-#{$num}#{$mode} {
+			margin: #{$num}px !important;
+		}
+
+		.app-margin-t-#{$num}#{$mode} {
+			margin-top: #{$num}px !important;
+		}
+
+		.app-margin-b-#{$num}#{$mode} {
+			margin-bottom: #{$num}px !important;
+		}
+
+		.app-margin-l-#{$num}#{$mode} {
+			margin-left: #{$num}px !important;
+		}
+
+		.app-margin-r-#{$num}#{$mode} {
+			margin-right: #{$num}px !important;
+		}
+
+		.app-padding-#{$num}#{$mode} {
+			padding: #{$num}px !important;
+		}
+
+		.app-padding-t-#{$num}#{$mode} {
+			padding-top: #{$num}px !important;
+		}
+
+		.app-padding-b-#{$num}#{$mode} {
+			padding-bottom: #{$num}px !important;
+		}
+
+		.app-padding-l-#{$num}#{$mode} {
+			padding-left: #{$num}px !important;
+		}
+
+		.app-padding-r-#{$num}#{$mode} {
+			padding-right: #{$num}px !important;
+		}
+
+		// short format
+		.app-m#{$num}#{$mode} {
+			margin: #{$num}px !important;
+		}
+
+		.app-mt-#{$num}#{$mode} {
+			margin-top: #{$num}px !important;
+		}
+
+		.app-mb-#{$num}#{$mode} {
+			margin-bottom: #{$num}px !important;
+		}
+
+		.app-ml-#{$num}#{$mode} {
+			margin-left: #{$num}px !important;
+		}
+
+		.app-mr-#{$num}#{$mode} {
+			margin-right: #{$num}px !important;
+		}
+
+		.app-p#{$num}#{$mode} {
+			padding: #{$num}px !important;
+		}
+
+		.app-pt#{$num}#{$mode} {
+			padding-top: #{$num}px !important;
+		}
+
+		.app-pb-#{$num}#{$mode} {
+			padding-bottom: #{$num}px !important;
+		}
+
+		.app-pl#{$num}#{$mode} {
+			padding-left: #{$num}px !important;
+		}
+
+		.app-pr#{$num}#{$mode} {
+			padding-right: #{$num}px !important;
+		}
+	}
+}
+
+@include app-margin-and-padding(general);
+
+@include app-desktop {
+	@include app-margin-and-padding(desktop);
+}
+
+@include app-tablet {
+	@include app-margin-and-padding(tablet);
+}
+
+@include app-tablet-and-mobile {
+	@include app-margin-and-padding(tablet-and-mobile);
+}
+
+@include app-mobile {
+	@include app-margin-and-padding(mobile);
+}
+
+// Opacity
+@mixin app-opacity {
+	@for $i from 1 through 9 {
+		.app-opacity-#{$i} {
+			opacity: #{$i * 0.1};
+		}
+	}
+}
+
+@include app-opacity();
+
+// Border radius
+.app-radius-100 {
+	border-radius: 100%;
+}
+
+// General helpers
+.app-valign-top {
+	vertical-align: top;
+}
+
+.app-space-5 {
+	display: block;
+	height: 0;
+	margin-bottom: 5px;
+}
+
+.app-space-10 {
+	display: block;
+	height: 0;
+	margin-bottom: 10px;
+}
+
+.app-space-15 {
+	display: block;
+	height: 0;
+	margin-bottom: 15px;
+}
+
+.app-space-20 {
+	display: block;
+	height: 0;
+	margin-bottom: 20px;
+}
+
+.app-space-30 {
+	display: block;
+	height: 0;
+	margin-bottom: 30px;
+}
+
+.app-space-40 {
+	display: block;
+	height: 0;
+	margin-bottom: 40px;
+}
+
+.app-valign-middle {
+	vertical-align: middle;
+}
+
+.app-valign-bottom {
+	vertical-align: bottom;
+}
+
+.app-block-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.app-align-right {
+	text-align: right;
+}
+
+.app-align-left {
+	text-align: left;
+}
+
+.app-align-center {
+	text-align: center;
+}
+
+.app-pull-right {
+	float: right;
+}
+
+.app-pull-left {
+	float: left;
+}
+
+.app-img-rounded {
+	border-radius: 50% !important;
+}
+
+.app-block-inline {
+	display: inline-block;
+}
+
+.app-icon-middle {
+	&:before {
+		vertical-align: middle;
+	}
+}
+
+// Element visibility
+.app-hidden,
+.app-hide {
+	display: none !important;
+}
+
+// Font sizing
+.app-font-sm {
+	font-size: 0.8rem !important;
+}
+
+.app-font-md {
+	font-size: 0.9rem !important;
+}
+
+.app-font-lg {
+	font-size: 1.2rem !important;
+}
+
+.app-font-xl {
+	font-size: 1.5rem !important;
+}
+
+.app-clearfix {
+	@include app-clearfix();
+}
+
+// Icon font sizing
+.app-icon-sm {
+	font-size: 0.75rem !important;
+}
+
+.app-icon-md {
+	font-size: 0.9rem !important;
+}
+
+.app-icon-lg {
+	font-size: 1.2rem !important;
+}
+
+.app-icon-xl {
+	font-size: 1.4rem !important;
+}
+
+.app-marginless {
+	margin: 0 !important;
+}
+
+.app-img-centered {
+	text-align: center;
+}
+
+// Text Transform
+.app-font-transform-u {
+	text-transform: uppercase;
+}
+
+.app-font-transform-l {
+	text-transform: lowercase;
+}
+
+.app-font-transform-c {
+	text-transform: capitalize;
+}
+
+.app-font-transform-i {
+	text-transform: initial;
+}
+
+// Font Weights
+.app-font-regular {
+	font-weight: 400 !important;
+}
+.app-font-bold {
+	font-weight: 500 !important;
+}
+
+.app-font-bolder {
+	font-weight: 600 !important;
+}
+
+.app-font-boldest {
+	font-weight: 700 !important;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+// State colors
+@each $name, $color in $app-state-colors {
+	.app-font-#{$name} {
+		color: app-get($color, base) !important;
+	}
+
+	.app-font-hover-#{$name} {
+		&:hover {
+			color: darken(app-get($color, base), 20%);
+		}
+	}
+
+	.app-font-inverse-#{$name} {
+		color: app-get($color, inverse) !important;
+	}
+
+	.app-bg-#{$name} {
+		background-color: app-get($color, base) !important;
+	}
+
+	.app-bg-fill-#{$name} {
+		background-color: app-get($color, base) !important;
+		color: app-get($color, inverse) !important;
+
+		> i {
+			color: app-get($color, inverse) !important;
+		}
+	}
+
+	.app-bg-light-#{$name} {
+		background-color: rgba(app-get($color, base), 0.1) !important;
+	}
+}
+
+// Social colors
+@each $name, $color in $app-social-colors {
+	.app-font-#{$name} {
+		color: app-get($color, base) !important;
+	}
+}
+
+// Base colors
+@each $name, $color in app-get($app-base-colors, label) {
+	.app-label-font-color-#{$name} {
+		color: $color !important;
+	}
+
+	.app-label-bg-color-#{$name} {
+		background-color: $color !important;
+	}
+}
+
+@each $name, $color in app-get($app-base-colors, shape) {
+	.app-shape-font-color-#{$name} {
+		color: $color !important;
+	}
+
+	.app-shape-bg-color-#{$name} {
+		background-color: $color !important;
+	}
+}
+
+// Responsive Helpers
+.app-visible-desktop,
+.app-visible-desktop-inline-block,
+.app-visible-desktop-inline,
+.app-visible-desktop-table,
+.app-visible-desktop-table-cell,
+.app-visible-tablet,
+.app-visible-tablet-inline-block,
+.app-visible-tablet-inline,
+.app-visible-tablet-table,
+.app-visible-tablet-table-cell,
+.app-visible-tablet-and-mobile,
+.app-visible-tablet-and-mobile-inline-block,
+.app-visible-tablet-and-mobile-inline,
+.app-visible-tablet-and-mobile-table,
+.app-visible-tablet-and-mobile-table-cell,
+.app-visible-mobile,
+.app-visible-mobile-inline-block,
+.app-visible-mobile-inline,
+.app-visible-mobile-table,
+.app-visible-mobile-table-cell {
+	display: none !important;
+}
+
+@include app-desktop {
+	.app-visible-desktop {
+		display: block !important;
+	}
+
+	.app-visible-desktop-inline-block {
+		display: inline-block !important;
+	}
+
+	.app-visible-desktop-inline {
+		display: inline !important;
+	}
+
+	.app-visible-desktop-table {
+		display: table !important;
+	}
+
+	.app-visible-desktop-table-cell {
+		display: table-cell !important;
+	}
+
+	.app-hidden-desktop {
+		display: none !important;
+	}
+}
+
+@include app-tablet {
+	.app-visible-tablet {
+		display: block !important;
+	}
+
+	.app-visible-tablet-inline-block {
+		display: inline-block !important;
+	}
+
+	.app-visible-tablet-inline {
+		display: inline !important;
+	}
+
+	.app-visible-tablet-table {
+		display: table !important;
+	}
+
+	.app-visible-tablet-table-cell {
+		display: table-cell !important;
+	}
+
+	.app-hidden-tablet {
+		display: none !important;
+	}
+}
+
+@include app-tablet-and-mobile {
+	.app-visible-tablet-and-mobile {
+		display: block !important;
+	}
+
+	.app-visible-tablet-and-mobile-inline-block {
+		display: inline-block !important;
+	}
+
+	.app-visible-tablet-and-mobile-inline {
+		display: inline !important;
+	}
+
+	.app-visible-tablet-and-mobile-table {
+		display: table !important;
+	}
+
+	.app-visible-tablet-and-mobile-table-cell {
+		display: table-cell !important;
+	}
+
+	.app-hidden-tablet-and-mobile {
+		display: none !important;
+	}
+}
+
+@include app-mobile {
+	.app-visible-mobile {
+		display: block !important;
+	}
+
+	.app-visible-mobile-inline-block {
+		display: inline-block !important;
+	}
+
+	.app-visible-mobile-inline {
+		display: inline !important;
+	}
+
+	.app-visible-mobile-table {
+		display: table !important;
+	}
+
+	.app-visible-mobile-table-cell {
+		display: table-cell !important;
+	}
+
+	.app-hidden-mobile {
+		display: none !important;
+	}
+}
+
+// Flexbox helpers
+
+.app-space-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+// Rounded
+.app-rounded {
+	border-radius: $app-border-radius !important;
+}
+
+// Negative Spacing
+.app-negative-spacing {
+	@for $i from 1 through 10 {
+		&--#{$i} {
+			margin-top: -#{$i}0px;
+		}
+	}
+}

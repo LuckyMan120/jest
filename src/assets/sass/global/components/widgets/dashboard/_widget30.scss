@@ -1,0 +1,129 @@
+//
+// Widget30
+//
+
+.app-widget30 {
+    margin: 1.5rem 0;
+
+    .app-widget30__head {
+        padding: 0;
+        max-width: 100%;
+        margin: 0 auto 2rem auto;
+
+        .owl-carousel {
+            .carousel {
+                cursor: pointer;
+                text-align: center;
+                padding: 1rem 0;
+                margin: 1rem 1rem;
+                box-shadow: 0px 2px 14px 2px rgba(#000, 0.04);
+
+                @include app-rounded {
+                    border-radius: $app-border-radius;
+                }
+
+                > span {
+                    display: block;
+
+                    &:first-child {
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        color: app-base-color(label, 3);
+                    }
+
+                    &:last-child {
+                        font-size: 0.9rem;
+                        font-weight: 400;
+                        color: app-base-color(label, 2);
+                    }
+                }
+            }
+
+            .center > div {
+                cursor: auto;
+                background-color: app-brand-color();
+                box-shadow: 0px 2px 14px 2px rgba(app-brand-color(), 0.2);
+
+                > span {
+                    &:first-child {
+                        color: app-brand-color(inverse);
+                    }
+
+                    &:last-child {
+                        color: rgba(app-brand-color(inverse), 0.7);
+                    }
+                }
+            }
+        }
+    }
+
+    .app-widget30__body {
+        .owl-carousel {
+            .app-widget30__items {
+                padding: 0 2.2rem;
+                border-bottom: 1px dashed app-base-color(grey, 2);
+
+                .app-widget30__item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                    padding-bottom: 1.5rem;
+
+                    .app-widget30__pic {
+                        > img {
+                            width: 3rem;
+                            height: 3rem;
+                            border-radius: 100%;
+                        }
+                    }
+
+                    .app-widget30__info {
+                        width: 100%;
+                        text-align: left;
+                        padding: 0 1rem;
+                        font-weight: 500;
+                        color: app-base-color(label, 2);
+
+                        > a {
+                            display: block;
+                            font-size: 1rem;
+                            font-weight: 500;
+                            color: app-base-color(label, 3);
+                            transition: color 0.3s ease;
+
+                            &:hover {
+                                color: app-brand-color();
+                                transition: color 0.3s ease;
+                            }
+                        }
+
+                        > span {
+                            display: block;
+                            font-size: 1rem;
+                            font-weight: 400;
+                            color: app-base-color(label, 2);
+                        }
+                    }
+
+                    .app-widget30__stats {
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget30 {
+        margin: 1rem 0;
+    }
+}

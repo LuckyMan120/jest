@@ -1,0 +1,31 @@
+<app-portlet>
+  <app-portlet-header title="Verknüpfte Mannschaften">
+  </app-portlet-header>
+  <app-portlet-body>
+    <ng-container *ngIf="teams$ | async as teams">
+
+      <app-alert type="info" [showCloseButton]="false" *ngIf="teams.length === 0">
+        Der Spieler wurde mit keinen Mannschaften verknüpft.
+      </app-alert>
+
+      <ul class="list-group">
+        <li *ngFor="let team of teams" class="list-group-item d-flex justify-content-between">
+          <a [routerLink]="['/teams/detail', team.id]">
+            {{team.title}} {{team.subTitle}}
+          </a>
+          <span>{{team.assignedSeasonTitle}}</span>
+          <button type="button" class="btn btn-warning" (click)="removePlayerFromTeam(team)">
+            <i class="fas fa-trash" aria-hidden="true"></i>
+          </button>
+        </li>
+      </ul>
+    </ng-container>
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="col-lg-12 text-right py-3 px-5">
+      <button type="button" class="btn btn-primary" (click)="toggleList.emit()">
+        Neue Zuordnung erstellen
+      </button>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

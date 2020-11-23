@@ -1,0 +1,15 @@
+<ng-container *ngIf="sponsors$ | async as sponsors">
+  <section class="sponsership text-center">
+    <div class="spons_text">Sponsoren</div>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-3 sponser_img" *ngFor="let sponsor of sponsors">
+          <img [src]="sponsor.galleries.Firmenlogos | displayFirstMedia: [[], false]"
+            data-rjs="/assets/images/DFB@2x.jpg" [alt]="sponsor.title" [title]="sponsor.title" class="img-fluid">
+        </div>
+
+      </div>
+    </div>
+  </section>
+</ng-container>

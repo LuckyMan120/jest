@@ -1,0 +1,398 @@
+<app-portlet *ngIf="senior$ | async as senior">
+  <app-portlet-header icon="fa fa-info" title="Details anzeigen">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/seniors/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/seniors/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/seniors/edit', senior?.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteSenior(senior)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+
+    <div class="row">
+
+      <div class="col-lg-12">
+
+        <!-- <app-alert *ngIf="senior?.ahStatus === 2 || senior?.comment === 'EM'" type="success" [showCloseButton]="false">
+          <p>Dieses AH-Mitglied wurde zum Ehrenmitglied ernannt.</p>
+        </app-alert> -->
+
+        <app-alert *ngIf="senior?.comment && senior?.comment !== 'EM'" type="info" [showCloseButton]="false">
+          <p [innerHtml]="senior?.comment"></p>
+        </app-alert>
+
+        <tabset>
+
+          <tab heading="Wichtigste Infos">
+            <div class="row">
+              <div class="col-lg-4">
+                <app-portlet>
+                  <app-portlet-header title="Persönliche Daten">
+                  </app-portlet-header>
+                  <app-portlet-body>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Geschlecht</th>
+                            <td>{{ senior?.gender }}</td>
+                          </tr>
+                          <tr>
+                            <th>Anrede</th>
+                            <td>{{senior?.title || '-'}}</td>
+                          </tr>
+                          <tr>
+                            <th>Vorname</th>
+                            <td>{{senior?.firstName}}</td>
+                          </tr>
+                          <tr>
+                            <th>Nachname</th>
+                            <td>{{senior?.lastName}}</td>
+                          </tr>
+                          <tr>
+                            <th>Geburtsdatum</th>
+                            <td>{{senior?.birthDate | date: 'mediumDate'}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+              <div class="col-lg-4">
+                <app-portlet>
+                  <app-portlet-header title="Kontakt">
+                  </app-portlet-header>
+                  <app-portlet-body>
+
+                    <app-alert *ngIf="!senior?.contactData" type="warning" [showCloseButton]="false">
+                      Für das AH-Mitglied liegen keine Kontaktdaten vor.
+                    </app-alert>
+
+                    <div class="table-responsive" *ngIf="senior?.contactData">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <th>E-Mail Adresse</th>
+                            <td>{{senior?.contactData?.email  || '-'}}</td>
+                          </tr>
+                          <tr>
+                            <th>Handy</th>
+                            <td>{{senior?.contactData?.phoneMobile  || '-'}}</td>
+                          </tr>
+                          <tr>
+                            <th>Telefon zu Hause</th>
+                            <td>{{senior?.contactData?.phoneHome  || '-'}}</td>
+                          </tr>
+                          <tr>
+                            <th>Telefon dienstlich</th>
+                            <td>{{senior?.contactData?.phoneWork  || '-'}}</td>
+                          </tr>
+                          <tr>
+                            <th>Fax</th>
+                            <td>{{senior?.contactData?.fax  || '-'}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+
+              <div class="col-lg-4">
+                <app-portlet>
+                  <app-portlet-header title="Foto">
+                  </app-portlet-header>
+                  <app-portlet-body>
+                    <!-- ToDo: Foto des Spielers -->
+                    <img class="img-fluid img-thumbnail" [src]="senior?.galleries?.Profilfotos | displayFirstMedia"
+                      alt="{{senior?.firstName}} {{senior?.lastName}}" />
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+
+              <div class="col-lg-4">
+                <app-portlet>
+                  <app-portlet-header title="Adresse">
+                  </app-portlet-header>
+                  <app-portlet-body>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Anschrift</th>
+                            <td>
+                              <address *ngIf="senior?.address">
+                                {{senior?.address?.streetName}}
+                                {{senior?.address?.houseNumber}}<br />
+                                {{senior?.address?.zip}}
+                                {{senior?.address?.city}}<br />
+                                {{senior?.address?.county}}
+                              </address>
+                              <span *ngIf="!senior?.address">-</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+
+              <div class="col-lg-4">
+                <app-portlet>
+                  <app-portlet-header title="AH-Mitgliederdaten">
+                  </app-portlet-header>
+                  <app-portlet-body>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Mitgliederstatus</th>
+                            <td>
+                              <span *ngIf="category$ | async as category">
+                                {{category.title}}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Beitrag</th>
+                            <td>{{senior?.fee}}</td>
+                          </tr>
+                          <tr>
+                            <th>Eintrittsdatum</th>
+                            <td>{{senior?.entryDate | date: 'mediumDate' }}</td>
+                          </tr>
+                          <tr>
+                            <th>Austritt</th>
+                            <td>{{senior?.exitDate | date: 'mediumDate'}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </app-portlet-body>
+                </app-portlet>
+              </div>
+            </div>
+          </tab>
+
+          <tab heading="Vereins- und Spielerdaten">
+            <div class="row">
+
+              <div class="col-lg-6">
+                <app-portlet>
+                  <app-portlet-header title="Verknüpftes Mitglied">
+                  </app-portlet-header>
+                  <app-portlet-body>
+
+                    <div class="alert alert-info" *ngIf="!senior?.assignedMemberId">
+                      <p>Das AH-Mitglied wurde mit keinem Mitglied verknüpft.</p>
+                    </div>
+
+                    <div class="table-responsive" *ngIf="assignedMember$ | async as assignedMember">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Vorname Nachname</th>
+                            <td>{{assignedMember.firstName }} {{assignedMember.lastName }}</td>
+                          </tr>
+                          <tr>
+                            <th>Geburtsdatum</th>
+                            <td>{{assignedMember.birthDate | date : 'mediumDate'}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </app-portlet-body>
+                  <app-portlet-footer *ngIf="senior?.assignedMemberId">
+                    <div class="row">
+                      <div class="col-lg-12 text-right py-3 px-5">
+                        <button class="btn btn-primary mr-1" type="button"
+                          [routerLink]="['/members/detail', senior?.assignedMemberId]">
+                          Mitglied anzeigen
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteAssignedMember(senior)" type="button">Verknüpfung
+                          löschen</button>
+                      </div>
+                    </div>
+                  </app-portlet-footer>
+                </app-portlet>
+              </div>
+
+              <div class="col-lg-6">
+                <app-portlet>
+                  <app-portlet-header title="Spielerdaten">
+                  </app-portlet-header>
+                  <app-portlet-body>
+
+                    <div class="alert alert-info" *ngIf="!senior?.assignedPlayerId">
+                      <p>Das AH-Mitglied ist mit keinem Spielerprofil verknüpft</p>
+                    </div>
+
+                    <div class="table-responsive" *ngIf="assignedPlayer$ | async as assignedPlayer">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Vorname Nachname</th>
+                            <td>{{assignedPlayer.firstName }}
+                              {{assignedPlayer.lastName }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Altersklasse</th>
+                            <td>{{assignedPlayer.ageGroup}}</td>
+                          </tr>
+                          <tr>
+                            <th class="text-danger">Spielerstatus</th>
+                            <td>{{assignedPlayer.status}}</td>
+                          </tr>
+                          <tr>
+                            <th class="text-danger">Spielerstatus</th>
+                            <td>{{assignedPlayer.playerStatus}}</td>
+                          </tr>
+
+                          <tr>
+                            <th>Spielberechtigung für Freundschaftsspiele</th>
+                            <td>{{assignedPlayer.friendlyMatches | date: 'mediumDate'}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Spielberechtigung für offizielle Spiele</th>
+                            <td>{{assignedPlayer.officialMatches  | date: 'mediumDate' }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Passnummer</th>
+                            <td>{{assignedPlayer.passNumber}}</td>
+                          </tr>
+                          <tr>
+                            <th>Ausstellungsdatum</th>
+                            <td>{{ assignedPlayer.passPrint | date: 'mediumDate' }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Abmeldung</th>
+                            <td>
+                              <span *ngIf="assignedPlayer.signOut">
+                                {{assignedPlayer.signOut | date: 'mediumDate'}}</span>
+                              <span *ngIf="!assignedPlayer.signOut">-</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Gastspieler
+                            </th>
+                            <td>
+                              <span *ngIf="assignedPlayer.guestPlayer?.season">
+                                {{assignedPlayer.guestPlayer?.guestRight}}
+                                {{assignedPlayer.guestPlayer?.season}}
+                                {{assignedPlayer.guestPlayer?.type}}
+                              </span>
+                              <span *ngIf="!assignedPlayer.guestPlayer?.season">-</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </app-portlet-body>
+                  <app-portlet-footer *ngIf="senior?.assignedPlayerId">
+                    <div class="row">
+                      <div class="col-lg-12 text-right py-3 px-5">
+                        <button class="btn btn-primary mr-1" type="button"
+                          [routerLink]="['/players/detail', senior?.assignedPlayerId]">
+                          Spieler anzeigen
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteAssignedPlayer(senior)" type="button">Verknüpfung
+                          löschen</button>
+                      </div>
+                    </div>
+                  </app-portlet-footer>
+                </app-portlet>
+              </div>
+            </div>
+
+          </tab>
+
+          <tab heading="Erstellung und Veröffentlichung">
+            <creation-publication-info [creation]="senior?.creation" [publication]="senior?.publication">
+            </creation-publication-info>
+          </tab>
+
+        </tabset>
+      </div>
+    </div>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/seniors/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/seniors/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/seniors/edit', senior?.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteSenior(senior)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

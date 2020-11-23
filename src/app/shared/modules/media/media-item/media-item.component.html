@@ -1,0 +1,60 @@
+<form [formGroup]="form" (submit)="onSubmit()" [id]="'form-' + media.id">
+
+  <div class="image logo" [style.height]="imageHeight">
+    <img [src]="media.sizes[256]" *ngIf="isImage" />
+    <ng-container *ngIf="!isImage && media.metadata">
+      <i class="icon fas" [ngClass]="media.metadata.fileType | fileTypeIconMapping" [style.font-size]="iconSize"></i>
+      <label><a [href]="" target="_blank">{{media.metadata.fileName}}</a></label>
+    </ng-container>
+  </div>
+  <div class="select" *ngIf="mode === 'remove' || mode === 'remove-with-default'"
+    [ngClass]="selected ? 'selected' : ''">
+    <button type="button" class="btn btn-danger" (click)="remove.next(media)" title="Löschen">
+      <i class="fas fa-minus" aria-hidden="true"></i> Löschen
+    </button>
+    <button *ngIf="isImage && mode === 'remove-with-default' && !isDefault" type="button" class="btn btn-info"
+      (click)="default.next(media)" title="Infos anzeigen">
+      <i class="fas fa-bookmark" aria-hidden="true"></i> Als Standard
+    </button>
+  </div>
+
+
+  <div class="select" *ngIf="mode === 'select'" [ngClass]="selected ? 'selected' : ''">
+    <button type="button" class="btn btn-success" *ngIf="!selected" (click)="onSelect()" title="Infos anzeigen">
+      <i class="fas fa-check" aria-hidden="true"></i> Auswählen
+    </button>
+    <button type="button" class="btn btn-danger" *ngIf="selected" (click)="onRemove()" title="Löschen">
+      <i class="fas fa-minus" aria-hidden="true"></i> Löschen
+    </button>
+  </div>
+
+  <div class="header" *ngIf="mode === 'edit'">
+    <button type="button" class="btn btn-info" (click)="showInfo()" title="Infos anzeigen">
+      <i class="fas fa-info" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="delete()" title="Löschen">
+      <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="content" *ngIf="media.assignedCategoryIds">
+    <ng-container *ngFor="let categoryId of media.assignedCategoryIds; let i = index" class="badge badge-secondary">
+      <a class="badge badge-secondary" *ngIf="media.assignedCategoryTitles && media.assignedCategoryTitles[i]"
+        [routerLink]="['/categories/detail', categoryId]">{{media.assignedCategoryTitles[i]}}</a>
+    </ng-container>
+  </div>
+
+  <div class="footer" *ngIf="mode === 'edit'">
+    <label class="hidden-lg hidden-xl hidden-md" for="fileTitle">Titel festlegen</label>
+    <div class="input-group p-0">
+      <input type="text" class="form-control" formControlName="fileTitle" placeholder="Titel">
+      <span class="input-group-btn">
+        <button type="submit" [disabled]="form.get('fileTitle')?.value === savedTitle" formtarget="form"
+          class="btn btn-success" title="Speichern">
+          <i class="fas fa-save text-white" aria-hidden="true"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+
+</form>

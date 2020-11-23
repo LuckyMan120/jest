@@ -1,0 +1,12 @@
+.select-all{
+  margin: 5px 17px;
+}
+
+.descr {
+  max-width: 50vw;
+
+  @media only screen and (max-width: 1024px) {
+    max-width: 100vw;
+  }
+
+}

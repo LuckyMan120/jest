@@ -1,0 +1,137 @@
+@import "../../../../../assets/scss/myvariables";
+@import "../../../../../assets/scss/mymixins";
+
+.event_list {
+    padding-top: 70px;
+    background: rgba(18, 34, 55, 0.95);
+    padding-bottom: 120px;
+    margin-bottom: 280px;
+    position: relative;
+
+    .event_show {
+        width: 350px;
+        margin: 0 15px 30px;
+
+        .card-content {
+            background-color: $bg;
+            padding-bottom: $grid-gutter-width;
+            padding-top: $grid-gutter-width;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+
+            h3 {
+                font-size: $fontSize-normal !important;
+            }
+
+            h4 {
+                font-size: $fontSize-xs !important;
+            }
+        }
+
+        .categories {
+            ul {
+                display: inline-block;
+                width: 100%;
+                margin-bottom: -10px;
+
+                li {
+                    float: left;
+                    // width: calc(100% / 2);
+                    margin: 0;
+
+                    a,
+                    span {
+                        display: block;
+                        border-top-left-radius: 8px;
+                        border-top-right-radius: 8px;
+                        font-size: $fontSize-xs + 1;
+                        color: $gray;
+                        padding: 15px;
+                        text-transform: uppercase;
+                        padding-left: 1rem;
+                        @include phone_wide {
+                            padding: 15px 0;
+                        }
+                    }
+                    &:first-child {
+                        a,
+                        span {
+                            background-color: $white;
+                            color: #192c40;
+                        }
+                    }
+                    &:last-child {
+                        border-right: 0;
+                    }
+                }
+            }
+        }
+
+        .card-bottom {
+            padding-top: $grid-gutter-width;
+            background-color: $white;
+            padding-right: 0.625rem;
+            padding-bottom: 1.25rem;
+            padding-left: 0.625rem;
+            border-left: 1px solid #e5e6e7;
+            border-right: 1px solid #e5e6e7;
+            border-bottom: 1px solid #e5e6e7; // #c9ccd2;
+        }
+
+        @include phone_wide {
+            width: 315px;
+        }
+    }
+    .variable_width {
+        margin-bottom: -85px;
+        margin-left: -15px;
+        margin-top: 60px;
+
+        @include tablet {
+            margin-left: -35px;
+            margin-top: 40px;
+        }
+    }
+    .all_events {
+        a {
+            font-size: $fontSize-xs - 1;
+            line-height: 20px;
+            color: $secondary;
+            text-transform: uppercase;
+            border-bottom: 2px solid $secondary;
+            &:hover {
+                color: $white;
+                border-color: $white;
+            }
+        }
+    }
+    .lat_text {
+        font-size: $font-big;
+        position: absolute;
+        display: none; // block
+        color: $gray_1;
+        font-weight: 800;
+        right: 0;
+        bottom: -210px; // 70px
+        @include phone_wide {
+            font-size: $fontSize-hero;
+            bottom: -110px;
+        }
+    }
+    @include desktopsmall {
+        padding-top: 40px;
+    }
+}
+
+:host ::ng-deep .slick-arrow {
+    top: -120px !important;
+}
+
+:host ::ng-deep .arrow-prev.slick-arrow {
+    border-color: $secondary;
+}
+
+:host ::ng-deep .arrow-next.slick-arrow {
+    border-color: $secondary;
+}

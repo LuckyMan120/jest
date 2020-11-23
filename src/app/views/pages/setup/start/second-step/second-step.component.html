@@ -1,0 +1,214 @@
+<div class="app-login__body">
+
+  <div class=" app-login__form">
+    <div class="app-login__title">
+      <h3>Schritt 1: Rollen, Berechtigungen und Importparameter</h3>
+      <p class="descr">
+        In diesem Schritt werden die verschiedenen Benutzerrollen mit den Berechtigungen verknüpft
+        und die Rolle festgelegt, die einem Benutzer bei einer Neuanmeldung als Standard gegeben wird.
+        Sollen in der Anwendung Kalender angesehen und Mails versendet werden,
+        stehen weiter unten die Möglichkeiten dazu zur Verfügung.
+      </p>
+    </div>
+
+    <form class="app-form" [formGroup]="form" (submit)="onSubmit()">
+      <div class="app-login__actions">
+
+        <ng-container formGroupName="site">
+          <div class="row mt-5">
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Kurzname des Vereins</mat-label>
+                <input matInput placeholder="Kurzname des Vereins" formControlName="title" />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Vollständiger Vereinsname</mat-label>
+                <input matInput placeholder="Vollständiger Vereinsname" formControlName="subTitle" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Link zum Adminbereich</mat-label>
+                <input matInput placeholder="Link zum Adminbereich" formControlName="backendUrl" />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Link zur Hauptseite</mat-label>
+                <input matInput placeholder="Link zur Hauptseite" formControlName="frontendUrl" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Author</mat-label>
+                <input matInput placeholder="Author" formControlName="author" />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>E-Mail des Authors</mat-label>
+                <input matInput placeholder="E-Mail des Authors" formControlName="email" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row mt-3 mb-5">
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Verknüpfte Schlagworte</mat-label>
+                <input matInput placeholder="Verknüpfte Schlagworte" formControlName="assignedKeywords" />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Kurzer Infotext für diese Seite (max. 255 Zeichen)</mat-label>
+                <input matInput placeholder="Kurzer Infotext für diese Seite (max. 255 Zeichen)"
+                  formControlName="description" maxlength="255" />
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+
+        <h4 class="mt-5 mb-3">Registrierung neuer Benutzer</h4>
+
+        <ng-container *ngIf="roles$ | async as roles">
+          <ng-container formGroupName="registration">
+            <div class="form-group">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select placeholder="Standardrolle bei der Anmeldung" formControlName="defaultRole">
+                  <mat-option *ngFor="let role of roles" [value]="role.id">
+                    {{ role.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+
+          <h4 class="mt-5 mb-3">Zuordnung von Rollen und Berechtigungen</h4>
+          <p>Bitte gib an, welche Berechtigungen den neu angelegten Rollen gewährt werden sollen.</p>
+
+          <div *ngFor="let role of roles; let i = index">
+            <mat-form-field class="mat-form-field-fluid">
+              <mat-label>{{ role.title }}</mat-label>
+              <mat-select multiple placeholder="{{ role.title }}"
+                (selectionChange)="changeRolePermissions($event, role);">
+                <div class="select-all">
+                  <mat-checkbox (change)="toggleAllSelection($event, i)">Alle auswählen</mat-checkbox>
+                </div>
+                <mat-option *ngFor="let permission of permissions$ | async" [value]="permission.id">
+                  {{ permission.displayName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </ng-container>
+
+        <h4 class="mt-5">Verknüpfte Google Kalender</h4>
+
+        <ng-container formArrayName="assignedCalendars">
+          <div class="row py-3" *ngFor="let control of assignedCalendarControls; let i = index">
+
+            <ng-container [formGroupName]="i">
+              <div class="col-lg-3">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="Titel für den Kalender" formControlName="title">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput minlength="15" placeholder="Google-Kalender-Id" formControlName="calendarId">
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-3 d-flex flex-column">
+                <mat-checkbox formControlName="isActive">Kalender aktivieren</mat-checkbox>
+                <mat-checkbox formControlName="manualAddingAllowed">Manuelle Termine können hinzugefügt werden
+                </mat-checkbox>
+              </div>
+
+              <div class="col-lg-2 pt-3">
+                <mat-form-field>
+                  <mat-label>Kalenderfarbe zur Anzeige der Termine</mat-label>
+                  <input matInput [ngxMatColorPicker]="picker" formControlName="color">
+                  <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+                  <ngx-mat-color-picker #picker [touchUi]="true"></ngx-mat-color-picker>
+                </mat-form-field>
+              </div>
+            </ng-container>
+
+            <hr />
+          </div>
+        </ng-container>
+
+        <h4 class="mt-5">E-Mail Verteiler festlegen</h4>
+
+        <ng-container formArrayName="mailing">
+          <div *ngFor="let control of assignedMailingControls; let i = index">
+
+            <div class="row py-3" [formGroupName]="i">
+              <div class="col-lg-3">
+
+                <mat-form-field class="mat-form-field-fluid">
+                  <mat-select placeholder="Titel für den Verteiler" formControlName="assignedCategoryTitle">
+                    <mat-option *ngFor="let category of mailListCategories" [value]="category.title">
+                      {{category.title}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field class="mat-form-field-fluid">
+                  <mat-chip-list #chipList aria-label="emails">
+                    <mat-chip *ngFor="let email of mailing[i].emails" [selectable]="true" [removable]="true"
+                      (removed)="remove(email, i)" color="primary">
+                      {{email}}
+                      <span class="ml-3 fa fa-trash" (click)="remove(email, i)"></span>
+                    </mat-chip>
+                    <input placeholder="E-Mail Adresse" [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="add($event, i)">
+                  </mat-chip-list>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="mat-form-field-fluid">
+                  <mat-checkbox formControlName="isActive">Verteiler aktivieren?</mat-checkbox>
+                </div>
+              </div>
+              <hr />
+            </div>
+
+          </div>
+        </ng-container>
+
+
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="error$ | async as error">
+          <ng-container *ngIf="error?.code === 'already-exists'">
+            <p>Die Konfiguration wurde bereits abgeschlossen</p>
+            <a type="button" class="btn btn-info" [routerLink]="['/auth/login']">Weiter zu Registrierung</a>
+          </ng-container>
+          <ng-container *ngIf="error?.code !== 'already-exists'">
+            {{error.code}}
+          </ng-container>
+        </div>
+
+        <button type="submit" formtarget="form" [disabled]="(isLoading$ | async) === true" formtarget="form"
+          [ngClass]="{'app-spinner app-spinner--md app-spinner--light': (isLoading$ | async) === true  }"
+          class="btn btn-primary btn-elevate app-login__btn-primary">
+          Installation abschließen
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

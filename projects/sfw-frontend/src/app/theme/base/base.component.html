@@ -1,0 +1,31 @@
+<ng-container *ngIf="application$ | async as application; else errorTemplate">
+
+  <ng-container *ngIf="!application.downtime?.isEnabled">
+    <div class="wrapper">
+      <app-header [application]="application"></app-header>
+
+      <main id="main">
+        <!-- <pre>{{application$ | async | json}}</pre>-->
+        <router-outlet></router-outlet>
+      </main>
+
+      <app-footer [application]="application"></app-footer>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="application.downtime?.isEnabled;">
+    <div class="alert alert-warning">
+      <h1>Wartungsmodus aktiv!</h1>
+      <p>{{application.downtime?.message}}</p>
+    </div>
+  </ng-container>
+
+</ng-container>
+
+
+<ng-template #errorTemplate>
+  <div class="alert alert-warning">
+    <h1>Hoppla!</h1>
+    <p>Es wurde noch keine App konfiguriert.</p>
+  </div>
+</ng-template>

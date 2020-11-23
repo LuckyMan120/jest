@@ -1,0 +1,65 @@
+//
+// Widget7
+//
+
+.app-widget7 {
+    .app-widget7__desc {
+        text-align: center;
+        margin-top: 7rem;
+        font-size: 1.3rem;
+        color: app-base-color(label, 3);
+    }
+
+    .app-widget7__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+
+        .app-widget7__userpic {
+            img {
+                width: 3.6rem;
+                border-radius: 50%;
+            }
+        }
+
+        .app-widget7__info {
+            padding-left: 1rem;
+
+            .app-widget7__username {
+                color: app-base-color(label, 3);
+                font-weight: 500;
+                font-size: 1.4rem;
+                margin-bottom: 0;
+            }
+
+            .app-widget7__time {
+                color: app-base-color(label, 2);
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .app-widget7__button {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    // Light skin
+    &.app-widget7--skin-light {
+        .app-widget7__desc {
+            color: #fff;
+        }
+
+        .app-widget7__info {
+            .app-widget7__username {
+                color: #fff;
+            }
+
+            .app-widget7__time {
+                color: #fff;
+                opacity: 0.8;
+            }
+        }
+    }
+}

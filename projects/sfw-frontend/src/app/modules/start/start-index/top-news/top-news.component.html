@@ -1,0 +1,43 @@
+<ng-container *ngIf="articles$ | async as articles">
+  <section class="banner_slider">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 main_slider">
+
+          <ngx-slick-carousel #slickModal="slick-carousel" [config]="slideConfig">
+
+            <div ngxSlickItem *ngFor="let article of articles">
+              <div class="col-md-12">
+                <div class="row align-items-center">
+                  <div class="col-md-5 slide_content">
+                    <div class="categories">
+                      <ul>
+                        <li>
+                          <span *ngFor="let category of article.assignedCategoryTitles; let last = last">
+                            {{category}}<ng-container *ngIf="!last">,</ng-container>
+                          </span>
+                        </li>
+                        <li><span>{{article.publication?.at | date: 'mediumDate'}}</span></li>
+                      </ul>
+                    </div>
+                    <h1>{{article.title}}</h1>
+                    <p [innerHTML]="(article.excerpt ? article.excerpt : article.text) | stripHTML | truncate: [200]">
+                    </p>
+                    <a class="btn" [routerLink]="['/start/artikel', article?.title | slug]">Bericht weiterlesen</a>
+                  </div>
+                  <div class="col-md-7 slide_img">
+                    <img [src]="article.image | displayFirstMedia: [imagePlaceholders, true]"
+                      data-rjs="images/hero@2x.jpg" alt="{{article.title}}" title="{{article.title}}"
+                      class="img-fluid rounded">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </ngx-slick-carousel>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>

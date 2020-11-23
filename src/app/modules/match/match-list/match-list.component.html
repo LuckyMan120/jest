@@ -1,0 +1,133 @@
+<app-portlet>
+  <app-portlet-header title="Alle Spiele in der Übersicht">
+    <ng-container portletTools>
+      <div class="d-flex flex-row m-3">
+        <button [routerLink]="['/matches/create']" class="btn btn-primary m-1" type="button">
+          <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">Neues Spiel</span>
+        </button>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+
+  <app-portlet-body>
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <input matInput placeholder="Spiel suchen" #searchInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <div class="mat-tab-container mat-elevation-z8">
+      <div class="table-responsive">
+        <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="title" matSortDisableClear
+          matSortDirection="asc" [trackBy]="trackById">
+
+          <!--<ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let member">{{member.id}}</mat-cell>
+          </ng-container>-->
+
+          <ng-container matColumnDef="playersType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Mannschaftsart
+            </mat-header-cell>
+            <mat-cell *matCellDef="let match">{{match.playersType}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Begegnung
+            </mat-header-cell>
+            <mat-cell *matCellDef="let match">
+              <a *ngIf="match.matchLink" target="_blank" [href]="match.matchLink" [innerHTML]="match.title"></a>
+              <span *ngIf="!match.matchLink" [innerHTML]="match.title"></span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="matchStartDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Beginn
+            </mat-header-cell>
+            <mat-cell *matCellDef="let match">{{match.matchStartDate }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedLocationTitle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Spielort</mat-header-cell>
+            <mat-cell *matCellDef="let match">
+              <a [routerLink]="['/locations/detail', match.assignedLocationId]">
+                {{match.assignedLocationTitle}}
+              </a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let match">
+              <button type="button" [routerLink]="['/matches/detail', match.id]" class="btn btn-primary btn-sm mr-1"
+                tooltip="Details">
+                <span class="fa fa-info fa-fw" aria-hidden="true"></span>
+              </button>
+              <button type="button" [routerLink]="['/matches/edit', match.id]" class="btn btn-warning btn-sm"
+                tooltip="Editieren">
+                <span class="fa fa-pen fa-fw" aria-hidden="true"></span>
+              </button>&nbsp;
+              <button type="button" class="btn btn-danger btn-sm" tooltip="Löschen" (click)="deleteMatch(match)">
+                <span class="fa fa-trash fa-fw" aria-hidden="true"></span>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </table>
+      </div>
+
+      <div class="mat-table__bottom">
+        <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" [length]="dataSource.data.length"
+          [pageSize]="pageSizes[0]">
+        </mat-paginator>
+      </div>
+
+    </div>
+  </app-portlet-body>
+
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 py-3">
+        <div class="d-flex flex-column flex-md-row m-3 justify-content-end">
+          <button [routerLink]="['/matches/create']" class="btn btn-primary m-1" type="button">
+            <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">Neues Spiel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

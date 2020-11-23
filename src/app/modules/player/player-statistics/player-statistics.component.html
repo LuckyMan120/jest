@@ -1,0 +1,39 @@
+<div class="app-portlet__head app-portlet__head__custom">
+  <div class="app-portlet__head-label">
+    <h3 class="app-portlet__head-title">Statistik</h3>
+  </div>
+</div>
+
+<div class="app-portlet__body my-3">
+  <div class="table-responsive" *ngIf="data | async as data; else loadingTemplate">
+    <pre>{{data | groupBy: 'ageGroup' | json}}</pre>
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let entry of data | groupBy: 'ageGroup' | orderBy: ['ageGroup']">
+          <th class="w-25">{{entry.key}}</th>
+          <td class="w-75">
+            <ng-container *ngFor="let player of entry.value | orderBy: ['lastName', 'firstName']; let isLast=last">
+              <a class="text-primary" style="cursor: pointer;" (click)="showPlayer(player.id)">{{player.lastName}}
+                {{player.firstName}}</a>
+              {{isLast ? '' : ','}}
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="app-portlet__foot app-portlet__no-border app-portlet__foot--fit text-right mb-5">
+  <button class="btn btn-success" (click)="close()">
+    Schließen
+  </button>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="row">
+    <div class="col-lg-12">
+      <i class="fas fa-spinner fa-spin"></i>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,133 @@
+//
+// Input Icon
+//
+
+// Config
+$app-input-icon: (
+    default: (
+        width: 3.2rem,
+        font-size: (
+            flaticon: 1.3em,
+            fontawesome: 1.2em,
+            lineawesome: 1.4em,
+        ),
+    ),
+    lg: (
+        width: 4.2rem,
+        font-size: (
+            flaticon: 1.4em,
+            fontawesome: 1.3em,
+            lineawesome: 1.6em,
+        ),
+    ),
+    sm: (
+        width: 2.7rem,
+        font-size: (
+            flaticon: 1em,
+            fontawesome: 1em,
+            lineawesome: 1.1em,
+        ),
+    ),
+);
+
+// Base
+.app-input-icon {
+    position: relative;
+    padding: 0;
+    width: 100%;
+
+    // icon input sizing
+    > .app-input-icon__icon {
+        position: absolute;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        width: app-get($app-input-icon, default, width);
+
+        &.app-input-icon__icon--left {
+            left: 0;
+        }
+
+        &.app-input-icon__icon--right {
+            right: 0;
+        }
+
+        > span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+            i {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 0;
+                color: app-base-color(label, 2);
+            }
+        }
+
+        // set icon sizes
+        @include app-icons-size(app-get($app-input-icon, default, font-size));
+    }
+
+    .form-control.form-control-lg + .app-input-icon__icon {
+        width: app-get($app-input-icon, lg, width);
+
+        // set icon sizes
+        @include app-icons-size(app-get($app-input-icon, lg, font-size));
+    }
+
+    .form-control.form-control-sm ~ .app-input-icon__icon {
+        width: app-get($app-input-icon, sm, width);
+
+        // set icon sizes
+        @include app-icons-size(app-get($app-input-icon, sm, font-size));
+    }
+
+    // icon input alignments
+    &.app-input-icon--left {
+        .form-control {
+            padding-left: (app-get($app-input-icon, default, width) - 0.4rem);
+
+            &.form-control-lg {
+                padding-left: (app-get($app-input-icon, lg, width) - 0.6rem);
+            }
+
+            &.form-control-sm {
+                padding-left: (app-get($app-input-icon, sm, width) - 0.2rem);
+            }
+        }
+    }
+
+    &.app-input-icon--right {
+        .form-control {
+            padding-right: (app-get($app-input-icon, default, width) - 0.4rem);
+
+            &.form-control-lg {
+                padding-right: (app-get($app-input-icon, lg, width) - 0.6rem);
+            }
+
+            &.form-control-sm {
+                padding-right: (app-get($app-input-icon, sm, width) - 0.2rem);
+            }
+        }
+    }
+
+    // fixed width icon inputs
+    &.app-input-icon--fixed {
+        display: inline-block;
+        width: app-get($app-input-icon, default, fixed);
+    }
+
+    &.app-input-icon--fixed-large {
+        display: inline-block;
+        width: app-get($app-input-icon, lg, fixed);
+    }
+
+    &.app-input-icon--fixed-small {
+        display: inline-block;
+        width: app-get($app-input-icon, sm, fixed);
+    }
+}

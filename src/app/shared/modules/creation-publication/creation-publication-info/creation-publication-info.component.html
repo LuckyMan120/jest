@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-lg-6">
+    <app-portlet>
+      <app-portlet-header title="Erstellung"></app-portlet-header>
+      <app-portlet-body>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>Erstellungsdatum</th>
+              <td>{{creation?.at | date: 'medium' }}</td>
+            </tr>
+            <tr>
+              <th>Author</th>
+              <td>
+                <ng-container *ngIf="creation?.by !== 'system'">
+                  <a *ngIf="creation?.user as user" [routerLink]="['/users/detail', creation?.by]">
+                    {{user?.displayName }}
+                  </a>
+                </ng-container>
+
+                <span *ngIf="creation?.by === 'system'">System-Import</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+  <div class="col-lg-6" *ngIf="publication">
+    <app-portlet>
+      <app-portlet-header title="Veröffentlichung"></app-portlet-header>
+      <app-portlet-body>
+
+        <div class="alert alert-info" *ngIf="!publication?.at">
+          <p>nicht veröffentlicht</p>
+        </div>
+
+        <div class="table-responsive" *ngIf="publication?.at">
+          <table class="table">
+            <tr>
+              <th>Veröffentlichungsdatum</th>
+              <td>{{ publication?.at ? (publication?.at| date: 'medium') : '' }}</td>
+            </tr>
+            <tr>
+              <th>Veröffentlicht von</th>
+              <td>
+                <a *ngIf="publication?.user as user" [routerLink]="['/users/detail', publication?.by]">
+                  {{user?.displayName }}
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+</div>

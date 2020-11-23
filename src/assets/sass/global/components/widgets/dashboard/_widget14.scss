@@ -1,0 +1,95 @@
+//
+// Widget14
+//
+
+.app-widget14 {
+    padding: app-get($app-portlet, space, desktop);
+
+    &.app-widget14--no-padding {
+        padding: 0;
+    }
+
+    .app-widget14__header {
+        padding: 0.5rem 0 1.1rem 0;
+        margin-bottom: 0.5rem;
+
+        .app-widget14__title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0;
+            color: app-base-color(label, 3);
+        }
+
+        .app-widget14__desc {
+            display: inline-block;
+            margin-top: 0.2rem;
+            color: app-base-color(label, 2);
+        }
+    }
+
+    .app-widget14__content {
+        display: flex;
+        align-items: center;
+    }
+
+    .app-widget14__legends {
+        padding-left: 2rem;
+        flex-grow: 1;
+
+        .app-widget14__legend {
+            display: flex;
+            align-items: center;
+
+            .app-widget14__bullet {
+                width: 1.5rem;
+                height: 0.45rem;
+                border-radius: 1.1rem;
+            }
+
+            .app-widget14__stats {
+                color: app-base-color(label, 2);
+                font-weight: 500;
+                flex: 1;
+                padding-left: 1rem;
+            }
+
+            &:not(:first-child):not(:last-child) {
+                padding: 0.5rem 0;
+            }
+        }
+    }
+
+    .app-widget14__chart {
+        position: relative;
+
+        .app-widget14__stat {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: app-base-color(label, 1);
+            opacity: 0.7;
+        }
+
+        canvas {
+            position: relative;
+            z-index: 1;
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget14 {
+        padding: app-get($app-portlet, space, mobile);
+
+        .app-widget14__legends {
+            padding-left: 0.5rem;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<div class="app-portlet">
+  <div class="app-portlet__head app-portlet__head__custom">
+    <div class="app-portlet__head-label">
+      <h3 class="app-portlet__head-title" [innerHTML]="data.title"></h3>
+    </div>
+  </div>
+  <div class="app-form">
+    <div class="app-portlet__body" [innerHTML]="data.text">
+    </div>
+    <div class="app-portlet__foot app-portlet__no-border app-portlet__foot--fit text-right">
+      <div class="app-form__actions app-form__actions--sm">
+        <button class="btn btn-outline-success" (click)="onClick()">Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>

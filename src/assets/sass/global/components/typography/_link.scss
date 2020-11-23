@@ -1,0 +1,36 @@
+//
+// Link
+//
+
+.app-link {
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+
+	&:after {
+		display: block;
+		content: "";
+		position: absolute;
+		bottom: 0;
+		top: 1rem;
+		left: 0;
+		width: 0%;
+		transition: width 0.3s ease;
+	}
+
+	&:hover {
+		text-decoration: none !important;
+
+		&:after {
+			width: 100%;
+		}
+	}
+
+	@include app-link-color(app-get($app-font-color, link, default), app-get($app-font-color, link, hover));
+
+	@each $name, $color in $app-state-colors {
+		&.app-link--#{$name} {
+			@include app-link-color(app-get($color, base), darken(app-get($color, base), 10%));
+		}
+	}
+}

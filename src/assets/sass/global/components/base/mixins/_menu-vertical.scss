@@ -1,0 +1,1374 @@
+//
+// Vertical Menu Generator Helpers
+//
+
+// Item
+@mixin app-menu-ver-item-base($item) {
+	// item
+	@include app-attr(margin, app-get($item, self, margin));
+	@include app-attr(padding, app-get($item, self, padding));
+
+	// item link and heading
+	> .app-menu__heading,
+	> .app-menu__link {
+		cursor: pointer;
+
+		// link height
+		min-height: app-get($item, link, self, height);
+
+		// link margin
+		@include app-attr(margin, app-get($item, link, self, margin));
+
+		// menu item link's text part
+		.app-menu__link-text {
+			font-weight: app-get($item, link, text, font-weight);
+			font-size: app-get($item, link, text, font-size);
+			text-transform: app-get($item, link, text, font-transform);
+		}
+
+		// menu item link's icon
+		.app-menu__link-icon {
+			text-align: app-get($item, link, icon, align);
+			flex: 0 0 app-get($item, link, icon, width);
+			font-size: app-get($item, link, icon, font-size);
+
+			// duo-tone svg icon
+			svg {
+				@include app-attr(height, app-get($item, link, icon, svg-width));
+				@include app-attr(width, app-get($item, link, icon, svg-width));
+				margin-left: -2px;
+			}
+		}
+
+		// menu item link's bullet
+		.app-menu__link-bullet {
+			vertical-align: middle;
+			text-align: left;
+			flex: 0 0 app-get($item, link, bullet, self, width);
+
+			> span {
+				vertical-align: middle;
+				display: inline-block;
+			}
+
+			&.app-menu__link-bullet--dot {
+				> span {
+					width: app-get($item, link, bullet, dot, size);
+					height: app-get($item, link, bullet, dot, size);
+					border-radius: 100%;
+				}
+			}
+
+			&.app-menu__link-bullet--line {
+				> span {
+					width: app-get($item, link, bullet, line, width);
+					height: app-get($item, link, bullet, line, height);
+				}
+			}
+		}
+
+		// menu item link's icon part
+		.app-menu__link-badge {
+			padding: app-get($item, link, badge, padding);
+			text-align: app-get($item, link, badge, align);
+		}
+
+		// menu item link's arrow part
+		.app-menu__ver-arrow {
+			text-align: app-get($item, link, arrow, align);
+			flex: 0 0 app-get($item, link, arrow, width);
+			font-size: app-get($item, link, arrow, font-size);
+
+			&:before {
+				display: inline-block;
+				transition: app-get($item, link, arrow, transition);
+
+				[direction="rtl"] & {
+					content: "#{app-get($app-action-icons, left)}" !important;
+				}
+			}
+		}
+
+		// menu root level "here" arrow
+		.app-menu__item-here {
+			display: none;
+		}
+
+		// link border radius
+		@include app-rounded {
+			@include app-attr(border-radius, app-get($item, link, self, border-radius));
+		}
+	}
+
+	// item link open state
+	&.app-menu__item--open {
+		> .app-menu__heading,
+		> .app-menu__link {
+			// menu item link's arrow part
+			.app-menu__ver-arrow {
+				&:before {
+					transition: app-get($item, link, arrow, transition);
+				}
+			}
+		}
+	}
+}
+
+@mixin app-menu-ver-item-skin($item) {
+	// item
+	@include app-attr(background-color, app-get($item, self, bg-color, default));
+
+	// item link and heading
+	> .app-menu__heading,
+	> .app-menu__link {
+		// menu item link's text part
+		.app-menu__link-text {
+			@include app-attr(color, app-get($item, link, text, font-color, default));
+			@if app-has($item, link, text, font-weight) {
+				font-weight: app-get($item, link, text, font-weight);
+			}
+		}
+
+		// menu item link's icon
+		.app-menu__link-icon {
+			@include app-attr(color, app-get($item, link, icon, font-color, default));
+
+			// Due-tone icon
+			svg {
+				@include app-svg-icon-color(app-get($item, link, icon, font-color, default));
+			}
+		}
+
+		// menu item link's bullet
+		.app-menu__link-bullet {
+			&.app-menu__link-bullet--dot {
+				> span {
+					@include app-attr(background-color, app-get($item, link, bullet, dot, bg-color, default));
+				}
+			}
+
+			&.app-menu__link-bullet--line {
+				> span {
+					@include app-attr(background-color, app-get($item, link, bullet, line, bg-color, default));
+				}
+			}
+		}
+
+		// menu item link's arrow part
+		.app-menu__ver-arrow {
+			@include app-attr(color, app-get($item, link, arrow, font-color, default));
+		}
+	}
+
+	// item link open state
+	&.app-menu__item--open {
+		transition: background-color 0.3s;
+		@include app-attr(background-color, app-get($item, self, bg-color, open));
+
+		> .app-menu__heading,
+		> .app-menu__link {
+			@include app-attr(background-color, app-get($item, link, self, bg-color, open));
+
+			// menu item link's text part
+			.app-menu__link-text {
+				@include app-attr(color, app-get($item, link, text, font-color, open));
+			}
+
+			// menu item link's icon part
+			.app-menu__link-icon {
+				@include app-attr(color, app-get($item, link, icon, font-color, open));
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, open));
+				}
+			}
+
+			// menu item link's bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, dot, bg-color, open));
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, line, bg-color, open));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.app-menu__ver-arrow {
+				@include app-attr(color, app-get($item, link, arrow, font-color, open));
+			}
+		}
+	}
+
+	// item link open state
+	&.app-menu__item--here {
+		transition: background-color 0.3s;
+		@include app-attr(background-color, app-get($item, self, bg-color, here));
+
+		> .app-menu__heading,
+		> .app-menu__link {
+			@include app-attr(background-color, app-get($item, link, self, bg-color, here));
+
+			// menu item link's text part
+			.app-menu__link-text {
+				@include app-attr(color, app-get($item, link, text, font-color, here));
+			}
+
+			// menu item link's icon part
+			.app-menu__link-icon {
+				@include app-attr(color, app-get($item, link, icon, font-color, here));
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, here));
+				}
+			}
+
+			// menu item link's bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, dot, bg-color, here));
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, line, bg-color, here));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.app-menu__ver-arrow {
+				@include app-attr(color, app-get($item, link, arrow, font-color, here));
+			}
+		}
+	}
+
+	// item link active state
+	&.app-menu__item--active {
+		transition: background-color 0.3s;
+		@include app-attr(background-color, app-get($item, self, bg-color, active));
+
+		> .app-menu__heading,
+		> .app-menu__link {
+			@include app-attr(background-color, app-get($item, link, self, bg-color, active));
+
+			// menu item link's text part
+			.app-menu__link-text {
+				@include app-attr(color, app-get($item, link, text, font-color, active));
+			}
+
+			// menu item link's icon part
+			.app-menu__link-icon {
+				@include app-attr(color, app-get($item, link, icon, font-color, active));
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, active));
+				}
+			}
+
+			// menu item link's bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, dot, bg-color, active));
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, line, bg-color, active));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.app-menu__ver-arrow {
+				@include app-attr(color, app-get($item, link, arrow, font-color, active));
+			}
+		}
+	}
+
+	// item link hover state
+	&:not(.app-menu__item--parent):not(.app-menu__item--open):not(.app-menu__item--here):not(.app-menu__item--active):hover {
+		transition: background-color 0.3s;
+		@include app-attr(background-color, app-get($item, self, bg-color, hover));
+
+		> .app-menu__heading,
+		> .app-menu__link {
+			@include app-attr(background-color, app-get($item, link, self, bg-color, hover));
+
+			// menu item link's text part
+			.app-menu__link-text {
+				@include app-attr(color, app-get($item, link, text, font-color, hover));
+			}
+
+			// menu item link's icon part
+			.app-menu__link-icon {
+				@include app-attr(color, app-get($item, link, icon, font-color, hover));
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, hover));
+				}
+			}
+
+			// menu item link's bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, dot, bg-color, hover));
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						@include app-attr(background-color, app-get($item, link, bullet, line, bg-color, hover));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.app-menu__ver-arrow {
+				@include app-attr(color, app-get($item, link, arrow, font-color, hover));
+			}
+		}
+	}
+}
+
+// Section
+@mixin app-menu-ver-section-base($section) {
+	margin: app-get($section, self, margin);
+	height: app-get($section, self, height);
+
+	.app-menu__section-text {
+		font-size: app-get($section, text, font-size);
+		font-weight: app-get($section, text, font-weight);
+		text-transform: app-get($section, text, font-transform);
+		letter-spacing: app-get($section, text, letter-spacing);
+	}
+
+	@if app-has($section, icon) {
+		.app-menu__section-icon {
+			padding: app-get($section, icon, padding);
+		}
+	}
+}
+
+@mixin app-menu-ver-section-skin($section) {
+	.app-menu__section-text {
+		@include app-attr(color, app-get($section, text, font-color));
+	}
+
+	@if app-has($section, icon) {
+		.app-menu__section-icon {
+			@include app-attr(color, app-get($section, icon, font-color));
+		}
+	}
+}
+
+// Separator
+@mixin app-menu-ver-separator-base($separator) {
+	margin: app-get($separator, margin);
+
+	.app-menu__separator--marginles {
+		margin: 0;
+	}
+}
+
+@mixin app-menu-ver-separator-skin($separator) {
+	@include app-attr(border-bottom, app-get($separator, border));
+}
+
+// Minimize Parent Item
+@mixin app-menu-ver-minimize-parent-item-base($item) {
+	// item
+	margin: app-get($item, self, margin);
+
+	// item link and heading
+	> .app-menu__link {
+		height: app-get($item, link, self, height);
+		padding: app-get($item, link, self, padding);
+
+		// menu item link's text part
+		.app-menu__link-text {
+			font-weight: app-get($item, link, text, font-weight);
+			font-size: app-get($item, link, text, font-size);
+			text-transform: app-get($item, link, text, font-transform);
+			cursor: text !important;
+		}
+
+		// menu item link's icon part
+		.app-menu__link-badge {
+			padding: app-get($item, link, badge, padding);
+			text-align: app-get($item, link, badge, align);
+		}
+	}
+}
+
+@mixin app-menu-ver-minimize-parent-item-skin($item) {
+	// item
+	@include app-attr(background-color, app-get($item, self, bg-color, default));
+
+	// item link and heading
+	> .app-menu__link {
+		// menu item link's text part
+		> .app-menu__link-text {
+			@include app-attr(color, app-get($item, link, text, font-color, default));
+		}
+	}
+}
+
+// Base
+@mixin app-menu-ver-base($base-config, $layout) {
+	.#{app-get($base-config, class)} {
+		// menu nav
+		.app-menu__nav {
+			margin: 0;
+			list-style: none;
+			padding: app-get($layout, default, self, padding);
+
+			// Base markup
+			.app-menu__scroll {
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+			}
+
+			.app-menu__subnav {
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+				padding: 0;
+				margin: 0;
+				list-style: none !important;
+			}
+
+			// general submenu
+			.app-menu__inner,
+			.app-menu__submenu {
+				display: none;
+				float: none;
+				margin: 0;
+				padding: 0;
+
+				@if app-get($base-config, mode) == "tablet-and-mobile" or app-get($base-config, mode) == "mobile" {
+					width: auto !important;
+				}
+
+				// Content
+				.app-menu__content {
+					padding: 0;
+					margin: 0;
+
+					> .app-menu__item {
+						padding: 0;
+						margin: 0;
+						list-style: none;
+
+						&.app-menu--no-heading {
+							> .app-menu__inner {
+								display: flex;
+
+								> li > .app-menu__link {
+									margin: 0;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// general item
+			.app-menu__item {
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+				float: none;
+				padding: 0;
+
+				// item link and heading
+				> .app-menu__heading,
+				> .app-menu__link {
+					display: flex;
+					flex-grow: 1;
+					align-items: stretch;
+					margin: 0;
+					padding: 0;
+					text-decoration: none;
+					position: relative;
+					outline: none;
+
+					&:hover {
+						text-decoration: none;
+						cursor: pointer;
+					}
+
+					.app-menu__link-text {
+						display: flex;
+						align-items: center;
+						flex-grow: 1;
+						padding: 0;
+					}
+
+					.app-menu__link-badge {
+						display: flex;
+						align-items: center;
+						white-space: nowrap;
+					}
+
+					// menu item link's icon part
+					.app-menu__link-icon {
+						display: flex;
+						align-items: center;
+						line-height: 0;
+					}
+
+					// menu item link's icon part
+					.app-menu__link-bullet {
+						display: flex;
+						align-items: center;
+						line-height: 0;
+					}
+
+					// menu item link's arrow part
+					.app-menu__ver-arrow {
+						display: flex;
+						align-items: center;
+						justify-content: flex-end;
+						line-height: 0;
+
+						&:before {
+							-webkit-transform: translate3d(0, 0, 0);
+						}
+					}
+
+					.app-menu__hor-arrow {
+						display: none;
+					}
+				}
+
+				// item link open state
+				&.app-menu__item--open {
+					> .app-menu__heading,
+					> .app-menu__link {
+						// menu item link's arrow part
+						> .app-menu__ver-arrow {
+							&:before {
+								transform: rotateZ(90deg) #{"/*rtl:ignore*/"};
+
+								[direction="rtl"] & {
+									transform: rotateZ(-90deg) #{"/*rtl:ignore*/"};
+								}
+							}
+						}
+					}
+
+					> .app-menu__submenu,
+					> .app-menu__inner {
+						display: flex;
+						flex-grow: 1;
+						flex-direction: column;
+					}
+				}
+
+				// submenu items
+				.app-menu__submenu {
+					// submenu item
+					.app-menu__item {
+						// item link and heading
+						> .app-menu__heading,
+						> .app-menu__link {
+							padding: app-get($layout, default, item, submenu, item, link, padding);
+						}
+					}
+
+					// parent item used for minimized menu's dropdown submenus
+					.app-menu__item--parent {
+						display: none;
+					}
+				}
+			}
+
+			// general section
+			.app-menu__section {
+				display: flex;
+				padding: app-get($layout, default, section, self, padding);
+
+				&.app-menu__section--first {
+					margin-top: 0 !important;
+				}
+
+				.app-menu__section-text {
+					display: flex;
+					margin: 0;
+					padding: 0;
+					align-items: center;
+				}
+
+				.app-menu__section-icon {
+					display: none;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+
+			// general separator
+			.app-menu__separator {
+				height: 0;
+				overflow: hidden;
+
+				&.app-menu__separator--marginles {
+					margin: 0;
+				}
+			}
+
+			// Custom markup
+			// menu item
+			> .app-menu__item {
+				position: relative;
+				@include app-menu-ver-item-base(app-get($layout, default, item));
+
+				.app-menu__submenu {
+					.app-menu__subnav {
+						@include app-attr(margin, app-get($layout, default, item, submenu, self, margin));
+						@include app-attr(padding, app-get($layout, default, item, submenu, self, padding));
+					}
+
+					// menu item
+					.app-menu__item {
+						@include app-menu-ver-item-base(app-get($layout, default, item, submenu, item));
+					}
+
+					// menu section
+					.app-menu__section {
+						@include app-menu-ver-section-base(app-get($layout, default, item, submenu, section));
+					}
+
+					// menu item separator
+					.app-menu__separator {
+						@include app-menu-ver-separator-base(app-get($layout, default, item, submenu, separator));
+					}
+				}
+			}
+
+			// menu section
+			> .app-menu__section {
+				@include app-menu-ver-section-base(app-get($layout, default, section));
+			}
+
+			// menu item separator
+			> .app-menu__separator {
+				@include app-menu-ver-separator-base(app-get($layout, default, separator));
+			}
+
+			// submenu link paddings and indentions
+			// item
+			$item-link-padding: app-get($layout, default, item, link, self, padding);
+			$item-section-padding: app-get($layout, default, section, self, padding);
+
+			// item submenu
+			$item-submenu-padding-left: app-get($layout, default, item, submenu, item, link, self, padding-x);
+
+			$item-submenu-indent: app-get($layout, default, item, submenu, self, indent);
+			$item-submenu-link-padding: app-get($layout, default, item, submenu, item, link, self, padding);
+
+			$item-submenu-section-indent: app-get($layout, default, item, submenu, section, self, indent);
+			$item-submenu-section-padding: app-get($layout, default, item, submenu, section, padding);
+
+			> .app-menu__item {
+				> .app-menu__link {
+					padding: $item-link-padding;
+				}
+
+				> .app-menu__submenu {
+					.app-menu__subnav {
+						// item link paddings
+						.app-menu__content {
+							.app-menu__heading {
+								padding: $item-submenu-link-padding;
+								padding-left: $item-submenu-padding-left + (1 * $item-submenu-section-indent);
+							}
+
+							.app-menu__inner {
+								padding: 0;
+								margin: 0;
+
+								.app-menu__link {
+									padding: $item-submenu-link-padding;
+									padding-left: $item-submenu-padding-left + (2 * $item-submenu-section-indent);
+								}
+							}
+						}
+
+						> .app-menu__item {
+							> .app-menu__link {
+								padding: $item-submenu-link-padding;
+								padding-left: $item-submenu-padding-left + (1 * $item-submenu-indent);
+							}
+
+							> .app-menu__submenu {
+								padding: 0;
+
+								.app-menu__subnav {
+									padding: 0;
+
+									> .app-menu__item {
+										> .app-menu__link {
+											padding: $item-submenu-link-padding;
+											padding-left: $item-submenu-padding-left + (2 * $item-submenu-indent);
+										}
+
+										> .app-menu__submenu {
+											padding: 0;
+
+											.app-menu__subnav {
+												> .app-menu__item {
+													> .app-menu__link {
+														padding: $item-submenu-link-padding;
+														padding-left: $item-submenu-padding-left +
+															(3 * $item-submenu-indent);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						// section paddings
+						> .app-menu__section {
+							padding: $item-submenu-section-padding;
+							padding-left: $item-submenu-padding-left + (1 * $item-submenu-section-indent);
+						}
+
+						> .app-menu__item {
+							> .app-menu__submenu {
+								padding: 0;
+								.app-menu__subnav {
+									> .app-menu__section {
+										padding: $item-submenu-section-padding;
+										padding-left: $item-submenu-padding-left + (2 * $item-submenu-section-indent);
+									}
+
+									> .app-menu__item {
+										> .app-menu__submenu {
+											padding: 0;
+											.app-menu__subnav {
+												> .app-menu__section {
+													padding: $item-submenu-section-padding;
+													padding-left: $item-submenu-padding-left +
+														(3 * $item-submenu-section-indent);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin app-menu-ver-skin($base-config, $layout) {
+	.#{app-get($base-config, class)} {
+		@include app-attr(background-color, app-get($layout, default, self, bg-color));
+
+		.app-menu__nav {
+			// menu item
+			> .app-menu__item {
+				@include app-menu-ver-item-skin(app-get($layout, default, item));
+
+				> .app-menu__arrow {
+					color: app-get($layout, default, self, bg-color);
+				}
+			}
+
+			// menu section
+			> .app-menu__section {
+				@include app-menu-ver-section-skin(app-get($layout, default, section));
+			}
+
+			// menu item separator
+			> .app-menu__separator {
+				@include app-menu-ver-separator-skin(app-get($layout, default, separator));
+			}
+
+			// menu item
+			> .app-menu__item {
+				.app-menu__submenu {
+					.app-menu__subnav {
+						@include app-attr(
+							background-color,
+							app-get($layout, default, item, submenu, self, bg-color, default)
+						);
+					}
+					// menu item
+					.app-menu__item {
+						@include app-menu-ver-item-skin(app-get($layout, default, item, submenu, item));
+					}
+
+					// menu section
+					.app-menu__section {
+						@include app-menu-ver-section-skin(app-get($layout, default, item, submenu, section));
+					}
+
+					// menu item separator
+					.app-menu__separator {
+						@include app-menu-ver-separator-skin(app-get($layout, default, item, submenu, separator));
+					}
+				}
+			}
+		}
+	}
+}
+
+// Dropdown
+@mixin app-menu-ver-dropdown-base($base-config, $layout) {
+	// base dropdown submenu
+	.#{app-get($base-config, parent-class)}--minimize .#{app-get($base-config, class)},
+	.#{app-get($base-config, class)}.#{app-get($base-config, class)}--dropdown {
+		.app-menu__nav {
+			.app-menu__item:not([data-ktmenu-submenu-mode="accordion"]) {
+				> .app-menu__link {
+					> .app-menu__ver-arrow {
+						&:before {
+							@include app-fix-animation-lags();
+						}
+					}
+				}
+
+				> .app-menu__submenu {
+					display: none !important;
+					@include app-fix-animation-lags();
+				}
+
+				&.app-menu__item--hover {
+					position: relative;
+
+					> .app-menu__submenu {
+						top: app-get($layout, dropdown, item, submenu, self, offset, inner, default);
+						position: absolute;
+						z-index: app-get($layout, dropdown, item, self, zindex);
+						display: flex !important;
+						width: app-get($layout, dropdown, item, submenu, self, width);
+						margin-left: app-get($layout, dropdown, item, submenu, self, width);
+
+						@include app-rounded {
+							border-radius: app-get($layout, dropdown, item, submenu, self, border-radius);
+						}
+
+						&.app-menu__submenu--up {
+							bottom: 0;
+							top: auto;
+						}
+
+						animation: #{app-get($base-config, class)}-submenu-fade-in 0.3s ease 1,
+							#{app-get($base-config, class)}-submenu-move-up 0.3s ease-out 1;
+
+						&.app-menu__submenu--up {
+							top: auto;
+							bottom: app-get($layout, dropdown, item, submenu, self, offset, inner, up);
+							animation: #{app-get($base-config, class)}-submenu-fade-in 0.3s ease 1,
+								#{app-get($base-config, class)}-submenu-move-down 0.3s ease-out 1;
+
+							@include app-hack-ie {
+								animation: none;
+							}
+						}
+
+						.app-menu__subnav {
+							padding: app-get($layout, dropdown, item, submenu, self, padding);
+
+							> .app-menu__item {
+								.app-menu__link {
+									justify-content: flex-start;
+									padding: app-get($layout, dropdown, item, submenu, item, link, self, padding);
+
+									.app-menu__link-title {
+										display: flex;
+									}
+
+									.app-menu_link-text {
+										@include app-fix-animation-lags();
+									}
+
+									.app-menu__link-icon {
+										display: flex;
+									}
+
+									.app-menu__link-bullet {
+										display: flex;
+									}
+
+									.app-menu__link-badge {
+										display: flex;
+									}
+
+									.app-menu__ver-arrow {
+										display: flex;
+									}
+								}
+
+								.app-menu__submenu {
+									.app-menu__subnav {
+										padding: app-get($layout, dropdown, item, submenu, self, padding);
+
+										> .app-menu__item {
+											> .app-menu__link {
+												padding: app-get(
+													$layout,
+													dropdown,
+													item,
+													submenu,
+													item,
+													link,
+													self,
+													padding
+												);
+											}
+
+											.app-menu__submenu {
+												.app-menu__subnav {
+													padding: app-get($layout, dropdown, item, submenu, self, padding);
+
+													> .app-menu__item {
+														> .app-menu__link {
+															padding: app-get(
+																$layout,
+																dropdown,
+																item,
+																submenu,
+																item,
+																link,
+																self,
+																padding
+															);
+														}
+													}
+												}
+											}
+										}
+
+										> .app-menu__section {
+											padding: app-get($layout, dropdown, item, submenu, section, self, padding);
+										}
+									}
+								}
+
+								@include app-menu-ver-item-base(app-get($layout, dropdown, item, submenu, item));
+							}
+
+							> .app-menu__section {
+								@include app-menu-ver-section-base(app-get($layout, dropdown, item, submenu, section));
+							}
+
+							> .app-menu__separator {
+								@include app-menu-ver-separator-base(
+									app-get($layout, dropdown, item, submenu, separator)
+								);
+							}
+						}
+					}
+				}
+			}
+
+			> .app-menu__item:not([data-ktmenu-submenu-mode="accordion"]) {
+				&.app-menu__item--hover {
+					> .app-menu__submenu {
+						margin-left: app-get($layout, dropdown, item, submenu, self, parent-width);
+						top: app-get($layout, dropdown, item, submenu, self, offset, root, default);
+
+						&.app-menu__submenu--up {
+							bottom: app-get($layout, dropdown, item, submenu, self, offset, root, up);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin app-menu-ver-dropdown-skin($base-config, $layout) {
+	.#{app-get($base-config, parent-class)}--minimize .#{app-get($base-config, class)},
+	.#{app-get($base-config, class)}.#{app-get($base-config, class)}--dropdown {
+		.app-menu__nav {
+			.app-menu__item:not([data-ktmenu-submenu-mode="accordion"]) {
+				&.app-menu__item--hover {
+					> .app-menu__submenu {
+						background-color: app-get($layout, dropdown, item, submenu, self, bg-color);
+						box-shadow: app-get($layout, dropdown, item, submenu, self, box-shadow);
+
+						.app-menu__subnav {
+							.app-menu__item {
+								@include app-menu-ver-item-skin(app-get($layout, dropdown, item, submenu, item));
+							}
+
+							.app-menu__section {
+								@include app-menu-ver-section-skin(app-get($layout, dropdown, item, submenu, section));
+							}
+
+							.app-menu__separator {
+								@include app-menu-ver-separator-skin(
+									app-get($layout, dropdown, item, submenu, separator)
+								);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Minimize
+@mixin app-menu-ver-minimize-base($base-config, $layout) {
+	.#{app-get($base-config, class)} {
+		.app-menu__nav {
+			padding: app-get($layout, minimize, self, padding);
+
+			> .app-menu__item {
+				> .app-menu__link {
+					.app-menu__link-icon {
+						width: 100%;
+					}
+
+					.app-menu__link-bullet {
+						display: none;
+					}
+
+					.app-menu__link-text {
+						display: none;
+					}
+
+					.app-menu__link-badge {
+						padding: 0;
+						position: relative;
+						right: app-get($layout, minimize, item, link, badge, right);
+
+						.app-badge {
+							text-indent: -9999px;
+							position: relative;
+							padding: 0;
+							min-width: app-get($layout, minimize, item, link, badge, size);
+							width: app-get($layout, minimize, item, link, badge, size);
+							min-height: app-get($layout, minimize, item, link, badge, size);
+							height: app-get($layout, minimize, item, link, badge, size);
+						}
+					}
+
+					.app-menu__ver-arrow {
+						display: none;
+					}
+				}
+
+				> .app-menu__submenu {
+					display: none !important;
+				}
+
+				&.app-menu__item--here {
+					> .app-menu__arrow {
+						display: inline-block;
+					}
+				}
+
+				&.app-menu__item--hover {
+					position: relative;
+					z-index: app-get($layout, minimize, item, self, zindex);
+					width: app-get($layout, minimize, item, self, width);
+
+					&.app-menu__item--open {
+						background: transparent;
+					}
+
+					> .app-menu__link {
+						width: app-get($layout, minimize, self, width);
+
+						.app-menu__link-title {
+							display: none;
+						}
+					}
+
+					> .app-menu__submenu {
+						top: 0;
+						bottom: auto;
+						display: flex !important;
+						margin-left: app-get($layout, minimize, item, submenu, self, margin-left) !important;
+
+						@if app-has($layout, minimize, item, submenu) {
+							.app-menu__subnav {
+								> .app-menu__item.app-menu__item--parent {
+									display: flex;
+									@include app-menu-ver-minimize-parent-item-base(
+										app-get($layout, minimize, item, submenu, parent-item)
+									);
+
+									& + .app-menu__item {
+										margin-top: app-get(
+											$layout,
+											minimize,
+											item,
+											submenu,
+											parent-item,
+											link,
+											self,
+											margin-bottom
+										);
+									}
+								}
+							}
+						}
+					}
+
+					> .app-menu__arrow {
+						display: none;
+					}
+				}
+			}
+
+			> .app-menu__section {
+				justify-content: center;
+
+				.app-menu__section-text {
+					display: none;
+				}
+
+				.app-menu__section-icon {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					padding: app-get($layout, minimize, section, icon, padding);
+					animation: app-animate-fade-in 0.7s;
+				}
+			}
+		}
+	}
+}
+
+@mixin app-menu-ver-minimize-skin($base-config, $layout) {
+	.#{app-get($base-config, class)} {
+		// base vertical menu
+		.app-menu__nav {
+			> .app-menu__item {
+				background: transparent;
+
+				> .app-menu__link {
+					background-color: app-get($layout, minimize, item, link, self, bg-color, default);
+
+					> .app-menu__link-icon {
+						color: app-get($layout, minimize, item, link, icon, font-color, default);
+					}
+				}
+
+				&.app-menu__item--hover,
+				&.app-menu__item--open {
+					background: transparent !important;
+
+					> .app-menu__link {
+						background-color: app-get($layout, minimize, item, link, self, bg-color, open);
+
+						> .app-menu__link-icon {
+							@include app-attr(color, app-get($layout, minimize, item, link, icon, font-color, open));
+						}
+					}
+				}
+
+				&.app-menu__item--here,
+				&.app-menu__item--active {
+					background: transparent !important;
+
+					> .app-menu__link {
+						background-color: app-get($layout, minimize, item, link, self, bg-color, active);
+
+						> .app-menu__link-icon {
+							@include app-attr(color, app-get($layout, minimize, item, link, icon, font-color, active));
+						}
+					}
+				}
+
+				&:hover {
+					background: transparent;
+
+					> .app-menu__link {
+						background-color: app-get($layout, minimize, item, link, self, bg-color, hover);
+
+						> .app-menu__link-icon {
+							@include app-attr(
+								color,
+								app-get($layout, minimize, item, link, icon, font-color, hover),
+								!important
+							);
+						}
+					}
+				}
+
+				@if app-has($layout, minimize, item, submenu) {
+					&.app-menu__item--hover > .app-menu__submenu {
+						.app-menu__subnav > .app-menu__item.app-menu__item--parent {
+							display: flex;
+							@include app-menu-ver-minimize-parent-item-skin(
+								app-get($layout, minimize, item, submenu, parent-item)
+							);
+						}
+					}
+				}
+			}
+
+			> .app-menu__section {
+				.app-menu__section-icon {
+					color: app-get($layout, minimize, section, icon, font-color);
+				}
+			}
+		}
+	}
+}
+
+// Build
+// Custom Skin
+@mixin app-menu-ver-build-skin($config, $skin) {
+	$skin-config: ();
+
+	@if ($skin == default) {
+		$skin-config: app-get($config, build, skin);
+	} @else {
+		$skin-config: app-get($config, build, skins, $skin);
+	}
+
+	@if (app-get($config, base, mode) == general) {
+		@include app-menu-ver-skin(
+			(
+				class: app-get($config, base, class),
+			),
+			$skin-config
+		);
+	} @else if (app-get($config, base, mode) == tablet-and-mobile) {
+		@include app-tablet-and-mobile {
+			@include app-menu-ver-skin(
+				(
+					class: app-get($config, base, class),
+				),
+				$skin-config
+			);
+		}
+	} @else if (app-get($config, base, mode) == mobile) {
+		@include app-mobile {
+			@include app-menu-ver-skin(
+				(
+					class: app-get($config, base, class),
+				),
+				$skin-config
+			);
+		}
+	}
+
+	@if (app-has($skin-config, minimize)) {
+		@include app-desktop {
+			.#{app-get($config, base, parent-class)}--minimize {
+				@include app-menu-ver-minimize-skin(
+					(
+						class: app-get($config, base, class),
+						parent-class: app-get($config, base, parent-class),
+					),
+					$skin-config
+				);
+			}
+		}
+	}
+
+	@if (app-has($skin-config, dropdown)) {
+		@include app-desktop {
+			@include app-menu-ver-dropdown-skin(
+				(
+					class: app-get($config, base, class),
+					parent-class: app-get($config, base, parent-class),
+				),
+				$skin-config
+			);
+		}
+	}
+}
+
+// Build Layout
+@mixin app-menu-ver-build-layout($config) {
+	// Base menu
+	@if (app-get($config, base, mode) == general) {
+		@include app-menu-ver-base(app-get($config, base), app-get($config, build, layout));
+	} @else if (app-get($config, base, mode) == tablet-and-mobile) {
+		@include app-tablet-and-mobile {
+			@include app-menu-ver-base(app-get($config, base), app-get($config, build, layout));
+		}
+	} @else if (app-get($config, base, mode) == mobile) {
+		@include app-mobile {
+			@include app-menu-ver-base(app-get($config, base), app-get($config, build, layout));
+		}
+	}
+
+	// Base dropdown menu submenu mode
+	@if (app-has($config, build, layout, dropdown)) {
+		// Desktop only dropdown vertical menu
+		@include app-desktop {
+			@include app-menu-ver-dropdown-base(app-get($config, base), app-get($config, build, layout));
+		}
+
+		// Dropdown Submenu Animations
+		@keyframes #{app-get($config, base, class)}-submenu-fade-out {
+			from {
+				opacity: 1;
+			}
+			to {
+				opacity: 0;
+			}
+		}
+
+		@keyframes #{app-get($config, base, class)}-submenu-fade-in {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes #{app-get($config, base, class)}-submenu-move-up {
+			from {
+				margin-top: app-get($config, build, layout, dropdown, item, submenu, self, animation, offset);
+			}
+			to {
+				margin-top: 0;
+			}
+		}
+
+		@keyframes #{app-get($config, base, class)}-submenu-move-down {
+			from {
+				margin-bottom: app-get($config, build, layout, dropdown, item, submenu, self, animation, offset);
+			}
+			to {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	// Base minimize menu mode
+	@if (app-has($config, build, layout, minimize)) {
+		@include app-desktop {
+			.#{app-get($config, base, parent-class)}--minimize {
+				@include app-menu-ver-minimize-base(app-get($config, base), app-get($config, build, layout));
+			}
+		}
+	}
+}

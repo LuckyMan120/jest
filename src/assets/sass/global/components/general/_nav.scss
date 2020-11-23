@@ -1,0 +1,550 @@
+//
+// Navigation
+//
+
+// Base
+.app-nav {
+	$app-nav-padding-x: 1.75rem;
+	$app-nav-padding-y: 0.55rem;
+
+	display: block;
+	padding: 1rem 0;
+	margin: 0;
+	list-style: none;
+	border: 0;
+
+	// Item
+	.app-nav__item {
+		display: block;
+
+		> .app-nav__link {
+			display: flex;
+			flex-grow: 1;
+			align-items: center;
+			padding: $app-nav-padding-y $app-nav-padding-x;
+			cursor: pointer;
+			@include app-transition(); // menu item link's text part
+
+			.app-nav__link-text {
+				flex-grow: 1;
+				font-size: 1rem;
+				color: app-base-color(label, 3);
+				font-weight: 400;
+			}
+
+			// menu item link's icon
+			.app-nav__link-icon {
+				flex: 0 0 30px;
+				font-size: 1.25rem;
+				line-height: 0;
+				color: app-base-color(label, 1);
+
+				&:before {
+					line-height: 0;
+				}
+
+				&.app-nav__link-icon--center {
+					text-align: center;
+					margin-right: 0.25rem;
+				}
+
+				// Svg icon
+				@include app-svg-icon-color(app-base-color(label, 1));
+			}
+
+			// menu item link's bullet
+			.app-nav__link-bullet {
+				text-align: center;
+				flex: 0 0 10px;
+				margin-right: 10px;
+
+				> span {
+					vertical-align: middle;
+					display: inline-block;
+				}
+
+				&.app-nav__link-bullet--dot {
+					> span {
+						width: 4px;
+						height: 4px;
+						border-radius: 100%;
+					}
+				}
+
+				&.app-nav__link-bullet--line {
+					> span {
+						width: 8px;
+						height: 2px;
+						border-radius: 2px;
+					}
+				}
+
+				&.app-nav__link-bullet--line,
+				&.app-nav__link-bullet--dot {
+					> span {
+						background-color: app-base-color(label, 1);
+					}
+				}
+			}
+
+			// menu item link's icon part
+			.app-nav__link-badge {
+				padding: 0px 0px 0px 5px;
+			}
+
+			// menu item link's arrow part
+			.app-nav__link-arrow {
+				text-align: right;
+				flex: 0 0 20px;
+				font-size: 0.8rem;
+				color: app-base-color(label, 1);
+				@include app-icon(app-get($app-action-icons, down));
+				&:before {
+					display: inline-block;
+					transition: all 0.3s ease;
+				}
+			}
+
+			&.collapsed {
+				.app-nav__link-arrow {
+					@include app-icon(app-get($app-action-icons, right));
+					&:before {
+						transition: all 0.3s ease;
+					}
+				}
+			}
+		}
+
+		> .app-nav__sub {
+			padding: 0;
+			margin: 0;
+
+			.app-nav__item {
+				> .app-nav__link {
+					padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+				}
+			}
+		}
+
+		&.app-nav__item--last {
+			padding-bottom: 0;
+		}
+
+		// Hover & active state
+		&.app-nav__item--active,
+		&.active,
+		&:hover:not(.app-nav__item--disabled):not(.app-nav__item--sub) {
+			> .app-nav__link {
+				background-color: app-base-color(grey, 1);
+
+				@include app-transition();
+
+				.app-nav__link-icon,
+				.app-nav__link-text,
+				.app-nav__link-arrow {
+					color: app-state-color(brand, base);
+				}
+
+				.app-nav__link-icon {
+					@include app-svg-icon-color(app-state-color(brand, base));
+				}
+
+				.app-nav__link-bullet {
+					&.app-nav__link-bullet--line,
+					&.app-nav__link-bullet--dot {
+						> span {
+							background-color: app-state-color(brand, base);
+						}
+					}
+				}
+			}
+		}
+
+		// Hover state
+		&:hover:not(.app-nav__item--disabled).app-nav__item--sub {
+			> .app-nav__link.collapsed {
+				background-color: app-base-color(grey, 1);
+
+				@include app-transition();
+
+				.app-nav__link-icon,
+				.app-nav__link-text,
+				.app-nav__link-arrow {
+					color: app-state-color(brand, base);
+				}
+
+				.app-nav__link-bullet {
+					&.app-nav__link-bullet--line,
+					&.app-nav__link-bullet--dot {
+						> span {
+							background-color: app-state-color(brand, base);
+						}
+					}
+				}
+			}
+		}
+
+		// Disabled state
+		&.app-nav__item--disabled {
+			opacity: 0.6;
+		}
+	}
+
+	// Custom
+	.app-nav__custom {
+		padding: $app-nav-padding-y $app-nav-padding-x;
+	}
+
+	// Section
+	.app-nav__section {
+		margin-top: 1rem;
+		padding: 0 $app-nav-padding-x;
+
+		.app-nav__section-icon {
+			color: app-base-color(label, 1);
+		}
+
+		&.app-nav__section--first {
+			margin-top: 0.5rem;
+		}
+
+		.app-nav__section-text {
+			color: app-state-color(brand, base);
+			font-weight: 600;
+			font-size: 0.9rem;
+			text-transform: uppercase;
+		}
+	}
+
+	// Separator
+	.app-nav__separator {
+		margin: ($app-nav-padding-y + 0.15rem) 0;
+		height: 0;
+		display: block;
+		border-bottom: 1px solid app-base-color(grey, 2);
+
+		&.app-nav__separator--dashed {
+			border-bottom: 1px dashed app-base-color(grey, 2);
+		}
+	}
+
+	// Space
+	.app-nav__space {
+		height: 0;
+		margin: 0.5rem 0;
+
+		&.app-nav__space--sm {
+			margin: 0.25rem 0;
+		}
+
+		&.app-nav__space--lg {
+			margin: 0.75rem 0;
+		}
+
+		&.app-nav__space--xl {
+			margin: 1rem 0;
+		}
+	}
+
+	// Head & Foot
+	.app-nav__head,
+	.app-nav__foot {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 1rem;
+		color: app-base-color(label, 3);
+		font-weight: 500;
+		padding: $app-nav-padding-y $app-nav-padding-x;
+
+		> i {
+			font-size: 1.2rem;
+			color: app-base-color(label, 2);
+		}
+	}
+
+	.app-nav__head {
+		font-size: 1.1rem;
+	}
+
+	// Fit
+	&.app-nav--fit {
+		padding: 0;
+		.app-nav__item {
+			> .app-nav__link {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+	}
+
+	// Margins sizing
+	&.app-nav--lg-space {
+		.app-nav__item {
+			margin: 0.35rem 0;
+
+			.app-nav__link {
+				padding-top: 1.5rem;
+				padding-bottom: 1.5rem;
+			}
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	&.app-nav--md-space {
+		.app-nav__item {
+			margin: 0.25rem 0;
+
+			.app-nav__link {
+				padding-top: 0.75rem;
+				padding-bottom: 0.75rem;
+			}
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	// font weight
+	&.app-nav--bold {
+		.app-nav__item {
+			.app-nav__link {
+				.app-nav__link-text {
+					font-weight: 500;
+				}
+			}
+		}
+	}
+
+	&.app-nav--thin {
+		.app-nav__item {
+			.app-nav__link {
+				.app-nav__link-text {
+					font-weight: 300;
+				}
+			}
+		}
+	}
+
+	// font sizing
+	&.app-nav--lg-font {
+		.app-nav__item {
+			.app-nav__link {
+				.app-nav__link-text {
+					font-size: 1.15rem;
+				}
+			}
+		}
+	}
+
+	&.app-nav--xl-font {
+		.app-nav__item {
+			.app-nav__link {
+				.app-nav__link-text {
+					font-size: 1.25rem;
+				}
+			}
+		}
+	}
+}
+
+// Version 2
+.app-nav {
+	&.app-nav--v2 {
+		.app-nav__item {
+			border-radius: 2rem;
+			overflow: hidden;
+
+			> .app-nav__link {
+				transition: none;
+			}
+
+			// Hover state
+			&:hover:not(.app-nav__item--disabled):not(.app-nav__item--sub):not(.app-nav__item--active) {
+				> .app-nav__link {
+					background-color: #f4f4f9;
+					transition: none;
+
+					.app-nav__link-icon,
+					.app-nav__link-text,
+					.app-nav__link-arrow {
+						color: app-state-color(brand, base);
+					}
+
+					.app-nav__link-bullet {
+						&.app-nav__link-bullet--line,
+						&.app-nav__link-bullet--dot {
+							> span {
+								background-color: #f4f4f9;
+							}
+						}
+					}
+				}
+			}
+
+			// Active state
+			&.app-nav__item--active {
+				> .app-nav__link {
+					background-color: app-state-color(brand, base);
+					transition: none;
+
+					.app-nav__link-icon,
+					.app-nav__link-text,
+					.app-nav__link-arrow {
+						color: app-state-color(brand, inverse);
+					}
+
+					.app-nav__link-bullet {
+						&.app-nav__link-bullet--line,
+						&.app-nav__link-bullet--dot {
+							> span {
+								background-color: app-state-color(brand, inverse);
+							}
+						}
+					}
+				}
+				&:hover {
+					> .app-nav__link {
+						background-color: app-state-color(brand, base);
+
+						.app-nav__link-icon,
+						.app-nav__link-text,
+						.app-nav__link-arrow {
+							color: app-state-color(brand, inverse);
+						}
+
+						.app-nav__link-bullet {
+							&.app-nav__link-bullet--line,
+							&.app-nav__link-bullet--dot {
+								> span {
+									background-color: app-state-color(brand, inverse);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Version 3
+.app-nav {
+	&.app-nav--v3 {
+		.app-nav__item {
+			margin: 0;
+
+			.app-nav__link {
+				@include app-transition();
+				padding-top: 1rem;
+				padding-bottom: 1rem;
+				border-left: 2px solid transparent;
+			}
+
+			&.active,
+			&.app-nav__link--active {
+				.app-nav__link {
+					@include app-transition();
+					background-color: app-base-color(grey, 1);
+					border-left: 2px solid app-state-color(brand);
+
+					.app-nav__link-text {
+						color: app-state-color(brand);
+					}
+				}
+			}
+
+			&:hover {
+				@include app-transition();
+				background-color: app-base-color(grey, 1);
+
+				.app-nav__link {
+					.app-nav__link-text {
+						color: app-state-color(brand);
+					}
+				}
+			}
+		}
+	}
+}
+
+// Version 4
+.app-nav {
+	&.app-nav--v4 {
+		.app-nav__item {
+			padding: 0.65rem 0;
+
+			.app-nav__link {
+				background-color: transparent;
+				margin-left: 3px;
+				color: #9492a1;
+				font-size: 1.2rem;
+				padding: 0 1.1rem;
+
+				.app-nav__link-text {
+					color: #9492a1;
+					font-size: 1.2rem;
+				}
+			}
+
+			&.active {
+				.app-nav__link {
+					border-left: 3px solid app-state-color(brand);
+					color: app-base-color(label, 4);
+					margin-left: 0;
+
+					.app-nav__link-text {
+						color: app-base-color(label, 4);
+					}
+				}
+			}
+
+			&:first-child {
+				margin-top: -0.65rem;
+			}
+
+			&:hover {
+				@include app-transition();
+				background-color: app-base-color(grey, 1);
+
+				.app-nav__link {
+					.app-nav__link-text {
+						color: app-state-color(brand);
+					}
+				}
+			}
+		}
+
+		@each $name, $color in $app-state-colors {
+			&--#{$name} {
+				.app-nav__item {
+					&.active {
+						.app-nav__link {
+							border-left: 3px solid app-state-color(#{$name}, base);
+						}
+					}
+
+					&:hover:not(.app-nav__item--disabled):not(.app-nav__item--sub):not(.app-nav__item--active) {
+						> .app-nav__link {
+							.app-nav__link-text {
+								color: app-state-color(#{$name}, base);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+<div class="table-responsive">
+
+  <app-alert type="info" [showCloseButton]="false" *ngIf="!events.length">
+    <p>Es wurden noch keine Ereignisse gespeichert.</p>
+  </app-alert>
+
+  <table class="table table-bordered table-striped" *ngIf="events.length">
+    <thead>
+      <tr>
+        <th>Titel</th>
+        <th>Untertitel</th>
+        <th>Beginn und Ende</th>
+        <th>Verknmüpfter Artikel</th>
+        <th>Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events | orderBy: ['-startDate']">
+        <td>{{event.title}}</td>
+        <td>{{event.subTitle}}</td>
+        <td>
+          {{event.startDate | date: 'mediumDate'}}<ng-container *ngIf="event.endDate"> &ndash;
+            {{event.endDate | date: 'mediumDate'}}</ng-container>
+        </td>
+        <td>
+          <i *ngIf="!event.assignedArticleTitle" class="fas fa-spinner fa-spin"></i>
+          <a [routerLink]="['/articles/detail', event.assignedArticleId]">{{event.assignedArticleTitle}}</a>
+        </td>
+        <td>
+          <a [routerLink]="['../../edit', event.id]" class="btn btn-warning btn-sm" tooltip="Editieren">
+            <span class="fa fa-pen" aria-hidden="true"></span>
+          </a>&nbsp;
+          <button class="btn btn-danger btn-sm" tooltip="Löschen" (click)="deleteEvent.emit(event)">
+            <span class="fa fa-trash" aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

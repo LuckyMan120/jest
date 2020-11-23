@@ -1,0 +1,45 @@
+<ng-container *ngIf="match$ | async as match">
+  <section class="next_match" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2>Nächstes Spiel</h2>
+
+          <div class="next_match_table">
+            <div class="match_name">
+              <p>{{match.matchType}}
+                <span>{{match.playersType}}</span>
+              </p>
+            </div>
+            <div class="team_result">
+              <div class="row">
+                <div class="team1 col-md-3">
+                  <img [src]="match.homeTeam?.logoURL" [alt]="match.homeTeam?.title" [title]="match.homeTeam?.title">
+                  <p>{{match.homeTeam?.title}}</p>
+                </div>
+                <div class="team_score col-md-6">
+                  <div class="result_number">
+                    <span>-</span>:<span>-</span>
+                  </div>
+                </div>
+                <div class="team2 col-md-3">
+                  <img [src]="match.guestTeam?.logoURL" [alt]="match.guestTeam?.title" [title]="match.guestTeam?.title">
+                  <p>{{match.guestTeam?.title}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="match_dtime">
+              <span>{{match.matchStartDate | date: 'mediumDate'}}</span><span>{{match.matchStartDate | date: 'shortTime'}}
+                Uhr</span>
+            </div>
+            <button class="btn">Mehr zum Spiel <span class="bg-arrow"></span></button>
+          </div>
+
+          <div class="all_match">
+            <a itemprop="url" [routerLink]="'/verein/spielplan'">Vereinsspielplan ansehen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>

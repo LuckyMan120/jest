@@ -1,0 +1,56 @@
+//
+// Page - Error 2
+// Pages SASS files are compiled into separate css files
+//
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+.app-error-v2 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    .app-error_container {
+        padding-left: 3rem;
+
+        .app-error_title2 {
+            > h1 {
+                font-size: 6rem;
+                // text-align: center;
+                margin-top: 25rem;
+                font-weight: 500;
+                color: app-state-color(brand);
+            }
+        }
+
+        .app-error_link,
+        .app-error_desc {
+            font-size: 2.5rem;
+            // text-align: center
+            color: app-state-color(brand);
+            display: block;
+            font-weight: 700;
+        }
+
+        .app-error_link {
+            margin-top: 3rem;
+            color: app-state-color(success);
+        }
+    }
+}
+
+@include app-mobile() {
+    .app-error-v2 {
+        .app-error_container {
+            .app-error_desc {
+                padding-left: 0.6rem;
+                padding-right: 0.6rem;
+            }
+        }
+    }
+}

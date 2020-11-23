@@ -1,0 +1,133 @@
+//
+// Avatar
+//
+
+// Base
+.app-avatar {
+	position: relative;
+	display: inline-block;
+
+	.app-avatar__holder {
+		width: 120px;
+		height: 120px;
+		border-radius: 3px;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.app-avatar__upload {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		right: -10px;
+		top: -10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background-color: #ffffff;
+		box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+
+		input {
+			width: 0 !important;
+			height: 0 !important;
+			overflow: hidden;
+			opacity: 0;
+		}
+
+		i {
+			color: app-brand-color();
+			font-size: 0.9rem;
+		}
+
+		@include app-transition();
+		&:hover {
+			@include app-transition();
+			background-color: app-brand-color();
+
+			i {
+				color: app-brand-color(inverse);
+			}
+		}
+	}
+
+	.app-avatar__cancel {
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: auto;
+		right: -10px;
+		bottom: -5px;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background-color: #ffffff;
+		box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+		display: none;
+
+		i {
+			@include app-transition();
+			color: app-base-color(label, 2);
+			font-size: 0.9rem;
+		}
+
+		&:hover {
+			i {
+				@include app-transition();
+				color: app-brand-color();
+			}
+		}
+	}
+
+	&.app-avatar--changed {
+		.app-avatar__cancel {
+			display: flex;
+		}
+	}
+
+	// States
+	@each $name, $color in $app-state-colors {
+		&.app-avatar--#{$name} {
+			.app-avatar__upload {
+				i {
+					color: app-get($color, base);
+				}
+
+				&:hover {
+					background-color: app-get($color, base);
+
+					i {
+						color: app-get($color, inverse);
+					}
+				}
+			}
+		}
+	}
+
+	// Circle style
+	&.app-avatar--circle {
+		.app-avatar__holder {
+			border-radius: 50%;
+		}
+
+		.app-avatar__upload {
+			right: 0px;
+			top: 5px;
+		}
+
+		.app-avatar__cancel {
+			right: 3px;
+			bottom: 10px;
+		}
+	}
+
+	// Bordered style
+	&.app-avatar--outline {
+		.app-avatar__holder {
+			border: 3px solid #ffffff;
+			box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+		}
+	}
+}

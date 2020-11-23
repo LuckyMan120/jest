@@ -1,0 +1,327 @@
+//
+// Global Mixins
+//
+
+@mixin app-clearfix() {
+    &:before,
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin app-button-reset() {
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+    outline: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin app-input-reset() {
+    border: 0;
+    background: none;
+    outline: none !important;
+    box-shadow: none;
+}
+
+@mixin app-btn-reset() {
+    border: 0;
+    background: none;
+    outline: none !important;
+    box-shadow: none;
+    outline: none !important;
+}
+
+@mixin app-fix-fixed-position-lags() {
+    // webkit hack for smooth font view on fixed positioned elements
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+@mixin app-fix-animation-lags() {
+    transform: translateZ(0);
+    -webkit-transform-style: preserve-3d;
+}
+
+@mixin app-attr($attr, $value, $important: "") {
+    @if $value != null {
+        #{$attr}: #{$value} #{$important};
+    }
+}
+
+@mixin app-hack-ie {
+    //IE10 and IE11
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        @content;
+    }
+}
+
+@mixin app-hack-edge-all {
+    @supports (-ms-ime-align: auto) {
+        @content;
+    }
+}
+
+@mixin app-rounded {
+    @if $app-rounded == true {
+        @content;
+    }
+}
+
+@mixin app-not-rounded {
+    @if $app-rounded == false {
+        @content;
+    }
+}
+
+// Input placeholder color
+@mixin app-input-placeholder($color) {
+    &::-moz-placeholder {
+        color: $color;
+        opacity: 1;
+    }
+    // See https://github.com/twbs/bootstrap/pull/11526
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+    // Internet Explorer 10+
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+    // Safari and Chrome
+}
+
+@mixin app-icon($icon) {
+    font-family: "Font Awesome 5 Free";
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+    &:before {
+        content: $icon;
+    }
+}
+
+@mixin app-hover-transition {
+    transition: $app-transition;
+
+    &:hover {
+        transition: $app-transition;
+    }
+}
+
+@mixin app-transition {
+    transition: $app-transition;
+}
+
+// Icon Sizing
+// SASS Map:  (fontawesome: 1.2rem)
+@mixin app-icons-size($config) {
+    // Fontawesome
+    [class^="fa-"],
+    [class*=" fa-"] {
+        font-size: app-get($config, fontawesome);
+    }
+}
+
+// Icon attr
+// SASS Map:  (fontawesome: 1.2rem)
+@mixin app-icons-style($attr, $config) {
+    // Fontawesome
+    [class^="fa-"],
+    [class*=" fa-"] {
+        #{$attr}: app-get($config, fontawesome);
+    }
+}
+
+// SASS Map:  (fontawesome: 1.2rem)
+@mixin app-icons {
+    [class^="fa-"],
+    [class*=" fa-"] {
+        @content;
+    }
+}
+
+@mixin app-icon-self($icon) {
+    font-family: "Font Awesome 5 Free";
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    font-weight: 900;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    content: $icon;
+}
+
+// Arrow icon
+@mixin app-arrow-icon($dir, $self: null) {
+    @if $dir == down {
+        @if $self == true {
+            @include app-icon-self(app-get($app-action-icons, down));
+        } @else {
+            @include app-icon(app-get($app-action-icons, down));
+        }
+    }
+
+    @if $dir == up {
+        @if $self == true {
+            @include app-icon-self(app-get($app-action-icons, up));
+        } @else {
+            @include app-icon(app-get($app-action-icons, up));
+        }
+    }
+
+    @if $dir == left {
+        @if $self == true {
+            @include app-icon-self(app-get($app-action-icons, left));
+        } @else {
+            @include app-icon(app-get($app-action-icons, left));
+        }
+    }
+
+    @if $dir == right {
+        @if $self == true {
+            @include app-icon-self(app-get($app-action-icons, right));
+        } @else {
+            @include app-icon(app-get($app-action-icons, right));
+        }
+    }
+}
+
+@mixin app-close-icon($self: null) {
+    @if $self == true {
+        @include app-icon-self(app-get($app-action-icons, close));
+    } @else {
+        @include app-icon(app-get($app-action-icons, close));
+    }
+}
+
+// Svg icon color
+@mixin app-svg-icon-color($color) {
+    g {
+        [fill] {
+            transition: fill 0.3s ease;
+            fill: $color;
+        }
+    }
+
+    &:hover {
+        g {
+            [fill] {
+                transition: fill 0.3s ease;
+            }
+        }
+    }
+}
+
+// Breakpoint mixins
+// Layout Breakpoints
+// Define the minimum and maximum dimensions at which your layout will change, adapting to different screen sizes, for use in media queries.
+
+@mixin app-media-below($width) {
+    @media (max-width: #{app-media-breakpoint($width)}) {
+        @content;
+    }
+}
+
+@mixin app-media-above($width) {
+    @media (min-width: #{app-media-breakpoint($width) + 1px}) {
+        @content;
+    }
+}
+
+@mixin app-media-range($from, $to) {
+    @media (min-width: #{app-media-breakpoint($from) + 1px}) and (max-width: #{app-media-breakpoint($to)}) {
+        @content;
+    }
+}
+
+@mixin app-minimal-desktop {
+    @media (min-width: #{app-media-breakpoint(lg) + 1px}) and (max-width: #{app-media-breakpoint(xl)}) {
+        @content;
+    }
+}
+
+@mixin app-minimal-desktop-and-below {
+    @media (max-width: #{app-media-breakpoint(xl)}) {
+        @content;
+    }
+}
+
+@mixin app-desktop {
+    @media (min-width: #{app-media-breakpoint(lg) + 1px}) {
+        @content;
+    }
+}
+
+@mixin app-desktop-xl {
+    @media (min-width: #{app-media-breakpoint(xl) + 1px}) {
+        @content;
+    }
+}
+
+@mixin app-desktop-xxl {
+    @media (min-width: #{app-media-breakpoint(xxl) + 1px}) {
+        @content;
+    }
+}
+
+@mixin app-desktop-and-tablet {
+    @media (min-width: #{app-media-breakpoint(md) + 1px}) {
+        @content;
+    }
+}
+
+@mixin app-tablet {
+    @media (min-width: #{app-media-breakpoint(md) + 1px}) and (max-width: #{app-media-breakpoint(lg)}) {
+        @content;
+    }
+}
+
+@mixin app-tablet-and-mobile {
+    @media (max-width: #{app-media-breakpoint(lg)}) {
+        @content;
+    }
+}
+
+@mixin app-mobile {
+    @media (max-width: #{app-media-breakpoint(md)}) {
+        @content;
+    }
+}
+
+@mixin app-mobile-sm {
+    @media (max-width: #{app-media-breakpoint(sm)}) {
+        @content;
+    }
+}
+
+@mixin app-responsive-below($width) {
+    @media (max-width: #{$width}) {
+        @content;
+    }
+}
+
+@mixin app-responsive-above($width) {
+    @media (min-width: #{$width}) {
+        @content;
+    }
+}
+
+@mixin app-responsive-range($from, $to) {
+    @media (min-width: #{$from}) and (max-width: #{$to}) {
+        @content;
+    }
+}

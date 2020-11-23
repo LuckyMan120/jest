@@ -1,0 +1,51 @@
+<div class="app-portlet">
+  <div class="app-portlet__head app-portlet__head__custom">
+    <div class="app-portlet__head-label">
+      <h3 class="app-portlet__head-title">Veranstaltungsdetails</h3>
+    </div>
+  </div>
+  <div class="app-portlet__body">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <tr>
+              <th>Titel</th>
+              <td>{{data.summary}}</td>
+            </tr>
+            <tr *ngIf="data.htmlLink">
+              <th>Kalender</th>
+              <td><a target="_blank" [attr.href]="data.htmlLink">Im Kalender anzeigen</a></td>
+            </tr>
+            <tr>
+              <th>Start</th>
+              <td>{{data.start | date: 'medium'}}</td>
+            </tr>
+            <tr>
+              <th>Ende</th>
+              <td>{{data.end | date: 'medium'}}</td>
+            </tr>
+            <tr *ngIf="data.description">
+              <th>Beschreibung</th>
+              <td>{{data.description}}</td>
+            </tr>
+            <tr *ngIf="data.creator">
+              <th>Ersteller</th>
+              <td>{{data.creator.email}}</td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="app-portlet__foot app-portlet__no-border app-portlet__foot--fit text-right">
+    <div class="app-form__actions app-form__actions--sm pt-3">
+      <button class="btn btn-danger mr-1" (click)="delete()">Löschen
+      </button>
+      <button class="btn btn-primary" (click)="close()">Schließen
+      </button>
+    </div>
+  </div>
+</div>

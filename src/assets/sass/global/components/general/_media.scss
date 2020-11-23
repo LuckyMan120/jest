@@ -1,0 +1,160 @@
+//
+// Media
+//
+
+.app-media {
+    display: inline-flex;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    @include app-media-size(50px, 1.3rem);
+
+    @include app-rounded {
+        border-radius: $app-border-radius;
+    }
+
+    img {
+        display: flex;
+        @include app-rounded {
+            border-radius: $app-border-radius;
+        }
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: app-base-color(label, 2);
+
+        @include app-rounded {
+            border-radius: $app-border-radius;
+        }
+    }
+
+    // State colors
+    &.app-media--default {
+        background-color: app-base-color(grey, 2);
+    }
+
+    @each $name, $color in $app-state-colors {
+        &.app-media--#{$name} {
+            span {
+                background: rgba(app-get($color, base), 0.1);
+                color: app-get($color, base);
+            }
+        }
+    }
+
+    // sizing
+    &.app-media--xs {
+        @include app-media-size(24px, 0.8rem);
+    }
+
+    &.app-media--sm {
+        @include app-media-size(30px, 0.9rem);
+    }
+
+    &.app-media--md {
+        @include app-media-size(47px, 1rem);
+    }
+
+    &.app-media--lg {
+        @include app-media-size(65px, 1.3rem);
+    }
+
+    &.app-media--xl {
+        @include app-media-size(80px, 1.7rem);
+    }
+
+    // circle style
+    &.app-media--circle {
+        @include app-rounded {
+            border-radius: 50%;
+        }
+
+        img {
+            @include app-rounded {
+                border-radius: 50%;
+            }
+        }
+
+        span {
+            @include app-rounded {
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+.app-media-card {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+    .app-media {
+        margin-right: 0.75rem;
+    }
+
+    .app-media-card__info {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .app-media-card__title {
+            color: app-base-color(label, 3);
+            font-weight: 500;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        a.app-media-card__title {
+            transition: color 0.3s ease;
+            &:hover {
+                transition: color 0.3s ease;
+                color: app-brand-color();
+            }
+        }
+
+        .app-media-card__desc {
+            color: app-base-color(label, 2);
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        a.app-media-card__desc {
+            transition: color 0.3s ease;
+            &:hover {
+                transition: color 0.3s ease;
+                color: app-brand-color();
+            }
+        }
+    }
+}
+
+.app-media-group {
+    display: flex;
+    align-items: center;
+
+    .app-media {
+        position: relative;
+        z-index: 0;
+        margin-left: -10px;
+        border: 2px solid #fff;
+        transition: all 0.3s ease;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:hover {
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+    }
+}

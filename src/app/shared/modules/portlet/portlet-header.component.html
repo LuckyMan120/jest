@@ -1,0 +1,14 @@
+<div class="app-portlet__head-label" [hidden]="noTitle">
+  <span class="app-portlet__head-icon" #refIcon [hidden]="hideIcon">
+    <ng-content *ngIf="!icon" select="[portletIcon]"></ng-content>
+    <i *ngIf="icon" [ngClass]="icon"></i>
+  </span>
+  <ng-content *ngIf="!title" select="[portletTitle]"></ng-content>
+  <h3 *ngIf="title" class="app-portlet__head-title">
+    {{title}}
+    <small *ngIf="desc">{{desc}}</small>
+  </h3>
+</div>
+<div class="app-portlet__head-toolbar" #refTools [hidden]="hideTools">
+  <ng-content select="[portletTools]"></ng-content>
+</div>

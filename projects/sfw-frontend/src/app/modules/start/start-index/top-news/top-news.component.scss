@@ -1,0 +1,71 @@
+@import "../../../../../assets/scss/myvariables";
+@import "../../../../../assets/scss/mymixins";
+
+.banner_slider {
+  padding: 190px 0 80px;
+  border-bottom: 1px solid $gray_1;
+  background: url("/assets/images/bg.jpg") no-repeat;
+  background-size: cover;
+
+  .categories {
+    display: inline-block;
+    margin-bottom: 30px;
+    li {
+      float: left;
+      margin-right: 18px;
+      a,
+      span {
+        font-size: $fontSize-xs - 1;
+        font-weight: 800;
+        color: $gray;
+      }
+      &:first-child {
+        a,
+        span {
+          color: $secondary;
+        }
+      }
+    }
+    @include phone_wide {
+      margin-bottom: 10px;
+    }
+  }
+
+  h1 {
+    max-width: 350px;
+  }
+  p {
+    max-width: 370px;
+  }
+  img {
+    box-shadow: 0px 15px 10px -15px $primary;
+    margin-bottom: 10px;
+  }
+  .slide_content {
+    @include phone_wide {
+      order: 2;
+      margin-top: 30px;
+    }
+  }
+  .slick-slide {
+    padding: 0 10px;
+  }
+  @include phone_wide {
+    padding: 140px 0 60px;
+  }
+  @include tablet {
+    padding: 140px 0 60px;
+  }
+  @include desktopsmall {
+    padding: 160px 0 60px;
+  }
+}
+
+:host ::ng-deep {
+  .slick-arrow {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+}

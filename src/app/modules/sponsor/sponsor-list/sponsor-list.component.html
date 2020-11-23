@@ -1,0 +1,43 @@
+<app-portlet>
+  <app-portlet-header title="Sponsorenübersicht">
+    <ng-container portletTools>
+      <button type="button" class="btn btn-primary" [routerLink]="['/sponsors/create']">
+        <i class="fa fa-pencil-alt" aria-hidden="true"></i> Neuer Sponsor
+      </button>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <div class="row">
+      <div class="offset-lg-8 col-lg-4 text-right">
+        <sponsor-filter (setFilters)="setFilters($event)"></sponsor-filter>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <ng-container *ngIf="items$ | async as items">
+
+          <div class="alert alert-info" *ngIf="items.length === 0">
+            <p>Es wurden noch keine Sponsoren erstellt.</p>
+          </div>
+
+          <div class="row" *ngIf="items.length > 0">
+            <ng-container *ngIf="assignedCategoryIds.length > 0; else noFilteredSponsorsTemplate">
+              <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3"
+                *ngFor="let item of items | categoryFilter: assignedCategoryIds;">
+                <sponsor-item [sponsor]="item"></sponsor-item>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </app-portlet-body>
+</app-portlet>
+
+<ng-template #noFilteredSponsorsTemplate>
+  <div class="alert alert-info">
+    <p>Mit diesem Filter konnten keine Sponsoren gefunden werden.</p>
+  </div>
+</ng-template>

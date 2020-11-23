@@ -1,0 +1,83 @@
+<div class="app-portlet" [formGroup]="form">
+  <div class="app-portlet__head app-portlet__head__custom">
+    <div class="app-portlet__head-label">
+      <h3 class="app-portlet__head-title" [innerHTML]="data.media.metadata.fileName"></h3>
+    </div>
+  </div>
+  <div class="app-portlet__body">
+    <div class="row">
+      <div class="col-lg-6 imageHolder">
+        <img *ngIf="data.media.sizes" class="img-fluid img-thumbnail" [src]="data.media.sizes[512]"
+          style="max-height: 400px;" [alt]="data.media.metadata.fileName" />
+
+        <i class="icon fas" [ngClass]="data.media.metadata.fileType | fileTypeIconMapping"
+          *ngIf="!!!data.media.sizes"></i>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="table table-responsive">
+          <table class="table table-bordered table-striped table-hover">
+            <tbody>
+              <tr>
+                <th>Id</th>
+                <td>{{data.media.id}}</td>
+              </tr>
+              <tr>
+                <th>Titel</th>
+                <td>{{data.media.fileTitle ? data.media.fileTitle : 'unnamedItem' }}</td>
+              </tr>
+              <tr>
+                <th>Dateityp</th>
+                <td>{{data.media.metadata.fileType}}</td>
+              </tr>
+              <tr>
+                <th>Größe</th>
+                <td>{{data.media.metadata.fileSize}}</td>
+              </tr>
+              <ng-container *ngIf="data.media.creation">
+                <tr>
+                  <th>Erstellt am</th>
+                  <td>{{data.media.creation.at | date: 'medium'}}</td>
+                </tr>
+                <tr>
+                  <th>von</th>
+                  <td><a [routerLink]="['/users/detail', data.media.creation.by]">{{data.media.creation.by}}</a></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <h3 class="mt-5">Verknüpfte Kategorien</h3>
+          <mat-form-field class="w-100">
+            <mat-select placeholder="Verknüpfte Kategorien" formControlName="assignedCategoryIds" multiple>
+              <mat-option *ngFor="let category of data.categories" [value]="category.id">
+                {{category.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app-portlet__foot app-portlet__no-border app-portlet__foot--fit text-right">
+    <div class="app-form__actions app-form__actions--sm pt-3">
+
+      <button class="btn btn-outline-warning mr-1" (click)="close()">
+        <i class="fa fa-window-close fa-fw" aria-hidden="true"></i>
+        <span class="d-none d-md-inline">Schließen</span>
+      </button>
+
+      <button class="btn btn-outline-danger mr-1" (click)="deleteMedia()">
+        <i class="fa fa-trash fa-fw" aria-hidden="true"></i>
+        <span class="d-none d-md-inline">Löschen</span>
+      </button>
+
+      <button class="btn btn-success" (click)="closeAndSave()">
+        <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+        <span class="d-none d-md-inline">Speichern und schließen</span>
+      </button>
+    </div>
+  </div>
+</div>

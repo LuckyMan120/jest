@@ -1,0 +1,244 @@
+//
+// Topbar
+//
+
+// Variables
+$app-header-topbar-item-size: 44px;
+$app-header-topbar-large-flag-size: 17px;
+$app-header-topbar-item-svg-size: 24px;
+$app-header-topbar-user-avatar-size: 34px;
+$app-header-topbar-item-size-mobile: 34px;
+$app-header-topbar-item-svg-size-mobile: 30px;
+$app-header-topbar-user-avatar-size-mobile: 30px;
+
+.app-header__topbar {
+	display: flex;
+	align-items: stretch;
+	padding: 0;
+	padding-right: 15px;
+
+	.app-header__topbar-item {
+		display: flex;
+		align-items: stretch;
+		margin: 0;
+
+		.app-header__topbar-wrapper {
+			cursor: pointer;
+			display: flex;
+			align-items: stretch;
+
+			.app-badge.app-badge--notify {
+				position: absolute;
+				left: 50%;
+				margin-left: -2px;
+				top: 14px;
+			}
+		}
+
+		.app-header__topbar-icon {
+			display: flex;
+			align-items: center;
+			align-self: center;
+			justify-content: center;
+			height: $app-header-topbar-item-size;
+			width: $app-header-topbar-item-size;
+			cursor: pointer;
+			@include app-transition();
+
+			@include app-rounded {
+				border-radius: $app-border-radius;
+			}
+
+			i {
+				@include app-transition();
+				font-size: 1.4rem;
+				color: #ffffff;
+			}
+
+			svg {
+				height: $app-header-topbar-item-svg-size;
+				width: $app-header-topbar-item-svg-size;
+			}
+		}
+
+		// User profile
+		&.app-header__topbar-item--user {
+			.app-header__topbar-user {
+				padding: 0 8px;
+				display: flex;
+				align-items: center;
+				align-self: center;
+				justify-content: center;
+				height: $app-header-topbar-item-size;
+				cursor: pointer;
+
+				@include app-rounded {
+					border-radius: $app-border-radius;
+				}
+
+				.app-header__topbar-welcome {
+					display: flex;
+					align-self: center;
+					padding: 0 0.55rem 0 0;
+					font-weight: 500;
+					font-size: 0.9rem;
+					color: #636177;
+				}
+
+				.app-header__topbar-username {
+					display: flex;
+					align-self: center;
+					padding: 0 0.55rem 0 0;
+					font-weight: 500;
+					font-size: 1rem;
+					color: #fff;
+				}
+
+				img {
+					align-self: center;
+					max-height: $app-header-topbar-user-avatar-size;
+
+					@include app-rounded {
+						border-radius: $app-border-radius;
+					}
+				}
+
+				.app-badge.app-badge--username {
+					height: $app-header-topbar-user-avatar-size;
+					width: $app-header-topbar-user-avatar-size;
+
+					@include app-rounded {
+						border-radius: $app-border-radius;
+					}
+				}
+			}
+		}
+
+		// Languages
+		&.app-header__topbar-item--langs {
+			.app-header__topbar-icon {
+				img {
+					@include app-rounded {
+						border-radius: $app-border-radius;
+					}
+
+					width: $app-header-topbar-large-flag-size;
+				}
+			}
+
+			.dropdown-menu {
+				.app-nav__link-icon {
+					padding-right: 10px;
+
+					img {
+						@include app-rounded {
+							border-radius: $app-border-radius;
+						}
+
+						width: 18px;
+					}
+				}
+			}
+		}
+
+		&:hover,
+		&.show {
+			.app-header__topbar-icon {
+				@include app-transition();
+				background-color: rgba(#212029, 0.7);
+
+				i {
+					@include app-transition();
+					color: #fff;
+				}
+			}
+
+			&.app-header__topbar-item--user {
+				.app-header__topbar-user {
+					@include app-transition();
+				}
+			}
+		}
+	}
+}
+
+@include app-tablet-and-mobile {
+	.app-header__topbar {
+		padding: 0 app-get($app-page-padding, mobile);
+		background-color: #2b2a35;
+		box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+		margin-top: -(app-get($app-header-config, topbar, height, mobile));
+		height: app-get($app-header-config, topbar, height, mobile);
+		position: absolute;
+		left: 0;
+		right: 0;
+		justify-content: flex-end;
+
+		// Fixed mobile header
+		.app-header-mobile--fixed & {
+			position: fixed;
+			z-index: app-get($app-header-config, base, mobile, self, fixed, zindex) - 1;
+		}
+
+		// Topbar shown
+		.app-header__topbar--mobile-on & {
+			margin-top: 0;
+			transition: all 0.3s ease;
+		}
+
+		// Topbar item
+		.app-header__topbar-item {
+			margin: 0 2px;
+			padding: 0;
+
+			.app-header__topbar-wrapper {
+				display: flex;
+				align-items: stretch;
+
+				.app-badge.app-badge--notify {
+					top: 6px;
+				}
+			}
+
+			.app-header__topbar-icon {
+				height: $app-header-topbar-item-size-mobile;
+				width: $app-header-topbar-item-size-mobile;
+
+				i {
+					font-size: 1.3rem;
+				}
+			}
+
+			&.app-header__topbar-item--user {
+				margin-left: 2px;
+				margin-right: 0;
+				padding: 0;
+
+				.app-header__topbar-user {
+					padding: 0 2px;
+					height: $app-header-topbar-item-size-mobile;
+
+					.app-header__topbar-welcome {
+						padding: 0 0.35rem 0 0;
+						font-size: 0.9rem;
+					}
+
+					.app-header__topbar-username {
+						padding: 0 0.55rem 0 0;
+						font-size: 0.9rem;
+					}
+
+					img {
+						max-height: $app-header-topbar-user-avatar-size-mobile;
+					}
+
+					.app-badge.app-badge--username {
+						height: $app-header-topbar-user-avatar-size-mobile;
+						width: $app-header-topbar-user-avatar-size-mobile;
+					}
+				}
+			}
+		}
+	}
+}

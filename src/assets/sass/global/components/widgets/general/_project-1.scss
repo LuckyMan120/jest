@@ -1,0 +1,322 @@
+//
+// Project 1
+//
+
+.app-widget.app-widget--project-1 {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% + 20px);
+
+    .app-widget__head {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: app-get($app-portlet, space, desktop);
+
+        .app-widget__label {
+            display: flex;
+
+            .app-widget__media {
+                .app-media {
+                    .app-widget__icon {
+                        max-width: 62px;
+                        height: 62px;
+                        margin-top: -0.5rem;
+                        margin-left: -0.5rem;
+                    }
+
+                    img {
+                        width: 65px;
+                    }
+                }
+
+                &.app-widget__media--m {
+                    margin-top: 1.5px;
+                }
+            }
+
+            .app-widget__info {
+                padding: 0.25rem 0 0 1rem;
+
+                .app-widget__title {
+                    font-size: 1.3rem;
+                    color: app-base-color(label, 4);
+                    font-weight: 600;
+
+                    &:hover {
+                        color: app-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+
+                .app-widget__desc {
+                    padding-top: 0.4rem;
+                    color: app-base-color(label, 3);
+                    font-weight: 500;
+                    display: block;
+                }
+            }
+        }
+
+        .app-widget__toolbar {
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+
+    .app-widget__body {
+        padding: app-get($app-portlet, space, desktop);
+        height: 100%;
+        padding-top: 0 !important;
+
+        .app-widget__stats {
+            display: flex;
+            flex-wrap: wrap;
+
+            .app-widget__item {
+                padding-top: 1rem;
+
+                .app-widget__date {
+                    color: app-base-color(label, 3);
+                    font-weight: 500;
+                    padding-bottom: 1rem;
+                    display: block;
+                }
+
+                .app-widget__subtitel {
+                    color: app-base-color(label, 3);
+                    font-weight: 500;
+                    display: block;
+                }
+
+                .app-widget__progress {
+                    width: 100%;
+                    margin: 1.4rem 0 0.5rem 0;
+
+                    .app-widget__stat {
+                        padding-left: 0.7rem;
+                        color: app-base-color(label, 4);
+                        font-weight: 600;
+                    }
+                }
+
+                &:not(:first-child):not(:last-child) {
+                    margin: 0 2.2rem;
+                }
+
+                &:last-child {
+                    padding-left: 1rem;
+                }
+            }
+        }
+
+        .app-widget__container {
+            display: flex;
+            align-items: center;
+            margin: 2.7rem 0 1.2rem 0;
+
+            .app-widget__subtitel {
+                color: app-base-color(label, 3);
+                font-weight: 500;
+            }
+
+            .app-widget__progress {
+                width: 100%;
+                margin: 0 1rem;
+
+                .app-widget__stat {
+                    padding-left: 0.7rem;
+                    color: app-base-color(label, 4);
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .app-widget__text {
+            color: app-base-color(label, 3);
+            font-weight: 500;
+            margin-top: 2.7rem;
+            display: block;
+        }
+
+        .app-widget__content {
+            padding: 1rem 0 1.3rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            //align-items: center;
+
+            .app-widget__details {
+                margin-right: 3.7rem;
+                padding-top: 1rem;
+                display: flex;
+                flex-direction: column;
+
+                .app-widget__subtitle {
+                    color: app-base-color(label, 3);
+                    font-weight: 600;
+                    padding-bottom: 1.1rem;
+                }
+
+                .app-widget__value {
+                    color: app-base-color(label, 4);
+                    font-weight: 600;
+                    font-size: 1.2rem;
+
+                    span {
+                        color: app-base-color(label, 2);
+                    }
+                }
+
+                .app-badge {
+                    margin: 0.3rem 0 0 7px;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+
+                    .app-widget__subtitle {
+                        margin-top: 0rem;
+                    }
+                }
+
+                .app-media-group {
+                    margin-top: -0.5rem;
+                }
+            }
+        }
+    }
+
+    .app-widget__footer {
+        border-top: 1px solid app-base-color(grey, 2);
+        width: 100%;
+
+        .app-widget__wrapper {
+            padding: app-get($app-portlet, space, desktop);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+
+            .app-widget__section {
+                display: flex;
+                align-items: center;
+
+                .app-widget__blog {
+                    display: flex;
+                    align-items: center;
+
+                    i {
+                        font-size: 1.3rem;
+                        color: #d2d8e8;
+                    }
+
+                    .app-widget__value {
+                        font-weight: 700;
+                        padding-left: 0.6rem;
+                    }
+
+                    &:last-child {
+                        padding-left: 1.7rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget.app-widget--project-1 {
+        .app-widget__head {
+            padding-bottom: 1rem;
+            padding: app-get($app-portlet, space, mobile);
+
+            .app-widget__media {
+                .app-media {
+                    @include app-media-size(50px, 1.2rem);
+
+                    img {
+                        width: 50px;
+                    }
+
+                    &.app-media--md {
+                        @include app-media-size(45px, 1rem);
+
+                        img {
+                            width: 47px;
+                        }
+                    }
+
+                    .app-widget__icon {
+                        margin-top: -0.7rem;
+                        width: 62px;
+                    }
+                }
+
+                &.app-widget__media--m {
+                    margin-top: 1px;
+                }
+            }
+
+            .app-widget__info {
+                padding: 0.2rem 0 0 1rem;
+            }
+        }
+
+        .app-widget__body {
+            padding: app-get($app-portlet, space, mobile);
+
+            .app-widget__stats {
+                .app-widget__item {
+                    &:not(:first-child):not(:last-child) {
+                        margin: 0 1.5rem;
+                    }
+
+                    &:last-child {
+                        padding-left: 0;
+                    }
+                }
+            }
+
+            .app-widget__text {
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .app-widget__content {
+                padding: 0.5rem 0 1rem 0;
+
+                .app-widget__details {
+                    margin-right: 1.2rem;
+
+                    &:last-child {
+                        margin-right: 0;
+
+                        .app-widget__subtitle {
+                            margin-top: 0rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .app-widget__footer {
+            .app-widget__wrapper {
+                padding: app-get($app-portlet, space, mobile);
+
+                .app-widget__section {
+                    padding-right: 1rem;
+
+                    .app-widget__blog {
+                        .app-widget__value {
+                            padding-left: 0.4rem;
+                        }
+
+                        &:last-child {
+                            padding-left: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

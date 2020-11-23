@@ -1,0 +1,154 @@
+//
+// Base
+//
+
+// Body
+body {
+	background: $app-content-bg-color;
+}
+
+// Base
+.app-subheader {
+	&.app-subheader--clear {
+		margin-bottom: 0 !important;
+	}
+}
+
+// Desktop mode
+@include app-desktop {
+	// Page
+	.app-wrapper {
+		transition: app-get($app-aside-config, base, minimize, transition);
+
+		// Fixed Header
+		.app-header--fixed & {
+			padding-top: app-get($app-header-config, base, desktop, default, height);
+		}
+
+		// Fixed Content Head
+		.app-header--fixed.app-subheader--fixed.app-subheader--enabled & {
+			padding-top: app-get($app-header-config, base, desktop, default, height) +
+				app-get($app-subheader-config, fixed, height);
+		}
+
+		// Fixed Aside
+		.app-aside--fixed & {
+			padding-left: app-get($app-aside-config, base, default, width);
+		}
+
+		// Minimize Aside
+		.app-aside--fixed.app-aside--minimize & {
+			padding-left: app-get($app-aside-config, base, minimize, width);
+			transition: app-get($app-aside-config, base, minimize, transition);
+		}
+	}
+
+	// Subheader
+	.app-subheader {
+		// Fixed subheader mode
+		.app-header--fixed.app-subheader--fixed & {
+			position: fixed;
+			height: app-get($app-subheader-config, fixed, height);
+			top: app-get($app-header-config, base, desktop, default, height);
+			left: 0;
+			right: 0;
+			transition: all 0.3s ease;
+			z-index: app-get($app-header-config, base, desktop, fixed, zindex) - 3;
+			background-color: #fff;
+			box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.08);
+			margin: 0;
+		}
+
+		// Fixed header, minimized header and fixed subheader
+		.app-header--fixed.app-header--minimize.app-subheader--fixed & {
+			top: app-get($app-header-config, base, desktop, fixed, minimizeHeight);
+			transition: top 0.3s ease;
+		}
+
+		.app-aside--enabled.app-subheader--fixed & {
+			left: app-get($app-aside-config, base, default, width);
+		}
+
+		.app-subheader--fixed.app-aside--minimize-hover &,
+		.app-subheader--fixed.app-aside--minimize & {
+			left: app-get($app-aside-config, base, minimize, width);
+			transition: app-get($app-aside-config, base, minimize, transition);
+		}
+	}
+
+	// Container
+	.app-container {
+		padding: 0 app-get($app-page-padding, desktop);
+	}
+
+	// Content & fixed subheader mode
+	.app-subheader--enabled:not(.app-subheader--fixed) {
+		.app-content {
+			padding-top: 0;
+		}
+	}
+}
+
+//
+// Fixed container width change to fluid
+// Aside removed
+body:not(.app-aside--enabled) {
+	@include app-media-range(lg, $app-page-container-width + (2 * app-get($app-page-padding, desktop))) {
+		.app-container:not(.app-container--fluid) {
+			width: 100%;
+		}
+	}
+}
+
+// Default Aside
+.app-aside--enabled:not(.app-aside--minimize) {
+	@include app-media-range(
+		lg,
+		$app-page-container-width + $app-aside-default-width + (2 * app-get($app-page-padding, desktop))
+	) {
+		.app-container:not(.app-container--fluid) {
+			width: 100%;
+		}
+	}
+}
+
+// Minimized Aside
+.app-aside--enabled.app-aside--minimize {
+	@include app-media-range(
+		lg,
+		$app-page-container-width + $app-aside-minimize-width + (2 * app-get($app-page-padding, desktop))
+	) {
+		.app-container:not(.app-container--fluid) {
+			width: 100%;
+		}
+	}
+}
+
+// Tablet & mobile
+@include app-tablet-and-mobile {
+	// Page
+	.app-wrapper {
+		// Fixed Header
+		.app-header-mobile--fixed & {
+			padding-top: app-get($app-header-config, base, mobile, self, default, height);
+		}
+	}
+
+	// Container
+	.app-container {
+		padding: 0 app-get($app-page-padding, mobile);
+	}
+
+	// Content & fixed subheader mode
+	.app-subheader--enabled {
+		.app-content {
+			padding-top: 0;
+		}
+	}
+
+	.app-subheader--enabled.app-subheader--solid {
+		.app-subheader {
+			margin-bottom: app-get($app-page-padding, mobile);
+		}
+	}
+}

@@ -1,0 +1,192 @@
+<ng-template #loadingTemplate>
+  <div class="loader-overlay" style="display: flex; justify-content: center; align-items: center">
+    <div class="fa-3x">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Bitte warten</p>
+    </div>
+  </div>
+</ng-template>
+
+<app-portlet *ngIf="club$ | async as club; else loadingTemplate">
+
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <app-portlet-header icon="fa fa-pen" [title]="club.id ? 'Verein editieren' : 'Verein anlegen'">
+
+      <ng-container portletTools>
+        <div class="d-flex flex-row m-3">
+
+          <button type="button" (click)="resetForm()" [disabled]="!form.dirty"
+            [ngClass]="!form.valid  ? 'btn btn-outline-warning' : 'btn btn-warning'">
+            <i class="fa fa-undo fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">Zurücksetzen</span>
+          </button>
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid || club === savedClub"
+            [ngClass]="!form.valid ? 'btn btn-outline-success ml-1' : 'btn btn-success ml-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">{{ club.id ? 'Verein editieren' : 'Verein speichern'}}</span>
+          </button>
+
+        </div>
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body>
+      <tabset>
+
+        <tab heading="Wichtigste Daten">
+          <div class="row">
+            <div class="col-lg-4">
+              <app-portlet>
+                <app-portlet-header title="Wichtigste Daten">
+                </app-portlet-header>
+                <app-portlet-body>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Gründungsjahr" formControlName="founding">
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Vereinsfarben" formControlName="clubColours">
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field-fluid my-3">
+                    <input matInput placeholder="Fussball.de Vereinsseite" formControlName="fussballdeUrl" />
+                  </mat-form-field>
+
+                  <div class="my-3">
+                    <app-autocomplete itemsType="locations" placeholder="Heimspielstätte(n)" [multiple]="true"
+                      [control]="assignedLocationControl">
+                    </app-autocomplete>
+                  </div>
+
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+            <div class="col-lg-4">
+              <app-portlet>
+                <app-portlet-header title="Vereinsadresse">
+                </app-portlet-header>
+                <app-portlet-body formGroupName="address">
+                  <div class="row">
+                    <div class="col-lg-9">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Straße" formControlName="streetName" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Hausnummer" formControlName="houseNumber" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Postleitzahl" formControlName="zip" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-9">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Stadt" formControlName="city" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Landkreis" formControlName="county" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                      <mat-form-field class="mat-form-field-fluid my-3">
+                        <input matInput placeholder="Land" formControlName="state" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </app-portlet-body>
+              </app-portlet>
+
+            </div>
+            <div class="col-lg-4">
+              <app-portlet>
+                <app-portlet-header title="Vereinswapen">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <app-media-upload [media]="form.value.logo" (mediaChanged)="updateControl('logo', $event)">
+                  </app-media-upload>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Vorstand des Vereins">
+          <div class="row">
+            <div class="col-lg-6">
+              <app-alert *ngIf="!form.value.managementImage" type="warning" [showCloseButton]="false">
+                Es ist noch kein Foto des Vorstandes vorhanden
+              </app-alert>
+              <app-media-upload [media]="form.value.managementImage"
+                (mediaChanged)="updateControl('managementImage', $event)">
+              </app-media-upload>
+            </div>
+            <div class="col-lg-6">
+              <app-portlet>
+                <app-portlet-header title="Fotobeschreibung (wer ist zu sehen)">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <app-kolkov-editor inputName="managementImageDescription"
+                    [inputControl]="managementImageDescriptionControl">
+                  </app-kolkov-editor>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Fotogalerien">
+          <app-media-gallery-list [galleries]="form.value.galleries"
+            (galleriesChanged)="updateControl('galleries',$event)" mode="remove-with-default">
+          </app-media-gallery-list>
+        </tab>
+
+        <tab heading="Verknüpfte Dateien">
+          <app-media-gallery-list [galleries]="form.value.files" (galleriesChanged)="updateControl('files',$event)"
+            mode="remove-with-default">
+          </app-media-gallery-list>
+        </tab>
+
+        <tab heading="Erstellung und Veröffentlichung">
+          <div class="row">
+            <div class="col-lg-6">
+              <creation-form [form]="form"></creation-form>
+            </div>
+            <div class="col-lg-6">
+              <publication-form [form]="form"></publication-form>
+            </div>
+          </div>
+        </tab>
+
+      </tabset>
+    </app-portlet-body>
+
+
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+          <div class="btn-group" role="group">
+
+            <button type="button" (click)="resetForm()" [disabled]="!form.dirty"
+              [ngClass]="!form.valid  ? 'btn btn-outline-warning' : 'btn btn-warning'">
+              <i class="fa fa-undo fa-fw" aria-hidden="true"></i>
+              <span class="d-none d-sm-inline">Zurücksetzen</span>
+            </button>
+
+            <button type="submit" formtarget="form" [disabled]="!form.valid"
+              [ngClass]="!form.valid ? 'btn btn-outline-success ml-1' : 'btn btn-success ml-1'">
+              <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+              <span class="d-none d-sm-inline">{{ club.id ? 'Verein editieren' : 'Verein speichern'}}</span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

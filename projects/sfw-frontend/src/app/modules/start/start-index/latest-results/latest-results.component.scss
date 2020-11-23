@@ -1,0 +1,154 @@
+@import "../../../../../assets/scss/myvariables";
+@import "../../../../../assets/scss/mymixins";
+
+.latest_results {
+    padding-top: 70px;
+    background: rgba(18, 34, 55, 0.95);
+    position: relative;
+
+    .result_show {
+        background: $white;
+        width: 470px;
+        border-radius: 8px;
+        margin: 0 15px 30px;
+        box-shadow: 0 0 20px rgba(30, 45, 65, 0.45);
+        .team_verses {
+            padding: 32px 50px 20px;
+            p {
+                color: $primary;
+                font-weight: bold;
+            }
+            @include phone_wide {
+                padding: 20px 20px 10px;
+            }
+        }
+        .team_result {
+            padding: 0 50px 32px;
+            img {
+                margin: 0 auto;
+                width: 80px;
+                height: 80px;
+            }
+            p {
+                color: $primary;
+                font-weight: bold;
+                line-height: 17px;
+                margin-top: 10px;
+            }
+            .team_score {
+                .result_number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: $fontSize-smallTitle;
+                    color: $gray;
+                    font-weight: 800;
+                    span {
+                        font-size: $fontSize-hero;
+                        color: $primary;
+                        padding: 0 20px;
+                    }
+                }
+                .team_score_small {
+                    font-size: $fontSize-xs + 1;
+                    color: $gray;
+                    span {
+                        padding: 0 2px;
+                    }
+                }
+                @include phone_wide {
+                    padding-bottom: 20px;
+                }
+            }
+            @include phone_wide {
+                padding: 0 20px 10px;
+            }
+        }
+        .categories {
+            ul {
+                display: inline-block;
+                width: 100%;
+                border-top: 2px solid $gray;
+                margin-bottom: -10px;
+                li {
+                    float: left;
+                    width: calc(100% / 2);
+                    border-right: 2px solid $gray;
+                    a,
+                    span {
+                        font-size: $fontSize-xs - 1;
+                        font-weight: 800;
+                        color: $gray;
+                        padding: 25px 0;
+                        display: block;
+                        text-transform: uppercase;
+                        @include phone_wide {
+                            padding: 15px 0;
+                        }
+                    }
+                    &:first-child {
+                        a,
+                        span {
+                            color: $secondary;
+                        }
+                    }
+                    &:last-child {
+                        border-right: 0;
+                    }
+                }
+            }
+        }
+        @include phone_wide {
+            width: 315px;
+        }
+    }
+    .variable_width {
+        margin-bottom: -85px;
+        margin-left: -15px;
+        margin-top: 60px;
+        @include tablet {
+            margin-left: -35px;
+            margin-top: 40px;
+        }
+    }
+    .all_match {
+        a {
+            font-size: $fontSize-xs - 1;
+            line-height: 20px;
+            color: $secondary;
+            text-transform: uppercase;
+            border-bottom: 2px solid $secondary;
+            &:hover {
+                color: $white;
+                border-color: $white;
+            }
+        }
+    }
+    .lat_text {
+        font-size: $font-big;
+        position: absolute;
+        display: block;
+        color: $gray_1;
+        font-weight: 800;
+        right: 0;
+        bottom: -240px;
+        @include phone_wide {
+            font-size: $fontSize-hero;
+            bottom: -110px;
+        }
+    }
+    @include desktopsmall {
+        padding-top: 40px;
+    }
+}
+
+:host ::ng-deep {
+    .slick-arrow {
+        top: -120px !important;
+    }
+
+    .arrow-prev.slick-arrow,
+    .arrow-next.slick-arrow {
+        border-color: $secondary;
+    }
+}

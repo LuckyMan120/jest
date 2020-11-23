@@ -1,0 +1,36 @@
+<h5>Wer hat dieses Vorstandsamt bisher bekleidet?</h5>
+<div class="table-responsive">
+
+  <app-alert type="info" [showCloseButton]="false" *ngIf="!positions.length">
+    Es hat noch niemand diese Aufgabe übernommen.
+  </app-alert>
+
+  <table class="table" *ngIf="positions.length">
+    <tr>
+      <th>Name</th>
+      <th>Beginn der Amtszeit</th>
+      <th>Ende</th>
+      <th class="text-right">Aktionen</th>
+    </tr>
+    <tr *ngFor="let position of positions | orderBy: ['-startDate']">
+      <td>
+        <span *ngIf="!position.assignedMemberTitle"><i class="fas fa-spinner fa-spin"></i></span>
+        <a [routerLink]="['/members/detail', position.assignedMemberId]">
+          {{position.assignedMemberTitle}}
+        </a>
+      </td>
+      <td>{{position.startDate | date: 'mediumDate'}}</td>
+      <td>{{position.endDate | date: 'mediumDate'}}</td>
+      <td class="text-right">
+        <button type="button" [routerLink]="['../edit', position.id]" class="btn btn-warning btn-sm">
+          <span class="fa fa-pen" aria-hidden="true"></span>
+          <span class="d-none d-sm-inline">Editieren</span>
+        </button>&nbsp;
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Löschen" (click)="deletePosition(position)">
+          <span class="fa fa-trash" aria-hidden="true"></span>
+          <span class="d-none d-sm-inline">Löschen</span>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

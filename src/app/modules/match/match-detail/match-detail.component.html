@@ -1,0 +1,125 @@
+<app-portlet *ngIf="match$ | async as match">
+  <app-portlet-header title="Spieldetails anzeigen">
+
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/matches/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/matches/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/matches/edit', match.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteMatch(match)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <app-alert *ngIf="match.isImported" type="warning" [showCloseButton]="true" [duration]="10000">
+      Dieses Spiel wurde importiert.
+    </app-alert>
+
+    <tabset type="pills">
+      <tab heading="Wichtigste Infos">
+        <match-info [match]="match"></match-info>
+      </tab>
+
+      <tab heading="Spielverlauf">
+        <div class="row">
+          <div class="col-12">
+            <span class="text-danger">ToDo</span>
+            <pre>{{match.matchEvents | json}}</pre>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Startelf und Auswechselungen">
+        <div class="row">
+          <div class="col-12">
+            <ul class="text-danger">
+              <li>Starting Eleven</li>
+              <li>Substitutions</li>
+              <li>Squad</li>
+            </ul>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Fotos">
+        <app-media-gallery-list [galleries]="match.galleries" mode="view">
+        </app-media-gallery-list>
+      </tab>
+
+      <tab heading="Erstellung und Veröffentlichung">
+        <creation-publication-info [creation]="match.creation" [publication]="match.publication">
+        </creation-publication-info>
+      </tab>
+
+    </tabset>
+  </app-portlet-body>
+  <app-portlet-footer>
+
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="btn btn-success" [routerLink]="['/matches/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          <span class="d-none d-md-inline">
+            Zur Übersicht
+          </span>
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/matches/edit', match.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteMatch(match)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

@@ -1,0 +1,76 @@
+//
+// Brand Dark Skin
+//
+
+// Include global config
+@import "../../../../config";
+
+// Include layout config
+@import "../../config";
+
+// Include header config
+@import "../../header/config";
+
+// Include aside config
+@import "../../aside/config";
+
+// Desktop mode
+@include app-desktop {
+	.app-aside__brand {
+		background-color: #1a1a27;
+		box-shadow: none;
+
+		.app-aside__brand-tools {
+			//@include app-burger-icon-skin(app-aside__brand-aside-toggler, (default: #484f66, hover: #ffffff, active: #ffffff) );
+
+			.app-aside__brand-aside-toggler {
+				svg {
+					@include app-svg-icon-color(#494b74);
+				}
+
+				&:hover {
+					svg {
+						@include app-svg-icon-color(app-brand-color());
+					}
+				}
+			}
+		}
+	}
+}
+
+// Tablet and mobile mode
+@include app-tablet-and-mobile {
+	.app-header-mobile {
+		background-color: #1a1a27;
+		box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.1);
+
+		.app-header__topbar--mobile-on & {
+			box-shadow: none;
+		}
+
+		// Toolbar
+		.app-header-mobile__toolbar {
+			@include app-burger-icon-skin(
+				app-header-mobile__toggler,
+				(
+					default: #484f66,
+					hover: #ffffff,
+					active: #ffffff,
+				)
+			);
+
+			.app-header-mobile__topbar-toggler {
+				i {
+					color: #484f66;
+				}
+
+				&.app-header-mobile__topbar-toggler--active,
+				&:hover {
+					i {
+						color: #ffffff;
+					}
+				}
+			}
+		}
+	}
+}

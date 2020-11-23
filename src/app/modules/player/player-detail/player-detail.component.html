@@ -1,0 +1,326 @@
+<app-portlet *ngIf="player$ | async as player">
+  <app-portlet-header icon="fa fa-info" title="Spielerdetails anzeigen">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/players/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/players/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/players/edit', player.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deletePlayer(player)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+
+    <tabset>
+
+      <tab heading="Wichtigste Daten">
+        <div class="row">
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Persönliche Daten">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <tbody>
+                      <tr>
+                        <th>Vorname Nachname
+                        </th>
+                        <td>{{player.firstName }} {{player.lastName }}</td>
+                      </tr>
+                      <tr>
+                        <th>Gebursdatum</th>
+                        <td>{{ player.birthDate ? (player.birthDate | date: 'mediumDate') : ''}}</td>
+                      </tr>
+                      <tr>
+                        <th>Altersklasse</th>
+                        <td>{{player.ageGroup}}</td>
+                      </tr>
+                      <tr>
+                        <th>Spielberechtigung</th>
+                        <td>{{player.status}}</td>
+                      </tr>
+                      <tr>
+                        <th>Für Freundschaftsspiele seit</th>
+                        <td>{{ player.friendlyMatches ? (player.friendlyMatches | date: 'mediumDate') : '-'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Für offizielle Spiele seit</th>
+                        <td>{{ player.officialMatches ? (player.officialMatches | date: 'mediumDate') : '-'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Passnummer</th>
+                        <td>{{player.passNumber}}</td>
+                      </tr>
+                      <tr>
+                        <th>Passdatum</th>
+                        <td>{{ player.passPrint ? (player.passPrint | date: 'mediumDate') : '-'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Spielerstatus</th>
+                        <td>{{player.playerStatus}}</td>
+                      </tr>
+                      <tr>
+                        <th>Abmeldung</th>
+                        <td>{{ player.signOut ? (player.signOut | date: 'mediumDate') : '-'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Gastspieler</th>
+                        <td>
+                          <span *ngIf="player.guestPlayer && player.guestPlayer?.season">
+                            {{ player.guestPlayer?.guestRight }}<br />
+                            {{player.guestPlayer?.type}} {{player.guestPlayer?.season}}
+                          </span>
+                          <span *ngIf="!player.guestPlayer?.season">-</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Verknüpftes Mitglied">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="alert alert-info" *ngIf="!player.assignedMemberId">
+                  <p>Der Spieler wurde mit keinem Mitglied verknüpft.</p>
+                </div>
+
+                <div class="table-responsive" *ngIf="player.assignedMemberId && player.assignedMemberTitle">
+                  <table class="table table-bordered table-striped">
+                    <tbody>
+                      <tr>
+                        <th>Vorname Nachname</th>
+                        <td>
+                          <a [routerLink]="['/members/detail', player.assignedMemberId]">
+                            {{player.assignedMemberTitle}}
+                          </a>
+                        </td>
+                      </tr>
+                      <!-- Weitere Daten <tr>
+                            <th>Geburtsdatum</th>
+                            <td>{{assignedMember.birthDate | date : 'mediumDate'}}</td>
+                          </tr>-->
+                    </tbody>
+                  </table>
+                </div>
+
+              </app-portlet-body>
+              <app-portlet-footer *ngIf="player.assignedMemberId">
+                <div class="row">
+                  <div class="col-lg-12 text-right py-3 px-5">
+                    <button class="btn btn-primary mr-1" type="button"
+                      [routerLink]="['/members/detail', player.assignedMemberId]">
+                      Mitglied anzeigen
+                    </button>
+                    <!-- ToDO <button class="btn btn-danger" (click)="deleteAssignedMember(player)"
+                      type="button">Verknüpfung löschen</button>-->
+                  </div>
+                </div>
+              </app-portlet-footer>
+            </app-portlet>
+
+            <app-portlet>
+              <app-portlet-header title="Verknüpftes AH-Mitglied">
+              </app-portlet-header>
+              <app-portlet-body>
+
+                <div class="alert alert-info" *ngIf="!player.assignedSeniorId">
+                  <p>Der Spieler wurde mit keinem AH-Profil verknüpft.</p>
+                </div>
+
+                <div class="table-responsive" *ngIf="player.assignedSeniorId && player.assignedSeniorTitle">
+                  <table class="table table-bordered table-striped">
+                    <tbody>
+                      <tr>
+                        <th>Vorname Nachname</th>
+                        <td>
+                          <a [routerLink]="['/seniors/detail', player.assignedSeniorId]">
+                            {{player.assignedSeniorTitle}}
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </app-portlet-body>
+              <app-portlet-footer *ngIf="player.assignedSeniorId">
+                <div class="row">
+                  <div class="col-lg-12 text-right py-3 px-5">
+                    <button class="btn btn-primary mr-1" type="button"
+                      [routerLink]="['/seniors/detail', player.assignedSeniorId]">
+                      Verknüpftes AH-Mitglied anzeigen
+                    </button>
+                    <!--ToDo <button class="btn btn-danger" (click)="deleteAssignedSenior(player)"
+                      type="button">Verknüpfung löschen</button>-->
+                  </div>
+                </div>
+              </app-portlet-footer>
+            </app-portlet>
+          </div>
+
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Spielerfoto">
+              </app-portlet-header>
+              <app-portlet-body>
+                <img class="img-fluid img-thumbnail" [src]="player.galleries.Profilfotos | displayFirstMedia"
+                  alt="{{player.firstName}} {{player.lastName}}" />
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+
+
+      <tab heading="Weitere Infos">
+        <div class="row">
+          <div class="col-lg-6">
+            <app-portlet>
+              <app-portlet-header title="Mannschaften">
+              </app-portlet-header>
+              <app-portlet-body>
+                <ng-container *ngIf="teams$ | async as teams">
+
+                  <app-alert type="info" [showCloseButton]="false" *ngIf="teams.length === 0">
+                    Der Spieler ist kein Mitglied einer Mannschaft.
+                  </app-alert>
+
+                  <ul class="list-group">
+                    <li *ngFor="let team of teams"
+                      class="list-group-item d-flex justify-content-between align-items-center">
+                      <a [routerLink]="['/teams/detail', team.id]">
+                        {{team.title}} {{team.subTitle}} {{team.assignedSeasonTitle}}
+                      </a>
+                    </li>
+                  </ul>
+                </ng-container>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+          <div class="col-lg-6">
+            <app-portlet>
+              <app-portlet-header title="Mannschaftsinterne Aufgaben">
+              </app-portlet-header>
+              <app-portlet-body>
+                <ng-container *ngIf="internTeamMgmt$ | async as teamManagements">
+
+                  <div class="alert alert-info" *ngIf="!teamManagements || teamManagements.length === 0">
+                    Der Spieler hat noch keine Aufgaben innerhalb einer Mannschaft übernommen.
+                  </div>
+
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <tr *ngFor="let team of teamManagements | orderBy: ['title', 'subTitle']">
+                        <td><a [routerLink]="['/teams/detail', team.id]">{{team.title}}
+                            <br />{{team.subTitle}}</a></td>
+                        <td>{{team.assignedSeasonTitle}}</td>
+                        <td>
+                          <ng-container
+                            *ngFor="let position of team.internMgmt | filterBy: ['assignedPlayerId']: player.id">
+                            <a
+                              [routerLink]="['/categories/detail', position.assignedCategoryId]">{{position.assignedCategoryTitle}}</a>
+                          </ng-container>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </ng-container>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Fotogalerien">
+        <app-media-gallery-list [galleries]="player.galleries" mode="view">
+        </app-media-gallery-list>
+      </tab>
+
+      <tab heading="Statistiken">
+        <h1 class="text-danger">TODO</h1>
+        <p>
+          Spielstatistik (Tore, Karten, Spielminuten, in der Startaufstellung, Ein- und
+          Auswechselungen)
+        </p>
+      </tab>
+
+      <tab heading="Erstellung und Veröffentlichung">
+        <creation-publication-info [creation]="player.creation" [publication]="player.publication">
+        </creation-publication-info>
+      </tab>
+
+    </tabset>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="btn btn-success" [routerLink]="['/players/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/players/edit', player.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deletePlayer(player)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

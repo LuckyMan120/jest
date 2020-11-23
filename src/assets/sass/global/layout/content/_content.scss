@@ -1,0 +1,45 @@
+//
+// Content
+//
+
+@include app-desktop {
+	// Content
+	.app-content {
+		padding: app-get($app-page-padding, desktop) 0;
+
+		// Content fit
+		&.app-content--fit-top {
+			padding-top: 0;
+		}
+
+		&.app-content--fit-bottom {
+			padding-bottom: 0;
+		}
+
+		// Footer fixed
+		.app-footer--fixed & {
+			padding-bottom: app-get($app-footer-config, self, fixed, height);
+		}
+	}
+}
+
+@include app-tablet-and-mobile {
+	// Content
+	.app-content {
+		padding: app-get($app-page-padding, mobile) 0;
+
+		// Content fit
+		&.app-content--fit-top {
+			padding-top: 0;
+		}
+
+		&.app-content--fit-bottom {
+			padding-bottom: 0;
+		}
+
+		// Subheader enabled
+		.app-subheader--enabled.app-subheader--transparent & {
+			padding-top: 0;
+		}
+	}
+}

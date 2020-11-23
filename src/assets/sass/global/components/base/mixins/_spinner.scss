@@ -1,0 +1,39 @@
+//
+// Mixins
+//
+
+@mixin app-spinner-size($size) {
+	&:before {
+		width: app-get($app-spinner-config, size, $size);
+		height: app-get($app-spinner-config, size, $size);
+		margin-top: -(app-get($app-spinner-config, size, $size) / 2);
+	}
+
+	&.app-spinner--center {
+		&:before {
+			left: 50%;
+			margin-left: -(app-get($app-spinner-config, size, $size) / 2);
+		}
+	}
+
+	&.app-spinner--left {
+		&:before {
+			left: 0;
+			right: auto;
+		}
+	}
+
+	&.app-spinner--right {
+		&:before {
+			left: auto;
+			right: 0;
+		}
+	}
+}
+
+@mixin app-spinner-skin($color) {
+	&:before {
+		border: 2px solid $color;
+		border-right: 2px solid transparent;
+	}
+}

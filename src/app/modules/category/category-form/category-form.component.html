@@ -1,0 +1,161 @@
+<app-portlet *ngIf="category$ | async as category">
+  <app-portlet-header [title]="category.id ? 'Kategorien editieren' : 'Kategorie erstellen' ">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <button type="submit" formtarget="form" [disabled]="!form.valid"
+          [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+          <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">{{ category?.id ? 'Editieren' : 'Speichern' }}</span>
+        </button>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars fa-fw"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/categories/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                <i class="fas fa-undo" aria-hidden="true"></i>Zurücksetzen
+              </a>
+            </li>
+            <li role="menuitem" *ngIf="category?.isCoreCategory && category?.id">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteCategory(category)">
+                <i class="fas fa-trash" aria-hidden="true"></i>Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </ng-container>
+  </app-portlet-header>
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+    <app-portlet-body *ngIf="categories$ | async as categories">
+
+      <div class="alert alert-warning" *ngIf="!category?.isCoreCategory">
+        <p>Diese Kategorie ist nicht editierbar!</p>
+      </div>
+
+      <app-alert *ngIf="hasFormErrors" type="warning" [showCloseButton]="true" [duration]="10000"
+        (close)="onAlertClose()">
+        TODO!!! 'forms.errors.title' ! forms.errors.description
+      </app-alert>
+
+      <tabset>
+        <tab heading="Hauptinformationen">
+          <div class="row">
+            <div class="col-md-6 col-xl-4">
+              <mat-form-field class="mat-form-field-fluid">
+                <input id="title" matInput minlength="3" maxlength="50" placeholder="Titel" formControlName="title">
+                <mat-error *ngIf="form.get('title')?.errors?.minlength">Mindestlänge 3 Zeichen</mat-error>
+                <mat-hint align="end" *ngIf="!form.get('title')?.value">erforderlich</mat-hint>
+                <mat-hint>{{form.get('title')?.value?.length || 0}}/50</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field class="mat-form-field-fluid">
+                <input matInput placeholder="Werte für den Parser" formControlName="parsingValues">
+              </mat-form-field>
+
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select placeholder="Verknüpfte Kategorien" formControlName="assignedCategoryIds" multiple>
+                  <mat-option [value]="">Übergeordnete Kategorien wählen</mat-option>
+                  <mat-option *ngFor="let category of categories | orderBy: 'title'" [value]="category.id">
+                    {{ category.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="mat-form-field-fluid mt-5 mt-md-0">
+                <mat-checkbox formControlName="isMainCategory">Hauptkategorie</mat-checkbox>
+              </div>
+
+              <div class="mat-form-field-fluid">
+                <mat-checkbox formControlName="isCoreCategory">Editierbar</mat-checkbox>
+              </div>
+
+              <div class="mat-form-field-fluid">
+                <mat-checkbox formControlName="isImported">Importiert</mat-checkbox>
+              </div>
+
+              <div class="mat-form-field-fluid">
+                <!-- TODO: Wo? -->
+                <mat-checkbox formControlName="isMenuCategory">Im Menü anzeigen</mat-checkbox>
+              </div>
+            </div>
+            <div class="col-12 col-xl-5 mt-5 mt-xl-0">
+              <label>Beschreibung</label>
+              <div class="mat-form-field-fluid">
+                <app-kolkov-editor inputName="description" [inputControl]="descriptionControl"></app-kolkov-editor>
+              </div>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Erstellung und Veröffentlichung">
+          <div class="row">
+            <div class="col-lg-6">
+              <creation-form [form]="form"></creation-form>
+            </div>
+            <div class="col-lg-6">
+              <publication-form [form]="form"></publication-form>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </app-portlet-body>
+
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+          <div class="btn-group" role="group">
+
+            <button type="submit" formtarget="form" [disabled]="!form.valid"
+              [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+              <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+              <span class="d-none d-sm-inline">
+                {{ category?.id ? 'Editieren' : 'Speichern' }}
+              </span>
+            </button>
+
+            <div class="btn-group" dropdown>
+              <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle
+                type="button">
+                <span class="fas fa-bars fa-fw"></span>
+              </button>
+
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem">
+                  <a class="dropdown-item" [routerLink]="['/categories/list']">
+                    <i class="fas fa-list-ul" aria-hidden="true"></i>Zur Übersicht
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                    <i class="fas fa-undo" aria-hidden="true"></i>Zurücksetzen
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="category?.isCoreCategory && category?.id">
+                  <a class="dropdown-item" href="javascript:;" (click)="deleteCategory(category)">
+                    <i class="fas fa-trash" aria-hidden="true"></i>Löschen
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+
+</app-portlet>

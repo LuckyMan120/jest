@@ -1,0 +1,47 @@
+<section class="article_list">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-11 mx-auto articles">
+
+        <div *ngFor="let article of articles$ | async" class="col-md-12 single_article" data-aos="fade-up"
+          data-aos-easing="linear" data-aos-duration="750">
+          <div class="row align-items-center">
+            <div class="col-md-6 article_img">
+
+              <img [src]="article.image | displayFirstMedia: [imagePlaceholders, true]" data-rjs="images/hero@2x.jpg"
+                alt="{{article.title}}" title="{{article.title}}" class="img-fluid rounded">
+
+            </div>
+            <div class="col-md-6 article_content">
+              <div class="categories">
+                <ul>
+                  <li>
+                    <span *ngFor="let category of article.assignedCategoryTitles; let last = last">
+                      {{category}}<ng-container *ngIf="!last">,</ng-container>
+                    </span>
+                  </li>
+                  <li><span>{{article.publication?.at | date: 'mediumDate'}}</span></li>
+                </ul>
+              </div>
+              <h2>{{article.title}}</h2>
+              <p [innerHTML]="(article.excerpt ? article.excerpt : article.text) | stripHTML | truncate: [200]">
+
+                <a *ngIf="article.title" class="arr_btn" itemprop="url"
+                  [routerLink]="['/start/artikel', article.title | slug]">
+                  Bericht weiterlesen
+                  <span class="bg-arrow_r"></span>
+                  <span class="bg-arrow_b"></span>
+                </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-11 text-center">
+        <a class="btn" itemprop="url" [routerLink]="'/start/artikel'">Alle Artikel</a>
+      </div>
+    </div>
+  </div>
+</section>

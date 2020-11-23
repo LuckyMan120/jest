@@ -1,0 +1,57 @@
+<div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+  style="display: flex; justify-content: center; align-items: center">
+  <div class="fa-3x">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Bitte warten</p>
+  </div>
+</div>
+
+<app-portlet [formGroup]="form">
+  <app-portlet-header [title]="type"></app-portlet-header>
+
+  <ng-container *ngIf="data$ | async as data">
+    <app-portlet-body>
+
+      <ng-container *ngIf="edit">
+        <app-autocomplete [itemsType]="type" [placeholder]="type" [multiple]="true" [control]="assignedItemIds">
+        </app-autocomplete>
+      </ng-container>
+
+      <ng-container *ngIf="!edit">
+        <app-alert *ngIf="data.items.length === 0" type="info" [showCloseButton]="false">
+          TODO
+          <p>{{type }}</p>
+        </app-alert>
+
+        <ul class="list-group" *ngIf="type === 'articles'">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let item of data.items | orderBy: ['title']">
+            <a [routerLink]="['/articles/detail', item.id]">{{item.title}}</a>
+            <span> {{item.articleDate | date: 'medium'}}</span>
+          </li>
+        </ul>
+
+        <ul class="list-group" *ngIf="type === 'matches'">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let item of data.items | orderBy: ['-matchStartDate']">
+            <a [routerLink]="['/matches/detail', item.id]">
+              {{item.playersType}}: {{item.homeTeam.title}} &ndash; {{item.guestTeam.title}}
+            </a>
+            <span> {{item.matchStartDate | date: 'medium'}}</span>
+          </li>
+        </ul>
+      </ng-container>
+
+    </app-portlet-body>
+    <app-portlet-footer *ngIf="edit">
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+          <button type="button" formtarget="form" (click)="onSubmit()" class="btn btn-primary">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">Speichern </span>
+          </button>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </ng-container>
+</app-portlet>

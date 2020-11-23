@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "baseUrl": "./",
+    "outDir": "./lib",
+    "sourceMap": true,
+    "strict": false,
+    "target": "es6",
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "jest"
+    ],
+    "paths": {
+      "@shared/*": ["./../src/app/shared/*", ],
+      "@application/*": ["./../src/app/modules/settings/*", ],
+      "@article/*": ["./../src/app/modules/article/*", ],
+      "@category/*": ["./../src/app/modules/category/*", ],
+      "@club/*": ["./../src/app/modules/club/*", ],
+      "@location/*": ["./../src/app/modules/location/*", ],
+      "@match/*": ["./../src/app/modules/match/*", ],
+      "@member/*": ["./../src/app/modules/member/*", ],
+      "@permission/*": ["./../src/app/modules/permission/*", ],
+      "@player/*": ["./../src/app/modules/player/*", ],
+      "@role/*": ["./../src/app/modules/role/*", ],
+      "@senior/*": ["./../src/app/modules/senior/*", ],
+      "@sponsor/*": ["./../src/app/modules/sponsor/*", ],
+      "@team/*": ["./../src/app/modules/team/*", ],
+      "@user/*": ["./../src/app/modules/user/*", ],
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  "typeRoots": [
+    "./typings",
+    "./node_modules/@types/"
+  ]
+}

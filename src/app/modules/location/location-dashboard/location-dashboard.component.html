@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-lg-4">
+    <app-portlet>
+      <app-portlet-header icon="fa fa-chart-area" title="Statistik">
+      </app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="statistics$ | async as statistics">
+          <app-chart type="doughnut" [data]="statistics.datasets" [options]="chartOptions"></app-chart>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+  <div class="col-lg-4">
+    <app-portlet>
+      <app-portlet-header icon="fa fa-bell" title="Neuester Spielort">
+      </app-portlet-header>
+      <app-portlet-body>
+        <a *ngIf="latestLocation$ | async as latestLocation" [routerLink]="['/locations/detail', latestLocation.id]">
+          {{latestLocation.title}}
+        </a>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+  <div class="col-lg-4">
+    <app-portlet>
+      <app-portlet-header icon="fa fa-cloud-upload-alt" title="Neue Mediendateien">
+      </app-portlet-header>
+    </app-portlet>
+  </div>
+</div>

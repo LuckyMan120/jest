@@ -1,0 +1,105 @@
+//
+// Infobox
+//
+
+.app-infobox {
+	padding: 1.5rem;
+
+	.app-infobox__title {
+		font-size: 2rem;
+		color: app-base-color(label, 4);
+	}
+
+	.app-infobox__subtitle {
+		font-size: 1.3rem;
+		font-weight: 400;
+		color: app-base-color(label, 4);
+		margin-bottom: 1.2rem;
+	}
+
+	.app-infobox__header {
+		margin-bottom: 2rem;
+		display: flex;
+		align-items: center;
+
+		.app-infobox__badge {
+			margin: auto 0 auto auto;
+			font-size: 1rem;
+			font-weight: 500;
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			color: app-state-color(brand, base);
+			background-color: rgba(app-state-color(brand, base), 0.15);
+		}
+	}
+
+	.app-infobox__body {
+		.app-infobox__section {
+			margin-bottom: 2rem;
+
+			.app-infobox__content {
+				font-weight: 400;
+				color: #9392a0;
+				font-size: 1.15rem;
+				line-height: 2rem;
+
+				.table {
+					font-size: 1rem;
+
+					thead {
+						th {
+							padding-top: 0.8rem;
+							padding-bottom: 0.8rem;
+						}
+					}
+				}
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		.app-nav {
+			.app-nav__item {
+				.app-nav__link {
+					.app-nav__link-text {
+						font-size: 1.25rem;
+					}
+				}
+			}
+		}
+
+		.accordion {
+			.card {
+				.card-header {
+					.card-title {
+						font-size: 1.25rem;
+						font-weight: 400;
+					}
+				}
+				.card-body {
+					font-size: 1.15rem;
+					line-height: 2rem;
+					font-weight: 400;
+					color: #9392a0;
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	@each $name, $color in $app-state-colors {
+		&--#{$name} {
+			.app-infobox__header {
+				.app-infobox__badge {
+					color: app-state-color(#{$name}, base);
+					background-color: rgba(app-state-color(#{$name}, base), 0.15);
+				}
+			}
+		}
+	}
+}

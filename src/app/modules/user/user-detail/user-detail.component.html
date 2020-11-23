@@ -1,0 +1,152 @@
+<app-portlet *ngIf="user$ | async as user">
+  <app-portlet-header title="Benutzerdetails">
+    <ng-container portletTools>
+
+      <a class="btn btn-success" [routerLink]="['/users/list']">
+        <i class="fas fa-list-ul" aria-hidden="true"></i>Zur Übersicht
+      </a>
+
+      <div class="btn-group" dropdown>
+        <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+          <span class="fas fa-bars"></span>
+        </button>
+
+        <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+          aria-labelledby="button-animated">
+          <li role="menuitem">
+            <a class="dropdown-item" [routerLink]="['/users/edit', user?.id]">
+              <i class="fas fa-undo" aria-hidden="true"></i>
+              Editieren
+            </a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" href="javascript:;" *ngIf="!user.isGodAdmin" (click)="deleteUser(user)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+              Löschen
+            </a>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+
+    <div class="alert alert-info" *ngIf="user?.disabled">
+      <p>Dieser Benutzeraccount ist deaktiviert.</p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <app-portlet>
+          <app-portlet-header title="Foto des Benutzers">
+          </app-portlet-header>
+          <app-portlet-body>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                  <tr>
+                    <th>Anzeigename</th>
+                    <td>{{user?.displayName}}</td>
+                  </tr>
+                  <tr>
+                    <th>Vorname</th>
+                    <td>{{user?.firstName || '-'}}</td>
+                  </tr>
+                  <tr>
+                    <th>Nachname</th>
+                    <td>{{user?.lastName || '-'}}</td>
+                  </tr>
+                  <tr>
+                    <th>E-Mail</th>
+                    <td>{{user?.email || '-'}}</td>
+                  </tr>
+                  <tr>
+                    <th>E-Mail verifiziert</th>
+                    <td>{{(user?.emailVerified ? 'Ja' : 'Nein') }}</td>
+                  </tr>
+                  <tr>
+                    <th>Letzter Login</th>
+                    <td>{{user?.lastSignInTime | date: 'medium'}}</td>
+                  </tr>
+                  <tr>
+                    <th>Verknüpfte Telefonnummer</th>
+                    <td>{{user?.phoneNumber || '-'}}</td>
+                  </tr>
+                  <tr>
+                    <th>Anmeldung über</th>
+                    <td>{{user?.providerId}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </app-portlet-body>
+        </app-portlet>
+      </div>
+      <div class="col-lg-4" *ngIf="roles$ | async as roles">
+        <app-portlet>
+          <app-portlet-header title="Verknüpfte Rollen">
+          </app-portlet-header>
+          <app-portlet-body>
+            <ul>
+              <ng-container *ngFor="let roleTitle of user?.assignedRoles; let last = last">
+                <ng-container *ngIf="(roles | filterBy: ['title'] : roleTitle) as role">
+                  <li>
+                    <a [routerLink]="['/roles/edit', role[0].id]">{{roleTitle}}</a>
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ul>
+          </app-portlet-body>
+        </app-portlet>
+      </div>
+      <div class="col-lg-4">
+        <app-portlet>
+          <app-portlet-header title="Foto editieren">
+          </app-portlet-header>
+          <app-portlet-body>
+
+            <img class="rounded mx-auto d-block mb-5" [alt]="user?.displayName"
+              [src]="user?.profileImage ? user?.profileImage?.sizes[128] : user?.photoUrl" />
+
+          </app-portlet-body>
+        </app-portlet>
+      </div>
+    </div>
+  </app-portlet-body>
+
+  <app-portlet-footer>
+
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="btn btn-success" [routerLink]="['/users/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/users/edit', user?.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" *ngIf="!user.isGodAdmin" (click)="deleteUser(user)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

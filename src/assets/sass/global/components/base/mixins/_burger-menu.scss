@@ -1,0 +1,201 @@
+//
+// Burger Icon Mixins
+//
+
+@mixin app-burger-icon-build($class, $config) {
+	$space: app-get($config, thickness) + app-get($config, space);
+
+	.#{$class} {
+		display: inline-block;
+		position: relative;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		font-size: 0;
+		text-indent: -9999px;
+		appearance: none;
+		box-shadow: none;
+		border-radius: none;
+		border: none;
+		cursor: pointer;
+		background: none;
+		outline: none !important;
+		width: app-get($config, width);
+		height: app-get($config, height);
+		transition: all app-get($config, transition-duration) ease;
+
+		span {
+			display: block;
+			position: absolute;
+			top: (app-get($config, height) / 2) - (app-get($config, thickness)) + 1px;
+			height: app-get($config, thickness);
+			min-height: app-get($config, thickness);
+			width: 100%;
+
+			@include app-rounded {
+				border-radius: app-get($config, radius);
+			}
+
+			transition: all app-get($config, transition-duration) ease;
+
+			&::before,
+			&::after {
+				position: absolute;
+				display: block;
+				left: 0;
+				width: 100%;
+				height: app-get($config, thickness);
+				min-height: app-get($config, thickness);
+				content: "";
+
+				@include app-rounded {
+					border-radius: app-get($config, radius);
+				}
+
+				transition: all app-get($config, transition-duration) ease;
+			}
+
+			&::before {
+				top: -($space);
+			}
+
+			&::after {
+				bottom: -($space);
+			}
+		}
+
+		// left direction style
+		&.#{$class}--left {
+			span {
+				&:before {
+					transition: all app-get($config, transition-duration) ease;
+					left: auto;
+					right: 0px;
+					width: 50%;
+				}
+
+				&:after {
+					transition: all app-get($config, transition-duration) ease;
+					left: auto;
+					right: 0px;
+					width: 75%;
+				}
+			}
+
+			// hover states
+			&:hover {
+				span {
+					&:after,
+					&:before {
+						width: 100%;
+						transition: all app-get($config, transition-duration) ease;
+					}
+				}
+			}
+
+			// active state
+			&.#{$class}--active {
+				span {
+					&:before {
+						transition: all app-get($config, transition-duration) ease;
+						left: 0px;
+						right: auto;
+						width: 50%;
+					}
+
+					&:after {
+						transition: all app-get($config, transition-duration) ease;
+						left: 0px;
+						right: auto;
+						width: 75%;
+					}
+				}
+			}
+		}
+
+		// right direction style
+		&.#{$class}--right {
+			span {
+				&:before {
+					left: 0px;
+					right: auto;
+					width: 50%;
+					transition: width app-get($config, transition-duration) ease;
+				}
+
+				&:after {
+					left: 0px;
+					right: auto;
+					width: 75%;
+					transition: width app-get($config, transition-duration) ease;
+				}
+			}
+
+			// hover states
+			&:hover {
+				span {
+					&:after,
+					&:before {
+						width: 100%;
+						transition: width app-get($config, transition-duration) ease;
+					}
+				}
+			}
+
+			// active state
+			&.#{$class}--active {
+				span {
+					&:before {
+						left: auto;
+						right: 0px;
+						width: 50%;
+						transition: width app-get($config, transition-duration) ease;
+					}
+
+					&:after {
+						left: auto;
+						right: 0px;
+						width: 75%;
+						transition: width app-get($config, transition-duration) ease;
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin app-burger-icon-skin($class, $config) {
+	.#{$class} {
+		span {
+			background: app-get($config, default);
+
+			&::before,
+			&::after {
+				background: app-get($config, default);
+			}
+		}
+
+		//active & hover state
+		&:hover {
+			span {
+				background: app-get($config, hover);
+
+				&::before,
+				&::after {
+					background: app-get($config, hover);
+				}
+			}
+		}
+
+		&.#{$class}--active {
+			span {
+				background: app-get($config, active);
+
+				&::before,
+				&::after {
+					background: app-get($config, active);
+				}
+			}
+		}
+	}
+}

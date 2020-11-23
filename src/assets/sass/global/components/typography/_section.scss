@@ -1,0 +1,106 @@
+//
+// Section
+//
+
+.app-section {
+    padding: 0;
+    margin: 0 0 2rem 0;
+
+    &.app-section--space-sm {
+        margin-bottom: 1rem;
+    }
+
+    &.app-section--space-md {
+        margin-bottom: 2rem;
+    }
+
+    &.app-section--space-lg {
+        margin-bottom: 2.5rem;
+    }
+
+    &.app-section--space-xl {
+        margin-bottom: 3rem;
+    }
+
+    .app-section__heading,
+    .app-section__title {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding: 0;
+        margin: 0 0 1.75rem 0;
+        color: app-base-color(label, 4);
+
+        &.app-section__title-sm {
+            font-size: 1.1rem;
+        }
+
+        &.app-section__title-md {
+            font-size: 1.4rem;
+        }
+
+        &.app-section__title-lg {
+            font-size: 1.5rem;
+        }
+    }
+
+    .app-section__desc {
+        display: block;
+        font-size: 1rem;
+        font-weight: 400;
+        padding: 0;
+        margin: 0 0 1rem 0;
+        color: app-base-color(label, 3);
+    }
+
+    .app-section__info {
+        display: block;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0 0 1rem 0;
+        color: app-base-color(label, 3);
+    }
+
+    .app-section__content {
+        display: block;
+        padding: 0;
+        margin: 0;
+
+        &.app-section__content--border {
+            padding: 1.5rem;
+            border: 3px solid app-base-color(grey, 2);
+
+            @include app-rounded {
+                border-radius: $app-border-radius;
+            }
+        }
+
+        &.app-section__content--solid {
+            padding: 1.5rem;
+            border-left: 4px solid app-base-color(grey, 3);
+            background-color: app-base-color(grey, 1);
+
+            @include app-rounded {
+                border-radius-top-left: $app-border-radius;
+                border-radius-top-right: $app-border-radius;
+            }
+        }
+
+        &.app-section__content--x-fit {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        &.app-section__content--fit {
+            padding: 0;
+        }
+    }
+
+    &.app-section--last {
+        margin-bottom: 0;
+    }
+
+    &.app-section--first {
+        margin-top: 0;
+    }
+}

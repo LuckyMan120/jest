@@ -1,0 +1,46 @@
+<app-portlet>
+  <app-portlet-header icon="fa fa-sitemap" title="Vorstandsmitglieder">
+    <ng-container portletTools>
+      <button class="btn btn-success mr-1" [routerLink]="['../create']">
+        <i class="fa fa-save" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">Neues Vorstandsmitglied</span>
+      </button>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+
+    <div *ngIf="(positions$ | async) === null" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <ng-container *ngIf="positions$ | async as positions">
+
+      <mat-accordion *ngIf="categories$ | async as categories">
+        <mat-expansion-panel *ngFor="let category of categories | orderBy: ['title']; let i = index"
+          [expanded]="step === i" (opened)="setStep(i)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ category.title }}</mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <h5>Aufgabenbeschreibung</h5>
+              <div [innerHTML]="category.description"></div>
+            </div>
+            <div class="col-lg-6">
+              <app-club-position-table [positions]="positions | filterBy: ['assignedCategoryId'] : category.id">
+              </app-club-position-table>
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+
+  </app-portlet-body>
+</app-portlet>

@@ -1,0 +1,981 @@
+//
+// Portlet
+//
+
+.app-portlet {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	box-shadow: $app-elevate-shadow;
+	background-color: app-get($app-portlet, bg-color);
+	margin-bottom: app-get($app-portlet, bottom-space, desktop);
+
+	// Global white content mode
+	.app-page-content-white & {
+		box-shadow: $app-elevate-shadow-2;
+	}
+
+	@include app-rounded {
+		border-radius: $app-border-radius;
+	}
+
+	// Base
+	.app-portlet__head {
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		position: relative;
+		padding: 0 app-get($app-portlet, space, desktop);
+		border-bottom: 1px solid app-get($app-portlet, border-color);
+		min-height: app-get($app-portlet, min-height, default, desktop);
+
+		&.app-portlet__head--right {
+			justify-content: flex-end;
+		}
+
+		&.app-portlet__head--noborder {
+			border-bottom: 0;
+		}
+
+		@include app-rounded {
+			border-top-left-radius: $app-border-radius;
+			border-top-right-radius: $app-border-radius;
+		}
+
+		.app-portlet__head-label {
+			display: flex;
+			align-items: center;
+			align-content: flex-first;
+
+			.app-portlet__head-title {
+				margin: 0;
+				padding: 0;
+				font-size: 1.2rem;
+				font-weight: 500;
+				color: app-base-color(label, 4);
+
+				small {
+					font-weight: 300;
+					padding-left: 0.5rem;
+					font-size: 1rem;
+					color: app-base-color(label, 2);
+				}
+			}
+
+			.app-portlet__head-icon {
+				padding-right: 0.75rem;
+				font-size: 1.3rem;
+				color: app-base-color(label, 2);
+			}
+		}
+
+		.app-portlet__head-toolbar {
+			display: flex;
+			align-items: center;
+			align-content: flex-end;
+
+			.nav-pills,
+			.nav-tabs {
+				margin: 0;
+			}
+
+			.app-portlet__head-wrapper {
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		.app-portlet__head-progress {
+			position: absolute;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	// Head sizing
+	&.app-portlet--head-sm {
+		.app-portlet__head {
+			min-height: app-get($app-portlet, min-height, sm, desktop);
+		}
+	}
+
+	&.app-portlet--head-lg {
+		.app-portlet__head {
+			min-height: app-get($app-portlet, min-height, lg, desktop);
+		}
+	}
+
+	&.app-portlet--head-xl {
+		.app-portlet__head {
+			min-height: app-get($app-portlet, min-height, xl, desktop);
+		}
+	}
+
+	// Sticky portlet
+	&.app-portlet--sticky {
+		> .app-portlet__head {
+			height: app-get($app-portlet, min-height, default, desktop) - 10px;
+			min-height: app-get($app-portlet, min-height, default, desktop) - 10px;
+
+			&.app-portlet__head--sm {
+				height: app-get($app-portlet, min-height, sm, desktop) - 10px;
+				min-height: app-get($app-portlet, min-height, sm, desktop) - 10px;
+			}
+
+			&.app-portlet__head--lg {
+				height: app-get($app-portlet, min-height, lg, desktop) - 10px;
+				min-height: app-get($app-portlet, min-height, lg, desktop) - 10px;
+			}
+
+			&.app-portlet__head--xl {
+				height: app-get($app-portlet, min-height, xl, desktop) - 10px;
+				min-height: app-get($app-portlet, min-height, xl, desktop) - 10px;
+			}
+		}
+	}
+
+	// Head overlay
+	&.app-portlet--head-overlay {
+		.app-portlet__head {
+			position: relative;
+			z-index: 1;
+			border: 0;
+			height: app-get($app-portlet, min-height, default, desktop);
+		}
+
+		.app-portlet__body {
+			margin-top: -(app-get($app-portlet, min-height, default, desktop));
+		}
+
+		// Head sizing
+		&.app-portlet--head-sm {
+			.app-portlet__head {
+				height: app-get($app-portlet, min-height, sm, desktop);
+			}
+
+			.app-portlet__body {
+				margin-top: -(app-get($app-portlet, min-height, sm, desktop));
+			}
+		}
+
+		&.app-portlet--head-lg {
+			.app-portlet__head {
+				height: app-get($app-portlet, min-height, lg, desktop);
+			}
+
+			.app-portlet__body {
+				margin-top: -(app-get($app-portlet, min-height, lg, desktop));
+			}
+		}
+
+		&.app-portlet--head-xl {
+			.app-portlet__head {
+				height: app-get($app-portlet, min-height, xl, desktop);
+			}
+
+			.app-portlet__body {
+				margin-top: -(app-get($app-portlet, min-height, xl, desktop));
+			}
+		}
+	}
+
+	.app-portlet__body {
+		display: flex;
+		flex-direction: column;
+		padding: app-get($app-portlet, space, desktop);
+
+		@include app-rounded {
+			border-radius: $app-border-radius;
+		}
+
+		.app-portlet__content {
+			padding: 0;
+			margin: 0;
+		}
+
+		// KTDatatable integration
+		> .app-datatable {
+			> .app-datatable__table {
+				@include app-rounded {
+					border-radius: $app-border-radius;
+				}
+			}
+		}
+	}
+
+	.app-portlet__foot {
+		padding: app-get($app-portlet, space, desktop);
+		border-top: 1px solid app-get($app-portlet, border-color);
+
+		.app-portlet__foot-wrapper {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		@include app-rounded {
+			border-bottom-left-radius: $app-border-radius;
+			border-bottom-right-radius: $app-border-radius;
+		}
+
+		&.app-portlet__foot--sm {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+		&.app-portlet__foot--md {
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+		}
+
+		&.app-portlet__foot--no-border {
+			border-top: 0;
+		}
+
+		&.app-portlet__foot--top {
+			border-top: 0;
+			border-bottom: 1px solid app-get($app-portlet, border-color);
+		}
+
+		&.app-portlet__foot--solid {
+			background-color: app-base-color(grey, 1);
+			border-top: 0;
+
+			&.app-portlet__foot--top {
+				border-bottom: 0;
+			}
+		}
+	}
+
+	.app-portlet__separator {
+		height: 0;
+		border-top: 1px solid app-get($app-portlet, border-color);
+	}
+
+	// Unelivate
+	&.app-portlet--bordered {
+		box-shadow: none;
+		border: 1px solid app-get($app-portlet, border-color);
+	}
+
+	// Unelivate
+	&.app-portlet--unelevate {
+		box-shadow: none;
+	}
+
+	// Unround
+	&.app-portlet--unround {
+		.app-portlet__head {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		.app-portlet__body {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		.app-portlet__foot {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	// Marginless
+	&.app-portlet--last {
+		margin-bottom: 0;
+	}
+
+	// Portlet body alignment
+	.app-portlet__body {
+		&.app-portlet__body--center {
+			justify-content: center;
+			align-items: center;
+		}
+
+		&.app-portlet__body--center-x {
+			justify-content: center;
+		}
+
+		&.app-portlet__body--center-y {
+			align-items: center;
+		}
+
+		.app-portlet__body--hor-fit {
+			margin-left: -(app-get($app-portlet, space, desktop));
+			margin-right: -(app-get($app-portlet, space, desktop));
+		}
+
+		&.app-portlet__body--stick-bottom {
+			position: relative;
+			bottom: 0;
+		}
+
+		&.app-portlet__body--fluid {
+			height: 100%;
+			flex-direction: row;
+			flex-grow: 1;
+			width: 100%;
+		}
+
+		// Full height
+		&.app-portlet__body--fill {
+			flex-grow: 1 !important;
+		}
+
+		// Non full height
+		&.app-portlet__body--unfill {
+			flex-grow: 0 !important;
+		}
+
+		&.app-portlet__body--fullheight {
+			flex-grow: auto;
+		}
+	}
+
+	// Padding options
+	&.app-portlet--fit {
+		.app-portlet__head {
+			padding: 0;
+		}
+
+		.app-portlet__body {
+			padding: 0;
+		}
+
+		.app-portlet__foot {
+			padding: 0;
+		}
+
+		&.app-portlet--height-fluid-half {
+			align-items: stretch;
+
+			.app-portlet__body {
+				height: 100%;
+				flex-direction: column;
+				align-items: stretch;
+			}
+		}
+	}
+
+	// Contain inner elements
+	&.app-portlet--contain {
+		overflow: hidden;
+	}
+
+	&.app-portlet--space {
+		padding-left: app-get($app-portlet, space, desktop);
+		padding-right: app-get($app-portlet, space, desktop);
+
+		.app-portlet__head,
+		.app-portlet__body,
+		.app-portlet__foot {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	// Options
+	// No border
+	&.app-portlet--head-noborder {
+		.app-portlet__head {
+			border-bottom: 0;
+		}
+
+		.app-portlet__body {
+			padding-top: app-get($app-portlet, space, desktop) / 2;
+		}
+	}
+
+	// Tab style
+	&.app-portlet--tabs {
+		.app-portlet__head {
+			.app-portlet__head-toolbar {
+				display: flex;
+				align-items: stretch;
+			}
+		}
+	}
+
+	// Tab 3x border style
+	&.app-portlet--tabs-border-3x {
+		.app-portlet__head {
+			border-bottom: 3px solid app-base-color(grey, 1);
+
+			.nav.nav-tabs {
+				margin-bottom: -3px;
+			}
+		}
+	}
+
+	@each $name, $color in $app-state-colors {
+		// Solid style
+		&.app-portlet--solid-#{$name} {
+			background: app-get($color, base);
+
+			.app-portlet__head {
+				color: app-get($color, inverse);
+				border-bottom: 1px solid transparent;
+
+				.app-portlet__head-title {
+					color: app-get($color, inverse);
+
+					small {
+						color: darken(app-get($color, inverse), 6%);
+					}
+				}
+
+				.app-portlet__head-icon {
+					i {
+						color: darken(app-get($color, inverse), 6%);
+					}
+				}
+			}
+
+			.app-portlet__body {
+				padding-top: 5px;
+			}
+
+			.app-portlet__wrapper,
+			.app-portlet__body {
+				color: app-get($color, inverse);
+			}
+
+			.app-portlet__foot {
+				color: app-get($color, inverse);
+				border-top: 1px solid transparent;
+				background: darken(app-get($color, base), 6%);
+			}
+		}
+
+		// Tab 3x border states
+		&.app-portlet--tabs-border-3x-#{$name} {
+			.app-portlet__head {
+				border-bottom: 3px solid rgba(app-get($color, base), 0.1);
+			}
+		}
+
+		// Bottom Border
+		&.app-portlet--border-bottom-#{$name} {
+			border-bottom: 3px solid rgba(app-get($color, base), 0.2);
+		}
+	}
+
+	// Sortable mode
+	// jQuery UI Draggable Portlets
+	&.app-portlet--sortable {
+		.app-portlet__head {
+			cursor: move;
+		}
+	}
+
+	&.app-portlet--sortable-empty {
+		visibility: hidden;
+		height: 45px;
+		min-height: 125px;
+	}
+
+	&.ui-sortable-helper {
+		border: 1px dashed app-base-color(grey, 2);
+	}
+
+	// Sticky portlet head
+	.app-portlet__head {
+		transition: left 0.3s, right 0.3s, height 0.3s;
+	}
+
+	&.app-portlet--sticky {
+		> .app-portlet__head {
+			transition: left 0.3s, right 0.3s, height 0.3s;
+			position: fixed;
+			box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
+			z-index: 101;
+			background: #fff;
+		}
+	}
+
+	// Dark skin
+	&.app-portlet--skin-solid {
+		// Head
+		.app-portlet__head {
+			.app-portlet__head-label {
+				.app-portlet__head-title {
+					color: #fff;
+
+					small {
+						color: rgba(#fff, 0.8);
+					}
+				}
+
+				.app-portlet__head-icon {
+					color: rgba(#fff, 0.8);
+				}
+			}
+
+			&:not(.app-portlet__head--noborder) {
+				border-bottom: 1px solid rgba(#fff, 0.2);
+			}
+		}
+
+		// Body
+		.app-portlet__body {
+			color: #fff;
+		}
+	}
+
+	// Spacing
+	.app-portlet__space-x {
+		padding-left: app-get($app-portlet, space, desktop) !important;
+		padding-right: app-get($app-portlet, space, desktop) !important;
+	}
+
+	.app-portlet__space-y {
+		padding-top: app-get($app-portlet, space, desktop) !important;
+		padding-bottom: app-get($app-portlet, space, desktop) !important;
+	}
+
+	// Collapsed Mode
+	&.app-portlet--collapsed {
+		> .app-form,
+		> .app-portlet__body {
+			display: none;
+		}
+	}
+
+	&.app-portlet--collapsed,
+	&.app-portlet--collapse {
+		.app-portlet__head {
+			.app-portlet__head-toolbar {
+				.la-angle-down {
+					&:before {
+						content: "\f113";
+					}
+				}
+
+				.la-plus {
+					&:before {
+						content: "\f28e";
+					}
+				}
+			}
+		}
+	}
+
+	.app-portlet__head.app-portlet__head--fit {
+		padding: 0;
+	}
+
+	.app-portlet__body.app-portlet__body--fit {
+		padding: 0;
+	}
+
+	.app-portlet__body.app-portlet__body--fit-top {
+		padding-top: 0 !important;
+	}
+
+	.app-portlet__body.app-portlet__body--fit-bottom {
+		padding-bottom: 0 !important;
+	}
+
+	.app-portlet__body.app-portlet__body--fit-x,
+	.app-portlet__body.app-portlet__body--hor-fit {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.app-portlet__body.app-portlet__body--fit-y {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.app-portlet__foot.app-portlet__foot--fit {
+		padding: 0;
+	}
+
+	&.app-portlet--space {
+		padding-left: app-get($app-portlet, space, desktop);
+		padding-right: app-get($app-portlet, space, desktop);
+
+		.app-portlet__head,
+		.app-portlet__body,
+		.app-portlet__foot {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	// Options
+	// No border
+	&.app-portlet--head-noborder {
+		.app-portlet__head {
+			border-bottom: 0;
+		}
+
+		.app-portlet__body {
+			padding-top: app-get($app-portlet, space, desktop) / 2;
+		}
+	}
+
+	// Tab style
+	&.app-portlet--tabs {
+		.app-portlet__head {
+			.app-portlet__head-toolbar {
+				display: flex;
+				align-items: stretch;
+			}
+		}
+	}
+
+	// Tab 3x border style
+	&.app-portlet--tabs-border-3x {
+		.app-portlet__head {
+			border-bottom: 3px solid app-base-color(grey, 1);
+
+			.nav.nav-tabs {
+				margin-bottom: -3px;
+			}
+		}
+	}
+
+	@each $name, $color in $app-state-colors {
+		// Solid style
+		&.app-portlet--solid-#{$name} {
+			background: app-get($color, base);
+
+			.app-portlet__head {
+				color: app-get($color, inverse);
+				border-bottom: 1px solid transparent;
+
+				.app-portlet__head-title {
+					color: app-get($color, inverse);
+
+					small {
+						color: darken(app-get($color, inverse), 6%);
+					}
+				}
+
+				.app-portlet__head-icon {
+					i {
+						color: darken(app-get($color, inverse), 6%);
+					}
+				}
+			}
+
+			.app-portlet__body {
+				padding-top: 5px;
+			}
+
+			.app-portlet__wrapper,
+			.app-portlet__body {
+				color: app-get($color, inverse);
+			}
+
+			.app-portlet__foot {
+				color: app-get($color, inverse);
+				border-top: 1px solid transparent;
+				background: darken(app-get($color, base), 6%);
+			}
+		}
+
+		// Tab 3x border states
+		&.app-portlet--tabs-border-3x-#{$name} {
+			.app-portlet__head {
+				border-bottom: 3px solid rgba(app-get($color, base), 0.1);
+			}
+		}
+
+		// Bottom Border
+		&.app-portlet--border-bottom-#{$name} {
+			border-bottom: 3px solid rgba(app-get($color, base), 0.2);
+		}
+	}
+
+	// Sortable mode
+	// jQuery UI Draggable Portlets
+	&.app-portlet--sortable {
+		.app-portlet__head {
+			cursor: move;
+		}
+	}
+
+	&.app-portlet--sortable-empty {
+		visibility: hidden;
+		height: 45px;
+		min-height: 125px;
+	}
+
+	&.ui-sortable-helper {
+		border: 1px dashed app-base-color(grey, 2);
+	}
+
+	// Sticky portlet head
+	.app-portlet__head {
+		transition: height 0.3s;
+		//transition: left 0.3s, right 0.3s, height 0.3s;
+	}
+
+	&.app-portlet--sticky {
+		> .app-portlet__head {
+			transition: height 0.3s;
+			//transition: left 0.3s, right 0.3s, height 0.3s;
+			position: fixed;
+			box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
+			z-index: 101;
+			background: #fff;
+		}
+	}
+
+	// Dark skin
+	&.app-portlet--skin-solid {
+		// Head
+		.app-portlet__head {
+			.app-portlet__head-label {
+				.app-portlet__head-title {
+					color: #fff;
+
+					small {
+						color: rgba(#fff, 0.8);
+					}
+				}
+
+				.app-portlet__head-icon {
+					color: rgba(#fff, 0.8);
+				}
+			}
+
+			&:not(.app-portlet__head--noborder) {
+				border-bottom: 1px solid rgba(#fff, 0.2);
+			}
+		}
+
+		// Body
+		.app-portlet__body {
+			color: #fff;
+		}
+	}
+
+	// Spacing
+	.app-portlet__space-x {
+		padding-left: app-get($app-portlet, space, desktop) !important;
+		padding-right: app-get($app-portlet, space, desktop) !important;
+	}
+
+	.app-portlet__space-y {
+		padding-top: app-get($app-portlet, space, desktop) !important;
+		padding-bottom: app-get($app-portlet, space, desktop) !important;
+	}
+
+	// Collapsed Mode
+	&.app-portlet--collapsed {
+		> .app-form,
+		> .app-portlet__body {
+			display: none;
+		}
+	}
+
+	&.app-portlet--collapsed,
+	&.app-portlet--collapse {
+		.app-portlet__head {
+			.app-portlet__head-toolbar {
+				.la-angle-down {
+					&:before {
+						content: "\f113";
+					}
+				}
+
+				.la-plus {
+					&:before {
+						content: "\f28e";
+					}
+				}
+			}
+		}
+	}
+}
+
+// Portlet tools tooltip
+.tooltip-portlet {
+	opacity: 1;
+}
+
+@include app-desktop {
+	.app-portlet {
+		// Fluid Height
+		&.app-portlet--height-fluid {
+			height: calc(100% - #{app-get($app-portlet, bottom-space, desktop)});
+
+			.app-portlet__body {
+				flex-grow: 1;
+			}
+		}
+
+		// Full height portlet mode
+		&.app-portlet--height-fluid-half {
+			height: calc(50% - #{app-get($app-portlet, bottom-space, desktop)});
+
+			.app-portlet__body {
+				flex-grow: 1;
+			}
+		}
+	}
+}
+
+@include app-tablet-and-mobile {
+	.app-portlet {
+		margin-bottom: app-get($app-portlet, bottom-space, mobile);
+
+		// Head sizing
+		.app-portlet__head {
+			padding: 0 app-get($app-portlet, space, mobile);
+			min-height: app-get($app-portlet, min-height, default, mobile);
+
+			&.app-portlet__head--sm {
+				min-height: app-get($app-portlet, min-height, sm, mobile);
+			}
+
+			&.app-portlet__head--lg {
+				min-height: app-get($app-portlet, min-height, lg, mobile);
+			}
+
+			&.app-portlet__head--xl {
+				min-height: app-get($app-portlet, min-height, xl, mobile);
+			}
+		}
+
+		&.app-portlet--head-sm {
+			.app-portlet__head {
+				min-height: app-get($app-portlet, min-height, sm, mobile);
+			}
+		}
+
+		&.app-portlet--head-lg {
+			.app-portlet__head {
+				min-height: app-get($app-portlet, min-height, lg, mobile);
+			}
+		}
+
+		&.app-portlet--head-xl {
+			.app-portlet__head {
+				min-height: app-get($app-portlet, min-height, xl, mobile);
+			}
+		}
+
+		// Portlet body alignment
+		.app-portlet__body {
+			padding: app-get($app-portlet, space, mobile);
+
+			.app-portlet__body--hor-fit {
+				margin-left: -(app-get($app-portlet, space, mobile));
+				margin-right: -(app-get($app-portlet, space, mobile));
+			}
+		}
+
+		.app-portlet__foot {
+			padding: app-get($app-portlet, space, mobile);
+		}
+
+		// Marginless
+		&.app-portlet--marginless {
+			margin-bottom: 0;
+		}
+
+		// Sticky portlet
+		&.app-portlet--sticky {
+			> .app-portlet__head {
+				height: app-get($app-portlet, min-height, default, mobile) - 10px;
+
+				&.app-portlet__head--sm {
+					height: app-get($app-portlet, min-height, sm, mobile) - 10px;
+				}
+
+				&.app-portlet__head--lg {
+					height: app-get($app-portlet, min-height, lg, mobile) - 10px;
+				}
+
+				&.app-portlet__head--xl {
+					height: app-get($app-portlet, min-height, xl, mobile) - 10px;
+				}
+			}
+		}
+
+		// Head overlay
+		&.app-portlet--head-overlay {
+			.app-portlet__head {
+				height: app-get($app-portlet, min-height, default, mobile);
+			}
+
+			.app-portlet__body {
+				margin-top: -(app-get($app-portlet, min-height, default, mobile));
+			}
+
+			// Head sizing
+			&.app-portlet--head-sm {
+				.app-portlet__head {
+					height: app-get($app-portlet, min-height, sm, mobile);
+				}
+
+				.app-portlet__body {
+					margin-top: -(app-get($app-portlet, min-height, sm, mobile));
+				}
+			}
+
+			&.app-portlet--head-lg {
+				.app-portlet__head {
+					height: app-get($app-portlet, min-height, lg, mobile);
+				}
+
+				.app-portlet__body {
+					margin-top: -(app-get($app-portlet, min-height, lg, mobile));
+				}
+			}
+
+			&.app-portlet--head-xl {
+				.app-portlet__head {
+					height: app-get($app-portlet, min-height, xl, mobile);
+				}
+
+				.app-portlet__body {
+					margin-top: -(app-get($app-portlet, min-height, xl, mobile));
+				}
+			}
+		}
+
+		// No border
+		&.app-portlet--head--noborder {
+			.app-portlet__body {
+				padding-top: app-get($app-portlet, space, mobile) / 2;
+			}
+		}
+
+		// Spacing
+		.app-portlet__space-x {
+			padding-left: app-get($app-portlet, space, mobile) !important;
+			padding-right: app-get($app-portlet, space, mobile) !important;
+		}
+
+		.app-portlet__space-y {
+			padding-top: app-get($app-portlet, space, mobile) !important;
+			padding-bottom: app-get($app-portlet, space, mobile) !important;
+		}
+	}
+}
+
+@include app-mobile {
+	.app-portlet {
+		&.app-portlet--head-break-sm {
+			.app-portlet__head {
+				padding-top: app-get($app-portlet, space, mobile);
+				padding-bottom: app-get($app-portlet, space, mobile);
+				min-height: initial !important;
+				height: auto;
+				flex-wrap: wrap;
+
+				.app-portlet__head-label {
+					margin-bottom: 1rem;
+				}
+			}
+		}
+	}
+}

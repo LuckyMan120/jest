@@ -1,0 +1,113 @@
+//
+// Grid Mixins
+//
+
+@mixin app-grid-generate($mode) {
+	$mode-class: "";
+	$mode-dir: "";
+
+	// Grid mode
+	@if ($mode == general) {
+		$mode-class: ":not(.app-grid--desktop):not(.app-grid--desktop-and-tablet):not(.app-grid--tablet):not(.app-grid--tablet-and-mobile):not(.app-grid--mobile)";
+	} @else {
+		$mode-class: ".app-grid--" + $mode;
+		$mode-dir: "-" + $mode;
+	}
+
+	// Horizontal grid
+	.app-grid.app-grid--hor#{$mode-dir}#{$mode-class} {
+		display: flex;
+		flex-direction: column;
+
+		&.app-grid--root {
+			flex: 1;
+			-ms-flex: 1 0 0px; // IE10-11 fix
+		}
+
+		> .app-grid__item {
+			flex: none;
+
+			&.app-grid__item--fluid,
+			&.app-grid__item--fluid#{$mode-dir} {
+				flex: 1 0 auto;
+				//-ms-flex: 1 0 0px;  // IE10-11 fix
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .app-grid__item.app-grid__item--order-#{$i}#{$mode-dir} {
+				order: $i;
+			}
+		}
+	}
+
+	// Vertical grid
+	.app-grid.app-grid--ver#{$mode-dir}#{$mode-class} {
+		display: flex;
+		flex-direction: row;
+
+		&.app-grid--root {
+			flex: 1;
+			-ms-flex: 1 0 0px; // IE10-11 fix
+		}
+
+		> .app-grid__item {
+			flex: 0 0 auto;
+
+			&.app-grid__item--fluid,
+			&.app-grid__item--fluid#{$mode-dir} {
+				flex: 1 auto;
+				-ms-flex: 1 0 0px; // IE10-11 fix
+				min-width: 0;
+
+				@include app-hack-ie {
+					min-width: none; // IE10-11 fix
+				}
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .app-grid__item.app-grid__item--order-#{$i}#{$mode-dir} {
+				order: $i;
+			}
+		}
+	}
+
+	// Grid item order
+	.app-grid {
+		// horizontal items aligment
+		&.app-grid--center {
+			align-content: center;
+		}
+
+		&.app-grid--stretch {
+			align-items: stretch;
+		}
+
+		// vertical item alignment
+		> .app-grid__item {
+			max-width: 100%;
+
+			&.app-grid__item--top {
+				align-self: flex-start;
+			}
+
+			&.app-grid__item--middle {
+				align-self: center;
+			}
+
+			&.app-grid__item--bottom {
+				align-self: flex-end;
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .app-grid__item.app-grid__item--order-#{$i} {
+				order: $i;
+			}
+		}
+	}
+}

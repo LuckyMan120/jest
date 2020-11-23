@@ -1,0 +1,64 @@
+<!-- begin:: Content Head -->
+<div class="app-subheader app-grid__item" [hidden]="subheaderService.disabled$ | async" id="app_subheader">
+  <div class="app-subheader__main">
+    <h3 *ngIf="title" class="app-subheader__title">{{title }}</h3>
+    <span class="app-subheader__separator app-subheader__separator--v"></span>
+    <span *ngIf="desc" class="app-subheader__desc">{{desc }}</span>
+    <a *ngIf="link" [routerLink]="link.url" class="btn btn-label-primary btn-bold btn-icon-h">{{link.text}}</a>
+  </div>
+  <div class="app-subheader__toolbar" *ngIf="showToolbar">
+    <div class="app-subheader__wrapper">
+      <div dropdown placement="bottom-right" class="dropdown dropdown-inline" data-placement="left">
+        <a dropdownToggle href="javascript:;" class="btn app-subheader__btn-daterange"
+          id="app_dashboard_daterangepicker" data-placement="left" tooltip="Select dashboard daterange">
+          <span class="app-subheader__btn-daterange-title" id="app_dashboard_daterangepicker_title">Today</span>&nbsp;
+          <span class="app-subheader__btn-daterange-date"
+            id="app_dashboard_daterangepicker_date">{{today | date:'MMM dd'}}</span>
+          <i class="fa fa-calendar"></i>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <a href="javascript:;" class="dropdown-item">Today</a>
+          <a href="javascript:;" class="dropdown-item">Yesterday</a>
+          <a href="javascript:;" class="dropdown-item">Last 7 Days</a>
+          <a href="javascript:;" class="dropdown-item">Last 30 Days</a>
+          <a href="javascript:;" class="dropdown-item">This Month</a>
+          <a href="javascript:;" class="dropdown-item">Last Month</a>
+          <a href="javascript:;" class="dropdown-item">Yesterday</a>
+          <a href="javascript:;" class="dropdown-item">Custom Range</a>
+        </div>
+      </div>
+
+      <a href="javascript:;" class="btn app-subheader__btn-primary btn-icon">
+        <i class="fa fa-file"></i>
+      </a>
+
+      <a href="javascript:;" class="btn app-subheader__btn-primary btn-icon">
+        <i class="fa fa-download"></i>
+      </a>
+
+      <a href="javascript:;" class="btn app-subheader__btn-primary btn-icon">
+        <i class="fa fa-fax"></i>
+      </a>
+
+      <a href="javascript:;" class="btn app-subheader__btn-primary btn-icon">
+        <i class="fa fa-wrench"></i>
+      </a>
+
+      <div dropdown placement="bottom-right" class="dropdown dropdown-inline" data-placement="left"
+        tooltip="Quick actions">
+        <a dropdownToggle href="javascript:;" class="btn btn-brand btn-icon">
+          <i class="fa fa-plus"></i>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" [routerLink]="['create']"><i class="fa fa-plus"></i> New Report</a>
+          <a class="dropdown-item" href="javascript:;"><i class="fa fa-user"></i> Add Customer</a>
+          <a class="dropdown-item" href="javascript:;"><i class="fa fa-cloud-download-alt"></i> New
+            Download</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;"><i class="fa fa-cog"></i> Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end:: Content Head -->

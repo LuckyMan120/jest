@@ -1,0 +1,76 @@
+@import "../../../assets/scss/myvariables";
+@import "../../../assets/scss/mymixins";
+
+.footer {
+  padding: 220px 0 30px;
+  background: $primary;
+  h6 {
+    font-size: $fontSize-xs;
+    color: $white;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .custom_menu {
+    li {
+      float: none;
+      padding: 5px 0;
+      a {
+        font-size: $fontSize-xs + 1;
+        color: $gray;
+        &:hover {
+          color: $secondary;
+        }
+      }
+      @include phone_wide {
+        padding: 5px 0;
+      }
+      @include tablet {
+        padding: 5px 0;
+      }
+    }
+    @include phone_wide {
+      margin-bottom: 20px;
+    }
+  }
+  .contact_social {
+    .social_icon {
+      margin-top: 30px;
+      ul {
+        margin: 10px 0;
+        li {
+          float: left;
+          margin-right: 25px;
+
+          a {
+            color: $white !important;
+
+            &:hover {
+              color: $secondary !important;
+            }
+          }
+        }
+      }
+    }
+    @include phone_wide {
+      margin-bottom: 20px;
+    }
+  }
+  .copyright {
+    margin-top: 50px;
+    img {
+      margin-bottom: 20px;
+    }
+    p {
+      color: $white !important;
+      margin-bottom: 0;
+    }
+    @include phone_wide {
+      margin-top: 30px;
+    }
+  }
+  .col-md-3 {
+    @include phone_extra {
+      width: 50%;
+    }
+  }
+}

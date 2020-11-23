@@ -1,0 +1,93 @@
+:host {
+  --main-grid-row-size: 40px;
+  --main-grid-gap: 0.5em;
+  --session-background-color: rgba(238, 255, 142, 0.432);
+}
+
+@media screen and (min-width: 700px) {
+  .schedule {
+    display: grid;
+    grid-gap: var(--main-grid-gap);
+    grid-template-rows:
+      [tracks] auto
+      [time-1600] var(--main-grid-row-size)
+      [time-1615] var(--main-grid-row-size)
+      [time-1630] var(--main-grid-row-size)
+      [time-1645] var(--main-grid-row-size)
+      [time-1700] var(--main-grid-row-size)
+      [time-1715] var(--main-grid-row-size)
+      [time-1730] var(--main-grid-row-size)
+      [time-1745] var(--main-grid-row-size)
+      [time-1800] var(--main-grid-row-size)
+      [time-1815] var(--main-grid-row-size)
+      [time-1830] var(--main-grid-row-size)
+      [time-1845] var(--main-grid-row-size)
+      [time-1900] var(--main-grid-row-size)
+      [time-1915] var(--main-grid-row-size)
+      [time-1930] var(--main-grid-row-size)
+      [time-1945] var(--main-grid-row-size)
+      [time-2000] var(--main-grid-row-size)
+      [time-2015] var(--main-grid-row-size)
+      [time-2030] var(--main-grid-row-size)
+      [time-2045] var(--main-grid-row-size)
+      [time-2100] var(--main-grid-row-size);
+
+    grid-template-columns:
+      [times] 7em
+      [track-1] 1fr
+      [track-2] 1fr
+      [track-3] 1fr
+      [track-4] 1fr
+      [track-5] 1fr
+      [track-6] 1fr
+      [track-7] 1fr;
+  }
+}
+
+.time-slot {
+  grid-column: times;
+}
+
+.track-slot {
+  display: none;
+}
+.grouppedSession {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-rows: var(--main-grid-row-size);
+  gap: var(--main-grid-gap);
+}
+
+@supports (display: grid) {
+  @media screen and (min-width: 700px) {
+    .track-slot {
+      display: block;
+      padding: 10px 5px 5px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
+
+.session {
+  background-color: var(--session-background-color);
+  margin-bottom: 1em;
+  border: 1px solid burlywood;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@supports (display: grid) {
+  @media screen and (min-width: 700px) {
+    .session {
+      margin: 0;
+    }
+  }
+}
+
+.session {
+  padding: 0.5em;
+}

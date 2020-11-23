@@ -1,0 +1,49 @@
+<div class="app-portlet app-portlet--height-fluid app-widget19">
+  <div class="app-portlet__body app-portlet__body--fit app-portlet__body--unfill">
+
+    <div class="app-widget19__pic app-portlet-fit--top app-portlet-fit--sides"
+      [style.background-image]="sponsor.galleries?.Firmenlogos | displayFirstMedia | background | safe:'style'">
+      <h3 class="app-widget19__title app-font-light">{{sponsor.title}}</h3>
+      <div class="app-widget19__shadow"></div>
+
+      <div class="app-widget19__labels">
+        <ng-container *ngFor="let title of sponsor.assignedCategoryTitles; let i = index">
+          <a *ngIf="sponsor.assignedCategoryIds && sponsor.assignedCategoryIds[i]"
+            [routerLink]="['/categories/detail', sponsor.assignedCategoryIds[i]]"
+            class="btn btn-label-dark-o2 m-1 text-white" style="cursor: pointer !important;">
+            {{ title }}
+          </a>
+        </ng-container>
+        <i *ngIf="!sponsor.assignedArticleTitles" tooltip="Bitte warten" class="fas fa-spinner fa-spin"></i>
+      </div>
+    </div>
+
+  </div>
+  <div class="app-portlet__body">
+    <div class="app-widget19__wrapper">
+      <div class="app-widget19__content">
+        <div class="app-widget19__userpic">
+          <img [src]="sponsor.galleries?.Ansprechpartner | displayFirstMedia | safe:'url'"
+            alt="Foto des Ansprechpartners" />
+        </div>
+        <div class="app-widget19__info">
+          <span class="app-widget19__username">{{sponsor.contact ? sponsor.contact.name : ''}}</span>
+          <span class="app-widget19__time">Ansprechpartner</span>
+        </div>
+      </div>
+      <div class="app-widget19__text" [innerHTML]="sponsor.description | truncate: [ maxDescriptionLength, '...']">
+      </div>
+    </div>
+    <div class="app-widget19__action text-right">
+      <a class="btn btn-primary mr-1" tooltip="Details" [routerLink]="['/sponsors/detail', sponsor.id]">
+        <span class="fa fa-info fa-fw" aria-hidden="true"></span>
+      </a>
+      <a class="btn btn-warning mr-1" tooltip="Editieren" [routerLink]="['/sponsors/edit/', sponsor.id]">
+        <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
+      </a>
+      <button class="btn btn-danger" tooltip="Löschen" (click)="deleteSponsor(sponsor)">
+        <i class="fas fa-trash fa-fw " aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>

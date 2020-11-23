@@ -1,0 +1,74 @@
+.gallery {
+	--auto-grid-min-size: 16rem;
+	--selected-color: rgba(10, 187, 135, .8);
+	--selected-icon-color: #fff;
+	--overlay-background-color: rgba(255, 255, 255, 0.8);
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+	grid-auto-rows: var(--auto-grid-min-size);
+	gap: 15px;
+
+	&.canEdit {
+		>div {
+			position: relative;
+
+			.selected {
+				background-color: var(--selected-color);
+				color: var(--selected-icon-color);
+				position: absolute;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				width: 100%;
+
+				i {
+					font-size: 32pt;
+					&.fa.fa-bookmark {
+						position: absolute;
+						top: 10px;
+						right: 10px;
+						font-size: 20pt;
+
+					}
+				}
+
+				&:hover {
+					display: none;
+				}
+			}
+
+			.middle {
+				transition: .5s ease;
+				opacity: 0;
+				position: absolute;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				width: 100%;
+				flex-direction: column;
+				background-color: var(--overlay-background-color);
+
+				button {
+					margin: 5px 0;
+					min-width: 60%;
+				}
+
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+
+
+
+		}
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}

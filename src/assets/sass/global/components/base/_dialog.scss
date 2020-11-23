@@ -1,0 +1,56 @@
+//
+// Loading
+//
+
+// Base
+.app-dialog {
+    $width: 130px;
+    width: $width;
+    margin: 0 auto;
+    position: fixed;
+    z-index: 1100;
+    justify-content: center;
+    padding: 1rem;
+    box-shadow: 0px 3px 12px 0px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+    @include app-rounded {
+        border-radius: $app-border-radius;
+    }
+
+    // Placement
+    &.app-dialog--top-center {
+        display: flex;
+        top: -100px;
+        left: 50%;
+        margin-left: -($width / 2);
+        transition: top 0.6s ease;
+
+        @include app-rounded {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        &.app-dialog--shown {
+            top: 0px;
+            transition: top 0.6s ease;
+        }
+    }
+
+    // Types
+    &.app-dialog--loader {
+        font-size: 1rem;
+        padding: 0.75rem;
+        font-weight: 400;
+        color: app-base-color(label, 3);
+
+        // States
+        @each $name, $color in $app-state-colors {
+            &.app-dialog--#{$name} {
+                background-color: rgba(app-get($color, base), 0.1);
+                color: app-get($color, base);
+                box-shadow: 0px 0px 20px 0px rgba(app-get($color, base), 0.3);
+            }
+        }
+    }
+}

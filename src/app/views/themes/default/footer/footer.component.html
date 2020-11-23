@@ -1,0 +1,17 @@
+<!-- begin:: Footer -->
+<div class="app-footer app-grid__item app-grid app-grid--desktop app-grid--ver-desktop" id="app_footer">
+  <div class="app-container" [ngClass]="{'app-container--fluid': fluid}">
+    <div class="app-footer__copyright">
+      {{today | date:'mediumDate' }}&nbsp;&copy;&nbsp;
+      <ng-container *ngIf="settings$ | async as settings">
+        <a rel="noopener" [href]="settings.site.frontendUrl" target="_blank"
+          class="app-link">{{settings.site.title}}</a>
+      </ng-container>
+    </div>
+    <div class="app-footer__menu d-none d-sm-block" *ngIf="articles$ | async as articles">
+      <a *ngFor="let article of articles" [routerLink]="['/articles/detail', article.id]"
+        routerLinkActive="router-link-active" class="app-footer__menu-link app-link d-block">{{article.title}}</a>
+    </div>
+  </div>
+</div>
+<!-- end:: Footer -->

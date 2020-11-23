@@ -1,0 +1,106 @@
+<app-portlet>
+  <app-portlet-header title="Alle Rollen">
+    <ng-container portletTools>
+      <button [routerLink]="['/roles/create']" class="btn btn-primary">
+        Neue Rolle
+      </button>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <input matInput placeholder="Rolle suchen" #searchInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-tab-container mat-elevation-z8">
+      <div class="table-container">
+        <mat-table class="table" [dataSource]="dataSource" matSort matSortActive="title" matSortDisableClear
+          matSortDirection="asc">
+
+          <!--<ng-container matColumnDef="select">
+						<mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+							<mat-checkbox (change)="$event ? masterToggle() : null"
+								[checked]="selection.hasValue() && isAllSelected()"
+								[indeterminate]="selection.hasValue() && !isAllSelected()">
+							</mat-checkbox>
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row" class="mat-column-checkbox">
+							<mat-checkbox *ngIf="!row.isCoreRole" (click)="$event.stopPropagation()"
+								(change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+							</mat-checkbox>
+						</mat-cell>
+					</ng-container>-->
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let role">{{role.id}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Angezeigter Name
+            </mat-header-cell>
+            <mat-cell *matCellDef="let role">{{role.title}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedPermissions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Verknüpfte Berechtigungen
+            </mat-header-cell>
+            <mat-cell *matCellDef="let role">
+              {{role.assignedPermissions ? role.assignedPermissions.length : 0}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedUserIds">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Verknüpfte Benutzer
+            </mat-header-cell>
+            <mat-cell *matCellDef="let role">
+              {{role.assignedUserIds ? role.assignedUserIds.length : 0}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let role">
+              <a [routerLink]="['../edit', role.id]" class="btn btn-warning btn-sm mr-1">
+                <span class="fa fa-pen" aria-hidden="true"></span>
+              </a>
+              <button class="btn btn-danger btn-sm" *ngIf="!role.isCoreRole" (click)="deleteRole(role)">
+                <span class="fa fa-trash" aria-hidden="true"></span>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+
+      <div class="mat-table__bottom">
+        <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" [length]="dataSource.data.length"
+          [pageSize]="pageSizes[0]">
+        </mat-paginator>
+      </div>
+    </div>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right px-5 py-3">
+        <button [routerLink]="['/roles/create']" class="btn btn-primary">
+          Neue Rolle
+        </button>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

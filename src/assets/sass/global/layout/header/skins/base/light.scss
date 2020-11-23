@@ -1,0 +1,204 @@
+//
+// Header Light Skin
+//
+
+// Include global config
+@import "../../../../../config";
+
+// Include layout config
+@import "../../../config";
+
+// Font settings
+$app-header-item-icon-color: #c8cad5;
+$app-header-item-hover-bg: rgba(#4d5995, 0.06);
+
+// Desktop mode
+@include app-desktop {
+	.app-header {
+		background-color: app-get($app-layout-skins, light);
+		border-bottom: 1px solid #eff0f6;
+
+		// Minimize
+		.app-header--fixed:not(.app-subheader--fixed) & {
+			border-bottom: 0;
+			box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+		}
+
+		// Menu
+		.app-header-menu {
+			.app-menu__nav {
+				> .app-menu__item {
+					> .app-menu__link {
+						@include app-rounded {
+							border-radius: $app-border-radius;
+						}
+
+						.app-menu__link-text {
+							color: #6c7293;
+							font-weight: 500;
+						}
+
+						.app-menu__hor-arrow {
+							color: #c8cde8;
+						}
+
+						.app-menu__hor-icon {
+							color: #c8cde8;
+						}
+					}
+
+					&.app-menu__item--here,
+					&.app-menu__item--active,
+					&:hover {
+						> .app-menu__link {
+							background-color: $app-header-item-hover-bg;
+
+							.app-menu__link-text {
+								color: app-brand-color();
+							}
+
+							.app-menu__hor-arrow {
+								color: app-brand-color();
+							}
+
+							.app-menu__hor-icon {
+								color: app-brand-color();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// General mode
+.app-header {
+	.app-header__topbar {
+		.app-aside-secondary--enabled & {
+			padding-right: 0;
+		}
+
+		.app-header__topbar-item {
+			.app-header__topbar-icon {
+				i {
+					@include app-transition();
+					color: $app-header-item-icon-color;
+				}
+
+				svg {
+					g {
+						[fill] {
+							fill: app-brand-color();
+						}
+					}
+				}
+			}
+
+			// User profile
+			&.app-header__topbar-item--user {
+				.app-header__topbar-user {
+					.app-header__topbar-welcome {
+						@include app-transition();
+						color: #959cb6;
+					}
+
+					.app-header__topbar-username {
+						@include app-transition();
+						color: #6c7293;
+					}
+
+					.app-badge.app-badge--username {
+						height: 35px;
+						width: 35px;
+						font-size: 1.4rem;
+						font-weight: 600;
+					}
+				}
+			}
+
+			// Quick panel
+			&.app-header__topbar-item--quick-panel {
+				.app-header__topbar-icon {
+					i {
+						color: $app-header-item-icon-color;
+					}
+				}
+			}
+
+			&:hover,
+			&.show {
+				.app-header__topbar-icon {
+					@include app-transition();
+					background-color: $app-header-item-hover-bg;
+
+					i {
+						@include app-transition();
+						color: app-brand-color();
+					}
+				}
+
+				&.app-header__topbar-item--user {
+					.app-header__topbar-user {
+						@include app-transition();
+						background-color: $app-header-item-hover-bg;
+					}
+				}
+
+				&.app-header__topbar-item--quick-panel {
+					.app-aside-secondary--enabled & {
+						@include app-transition();
+						background-color: app-brand-color();
+
+						.app-header__topbar-icon {
+							@include app-transition();
+							background-color: transparent !important;
+
+							i {
+								@include app-transition();
+								color: app-brand-color(inverse);
+							}
+						}
+					}
+				}
+			}
+
+			// Search
+			&.app-header__topbar-item--search {
+				.app-input-icon {
+					.app-input-icon__icon {
+						i {
+							color: app-base-color(label, 2);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Mobile mode
+@include app-tablet-and-mobile {
+	// Mobile header
+	.app-header-mobile {
+		box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+	}
+
+	// Topbar
+	.app-header__topbar {
+		background-color: #ffffff;
+		box-shadow: none;
+	}
+
+	.app-header__topbar--mobile-on {
+		.app-header-mobile {
+			box-shadow: none;
+			border-bottom-color: transparent;
+		}
+
+		.app-header__topbar {
+			box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+			border-top: 1px solid app-base-color(grey, 2);
+		}
+	}
+}

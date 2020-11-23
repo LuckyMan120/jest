@@ -1,0 +1,35 @@
+<ng-container *ngIf="medias$ | async as medias; else loading">
+  <div class="gallery" [ngClass]="classes">
+    <div [ngClass]="img.classes" *ngFor="let img of medias;trackBy:trackByFn">
+      <div class="selected" *ngIf="img.selected">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        <i class="fa fa-bookmark" *ngIf="img.default" aria-hidden="true"></i>
+      </div>
+      <div class="middle" *ngIf="canEdit">
+        <button type="button" *ngIf="!img.selected" class="btn btn-success" (click)="select(img)">
+          <i class="fa fa-plus" aria-hidden="true"></i> Auswählen
+        </button>
+        <button type="button" *ngIf="img.selected" class="btn btn-danger" (click)="unSelect(img)">
+          <i class="fa fa-minus" aria-hidden="true"></i> Abwählen
+        </button>
+        <button type="button" *ngIf="img.selected && !img.default" class="btn btn-primary" (click)="default(img)">
+          <i class="fa fa-bookmark" aria-hidden="true"></i> Als Standard
+        </button>
+      </div>
+      <img [src]="img.src" class="image">
+    </div>
+  </div>
+
+  <div class="alert alert-info" *ngIf="!!!medias || medias.length === 0">
+    <p>Es sind keine Dateien vorhanden</p>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loader-overlay" style="display: flex; justify-content: center; align-items: center">
+    <div class="fa-3x">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Bitte warten</p>
+    </div>
+  </div>
+</ng-template>

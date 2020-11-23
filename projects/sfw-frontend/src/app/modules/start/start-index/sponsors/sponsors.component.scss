@@ -1,0 +1,61 @@
+@import '../../../../assets/scss/myvariables';
+@import '../../../../assets/scss/mymixins';
+
+.sponsership {
+    padding: 150px 0;
+    background: rgba(18, 34, 55, 0.95);
+    position: relative;
+    overflow: hidden;
+    .sponser_img {
+        padding: 0 50px;
+        img {
+            height: 60px;
+            object-fit: contain;
+            @include phone_wide {
+                height: 45px;
+            }
+        }
+        @include phone_wide {
+            padding: 10px 20px 30px;
+            width: 50%;
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include tablet {
+            padding: 0 30px;
+        }
+        &:first-child,
+        &:nth-child(3) {
+            text-align: left;
+        }
+        &:last-child,
+        &:nth-child(2) {
+            text-align: right;
+        }
+        &:nth-child(3),
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+    .spons_text {
+        font-size: $font-big;
+        position: absolute;
+        display: block;
+        color: $tertiary;
+        font-weight: 800;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -138px;
+        opacity: 0.8;
+        @include phone_wide {
+            top: -40px;
+            font-size: $fontSize-hero;
+        }
+    }
+    @include phone_wide {
+        padding: 80px 0 0;
+    }
+    @include tablet {
+        padding: 100px 0 50px;
+    }
+}

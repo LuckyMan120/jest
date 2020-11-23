@@ -1,0 +1,90 @@
+//
+// User Card
+//
+
+.app-user-card {
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2rem 1rem;
+    background-color: #f9fafe;
+
+    // Elements
+    .app-user-card__avatar {
+        .app-badge,
+        img {
+            width: 60px;
+            height: 60px;
+
+            @include app-rounded {
+                border-radius: 4px;
+            }
+        }
+
+        .app-badge {
+            font-size: 2.2rem;
+        }
+    }
+
+    .app-user-card__name {
+        flex-grow: 1;
+        color: app-base-color(label, 3);
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding-left: 1rem;
+    }
+
+    .app-user-card__badge {
+        padding-left: 0.5rem;
+    }
+
+    // Skins
+    &.app-user-card--skin-light {
+        .app-user-card__name {
+            color: app-base-color(label, 3);
+        }
+
+        .app-user-card__avatar {
+            .app-badge {
+                //background-color: rgba(#fff, 0.1);
+            }
+        }
+    }
+
+    &.app-user-card--skin-dark {
+        .app-user-card__name {
+            color: #fff;
+        }
+
+        .app-user-card__avatar {
+            .app-badge {
+                background-color: rgba(#fff, 0.1);
+            }
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-user-card {
+        padding: 1rem 1rem;
+
+        // Elements
+        .app-user-card__avatar {
+            .app-badge,
+            img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .app-user-card__name {
+            font-size: 1.1rem;
+            padding-left: 0.5rem;
+        }
+
+        .app-user-card__badge {
+            padding-left: 0.5rem;
+        }
+    }
+}

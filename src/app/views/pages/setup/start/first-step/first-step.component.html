@@ -1,0 +1,268 @@
+<div class="app-login__body">
+
+  <div class=" app-login__form">
+    <div class="app-login__title">
+      <h3>Schritt 1: Rollen, Berechtigungen und Importparameter</h3>
+    </div>
+
+    <form class="app-form" [formGroup]="form" (submit)="onSubmit()">
+      <div class="app-login__actions">
+
+        <p>
+          Um die App nutzen zu können muss eine Grundkonfiguration in die Datenbank importiert werden.
+          Bitte starte diesen Vorgang über das Formular auf dieser Seite.Installation starten
+        </p>
+
+        <button type="submit" formtarget="form" formtarget="form" [disabled]="(isLoading$ | async) === true"
+          [ngClass]="{'app-spinner app-spinner--md app-spinner--light': (isLoading$ | async) === true  }"
+          class="btn btn-primary btn-elevate app-login__btn-primary">Installation starten
+        </button>
+
+
+
+        <div class="form-group mt-5">
+          <mat-form-field class="mat-form-field-fluid">
+            <mat-chip-list #chipList aria-label="roles">
+              <mat-chip *ngFor="let role of roles" [selectable]="selectableRole" [removable]="removableRole"
+                (removed)="remove(role, 'roles')" color="primary">
+                {{role.title}}
+                <span class="ml-3 fa fa-trash" *ngIf="!role.isCoreRole" (click)="remove(role, 'roles')"></span>
+              </mat-chip>
+              <input placeholder="Benutzerrollen festlegen" [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event, 'roles')">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group mt-5">
+          <mat-form-field class="mat-form-field-fluid">
+            <mat-chip-list #chipList2 aria-label="permissions">
+              <mat-chip *ngFor="let permission of permissions" [selectable]="selectablePermission"
+                [removable]="removablePermission" (removed)="remove(permission, 'permissions')" color="primary">
+                {{permission.displayName}}
+                <span class="ml-3 fa fa-trash" *ngIf="!permission.isCorePermission"
+                  (click)="remove(permission, 'permissions')"></span>
+              </mat-chip>
+              <input placeholder="Berechtigungen erstellen" [matChipInputFor]="chipList2"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event, 'permissions')">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group mt-5">
+          <mat-form-field class="mat-form-field-fluid">
+            <mat-chip-list #chipList4 aria-label="categories">
+              <mat-chip *ngFor="let category of categories" [selectable]="selectableCategory"
+                [removable]="removableCategory" (removed)="remove(category, 'categories')" color="primary">
+                {{category.title}}
+                <span class="ml-3 fa fa-trash" *ngIf="!category.isCoreCategory"
+                  (click)="remove(category, 'categories')"></span>
+              </mat-chip>
+              <input placeholder="Kategorien festlegen" [matChipInputFor]="chipList4"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event, 'categories')">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <h4 class="mt-5">Google-Drive Daten</h4>
+
+            <div class="form-group d-flex">
+              <mat-form-field class="mat-form-field-fluid w-100 mr-5">
+                <mat-label>ID der Mitgliederliste</mat-label>
+                <input matInput placeholder="ID der Mitgliederliste" formControlName="googleDriveMemberSheet" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h4 class="mt-5">Slack-Nachrichten</h4>
+
+            <div class="form-group d-flex">
+              <mat-form-field class="mat-form-field-fluid w-100 mr-5">
+                <mat-label>Webhhok-Url</mat-label>
+                <input matInput placeholder="Webhhok-Url" formControlName="slackWebHookUrl" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <h4 class="mt-5">Mailjet-Konfiguration</h4>
+
+            <div class="form-group row">
+              <ng-container formGroupName="mailjet">
+                <div class="col-lg-6">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-label>Schlüssel</mat-label>
+                    <input matInput placeholder="Schlüssel" formControlName="key" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-label>Geheimer Schlüssel</mat-label>
+                    <input matInput placeholder="Geheimer Schlüssel" formControlName="secret" />
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <h4 class="mt-5">Algolia Einstellungen</h4>
+
+            <div class="form-group row">
+              <ng-container formGroupName="algolia">
+                <div class="col-lg-6">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-label>App-Id</mat-label>
+                    <input matInput placeholder="App-Id" formControlName="id" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-label>App-Secret</mat-label>
+                    <input matInput placeholder="App-Secret" formControlName="key" />
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="mt-5">Mitglieder&ndash;Import aus dem dfb.net</h4>
+
+        <div class="form-group row">
+          <div class="col-lg-6" formGroupName="fussball">
+            <mat-form-field class="mat-form-field-fluid">
+              <mat-label>Vereins-ID auf Fussball.de</mat-label>
+              <input matInput placeholder="Vereins-ID auf Fussball.de" formControlName="clubId" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6" formGroupName="dfbnet">
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field class="mat-form-field-fluid">
+                  <mat-label>Benutzername</mat-label>
+                  <input matInput placeholder="Benutzername" formControlName="username" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field class="mat-form-field-fluid">
+                  <mat-label>Passwort</mat-label>
+                  <input matInput placeholder="Passwort" formControlName="password" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4>Automatischer Spielplan&ndash;Import von fussball.de</h4>
+
+        <div class="form-group row" formGroupName="fussball">
+          <div class="col-lg-3">
+            <mat-form-field class="w-50 mr-5" color="accent" appearance="fill">
+              <mat-label>Start-Datum des ersten Imports</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="w-50 mat-form-field-fluid">
+              <mat-label>Anzahl der Monate zum Import</mat-label>
+              <input matInput type="number" min="1" max="12" placeholder="Anzahl der Monate zum Import"
+                formControlName="endDateOffset" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <mat-form-field class="mat-form-field-fluid">
+              <mat-chip-list #chipList3 aria-label="communities">
+                <mat-chip *ngFor="let community of communities" [selectable]="selectableCommunity"
+                  [removable]="removableCommunity" (removed)="remove(community, 'communities')" color="primary">
+                  {{community}}
+                  <span class="ml-3 fa fa-trash" (click)="remove(community, 'communities')"></span>
+                </mat-chip>
+                <input placeholder="Spielgemeinschaften" [matChipInputFor]="chipList3"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event, 'communities')">
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <h4 class="mt-5">Uppy Dateiuploads</h4>
+
+        <div class="row" formGroupName="uppy">
+          <div class="col-lg-3 mt-3">
+            <div class="form-group">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>Companion Url</mat-label>
+                <input matInput placeholder="Companion Url" formControlName="companionUrl" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-lg-3 mt-3">
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="url">Hochladen über einen Link ermöglichen
+              </mat-checkbox>
+            </div>
+
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="dropbox">Dateien aus Dropbox importieren
+              </mat-checkbox>
+            </div>
+
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="zoom">Import aus Zoom
+              </mat-checkbox>
+            </div>
+
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="oneDrive">Dateien aus Microsoft OneDrive?
+              </mat-checkbox>
+            </div>
+
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="googleDrive">Import aus Google-Drive?
+              </mat-checkbox>
+            </div>
+
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="instagram">Laden von Instagram-Bildern?
+              </mat-checkbox>
+            </div>
+
+            <div class="mat-form-field-fluid">
+              <mat-checkbox formControlName="unsplash">Dateien von unsplash.com?
+              </mat-checkbox>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="alert alert-danger d-flex justify-content-between" *ngIf="error">
+          <span>{{error.message }}</span>
+          <a type="button" class="btn btn-info" [routerLink]="['../step-2']"
+            *ngIf="error.code === 'already-exists'">Weiter zu Schritt 2</a>
+        </div>
+
+        <button type="submit" formtarget="form" formtarget="form" [disabled]="(isLoading$ | async) === true"
+          [ngClass]="{'app-spinner app-spinner--md app-spinner--light': (isLoading$ | async) === true  }"
+          class="btn btn-primary btn-elevate app-login__btn-primary">Installation starten
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+</div>

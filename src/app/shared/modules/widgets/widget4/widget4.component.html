@@ -1,0 +1,28 @@
+<div class="app-widget4">
+  <ng-container *ngFor="let item of data">
+    <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+  <div class="app-widget4__item">
+    <div class="app-widget4__pic app-widget4__pic--pic" *ngIf="item.pic">
+      <img [attr.src]="item.pic" alt="{{item.title}}">
+    </div>
+
+    <span class="app-widget4__icon" *ngIf="item.icon">
+      <i [ngClass]="item.icon"></i>
+    </span>
+
+    <a [routerLink]="[item.link, item.id]" [queryParams]="item.queryParams" class="app-widget4__title"
+      *ngIf="!item.desc">{{item.title ? item.title : 'unnamedItem' }}</a>
+
+    <a class="app-widget4__info" *ngIf="item.desc" [routerLink]="[item.link, item.id]">
+      <span class="app-widget4__title">{{item.title}}</span>
+      <span class="app-widget4__text" *ngIf="item.desc">{{item.desc}}</span>
+    </a>
+
+    <ng-container *ngIf="edit" [ngTemplateOutlet]="actionTemplate" [ngTemplateOutletContext]="{item: item}">
+    </ng-container>
+  </div>
+</ng-template>

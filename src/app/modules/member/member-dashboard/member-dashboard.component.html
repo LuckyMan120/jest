@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-lg-3">
+    <birthday-list></birthday-list>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Neue Mitglieder"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="latestSignUps$ | async as latestSignUps">
+          <ul class="list-group">
+            <ng-container *ngFor="let member of latestSignUps">
+              <li *ngIf="member.entryDate" class="list-group-item">
+                <a [routerLink]="['/members/detail', member.id]" class="d-flex justify-content-between">
+                  <span>{{member.lastName}} {{member.firstName}}</span>
+                  <span class="font-weight-bold">
+                    {{member.entryDate | date: 'mediumDate'}}
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Letzte Austritte"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="latestSignOuts$ | async as latestSignOuts">
+          <ul class="list-group">
+            <ng-container *ngFor="let member of latestSignOuts">
+              <li *ngIf="member.exitDate" class="list-group-item">
+                <a [routerLink]="['/members/detail', member.id]" class="d-flex justify-content-between">
+                  <span>{{member.lastName}} {{member.firstName}}</span>
+                  <span class="font-weight-bold">
+                    {{member.exitDate | date: 'mediumDate'}}
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet>
+      <app-portlet-header title="Neue Ehrenmitglieder"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="honoraryList$ | async as honoraryList">
+
+          <app-alert *ngIf="!honoraryList.length" type="info" [showCloseButton]="false">
+            <p>Es wurden noch keine Ehrenmitglieder gespeichert</p>
+          </app-alert>
+
+          <ul class="list-group">
+            <ng-container *ngFor="let honorary of honoraryList">
+              <li class="list-group-item">
+                <a [routerLink]="['/members/detail', honorary.assignedMemberId]" class="d-flex justify-content-between">
+                  <span>{{honorary.assignedMemberTitle}}</span>
+                  <span class="font-weight-bold">
+                    {{honorary.startDate | date: 'mediumDate'}}
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-12">
+    <app-portlet>
+      <app-portlet-header icon="fa fa-chart-area" title="Mitgliederstatistik">
+        <ng-container portletTools>
+          <button (click)="showDetailedMemberStats('club')" class="btn btn-primary" tooltip="Details anzeigen">
+            <i class="fas fa-binoculars" aria-hidden="true"></i>
+            Details anzeigen
+          </button>
+        </ng-container>
+      </app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="statistics$ | async as statistics; else loadingTemplate">
+          <app-chart [data]="statistics" [options]="barChartOptions"></app-chart>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="row">
+    <div class="col-lg-12">
+      <i class="fas fa-spinner fa-spin"></i>
+    </div>
+  </div>
+</ng-template>

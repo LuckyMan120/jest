@@ -1,0 +1,145 @@
+<app-portlet *ngIf="category$ | async as category">
+  <app-portlet-header title="Details anzeigen">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/categories/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/categories/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/categories/edit', category.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>Editieren
+              </a>
+            </li>
+            <li role="menuitem" *ngIf="category.isCoreCategory">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteCategory(category)">
+                <i class="fas fa-trash" aria-hidden="true"></i>Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+
+    <tabset>
+      <tab heading="Wichtigste Infos">
+        <div class="row">
+          <div class="col-lg-6">
+            <app-portlet>
+              <app-portlet-header title="Wichtigste Infos">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover">
+                    <tbody>
+                      <tr>
+                        <th>Titel</th>
+                        <td>{{category.title}}</td>
+                      </tr>
+                      <tr>
+                        <th>Werte für den Parser</th>
+                        <td>{{category.parsingValues || '-'}}</td>
+                      </tr>
+                      <tr>
+                        <th>Verknüpfte Kategorien</th>
+                        <td>
+                          <ul class="list-group">
+                            <ng-container
+                              *ngFor="let assignedCategoryId of category.assignedCategoryIds; let i = index">
+                              <li class="list-group-item">
+                                <a *ngIf="category.assignedCategoryTitles && category.assignedCategoryTitles[i]"
+                                  [routerLink]="['/categories/detail', assignedCategoryId ]">
+                                  {{category.assignedCategoryTitles[i]}}
+                                </a>
+                              </li>
+                            </ng-container>
+                          </ul>
+                          <span *ngIf="!category.assignedCategoryTitles">-</span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th>Hauptkategorie</th>
+                        <td>{{category.isMainCategory ? 'Ja' : 'Nein' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Editierbar</th>
+                        <td>{{category.isCoreCategory ? 'Ja' : 'Nein' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Importiert</th>
+                        <td>{{category.isImported ? 'Ja' : 'Nein' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+          <div class="col-lg-6">
+            <app-portlet>
+              <app-portlet-header title="Beschreibung">
+              </app-portlet-header>
+              <app-portlet-body [innerHTML]="category.description || '-'"></app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Erstellung und Veröffentlichung">
+        <creation-publication-info [creation]="category?.creation" [publication]="category?.publication">
+        </creation-publication-info>
+      </tab>
+    </tabset>
+  </app-portlet-body>
+
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <button type="button" class="btn btn-success mr-1" [routerLink]="['/categories']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>Zur Übersicht
+        </button>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/categories/edit', category.id]">
+                <i class="fas fa-pen" aria-hidden="true"></i>Editieren
+              </a>
+            </li>
+            <li role="menuitem" *ngIf="category.isCoreCategory">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteCategory(category)">
+                <i class="fa fa-trash" aria-hidden="true"></i>Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

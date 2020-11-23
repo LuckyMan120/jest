@@ -1,0 +1,330 @@
+<app-portlet *ngIf="senior$ | async as senior">
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+    <app-portlet-header [title]="senior.id ? 'AH-Mitglied editieren' : 'AH-Mitglied erstellen'">
+      <ng-container portletTools>
+        <div class="d-flex flex-row m-3">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid || senior === savedSenior"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ senior.id ? 'Editieren' : 'Speichern' }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/seniors/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="senior.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteSenior(senior)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body>
+      <div class="row">
+        <div class="col-lg-12">
+
+          <span class="text-danger">Honorary TODO</span>
+          <!-- <app-alert *ngIf="senior.ahStatus === 2" [showCloseButton]="false" type="warning">
+          </app-alert>
+
+          <app-alert *ngIf="senior.ahStatus === 2" [showCloseButton]="false" type="warning">
+            <p>Dieses AH-Mitglied wurde aus dem Google-Drive importiert.</p>
+          </app-alert>-->
+
+          <tabset>
+            <tab heading="Wichtigste Infos">
+
+              <div class="row">
+                <div class="col-lg-4">
+                  <app-portlet>
+                    <app-portlet-header title="Persönliche Daten">
+                    </app-portlet-header>
+                    <app-portlet-body>
+
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Anrede" formControlName="title">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <mat-select placeholder="Geschlecht" formControlName="gender">
+                              <mat-option value="männlich">männlich</mat-option>
+                              <mat-option value="weiblich">weiblich</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Vorname" formControlName="firstName">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Nachname" formControlName="lastName">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-12">
+                          <mat-form-field color="accent" appearance="fill">
+                            <mat-label>Geburtsdatum</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="birthDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker color="primary"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+                <div class="col-lg-4">
+                  <app-portlet>
+                    <app-portlet-header title="Kontakt">
+                    </app-portlet-header>
+                    <app-portlet-body formGroupName="contactData">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="E-Mail Adresse" formControlName="email">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Handy" formControlName="phoneMobile">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Telefon privat" formControlName="phoneHome">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Telefon dienstlich" formControlName="phoneWork">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Fax" formControlName="fax">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+                <div class="col-lg-4">
+                  <app-portlet>
+                    <app-portlet-header title="Foto">
+                    </app-portlet-header>
+                    <app-portlet-body>
+                      <app-media-upload [media]="form.value.Profilfotos"
+                        (mediaChanged)="updateControl('Profilfotos', $event)">
+                      </app-media-upload>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+                <div class="col-lg-4">
+                  <app-portlet>
+                    <app-portlet-header title="Adresse">
+                    </app-portlet-header>
+                    <app-portlet-body formGroupName="address">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Straße" formControlName="streetName">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Hausnummer" formControlName="houseNumber">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Postleitzahl" formControlName="zip">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Stadt" formControlName="city">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Landkreis" formControlName="county">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+                <div class="col-lg-4">
+                  <app-portlet>
+                    <app-portlet-header title="AH-Mitgliederdaten">
+                    </app-portlet-header>
+                    <app-portlet-body>
+
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <mat-select placeholder="Mitgliederstatus" formControlName="ahStatus">
+                              <mat-option *ngFor="let state of ahMemberStates$ | async | orderBy: ['title']"
+                                [value]="state.id" size="3">
+                                {{state.title}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Beitrag" formControlName="fee">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field color="accent" appearance="fill">
+                            <mat-label>Eintrittsdatum</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="entryDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-6">
+                          <mat-form-field color="accent" appearance="fill">
+                            <mat-label>Austritt</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="exitDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+              </div>
+            </tab>
+
+            <tab heading="Vereins- und Spielerdaten">
+              <div class="row">
+
+                <div class="col-lg-6">
+                  <app-portlet>
+                    <app-portlet-header title="Mitglied">
+                    </app-portlet-header>
+                    <app-portlet-body>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <app-autocomplete itemsType="members" placeholder="Verknüpftes Mitglied" [multiple]="false"
+                            [control]="assignedMemberControl">
+                          </app-autocomplete>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+                <div class="col-lg-6">
+                  <app-portlet>
+                    <app-portlet-header title="Spieler">
+                    </app-portlet-header>
+                    <app-portlet-body>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <app-autocomplete itemsType="players" placeholder="Verknüpfter Spieler" [multiple]="false"
+                            [control]="assignedPlayerControl">
+                          </app-autocomplete>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+              </div>
+            </tab>
+
+            <tab heading="Erstellung und Veröffentlichung">
+              <div class="row">
+                <div class="col-lg-6">
+                  <creation-form [form]="form"></creation-form>
+                </div>
+                <div class="col-lg-6">
+                  <publication-form [form]="form"></publication-form>
+                </div>
+              </div>
+            </tab>
+
+          </tabset>
+        </div>
+      </div>
+
+    </app-portlet-body>
+
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid || senior === savedSenior"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ senior.id ? 'Editieren' : 'Speichern' }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/seniors/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="senior.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteSenior(senior)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

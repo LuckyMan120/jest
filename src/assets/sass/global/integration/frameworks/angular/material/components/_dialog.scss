@@ -1,0 +1,60 @@
+// Dialog
+.app-mat-dialog-container__wrapper {
+	.mat-dialog-container {
+		padding: 0;
+		overflow-x: hidden;
+
+		.app-portlet {
+			margin-bottom: 0;
+
+			.app-portlet__body {
+				overflow: auto;
+				max-height: 60vh;
+			}
+		}
+	}
+}
+
+.app-mat-dialog-container__wrapper .mat-dialog-container {
+	padding: 0;
+	overflow-x: hidden;
+
+	.app-portlet {
+		margin-bottom: 0;
+	}
+
+	.alert {
+		border-radius: 0 !important;
+		width: 1032px;
+	}
+}
+
+.mat-dialog-actions {
+	margin-bottom: 0 !important;
+}
+
+@include app-tablet-and-mobile {
+	// Dialog
+	.app-mat-dialog-container__wrapper {
+		max-width: 90%;
+
+		.mat-dialog-container {
+			.app-portlet {
+				.app-portlet__body {
+					overflow: auto;
+					max-height: 60vh;
+				}
+			}
+		}
+	}
+}
+
+.app-modal2__container {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.app-modal3__container {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}

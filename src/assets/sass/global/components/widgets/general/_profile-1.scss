@@ -1,0 +1,213 @@
+//
+// User Profile 1
+//
+
+.app-widget {
+    &.app-widget--user-profile-1 {
+        padding-bottom: 1.7rem;
+
+        .app-widget__head {
+            display: flex;
+            align-items: flex-start;
+
+            .app-widget__media {
+                img {
+                    width: 90px;
+                    max-width: 100%;
+
+                    @include app-rounded {
+                        border-radius: 8px;
+                    }
+                }
+            }
+
+            .app-widget__content {
+                padding-left: 1.6rem;
+
+                .app-widget__section {
+                    .app-widget__username {
+                        font-size: 1.3rem;
+                        color: app-base-color(label, 4);
+                        font-weight: 500;
+
+                        &:hover {
+                            color: app-brand-color();
+                            transition: color 0.3s ease;
+                        }
+
+                        i {
+                            font-size: 1.1rem;
+                            padding-left: 0.4rem;
+                        }
+                    }
+
+                    .app-widget__subtitle {
+                        font-size: 1;
+                        display: block;
+                        padding: 0.25rem 0 0 0;
+                        font-weight: 500;
+                        color: app-base-color(label, 2);
+                    }
+                }
+
+                .app-widget__action {
+                    margin-top: 1rem;
+
+                    .btn {
+                        margin-right: 0.4rem;
+                        font-weight: 600;
+                        padding: 0.3rem 1rem;
+                    }
+                }
+            }
+        }
+
+        .app-widget__body {
+            .app-widget__content {
+                padding: 1.9rem 0 2.1rem 0;
+
+                .app-widget__info {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-bottom: 0.5rem;
+
+                    .app-widget__label {
+                        color: app-base-color(label, 4);
+                        font-weight: 500;
+                    }
+
+                    .app-widget__data {
+                        color: app-base-color(label, 2);
+                        font-weight: 400;
+                    }
+
+                    a.app-widget__data:hover {
+                        color: app-brand-color();
+                        transition: color 0.3s ease;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 0;
+                    }
+                }
+            }
+
+            .app-widget__items {
+                .app-widget__item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.9rem 1.05rem 0.9rem 0.6rem;
+                    margin: 0.4rem 0;
+
+                    &.app-widget__item--active {
+                        transition: color 0.3s ease;
+                        background: #f2f3f7;
+
+                        @include app-rounded {
+                            border-radius: $app-border-radius;
+                        }
+
+                        .app-widget__section {
+                            .app-widget__desc {
+                                color: app-brand-color();
+                            }
+
+                            .app-widget__icon {
+                                .app-svg-icon g [fill] {
+                                    fill: app-brand-color();
+                                }
+                            }
+                        }
+                    }
+
+                    .app-widget__section {
+                        .app-widget__icon {
+                            svg {
+                                width: 2rem;
+                                height: 1.5rem;
+                            }
+
+                            .app-svg-icon g [fill] {
+                                fill: app-base-color(label, 2);
+                            }
+                        }
+
+                        .app-widget__desc {
+                            color: app-base-color(label, 2);
+                            font-weight: 500;
+                            padding-left: 0.3rem;
+                        }
+                    }
+
+                    &:hover {
+                        transition: color 0.3s ease;
+                        background: #f2f3f7;
+                        cursor: pointer;
+
+                        @include app-rounded {
+                            border-radius: $app-border-radius;
+                        }
+
+                        .app-widget__desc {
+                            color: app-brand-color();
+                        }
+
+                        .app-widget__icon {
+                            .app-svg-icon g [fill] {
+                                fill: app-brand-color();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .app-portlet__body.app-portlet__body--fit-y & {
+        margin-top: -10px;
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget {
+        &.app-widget--user-profile-1 {
+            padding-bottom: 1.2rem;
+
+            .app-widget__head {
+                .app-widget__media {
+                    img {
+                        max-width: 60px;
+                    }
+                }
+
+                .app-widget__content {
+                    .app-widget__section {
+                        .app-widget__username {
+                            font-size: 1.1rem;
+                            color: app-base-color(label, 4);
+                            font-weight: 500;
+                        }
+                    }
+
+                    .app-widget__action {
+                        margin-top: 0.5rem;
+
+                        .btn {
+                            margin-right: 0.4rem;
+                            font-weight: 500;
+                            padding: 0.25rem 1.25rem;
+                        }
+                    }
+                }
+            }
+
+            .app-widget__body {
+                .app-widget__content {
+                    padding-bottom: 2rem;
+                }
+            }
+        }
+    }
+}

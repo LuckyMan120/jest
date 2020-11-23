@@ -1,0 +1,15 @@
+@import "../../../../assets/sass/pages/login/login-1";
+
+app-auth,
+.app-login {
+  height: 100%;
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  // add extra right padding when displaying spinner in button
+  .app-spinner {
+    padding-right: 3rem !important;
+  }
+}

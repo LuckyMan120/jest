@@ -1,0 +1,274 @@
+<app-portlet *ngIf="location$ | async as location">
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+
+    <app-portlet-header icon="fa fa-pen" [title]="(location.id ? 'Spielort editieren' : 'Spielort erstellen') ">
+      <ng-container portletTools>
+
+        <div class="d-flex flex-row m-3">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ location.id ? 'Editieren' : 'Speichern' }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/locations/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="location.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteLocation(location)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </ng-container>
+    </app-portlet-header>
+
+    <app-portlet-body>
+      <ng-container *ngIf="categories$ | async as categories">
+
+        <app-alert *ngIf="hasFormErrors" type="warning" [showCloseButton]="true" [duration]="10000"
+          (close)="onAlertClose()">
+          Achtung! Es sind Fehler aufgetreten.
+        </app-alert>
+
+        <div class="row">
+
+          <div class="col-lg-12">
+            <tabset #staticTabs>
+
+              <tab heading="Wichtigste Infos">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <app-portlet>
+                      <app-portlet-header title="Wichtigste Infos">
+                      </app-portlet-header>
+                      <app-portlet-body>
+                        <mat-form-field class="mat-form-field-fluid" hintLabel="Max {{titleMaxLength}} characters">
+                          <input matInput maxlength="{{titleMaxLength}}" placeholder="Titel" formControlName="title">
+                          <mat-hint align="end">{{form.get('title')?.value.length || 0}}
+                            /{{titleMaxLength}}</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field class="mat-form-field-fluid my-3">
+                          <mat-select placeholder="Verknüpfte Kategorien" formControlName="assignedCategoryIds"
+                            multiple>
+                            <mat-option *ngFor="let category of categories | orderBy: ['title']" [value]="category.id"
+                              size="3">
+                              {{category.title}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="mat-form-field-fluid my-3">
+                          <input matInput placeholder="Link zu Fupa" formControlName="fupaLink">
+                        </mat-form-field>
+
+                        <mat-checkbox formControlName="isImported">importiert
+                        </mat-checkbox>
+                      </app-portlet-body>
+                    </app-portlet>
+
+                    <app-portlet>
+                      <app-portlet-header title="Verknüpfte Spiele">
+                      </app-portlet-header>
+                      <app-portlet-body>
+                        TODO
+                        <!-- <ng-container>
+                              <mat-form-field class="mat-form-field-fluid my-3">
+                                <mat-select placeholder="Verknüpfte Spiele"
+                                  formControlName="assignedMatchIds" multiple>
+                                  <mat-option
+                                    *ngFor="let match of matches | orderBy: ['-matchStartDate', 'homeTeam.title', 'guestTeam.title']"
+                                    [value]="match.id" size="10">
+                                    {{match.matchStartDate | date: 'mediumDate'}} {{match.homeTeam.title}} &ndash;
+                                    {{match.guestTeam.title}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </ng-container>-->
+                      </app-portlet-body>
+                    </app-portlet>
+
+                  </div>
+                  <div class="col-lg-4">
+                    <app-portlet>
+                      <app-portlet-header title="Adresse">
+                      </app-portlet-header>
+                      <app-portlet-body formGroupName="address">
+                        <div class="row">
+                          <div class="col-lg-9">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <input matInput placeholder="Straße" formControlName="streetName">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-lg-3">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <input matInput placeholder="Hausnummber" formControlName="houseNumber">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-lg-3">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <input matInput placeholder="Postleitzahl" formControlName="zip">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-lg-9">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <input matInput placeholder="Stadt" formControlName="city">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-lg-6">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <input matInput placeholder="Landkreis" formControlName="county">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </app-portlet-body>
+                    </app-portlet>
+
+                    <app-portlet>
+                      <app-portlet-header title="Verknüpfte Artikel">
+                      </app-portlet-header>
+                      <app-portlet-body>
+                        TODO
+                        <!-- <ng-container *ngIf="articles$ | async as articles">
+                              <mat-form-field class="mat-form-field-fluid my-3">
+                                <mat-select placeholder="Verknüpfte Artikel"
+                                  formControlName="assignedArticleIds" multiple>
+                                  <mat-option *ngFor="let article of articles | orderBy: ['title']" [value]="article.id"
+                                    size="10">
+                                    {{article.articleDate | date: 'mediumDate'}} {{article.title}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </ng-container>--->
+                      </app-portlet-body>
+                    </app-portlet>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <app-portlet>
+                      <app-portlet-header title="Foto">
+                      </app-portlet-header>
+                      <app-portlet-body>
+                        <img class="img-fluid img-thumbnail"
+                          [src]="location?.galleries?.Profilfotos | displayFirstMedia" alt="{{location.title}}" />
+                      </app-portlet-body>
+                    </app-portlet>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <app-portlet>
+                      <app-portlet-header title="Beschreibungstext">
+                      </app-portlet-header>
+                      <app-portlet-body>
+                        <app-kolkov-editor [inputControl]="textControl" inputName="text">
+                        </app-kolkov-editor>
+                      </app-portlet-body>
+                    </app-portlet>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <app-portlet>
+                      <app-portlet-header title="Öffnungszeiten">
+                      </app-portlet-header>
+                      <app-portlet-body>
+                        <app-kolkov-editor [inputControl]="openingControl" inputName="opening">
+                        </app-kolkov-editor>
+                      </app-portlet-body>
+                    </app-portlet>
+                  </div>
+                </div>
+              </tab>
+
+              <tab heading="Fotogalerien">
+                <app-media-gallery-list [galleries]="form.value.galleries" (galleriesChanged)="updateControl($event)"
+                  mode="remove-with-default">
+                </app-media-gallery-list>
+              </tab>
+
+              <tab heading="Erstellung und Veröffentlichung">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <creation-form [form]="form"></creation-form>
+                  </div>
+                  <div class="col-lg-6">
+                    <publication-form [form]="form"></publication-form>
+                  </div>
+                </div>
+              </tab>
+
+            </tabset>
+          </div>
+        </div>
+      </ng-container>
+
+    </app-portlet-body>
+    <app-portlet-footer>
+
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ location.id ? 'Editieren' : 'Speichern' }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/locations/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="location.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteLocation(location)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

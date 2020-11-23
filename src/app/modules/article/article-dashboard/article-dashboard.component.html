@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="col-lg-8">
+
+    <div class="app-portlet app-portlet--height-fluid">
+      <div class="app-portlet__head">
+        <div class="app-portlet__head-label">
+          <h3 class="app-portlet__head-title">Artikel-Übersicht</h3>
+        </div>
+        <div class="app-portlet__head-toolbar">
+          <ul tabClickEvent
+            class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand app-notification-item-padding-x"
+            role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" style="cursor: pointer" (click)="selectTab(1);" role="tab">Woche</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:;" (click)="selectTab(2);" role="tab">Monat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:;" (click)="selectTab(3);" role="tab">Gesamt</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="app-portlet__body">
+        <div class="app-quick-panel__content">
+          <tabset>
+            <tab id="tab-id-top1">
+              <ng-container [ngTemplateOutlet]="articleListTemplate"
+                [ngTemplateOutletContext]="{ articles: topArticlesForWeek$ | async }">
+              </ng-container>
+            </tab>
+            <tab id="tab-id-top2">
+              <ng-container [ngTemplateOutlet]="articleListTemplate"
+                [ngTemplateOutletContext]="{ articles: topArticlesForMonth$ | async }">
+              </ng-container>
+            </tab>
+            <tab id="tab-id-top3">
+              <ng-container [ngTemplateOutlet]="articleListTemplate"
+                [ngTemplateOutletContext]="{ articles: topArticlesAllTime$ | async }">
+              </ng-container>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet *ngIf="latestArticles$ | async as latestArticles">
+      <app-portlet-header title="Neue Artikel">
+      </app-portlet-header>
+      <app-portlet-body>
+        <app-widget4 [data]="latestArticles">
+          <ng-template #actionTemplate let-item="item">
+            <button [routerLink]="['/articles/edit', item.id]" aria-label="Edit Article"
+              class="btn btn-outline-hover-warning  btn-sm">
+              <span class="fa fa-pen" aria-hidden="true"></span>
+            </button>
+          </ng-template>
+        </app-widget4>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-xl-4 col-lg-6">
+    <app-portlet class="app-portlet--border-bottom-brand mt-0">
+      <app-portlet-header title="Statistiken"></app-portlet-header>
+      <app-portlet-body>
+        <ng-container *ngIf="statistics$ | async as statistics">
+          <app-chart type="doughnut" [data]="statistics.datasets" [options]="chartOptions"></app-chart>
+        </ng-container>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-8">
+    <app-portlet class="mt-0">
+      <app-portlet-header title="Kalender"></app-portlet-header>
+      <app-portlet-body>
+        <h1 class="text-danger">ToDo</h1>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-4" *ngIf="latestArticles$ | async as latestArticles">
+    <app-latest-article *ngFor="let article of latestArticles" [article]="article"></app-latest-article>
+  </div>
+</div>
+
+<ng-template #articleListTemplate let-articles="articles">
+  <ng-container *ngFor="let article of articles">
+    <ng-container [ngTemplateOutlet]="articleItemTemplate" [ngTemplateOutletContext]="{ article: article }">
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #articleItemTemplate let-article="article">
+  <div class="app-widget5">
+    <div class="app-widget5__item">
+      <div class="app-widget5__content">
+        <div class="app-widget5__pic">
+          <img class="app-widget7__img" [src]="article.image || './assets/media/misc/bg-2.jpg'" [alt]="article.title" />
+        </div>
+        <div class="app-widget5__section">
+          <a class="app-widget5__title" [routerLink]="['/articles/detail', article.id]">{{article.title}}</a>
+          <p class="app-widget5__desc"
+            [innerHTML]="(article.excerpt ? article.excerpt :article.text) | stripHTML | truncate: [180]">
+          </p>
+          <div class="app-widget5__info" *ngIf="article.publication.user as user">
+            <span>Author: </span>
+            <span class="app-font-info">
+              <a [routerLink]="['/users/detail', user.id]">{{user.displayName}}</a>
+            </span>
+            <span>Veröffentlichung: </span>
+            <span class="app-font-info">{{article.articleDate | date: 'medium'}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="app-widget5__content">
+        <div class="app-widget5__stats">
+          <span class="app-widget5__number">{{article.views || 0}}</span>
+          <span class="app-widget5__votes">Ansichten</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

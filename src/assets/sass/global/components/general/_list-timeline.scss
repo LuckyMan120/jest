@@ -1,0 +1,158 @@
+//
+// Timeline v1
+//
+
+.app-list-timeline {
+    .app-list-timeline__group {
+        margin: 0 0 2rem 0;
+    }
+
+    .app-list-timeline__heading {
+        margin: 0 0 1.25rem 0;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+
+    .app-list-timeline__items {
+        position: relative;
+        padding: 0;
+        margin: 0;
+
+        &:before {
+            background-color: app-base-color(grey, 2);
+            position: absolute;
+            display: block;
+            content: "";
+            width: 1px;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            left: 3px;
+        }
+
+        .app-list-timeline__item {
+            position: relative;
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            padding: 0.3rem 0;
+            margin: 0.5rem 0;
+
+            &:first-child,
+            &:last-child {
+                &:before {
+                    background-color: white;
+                    position: absolute;
+                    display: block;
+                    content: "";
+                    width: 1px;
+                    height: 50%;
+                    top: 0;
+                    bottom: 0;
+                    left: 3px;
+                }
+            }
+
+            &:last-child {
+                &:before {
+                    top: auto;
+                    bottom: 0;
+                }
+            }
+
+            .app-list-timeline__badge {
+                text-align: left;
+                vertical-align: middle;
+                display: table-cell;
+                position: relative;
+                width: 20px;
+                &:before {
+                    background-color: app-base-color(grey, 2);
+                    position: absolute;
+                    display: block;
+                    content: "";
+                    width: 7px;
+                    height: 7px;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -(7px / 2);
+                    border-radius: 100%;
+                }
+
+                @each $name, $color in $app-state-colors {
+                    &.app-list-timeline__badge--#{$name} {
+                        &:before {
+                            background-color: app-get($color, base);
+                        }
+                    }
+                }
+            }
+
+            .app-list-timeline__icon {
+                text-align: left;
+                vertical-align: middle;
+                display: table-cell;
+                width: 30px;
+                padding: 0 5px 0 0;
+                line-height: 0;
+                color: app-base-color(label, 2);
+            }
+
+            @include app-icons-size(
+                (
+                    fontawesome: 1.2rem,
+                )
+            );
+
+            .app-list-timeline__text {
+                display: table-cell;
+                text-align: left;
+                vertical-align: middle;
+                width: 100%;
+                padding: 0 0 0 5px;
+                font-size: 1rem;
+                color: app-base-color(label, 3);
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            .app-list-timeline__time {
+                display: table-cell;
+                text-align: right;
+                vertical-align: middle;
+                width: 80px;
+                padding: 0 0 0 5px;
+                font-size: 0.9rem;
+                color: app-base-color(label, 2);
+            }
+
+            &:first-child {
+                padding-top: 0;
+                margin-top: 0;
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+
+            &:first-child,
+            &:last-child {
+                &:before {
+                    background-color: #fff;
+                }
+            }
+
+            &.app-list-timeline__item--read {
+                .app-list-timeline__badge,
+                .app-list-timeline__icon,
+                .app-list-timeline__text,
+                .app-list-timeline__time {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+}

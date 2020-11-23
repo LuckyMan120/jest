@@ -1,0 +1,32 @@
+<app-portlet>
+  <app-portlet-header title="Terminkalender">
+    <ng-container portletTools>
+      <button (click)="createEvent()" tyle="button" class="btn  btn-sm btn-primary mr-4">
+        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+        <span class="d-none d-md-inline">Neuer Termin</span>
+      </button>
+      <mat-form-field class="mat-form-field" *ngIf="application$ | async as application">
+        <mat-select placeholder="Wähle die Kalender zur Anzeige" [formControl]="assignedCalendarsControl" multiple>
+          <mat-option
+            *ngFor="let calendar of application?.assignedCalendars | filterBy: ['isActive']: true | orderBy: ['title']"
+            [value]="calendar.calendarId">
+            {{calendar.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+  </app-portlet-body>
+</app-portlet>

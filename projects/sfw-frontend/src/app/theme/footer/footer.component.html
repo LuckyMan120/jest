@@ -1,0 +1,71 @@
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 footer_main">
+        <div class="row">
+          <div class="col-md-3 custom_menu">
+            <h6>Verein</h6>
+            <ul>
+              <li *ngFor="let article of clubFooterArticles$ | async">
+                <a itemprop="url" [routerLink]="['/verein/', article.id]"
+                  routerLinkActive="'active'">{{article.title}}</a>
+              </li>
+            </ul>
+
+            <h6 class="mt-5">Sonstiges</h6>
+            <ul>
+              <li><a itemprop="url" [routerLink]="['/verein/']" routerLinkActive="'active'">Clubheim mieten?</a></li>
+              <!-- <li><a itemprop="url" [routerLink]="['/verein/']" routerLinkActive="'active'">Kontakt</a></li>
+              <li><a itemprop="url" [routerLink]="['/verein/']" routerLinkActive="'active'">Impressum</a></li>
+              <li><a itemprop="url" [routerLink]="['/verein/']" routerLinkActive="'active'">Nutzungsbedingungen</a></li>-->
+            </ul>
+          </div>
+          <div class="col-md-3 custom_menu">
+            <h6>Mannschaften</h6>
+            <ul>
+              <li><a itemprop="url" href="#">ToDo</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-3 contact_social">
+            <h6>Kontakt</h6>
+            <div class="custom_menu">
+              <ul>
+                <li *ngFor="let article of footerArticles$ | async">
+                  <a itemprop="url" [routerLink]="['/start/', article.id]"
+                    routerLinkActive="'active'">{{article.title}}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="social_icon">
+              <h6>Folge uns</h6>
+              <ul>
+                <li *ngFor="let link of application.assignedLinks | linkByCategoryTitle : socialLinks">
+                  <a itemprop="url" [target]="link.target" [title]="link.title" [href]="link.link">
+                    <i [class]="link.icon"></i> {{link.title}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="col-md-3 custom_menu mieten">
+            <h6>Externe Links</h6>
+            <ul>
+              <li *ngFor="let link of application?.assignedLinks | linkByCategoryTitle : externLinks">
+                <a [title]="link.title" itemprop="url" [target]="link.target" [href]="link.link">{{link.title}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 copyright text-center">
+        <a routerLink="/" routerLinkActive="router-link-active" itemprop="url" [title]="application.site.subTitle">
+          <img src="/assets/images/Logo.svg" itemprop="img" [alt]="application.site.subTitle">
+        </a>
+        <p>&copy; {{application.site.title}} 2020</p>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,57 @@
+<ng-container *ngIf="trainings$ | async as trainings; else loadingTemplate">
+
+  <div class="alert alert-warning" *ngIf="trainings.length === 0">
+    <p>Es wurden noch keine Trainingseinheiten erstellt.</p>
+  </div>
+
+  <div *ngIf="trainings.length > 0" class="schedule">
+
+    <span class="track-slot" *ngFor="let day of weekDays; let i = index" style="grid-row: tracks;"
+      [ngStyle]="{ 'grid-column': 'track-' + (i+1) }">
+      {{day}}
+    </span>
+
+    <span *ngFor="let slot of timeSlots" class="time-slot" [style.grid-row]="'time-' + slot.slot">
+      {{slot.startTime}}
+    </span>
+
+    <ng-container *ngFor="let groupTraining of trainings | groupTrainings ">
+      <div class="grouppedSession" [ngStyle]="{ 'grid-column': 'track-' + (groupTraining.day + 1),
+        'grid-row': 'time-' + groupTraining.startSlot + ' / time-' + groupTraining.endSlot
+      }">
+
+        <div class="session" *ngFor="let training of groupTraining.values" [ngStyle]="{ 'grid-row':training.spanRow}">
+
+          <ul class="list-group" *ngIf="training.assignedTeamTitles">
+            <li class="list-group-item" *ngFor="let teamId of training.assignedTeamIds; let i=index">
+              <a [routerLink]="['/teams/detail', teamId]">{{training.assignedTeamTitles[i]}}
+              </a>
+            </li>
+          </ul>
+          <!-- pre>start:{{training.elStartTime|date:'shortTime'}} end:{{training.elEndTime|date:'shortTime'}}</pre>
+          <a [routerLink]="['/locations/detail', training.assignedLocationId]">{{training.assignedLocationTitle}}</a>-->
+
+          <div class="text-right">
+            <hr />
+            <span *ngIf="!training.assignedTeamTitles" class="fa fa-spinner fa-spin"></span>
+            <button type="button" class="btn btn-warning btn-sm mr-1"
+              [routerLink]="['/teams/trainings/edit', training.id]">
+              <i class="fa fa-edit fa-fw"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="removeTraining(training)">
+              <i class="fa fa-trash fa-fw text-white"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </ng-container>
+
+  </div>
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <i class="fas fa-spinner fa-spin"></i>
+</ng-template>

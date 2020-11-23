@@ -1,0 +1,67 @@
+//
+// Aside Light Skin
+//
+
+// Include global config
+@import "../../../../config";
+
+// Include layout config
+@import "../../config";
+
+// Include header config
+@import "../../header/config";
+
+// Include aside config
+@import "../../aside/config";
+
+// Aside
+.app-aside {
+	background-color: app-get($app-layout-skins, light);
+	box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.08);
+
+	// Scrollbar
+	@include app-perfect-scrollbar-skin(#e0e2f0);
+
+	// Footer
+	.app-aside__footer {
+		background-color: #f6f7fd;
+
+		.btn {
+			@include app-transition();
+			background-color: transparent;
+
+			i {
+				@include app-transition();
+				color: #99a7df;
+			}
+		}
+
+		.show .btn,
+		.btn:hover {
+			@include app-transition();
+			background-color: darken(#f6f7fd, 6%);
+
+			i {
+				@include app-transition();
+				color: app-brand-color();
+			}
+		}
+	}
+}
+
+// Build Aside Menu Skin
+@include app-menu-ver-build-skin(app-get($app-aside-config, menu), light);
+
+.app-aside {
+	.app-aside-menu {
+		> .app-menu__navm {
+			.app-menu__item {
+				> .app-menu__link {
+					.app-menu__link-text {
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}

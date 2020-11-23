@@ -1,0 +1,71 @@
+<ng-container *ngIf="article$ | async as article">
+  <form [formGroup]="form" id="form" (submit)="onSubmit(true)">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="btn-toolbar mb-3 justify-content-between" role="toolbar">
+          <div class="input-group flex-fill">
+            <input class="form-control" id="title" type="text" placeholder="Titel des Artikels"
+              formControlName="title" />
+          </div>
+
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-icon btn-primary mx-1" [matMenuTriggerFor]="menu"
+              data-placement="bottom" tooltip="Veröffentlichung">
+              <i class="fas fa-clock"></i>
+            </button>
+
+            <article-quick-panel [form]="form"></article-quick-panel>
+
+            <div class="app-header__topbar-item app-header__topbar-item--quick-panel" data-placement="bottom"
+              tooltip="Optionen anzeigen">
+              <button type="button" class="btn btn-icon btn-primary app-header__topbar-icon"
+                id="article_quick_panel_toggler_btn">
+                <i class="fas fa-wrench"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <div formGroupName="publication" style="padding: 10px 10px;">
+          <h5>Veröffentlichung</h5>
+
+          <mat-radio-group class="radio-group" formControlName="status">
+            <mat-radio-button (click)="$event.stopPropagation()" (change)="getPublicationStatus($event.value)"
+              class="radio-button" *ngFor="let publication of publicationOptions" [value]="publication.value"
+              style="margin: 10px 0">{{ publication.text }}<br />
+              <span style="color: #cecece">{{ publication.description  }}</span>
+
+              <div class="row"
+                *ngIf="publication.showDateInput && form.get('publication.status')?.value === publication.value">
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-placeholder>Datum und Uhrzeit</mat-placeholder>
+                    <mat-datetimepicker-toggle [for]="datetimePicker" matSuffix></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #datetimePicker type="datetime" [openOnFocus]="true" [timeInterval]="15">
+                    </mat-datetimepicker>
+                    <input matInput formControlName="at" [matDatetimepicker]="datetimePicker" required
+                      autocomplete="false">
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <hr style="margin: 25px 0;" />
+          <div class="button-row">
+            <button [disabled]="!form.valid" type="submit" form="form" class="btn btn-success" formtarget="form">
+              <i class="fa fa-save" aria-hidden="true"></i>
+              Speichern
+            </button>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+
+    <app-kolkov-editor inputName="text" [inputControl]="textControl"></app-kolkov-editor>
+
+  </form>
+</ng-container>

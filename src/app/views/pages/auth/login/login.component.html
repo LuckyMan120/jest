@@ -1,0 +1,93 @@
+<div class="app-login__head">
+  <span class="app-login__signup-label" style="color: #090909">Noch kein Account?</span>&nbsp;&nbsp;
+  <a routerLink="/auth/register" style="background-color: bisque;" class="app-link app-login__signup-link">Zur
+    Registrierung</a>
+</div>
+
+<div class="app-login__body">
+
+  <div class="app-login__form">
+    <div class="app-login__title">
+      <h3>Login</h3>
+    </div>
+
+    <app-auth-notice></app-auth-notice>
+
+    <form class="app-form" [formGroup]="loginForm" autocomplete="off" (submit)="onSubmit()">
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Deine E-Mail Adresse</mat-label>
+          <input matInput type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="off" />
+          <mat-error *ngIf="isControlHasError('email','required')">
+            <strong>E-Mail wird benötigt</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('email','email')">
+            <strong>Falsches Format Deiner E-Mail Adresse</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('email','minLength')">
+            <strong>Mindestlänge 3 Zeichen</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('email','maxLength')">
+            <strong>Maximal sind 320 Zeichen erlaubt!</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Dein Passwort</mat-label>
+          <input matInput type="password" placeholder="Dein Passwort" formControlName="password" autocomplete="off" />
+          <mat-error *ngIf="isControlHasError('password','required')">
+            <strong>Du musst uns Dein Passwort schon mitteilen ;)</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('password','minLength')">
+            <strong>Mindestlänge 3 Zeichen</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('password','maxLength')">
+            <strong>Maximal sind 100 Zeichen erlaubt!</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group mt-5">
+        <mat-checkbox formControlName="rememberMe" [checked]="true">An mich erinnern?</mat-checkbox>
+      </div>
+
+      <div class="app-login__actions">
+
+        <button type="button" routerLink="/auth/forgot-password" [disabled]="(isLoading$ | async) === true"
+          id="app_login_signup_cancel" class="btn btn-secondary btn-elevate app-login__btn-secondary">
+          Passwort vergessen?
+        </button>
+
+        <!-- !loginForm.dirty -->
+        <button type="submit" formtarget="form" [disabled]="!loginForm.valid || (isLoading$ | async) === true"
+          [ngClass]="{'app-spinner app-spinner--right app-spinner--md app-spinner--light': (isLoading$ | async) === true  }"
+          id="app_login_signin_submit" class="btn btn-primary btn-elevate app-login__btn-primary">Anmelden</button>
+      </div>
+    </form>
+
+    <div class="app-login__divider">
+      <div class="app-divider">
+        <span></span>
+        <span style="color: #090909">Oder</span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="app-login__options">
+      <button (click)="facebookLogin()" href="" class="btn btn-primary app-btn">
+        <i class="fab fa-facebook-f"></i>
+        Facebook
+      </button>
+
+      <button (click)="twitterLogin()" href="" class="btn btn-info app-btn">
+        <i class="fab fa-twitter"></i>
+        Twitter
+      </button>
+
+      <button (click)="googleLogin()" href="" class="btn btn-danger app-btn">
+        <i class="fab fa-google"></i>
+        Google
+      </button>
+    </div>
+  </div>
+</div>

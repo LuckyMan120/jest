@@ -1,0 +1,18 @@
+<!-- begin:: Header Mobile -->
+<div id="app_header_mobile" class="app-header-mobile app-header-mobile--fixed">
+  <div class="app-header-mobile__logo">
+    <a routerLink="/">
+      <img alt="logo" [attr.src]="headerLogo" />
+    </a>
+  </div>
+  <div class="app-header-mobile__toolbar">
+    <button aria-label="Toggle Aside Navbar" [hidden]="!asideDisplay"
+      class="app-header-mobile__toggler app-header-mobile__toggler--left"
+      id="app_aside_mobile_toggler"><span></span></button>
+    <button aria-label="Toggle Mobile Header" class="app-header-mobile__toggler"
+      id="app_header_mobile_toggler"><span></span></button>
+    <button aria-label="Toggle Mobile Tobpar" toggle [options]="toggleOptions" class="app-header-mobile__topbar-toggler"
+      id="app_header_mobile_topbar_toggler"><i class="fa fa-search-more"></i></button>
+  </div>
+</div>
+<!-- end:: Header Mobile -->

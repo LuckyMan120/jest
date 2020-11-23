@@ -1,0 +1,396 @@
+<ng-container *ngIf="application$ | async as application">
+  <form [formGroup]="form" (submit)="onSubmit()" class="app-form app-form--group-seperator-dashed">
+    <app-portlet>
+      <app-portlet-header title="Einstellungen">
+        <ng-container portletTools>
+
+          <div class="btn-group" role="group">
+
+            <button type="submit" formtarget="form" [disabled]="form.value === savedApplication"
+              [ngClass]="form.valid ? 'btn btn-success mr-1' : 'btn btn-outline-success mr-1'">
+              <i class="fa fa-save" aria-hidden="true"></i>
+              Speichern
+            </button>
+
+            <button type="button" (click)="reset()"
+              [ngClass]="form.dirty && form.value !== savedApplication ? 'btn btn-warning' : 'btn btn-outline-warning'"
+              [disabled]="form.value === savedApplication">
+              <i class="fas fa-undo" aria-hidden="true"></i>Zurücksetzen
+            </button>
+          </div>
+        </ng-container>
+      </app-portlet-header>
+
+      <app-portlet-body>
+
+        <app-alert *ngIf="hasFormErrors" type="warning" [showCloseButton]="true" [duration]="10000"
+          (close)="onAlertClose()">
+          Achtung ! Es sind Fehler aufgetreten. Bitte überprüfe das Formular
+        </app-alert>
+
+        <mat-tab-group [(selectedIndex)]="selectedTab">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <i class="mat-tab-label-icon fa fa-info"></i>
+              Wichtiges
+            </ng-template>
+            <ng-template matTabContent>
+              <div class="row">
+                <div class="col-lg-12">
+                  <app-portlet>
+                    <app-portlet-body formGroupName="site">
+                      <div class="form-group app-form__group row pb-5">
+                        <div class="col-lg-4 app-margin-bottom-20-mobile">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput [minlength]="settingService.title.min"
+                              [maxlength]="settingService.title.max" placeholder="Seitentitel" formControlName="title">
+                            <mat-hint align="start" *ngIf="!form.get('site.title')?.value">
+                              erforderlich</mat-hint>
+                            <mat-hint align="end">{{form.get('site.title')?.value.length || 0}}
+                              /{{settingService.title.max}}</mat-hint>
+                          </mat-form-field>
+                        </div>
+
+                        <div class=" col-lg-4 app-margin-bottom-20-mobile">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput [minlength]="settingService.subTitle.min"
+                              [maxlength]="settingService.subTitle.max" placeholder="Kurzform des Seite"
+                              formControlName="subTitle">
+                            <mat-hint align="start" *ngIf="!form.get('site.subTitle')?.value">
+                              erforderlich</mat-hint>
+                            <mat-hint align="end">
+                              {{form.get('site.subTitle')?.value.length || 0}}
+                              /{{settingService.subTitle.max}}</mat-hint>
+                          </mat-form-field>
+                        </div>
+
+                        <div class=" col-lg-4 app-margin-bottom-20-mobile">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="E-Mail Addresse" formControlName="email" id="email">
+                            <mat-hint align="start" *ngIf="!form.get('site.email')?.value">
+                              erforderlich</mat-hint>
+                          </mat-form-field>
+                        </div>
+
+
+                      </div>
+
+                      <div class="form-group app-form__group row py-5">
+                        <div class="col-lg-6 app-margin-bottom-20-mobile">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Schlagworte für Suchmaschinen"
+                              formControlName="assignedKeywords">
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Beschreibung für Suchmaschinen" formControlName="description">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="form-group app-form__group row py-5">
+                        <div class="col-lg-4 app-margin-bottom-20-mobile">
+                          <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Auhtor" formControlName="author">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+                <div class="col-lg-6">
+                  <app-portlet>
+                    <app-portlet-header title="Wartungsmodus">
+                    </app-portlet-header>
+                    <app-portlet-body formGroupName="downtime">
+                      <div class="app-form__section app-form__section--first">
+                        <div class="form-group app-form__group row">
+
+                          <div class="col-lg-12 app-margin-bottom-20-mobile pb-5">
+                            <label>Meldung für die Benutzer</label>
+                            <mat-form-field class="mat-form-field-fluid">
+                              <input matInput placeholder="Meldung für die Benutzer" formControlName="message">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-lg-12 app-margin-bottom-20-mobile">
+                            <div class="mat-form-field-fluid">
+                              <mat-checkbox formControlName="isEnabled">Aktivieren
+                              </mat-checkbox>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+
+
+                <div class="col-lg-6">
+                  <app-portlet>
+                    <app-portlet-header title="Registrierung neuer Benutzer">
+                    </app-portlet-header>
+                    <app-portlet-body formGroupName="registration">
+                      <div class="app-form__section app-form__section--first">
+                        <div class="form-group app-form__group row">
+
+                          <div class="col-lg-12 app-margin-bottom-20-mobile pb-5">
+                            <label>Rolle bei der Anmeldung</label><br />
+                            <mat-form-field class="mat-form-field-fluid">
+                              <mat-select placeholder="Rolle bei der Anmeldung" formControlName="defaultRole">
+                                <mat-option *ngFor="let role of roles$ | async" [value]="role.id">
+                                  {{role.title}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-lg-12 app-margin-bottom-20-mobile">
+                            <div class="mat-form-field-fluid">
+                              <mat-checkbox formControlName="isEnabled">Registrierung erlauben
+                              </mat-checkbox>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+              </div>
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <i class="mat-tab-label-icon fa fa-link"></i>
+              Links zu anderen Seiten
+            </ng-template>
+            <ng-template matTabContent>
+              <app-portlet *ngIf="categories$ | async as categories">
+                <app-portlet-body formArrayName="assignedLinks">
+
+                  <app-alert *ngIf="assignedLinksControls.length === 0" type="warning" [showCloseButton]="false">
+                    Es wurden noch keine Links erstellt.
+                  </app-alert>
+
+                  <div *ngFor="let control of assignedLinksControls; let i = index">
+
+                    <div class="row py-5" [formGroupName]="i">
+                      <div class="col-lg-3">
+                        <mat-form-field class="mat-form-field-fluid">
+                          <input matInput placeholder="Name der Seite" formControlName="title">
+                        </mat-form-field>
+
+                        <mat-form-field class="mat-form-field-fluid">
+                          <input matInput placeholder="URL der Seite" formControlName="link">
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-lg-3">
+                        <mat-checkbox class="mat-form-field-fluid" formControlName="isActive">aktiv
+                        </mat-checkbox>
+                        <mat-checkbox class="mat-form-field-fluid" formControlName="displayInHeader">im Kopf der Seite
+                          anzeigen
+                        </mat-checkbox>
+                        <mat-checkbox class="mat-form-field-fluid" formControlName="displayInFooter">im Footer der Seite
+                          anzeigen
+                        </mat-checkbox>
+                        <mat-checkbox class="mat-form-field-fluid" formControlName="isMailLink">ist es eine E-Mail
+                          Addresse als Link
+                        </mat-checkbox>
+                      </div>
+
+                      <div class="col-lg-3">
+                        <mat-form-field class="mat-form-field-fluid">
+                          <mat-select placeholder="Ziel des Links" formControlName="target">
+                            <mat-option *ngFor="let option of targets" [value]="option">
+                              {{option }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="mat-form-field-fluid">
+                          <mat-select placeholder="Kategorie" formControlName="assignedCategoryId">
+                            <mat-option *ngFor="let category of categories" [value]="category.id">
+                              {{category.title}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="mat-form-field-fluid">
+                          <input matInput placeholder="Icon festlegen" formControlName="icon">
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-lg-3 text-right">
+                        <button class="btn btn-danger" type="button" (click)="deleteLink(i)">Löschen</button>
+                      </div>
+                    </div>
+                  </div>
+                </app-portlet-body>
+                <app-portlet-footer class="text-right mr-4">
+                  <button class="mt-4 btn btn-primary" type="button" (click)="addLink()">Neuer Link</button>
+                </app-portlet-footer>
+              </app-portlet>
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <i class="mat-tab-label-icon fa fa-calendar-day"></i>
+              Kalender
+            </ng-template>
+            <ng-template matTabContent>
+              <app-portlet>
+                <app-portlet-body formArrayName="assignedCalendars">
+
+                  <app-alert *ngIf="assignedCalendarControls.length === 0" type="warning" [showCloseButton]="false">
+                    Es sind keine Google-Kalender definiert.
+                  </app-alert>
+
+                  <div *ngFor="let control of assignedCalendarControls; let i = index">
+
+                    <div class="row py-3" [formGroupName]="i">
+                      <div class="col-lg-4">
+                        <mat-form-field class="mat-form-field-fluid">
+                          <input matInput placeholder="Name des Kalenders" formControlName="title">
+                        </mat-form-field>
+                        <mat-form-field class="mat-form-field-fluid">
+                          <input matInput minlength="15" placeholder="ID" formControlName="calendarId">
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-lg-3">
+                        <mat-checkbox formControlName="isActive">aktiv
+                        </mat-checkbox>
+                        <mat-checkbox formControlName="manualAddingAllowed">Manuelle Termine erstellen
+                        </mat-checkbox>
+                      </div>
+
+                      <div class="col-lg-3">
+                        TODO: Farbe per Picker
+                        <!-- <mat-form-field class="mat-form-field-fluid">
+                          <mat-select placeholder="Farbe für die Termine"
+                            formControlName="color">
+                            <mat-option *ngFor="let class of colors" [value]="class">
+                              {{colour }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>-->
+                        ToDO: Color
+                      </div>
+                      <div class="col-lg-2 text-right">
+                        <button class="btn btn-danger" type="button" (click)="deleteCalendar(i)">
+                          Löschen
+                        </button>
+                      </div>
+                    </div>
+
+                    <hr />
+                  </div>
+                </app-portlet-body>
+                <app-portlet-footer class="text-right mr-4">
+                  <button class="mt-4 btn btn-primary" type="button" (click)="addCalendar()">Neuer Kalender</button>
+                </app-portlet-footer>
+              </app-portlet>
+
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <i class="mat-tab-label-icon fa fa-envelope"></i>
+              E-Mail Verteiler
+            </ng-template>
+            <ng-template matTabContent>
+              <app-portlet>
+                <app-portlet-header title="E-Mail Verteiler"></app-portlet-header>
+                <app-portlet-body formArrayName="mailing">
+
+                  <ng-container *ngIf="mailListCategories$ | async as mailListCategories">
+
+                    <app-alert *ngIf="mailingControls?.length === 0" type="warning" [showCloseButton]="false">
+                      Es wurden noch keine Verteilerlisten erstellt.
+                    </app-alert>
+
+                    <app-alert *ngIf="mailListCategories.length === 0" type="warning" [showCloseButton]="false">
+                      Es gibt noch keine Kategorien für die Verteilerlisten.
+                    </app-alert>
+
+                    <ng-container *ngIf="mailListCategories.length > 0">
+                      <div *ngFor="let control of mailingControls; let i = index" class="row py-5">
+                        <ng-container [formGroupName]="i">
+
+                          <div class="col-lg-2">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <mat-select placeholder="Name des Verteilers" formControlName="assignedCategoryId">
+                                <mat-option *ngFor="let category of mailListCategories" [value]="category.id">
+                                  {{category.title}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-lg-6">
+                            <mat-form-field class="mat-form-field-fluid">
+                              <mat-chip-list #chipList aria-label="emails">
+                                <mat-chip *ngFor="let email of control.get('emails').value" [selectable]="true"
+                                  [removable]="true" (removed)="remove(email, i)" color="primary">
+                                  {{email}}
+                                  <span class="ml-3 fa fa-trash" (click)="remove(email, i)"></span>
+                                </mat-chip>
+                                <input placeholder="E-Mail Empfänger" [matChipInputFor]="chipList"
+                                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, i)">
+                              </mat-chip-list>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-lg-2">
+                            <div class="mat-form-field-fluid">
+                              <mat-checkbox formControlName="isActive">aktiv</mat-checkbox>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-2 text-right">
+                            <button class="btn btn-danger" type="button" (click)="deleteMailList(i)">Löschen</button>
+                          </div>
+
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </app-portlet-body>
+
+
+                <app-portlet-footer class="text-right mr-4">
+                  <button class="mt-4 btn btn-primary" type="button" (click)="addMailList()">Neuer Verteiler</button>
+                </app-portlet-footer>
+
+              </app-portlet>
+
+            </ng-template>
+          </mat-tab>
+
+        </mat-tab-group>
+      </app-portlet-body>
+      <app-portlet-footer>
+        <div class="row">
+          <div class="col-lg-12 text-right py-3 px-5">
+            <div class="btn-group" role="group">
+
+              <button type="submit" formtarget="form" [disabled]="form.value === savedApplication"
+                [ngClass]="form.valid ? 'btn btn-success mr-1' : 'btn btn-outline-success mr-1'">
+                <i class="fa fa-save" aria-hidden="true"></i>
+                Speichern
+              </button>
+
+              <button type="button" (click)="reset()"
+                [ngClass]="form.dirty && form.value !== savedApplication ? 'btn btn-warning' : 'btn btn-outline-warning'"
+                [disabled]="form.value === savedApplication">
+                <i class="fas fa-undo" aria-hidden="true"></i>Zurücksetzen
+              </button>
+            </div>
+          </div>
+        </div>
+      </app-portlet-footer>
+    </app-portlet>
+  </form>
+</ng-container>

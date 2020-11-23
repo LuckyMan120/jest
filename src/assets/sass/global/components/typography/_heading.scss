@@ -1,0 +1,79 @@
+//
+// Heading
+//
+
+.app-heading {
+	font-size: 1.3rem;
+	font-weight: 500;
+	padding: 0;
+	margin: 1.75rem 0;
+	color: app-base-color(label, 4);
+
+	&.app-heading--center {
+		text-align: center;
+	}
+
+	&.app-heading--right {
+		text-align: right;
+	}
+
+	&.app-heading--space-sm {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	&.app-heading--space-md {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	&.app-heading--space-lg {
+		margin-top: 2.5rem;
+		margin-bottom: 2.5rem;
+	}
+
+	&.app-heading--space-xl {
+		margin-top: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	&.app-heading--sm {
+		font-size: 1.2rem;
+	}
+
+	&.app-heading--md {
+		font-size: 1.4rem;
+	}
+
+	&.app-heading--lg {
+		font-size: 1.6rem;
+	}
+
+	&.app-heading--xl {
+		font-size: 2rem;
+	}
+
+	&.app-heading--xxl {
+		font-size: 3rem;
+	}
+
+	&.app-heading--medium {
+		font-weight: 600;
+	}
+	&.app-heading--bold {
+		font-weight: 700;
+	}
+	&.app-heading--bolder {
+		font-weight: 900;
+	}
+	&.app-heading--thin {
+		font-weight: 300;
+	}
+
+	&.app-heading--no-top-margin {
+		margin-top: 0;
+	}
+	&.app-heading--no-bottok-margin {
+		margin-bottom: 0;
+	}
+}

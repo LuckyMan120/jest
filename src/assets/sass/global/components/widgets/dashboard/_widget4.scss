@@ -1,0 +1,207 @@
+//
+// Widget4
+//
+
+.app-widget4 {
+    .app-widget4__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        .app-widget4__pic {
+            padding-right: 1rem;
+
+            img {
+                width: 2.5rem;
+
+                @include app-rounded {
+                    border-radius: $app-border-radius;
+                }
+            }
+
+            &.app-widget4__pic--sm {
+                img {
+                    width: 2.5rem;
+                }
+            }
+
+            &.app-widget4__pic--lg {
+                img {
+                    width: 3.5rem;
+                }
+            }
+
+            &.app-widget4__pic--xl {
+                img {
+                    width: 4rem;
+                }
+            }
+
+            &.app-widget4__pic--circle {
+                img {
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .app-widget4__img {
+            margin-right: 0.5rem;
+        }
+
+        .app-widget4__info {
+            display: flex;
+            flex-direction: column;
+            padding-right: 1.25rem;
+            flex-grow: 1;
+
+            .app-widget4__username {
+                font-weight: 500;
+                font-size: 1rem;
+                color: app-base-color(label, 3);
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: app-brand-color();
+                    transition: color 0.3s ease;
+                }
+            }
+
+            .app-widget4__title {
+                font-weight: 500;
+                font-size: 1.1rem;
+                color: app-base-color(label, 3);
+            }
+
+            .app-widget4__text {
+                font-size: 1rem;
+                margin: 0;
+                color: app-base-color(label, 2);
+            }
+        }
+
+        .app-widget4__title {
+            color: app-base-color(label, 3);
+            font-size: 1rem;
+            font-weight: 500;
+            padding-right: 1.25rem;
+            flex-grow: 1;
+            transition: color 0.3s ease;
+
+            &.app-widget4__title--light {
+                font-weight: 400;
+            }
+
+            &:hover {
+                color: app-brand-color();
+                transition: color 0.3s ease;
+            }
+        }
+
+        .app-widget4__number {
+            width: 7rem;
+            flex-grow: 1;
+            text-align: right;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .app-widget4__icon {
+            padding-right: 1.25rem;
+
+            > i {
+                font-size: 1.6rem;
+                text-align: right;
+                color: app-base-color(label, 2);
+            }
+
+            &.app-widget4__icon--2x {
+                > i {
+                    font-size: 2.2rem;
+                }
+            }
+        }
+
+        border-bottom: 1px dashed app-base-color(grey, 2);
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+    }
+
+    &.app-widget4--progress {
+        .app-widget4__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 50%;
+
+            .app-widget4__progress {
+                flex: 1;
+                padding-right: 1.5rem;
+
+                .app-widget4__stats {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 0.7rem;
+
+                    > span {
+                        line-height: 1.1;
+
+                        &:first-child {
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            color: app-base-color(label, 3);
+                        }
+
+                        &:last-child {
+                            font-size: 0.9rem;
+                            color: app-base-color(label, 2);
+                            font-weight: 400;
+                        }
+                    }
+                }
+
+                .progress {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .app-widget4__chart {
+        position: relative;
+    }
+
+    // Sticky chart
+    &.app-widget4--sticky {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+
+        .app-widget4__items {
+            flex-grow: 1;
+
+            &.app-widget4__items--bottom {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+        }
+
+        .app-widget4__chart {
+            canvas {
+                border-bottom-left-radius: $app-border-radius;
+                border-bottom-right-radius: $app-border-radius;
+            }
+        }
+    }
+}

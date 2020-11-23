@@ -1,0 +1,105 @@
+<div class="row" *ngIf="data$ | async as data">
+  <div class="col-lg-9">
+
+    <h3 class="mb-3">Startelf</h3>
+
+    <div class="wrapper">
+
+      <div class="d-flex justify-content-center text-center position gk">
+        <span class="justify-content-center align-self-center">Torwart</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position lib">
+        <span class="justify-content-center align-self-center">Libero</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position lav">
+        <span class="justify-content-center align-self-center">LAV</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position liv">
+        <span class="justify-content-center align-self-center">LIV</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position iv">
+        <span class="justify-content-center align-self-center">IV</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position riv">
+        <span class="justify-content-center align-self-center">RIV</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position rav">
+        <span class="justify-content-center align-self-center">RAV</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position ldm">
+        <span class="justify-content-center align-self-center">LDM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position zdm">
+        <span class="justify-content-center align-self-center">ZDM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position rdm">
+        <span class="justify-content-center align-self-center">RDM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position lm">
+        <span class="justify-content-center align-self-center">LM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position zm">
+        <span class="justify-content-center align-self-center">ZM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position rm">
+        <span class="justify-content-center align-self-center">RM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position lom">
+        <span class="justify-content-center align-self-center">OLM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position om">
+        <span class="justify-content-center align-self-center">OM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position rom">
+        <span class="justify-content-center align-self-center">ORM</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position las">
+        <span class="justify-content-center align-self-center">LAS</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position ls">
+        <span class="justify-content-center align-self-center">LS</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position ms">
+        <span class="justify-content-center align-self-center">MS</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position rs">
+        <span class="justify-content-center align-self-center">RS</span>
+      </div>
+      <div class="d-flex justify-content-center text-center position ras">
+        <span class="justify-content-center align-self-center">RAS</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <h3 class="mb-3">Auswechselungen</h3>
+
+    <div class="bank-wrapper">
+      <div class="d-flex justify-content-center text-center bank" *ngFor="let seat of bankSeats; let i = index">
+        <span class="justify-content-center align-self-center">
+          Auswechselspieler
+          {{i + 1}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 mt-5">
+    <h3 class="mb-3">Spielerliste</h3>
+
+    <!-- <div [dragula]="data.team.assignedPlayerIds | benchAndStartingElevenFilter: [data.match]" class="row">
+
+      <div class="col-md-3 col-lg-1"
+        *ngFor="let player of data.team.assignedPlayerIds; let i = index; let first = first">
+        <img class="card-img-top" src="/assets/media/misc/soccer-field.jpg" alt="{{data.team.assignedPlayerTitles[i]}}">
+        <div class="card-body">
+          <p class="card-text">{{data.team.assignedPlayerTitles[i]}}</p>
+        </div>
+      </div>
+
+      <span *ngFor="let player of data.team.assignedPlayerIds; let i = index; let first = first"
+        [ngClass]="first ? 'badge badge-secondary mr-1 mb-1' : 'badge badge-secondary m-1'">
+        {{data.team.assignedPlayerTitles[i]}}
+      </span>
+    </div>-->
+  </div>

@@ -1,0 +1,34 @@
+<app-portlet [formGroup]="form" *ngIf="users$ | async as users">
+
+  <app-portlet-header title="Veröffentlichung"></app-portlet-header>
+  <app-portlet-body formGroupName="publication">
+
+    <div class="alert alert-info" *ngIf="!form.get('publication.at')?.value">
+      <p>nicht veröffentlicht</p>
+    </div>
+
+    <div class="form-group app-form__group row mb-5">
+      <div class="col-lg-6 app-margin-bottom-20-mobile">
+        <mat-form-field class="mat-form-field-fluid">
+          <mat-select placeholder="veröffentlicht von" formControlName="by">
+            <mat-option value="0">nicht veröffentlichen!</mat-option>
+            <mat-option *ngFor="let user of users | orderBy: ['firstName', 'lastName', 'email']" [value]="user.id">
+              {{user.firstName && user.lastName ? user.firstName + ' ' + user.lastName : (user.email ? user.email : user.displayName)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 app-margin-bottom-20-mobile" *ngIf="form.get('publication.by')?.value">
+        <mat-form-field>
+          <mat-placeholder>Veröffentlichungsdatum</mat-placeholder>
+          <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+          <mat-datetimepicker #datetimePicker2 type="datetime" [openOnFocus]="true" [timeInterval]="5">
+          </mat-datetimepicker>
+          <input matInput formControlName="at" [matDatetimepicker]="datetimePicker2" required autocomplete="false">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </app-portlet-body>
+</app-portlet>

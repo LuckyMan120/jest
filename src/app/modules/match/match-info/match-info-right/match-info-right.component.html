@@ -1,0 +1,24 @@
+<table class="table table-striped table-hover table-bordered text-center">
+  <tr>
+    <th colspan="2">
+      {{ match.matchStartDate | date : 'medium'}} Uhr
+    </th>
+  </tr>
+  <tr>
+    <th class="w-50">Heim</th>
+    <th class="w-50">Gasz</th>
+  </tr>
+  <tr>
+    <td><img [alt]="match.homeTeam?.title" [title]="match.homeTeam?.title" [src]="match.homeTeam?.logoURL" /></td>
+    <td><img [alt]="match.guestTeam?.title" [title]="match.guestTeam?.title" [src]="match.guestTeam?.logoURL" /></td>
+  </tr>
+  <tr>
+    <td>{{match.homeTeam?.title }}</td>
+    <td>{{match.guestTeam?.title }}</td>
+  </tr>
+  <tr *ngIf="match.result">
+    <td *ngIf="match.result?.homeTeamGoals">{{match.result?.homeTeamGoals}}</td>
+    <td *ngIf="match.result?.guestTeamGoals">{{match.result?.guestTeamGoals}}</td>
+    <td *ngIf="match.result?.otherEvent" colspan="2">{{match.result?.otherEvent}}</td>
+  </tr>
+</table>

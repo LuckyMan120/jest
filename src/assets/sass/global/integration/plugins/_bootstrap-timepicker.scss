@@ -1,0 +1,69 @@
+//
+//  Bootstrap Timepicker
+//
+
+// Base
+@mixin app-bootstrap-timepicker-base() {
+    .bootstrap-timepicker-widget {
+        left: auto;
+        width: 175px;
+
+        @include app-not-rounded {
+            border-radius: 0;
+        }
+
+        .bootstrap-timepicker-hour,
+        .bootstrap-timepicker-minute,
+        .bootstrap-timepicker-meridian,
+        .bootstrap-timepicker-second {
+            @include app-input-reset();
+        }
+
+        table td {
+            @include app-not-rounded {
+                border-radius: 0 !important;
+            }
+
+            > a {
+                border: 0;
+
+                @include app-not-rounded {
+                    border-radius: 0 !important;
+                }
+
+                i {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
+// Component Skin
+@mixin app-bootstrap-timepicker-skin() {
+    .bootstrap-timepicker-widget {
+        .bootstrap-timepicker-hour,
+        .bootstrap-timepicker-minute,
+        .bootstrap-timepicker-meridian,
+        .bootstrap-timepicker-second {
+            color: app-base-color(label, 3);
+        }
+
+        table td > a {
+            .la {
+                font-size: 1.2rem;
+                color: app-base-color(label, 2);
+            }
+
+            &:hover {
+                background: app-base-color(grey, 1);
+            }
+        }
+    }
+}
+
+// Base
+@include app-bootstrap-timepicker-base();
+
+// Skin
+@include app-bootstrap-timepicker-skin();

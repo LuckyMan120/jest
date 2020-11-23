@@ -1,0 +1,95 @@
+<app-portlet *ngIf="training$ | async as training">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <app-portlet-header [title]="training.id ? 'Training editieren' : 'Training erstellen'">
+    </app-portlet-header>
+    <app-portlet-body>
+      <div class="app-form">
+        <div class="app-portlet__body">
+
+          <div class="row">
+
+            <div class="alert alert-danger" *ngIf="error">
+              {{error | json}}
+            </div>
+
+            <div class="col-lg-12" *ngIf="seasons$ | async as seasons">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select matInput type="text" formControlName="assignedSeasonId" placeholder="Saison">
+                  <mat-option *ngFor="let season of seasons" [value]="season.id">{{season.title}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-12">
+
+              <app-autocomplete itemsType="teams" placeholder="Teilnehmende Mannschaften" [multiple]="true"
+                [control]="assignedTeamsControl">
+              </app-autocomplete>
+            </div>
+
+            <div class="col-lg-12">
+              <app-autocomplete itemsType="locations" placeholder="Trainingsort" [multiple]="false"
+                [control]="assignedLocationControl">
+              </app-autocomplete>
+            </div>
+
+            <div class="col-lg-12">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select matInput type="text" formControlName="day" placeholder="Wochentag">
+                  <mat-option *ngFor="let day of weekDays; let i = index" [value]="i">
+                    {{ day }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field>
+                <mat-placeholder>Beginn</mat-placeholder>
+                <mat-datetimepicker-toggle [for]="datetimePicker" matSuffix></mat-datetimepicker-toggle>
+                <mat-datetimepicker #datetimePicker type="time" [openOnFocus]="true" [timeInterval]="5">
+                </mat-datetimepicker>
+                <input matInput formControlName="startTime" [matDatetimepicker]="datetimePicker" required
+                  autocomplete="false">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field>
+                <mat-placeholder>Ende</mat-placeholder>
+                <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+                <mat-datetimepicker #datetimePicker2 type="time" [openOnFocus]="true" [timeInterval]="5">
+                </mat-datetimepicker>
+                <input matInput formControlName="endTime" [matDatetimepicker]="datetimePicker2" required
+                  autocomplete="false">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-12">
+              <mat-form-field class="mat-form-field-fluid">
+                <textarea matInput type="text" rows="5" formControlName="comment"
+                  placeholder="Freies Kommentarfeld"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-portlet-body>
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 justify-content-end pb-3 px-5 d-flex flex-column flex-sm-row">
+
+          <button *ngIf="training.id" type="button" class="btn btn-danger m-1" (click)="deleteTraining(training)">
+            Löschen
+          </button>
+
+          <button class="btn btn-primary m-1" type="button" (click)="cancel()">
+            Abbrechen
+          </button>
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success m-1' : 'btn btn-success m-1'">
+            Speichern
+          </button>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

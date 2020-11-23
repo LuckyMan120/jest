@@ -1,0 +1,61 @@
+<app-portlet>
+
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+
+    <app-portlet-header title="Ehrenmitglied erstellen">
+      <ng-container portletTools>
+        <button type="submit" formtarget="form" [disabled]="!form.valid"
+          [ngClass]="!form.valid ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+          <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">Ehrenmitglied speichern</span>
+        </button>
+        <a class="btn btn-warning" [routerLink]="['../']">
+          <i class="fa fa-undo fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">Zurücksetzen </span>
+        </a>
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body *ngIf="honorary$ | async as honorary">
+      <div class="row">
+        <div class="col-lg-4">
+          <app-autocomplete itemsType="members" placeholder="Verknüpftes Mitglied" [multiple]="false"
+            [control]="form.controls['assignedMemberId']">
+          </app-autocomplete>
+        </div>
+
+        <div class="col-lg-4">
+          <app-autocomplete itemsType="articles" placeholder="Verknüpfter Artikel" [multiple]="false"
+            [control]="form.controls['assignedArticleId']">
+          </app-autocomplete>
+        </div>
+
+        <div class="col-lg-4">
+          <mat-form-field color="accent" appearance="fill" class="mat-form-field-fluid">
+            <mat-label>Ernennung am</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker color="primary"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </app-portlet-body>
+
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right p-5">
+          <div class="btn-group" role="group">
+            <button type="submit" formtarget="form" [disabled]="!form.valid"
+              [ngClass]="!form.valid ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+              <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+              <span class="d-none d-sm-inline">Ehrenmitglied speichern</span>
+            </button>
+            <a class="btn btn-warning" [routerLink]="['../']">
+              <i class="fa fa-undo fa-fw" aria-hidden="true"></i>
+              <span class="d-none d-sm-inline">Zurücksetzen </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

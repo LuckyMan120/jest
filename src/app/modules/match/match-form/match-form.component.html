@@ -1,0 +1,274 @@
+<app-portlet *ngIf="match$ | async as match">
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+    <app-portlet-header [title]="(match.id ? 'match.editTitle' : 'match.createTitle') ">
+      <ng-container portletTools>
+
+        <div class="d-flex flex-row m-3">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ (match.id ? 'match.button.edit' : 'match.button.save')  }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/matches/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="match.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteMatch(match)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body [formGroup]="form">
+      <tabset>
+        <tab heading="Wichtigste Infos">
+          <div class="row mt-5">
+            <div class="col-lg-6">
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Art des Spiels" formControlName="matchType">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-6">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-placeholder>Spieldatum</mat-placeholder>
+                    <mat-datetimepicker-toggle [for]="datetimePicker" matSuffix></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #datetimePicker type="datetime" [openOnFocus]="true" [timeInterval]="15">
+                    </mat-datetimepicker>
+                    <input matInput formControlName="matchStartDate" [matDatetimepicker]="datetimePicker" required
+                      autocomplete="false">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <mat-form-field class="mat-form-field-fluid">
+                <input matInput placeholder="Link auf fussball.de" formControlName="matchLink">
+              </mat-form-field>
+
+              <app-autocomplete itemsType="categories" placeholder="Verknüpfte Kategorien" [multiple]="false"
+                [control]="assignedTeamCategoriesControl">
+              </app-autocomplete>
+
+              <app-autocomplete itemsType="teams" placeholder="Verknüpfte Mannschaft" [multiple]="false"
+                [control]="assignedTeamControl">
+              </app-autocomplete>
+
+              <app-autocomplete itemsType="locations" placeholder="Spielort" [multiple]="false"
+                [control]="assignedLocationControl">
+              </app-autocomplete>
+
+              <div class="mat-form-field-fluid mt-5">
+                <mat-checkbox formControlName="isImported">importiertes Spiel</mat-checkbox>
+              </div>
+              <div class="mat-form-field-fluid">
+                <mat-checkbox formControlName="isHomeTeam">Heimspiel</mat-checkbox>
+              </div>
+              <div class="mat-form-field-fluid">
+                <mat-checkbox formControlName="isOfficialMatch">offizielles Spiel</mat-checkbox>
+              </div>
+
+            </div>
+
+            <div class="col-lg-6">
+              <h5>Heimmmannschaft</h5>
+              <div class="row" formGroupName="homeTeam">
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Heimmmannschaft" formControlName="title">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Fussball.de-URL des Vereinswappens" formControlName="logoURL">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Externer Link auf fussball.de" formControlName="externalTeamLink">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <h5 class="mt-5">Gastmannschaft</h5>
+              <div class="row mb-3" formGroupName="guestTeam">
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Gastmannschaft" formControlName="title">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Fussball.de-URL des Vereinswappens" formControlName="logoURL">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-12">
+                  <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Externer Link auf fussball.de" formControlName="externalTeamLink">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Spielgeschehen">
+          <div class="row">
+            <div class="col-lg-6">
+              <app-portlet>
+                <app-portlet-header title="Ergebnis">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <app-alert [showCloseButton]="false" type="warning" *ngIf="!match.result">
+                    <p>Es ist noch kein Ergebnis für dieses Spiel vorhanden!</p>
+                  </app-alert>
+
+                  <div class="mat-form-field-fluid mb-5">
+                    <mat-checkbox formControlName="isCompleted">beendetes Spiel</mat-checkbox>
+                  </div>
+
+                  <div class="row" formGroupName="result">
+                    <div class="col-lg-6">
+                      <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Tore Heimmmannschaft" formControlName="homeTeamGoals"
+                          type="number">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                      <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Tore Gastmannschaft" formControlName="guestTeamGoals"
+                          type="number">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 mt-5">
+                    <div class="mat-form-field-fluid">
+                      <mat-checkbox (change)="toggleOtherEventInput($event)" formControlName="isOtherEvent">
+                        Spiel ohne Ergebnis
+                      </mat-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12" formGroupName="result">
+                    <mat-form-field class="mat-form-field-fluid">
+                      <mat-select matInput placeholder="Anderes Spielende festlegen" formControlName="otherEvent">
+                        <mat-option [value]="">Kein anderes Spielende</mat-option>
+                        <mat-option *ngFor="let event of otherMatchEvents" [value]="event.id">
+                          {{event.title}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </app-portlet-body>
+              </app-portlet>
+
+            </div>
+            <div class="col-lg-6">
+              <match-events></match-events>
+            </div>
+
+            <div class="col-lg-6">
+              <app-portlet>
+                <app-portlet-header title="Verknüpfte Artikel">
+                </app-portlet-header>
+                <app-portlet-body>
+                  <app-autocomplete itemsType="articles" placeholder="Verknüpfte Artikel" [multiple]="true"
+                    [control]="assignedArticlesControl">
+                  </app-autocomplete>
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+
+            <div class="col-lg-6">
+              <app-portlet>
+                <app-portlet-header title="Links zu anderen Inhalten">
+                </app-portlet-header>
+                <app-portlet-body>
+                  ToDo
+                </app-portlet-body>
+              </app-portlet>
+            </div>
+          </div>
+
+        </tab>
+        <tab heading="Startelf und Auswechselungen">
+          <app-match-formation></app-match-formation>
+        </tab>
+        <tab heading="Galerien">
+          <app-media-gallery-list [galleries]="form.value.galleries"
+            (galleriesChanged)="updateControl('galleries',$event)" mode="remove-with-default">
+          </app-media-gallery-list>
+        </tab>
+      </tabset>
+    </app-portlet-body>
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ (match.id ? 'match.button.edit' : 'match.button.save')  }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle>
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/matches/list']">
+                  <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo fa-fw" aria-hidden="true"></i>Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="match.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deleteMatch(match)">
+                  <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

@@ -1,0 +1,60 @@
+//
+// Toastr
+//
+
+// Base
+@mixin app-toastr-base() {
+	.toast {
+		background-position: 15px center #{"/*rtl:calc(100% - 15px) center*/"} !important;
+		box-shadow: $app-dropdown-shadow;
+		border: 0;
+
+		.toast-close-button {
+			@include app-close-icon();
+			outline: none !important;
+			font-size: 0;
+			content: " ";
+			&:before {
+				font-size: 0.9rem;
+			}
+		}
+
+		// Title
+		.toast-title {
+			font-size: 1rem;
+			font-weight: 500;
+			margin-bottom: 0.25rem;
+		}
+
+		// Message
+		.toast-message {
+			font-size: 0.9rem;
+		}
+	}
+}
+
+@mixin app-toastr-state($name, $color) {
+	.toast-#{$name} {
+		background-color: app-get($color, base);
+		color: app-get($color, inverse);
+		box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+	}
+
+	#toast-container > div:hover {
+		box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.125);
+	}
+}
+
+@mixin app-toastr-skin() {
+	@include app-toastr-state(success, app-get($app-state-colors, success));
+	@include app-toastr-state(warning, app-get($app-state-colors, warning));
+	@include app-toastr-state(info, app-get($app-state-colors, info));
+	@include app-toastr-state(error, app-get($app-state-colors, danger));
+}
+
+// Build
+// Base
+@include app-toastr-base();
+
+// Skin
+@include app-toastr-skin();

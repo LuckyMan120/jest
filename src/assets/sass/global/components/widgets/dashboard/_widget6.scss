@@ -1,0 +1,59 @@
+//
+// Widget16
+//
+
+// widget6
+.app-widget6 {
+    .app-widget6__head {
+        .app-widget6__item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.07rem;
+
+            > span {
+                font-size: 1rem;
+                color: app-base-color(label, 2);
+                font-weight: 400;
+                flex: 1;
+                text-align: left;
+
+                &:last-child {
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    .app-widget6__body {
+        .app-widget6__item {
+            display: flex;
+            align-items: center;
+            padding: 1.07rem 0;
+
+            > span {
+                color: app-base-color(label, 3);
+                font-weight: 400;
+                flex: 1;
+                text-align: left;
+                font-size: 1rem;
+
+                &:last-child {
+                    text-align: right;
+                }
+            }
+
+            border-bottom: 1px dashed app-base-color(grey, 2);
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    .app-widget6__foot {
+        .app-widget6__action {
+            text-align: right;
+            margin-top: 1rem;
+        }
+    }
+}

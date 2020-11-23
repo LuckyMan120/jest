@@ -1,0 +1,121 @@
+<app-portlet>
+  <app-portlet-header title="Kategorieliste">
+    <ng-container portletTools>
+      <div class="d-flex flex-row">
+        <button [routerLink]="['/categories/create']" class="btn btn-primary">
+          <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">Neue Kategorie</span>
+        </button>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <label>
+                <input matInput placeholder="Kategorie suchen" #searchInput>
+              </label>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <div class="mat-tab-container mat-elevation-z8">
+      <div class="table-responsive">
+        <table mat-table class="table table-hover" [dataSource]="dataSource" matSort matSortActive="title"
+          matSortDisableClear matSortDirection="asc">
+
+          <!--<ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+              <mat-checkbox *ngIf="!row.isNotEditable" (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>-->
+
+          <ng-container matColumnDef="nr">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nr.
+            </mat-header-cell>
+            <mat-cell *matCellDef="let category; let i = index">{{i + 1}}.</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let category">{{category.id}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Titel
+            </mat-header-cell>
+            <mat-cell *matCellDef="let category">{{category.title}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedCategoryTitles" class="hidden-xs hidden-md hidden-sm">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Verknüpfte Kategorien</mat-header-cell>
+            <mat-cell *matCellDef="let category">
+              <ng-container
+                *ngFor="let assignedCategoryTitle of category.assignedCategoryTitles; let i = index; let last = last">
+                {{assignedCategoryTitle}}
+                <ng-container *ngIf="!last">,&nbsp;</ng-container>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let category">
+              <a [routerLink]="['detail', category.id]" class="btn btn-primary btn-sm mr-1"
+                tooltip="Zur Kategorieliste">
+                <span class="fa fa-info" aria-hidden="true"></span>
+              </a>
+              <a [routerLink]="['edit', category.id]" class="btn btn-warning btn-sm mr-1" tooltip="Kategorie editieren">
+                <span class="fa fa-pen" aria-hidden="true"></span>
+              </a>
+              <button class="btn btn-danger btn-sm" (click)="deleteCategory(category)" tooltip="Kategorie löschen">
+                <span class="fa fa-trash" aria-hidden="true"></span>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </table>
+
+        <div class="mat-table__bottom">
+          <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" [length]="dataSource.data.length"
+            [pageSize]="pageSizes[0]">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="d-flex flex-row-reverse" style="padding: 25px">
+      <button [routerLink]="['/categories/create']" class="btn btn-primary">
+        <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">Neue Kategorie</span>
+      </button>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

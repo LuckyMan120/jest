@@ -1,0 +1,49 @@
+//
+// Widget10
+//
+
+.app-widget10 {
+    // Chart
+    .app-widget10__chart {
+        margin-top: 1rem;
+        margin-bottom: 3.5rem;
+        position: relative;
+
+        canvas {
+            @include app-rounded {
+                border-radius: 8px;
+            }
+        }
+    }
+
+    // Items
+    .app-widget10__items {
+        // Item
+        .app-widget10__item {
+            // Stats
+            .app-widget10__stats {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: app-base-color(label, 2);
+            }
+
+            // Text
+            .app-widget10__text {
+                font-size: 0.9rem;
+                float: right;
+                margin-top: 0.3rem;
+                color: app-base-color(label, 2);
+            }
+
+            // Progress
+            .progress {
+                margin-bottom: 1.6rem;
+            }
+        }
+    }
+    // Description
+    .app-widget10__desc {
+        margin-top: 1.6rem;
+        font-size: 1rem;
+    }
+}

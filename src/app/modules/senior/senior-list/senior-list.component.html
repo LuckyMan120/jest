@@ -1,0 +1,178 @@
+<app-portlet>
+  <app-portlet-header title="Alle AH Mitglieder" class="app-portlet__head--lg">
+    <ng-container portletTools>
+      <div class="d-flex flex-row m-3 justify-content-end">
+
+        <button class="btn btn-secondary mr-1">
+          <i class="far fa-file-pdf fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-md-inline">Exportieren</span>
+        </button>
+
+        <button [routerLink]="['/seniors/create']" class="btn btn-primary m-1" type="button">
+          <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+          <span class="d-none d-md-inline">Neues Mitglied</span>
+        </button>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+    <div class="app-form">
+      <div class="app-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-lg-4 app-margin-bottom-10-mobile">
+            <mat-form-field class="mat-form-field-fluid">
+              <label>
+                <input matInput placeholder="Mitglied suchen" #searchInput>
+              </label>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading$ | async as loading" class="loader-overlay"
+      style="display: flex; justify-content: center; align-items: center">
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Bitte warten</p>
+      </div>
+    </div>
+
+    <div class="mat-tab-container mat-elevation-z8">
+      <div class="table-responsive">
+        <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="lastName" matSortDisableClear
+          matSortDirection="asc" [trackBy]="trackById">
+
+          <!-- <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+          </mat-header-cell>
+          <mat-cell *matCellDef="let senior">{{senior.id}}</mat-cell>
+        </ng-container>-->
+
+          <ng-container matColumnDef="gender">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Geschlecht
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">{{senior.gender  }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nachname
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">{{senior.lastName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Vorname
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">{{senior.firstName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="birthDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Geburtsdatum
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">
+              {{ senior.birthDate | date: 'mediumDate' }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedMember">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Verknüpftes Mitglied
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">
+              <a *ngIf="senior?.assignedSeniorTitle" [routerLink]="['/members/detail', senior?.assignedMemberId]">
+                {{senior?.assignedMemberTitle}}
+              </a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="assignedPlayer">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Verknüpfter Spieler
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">
+              <a *ngIf="senior?.assignedPlayerTitle" [routerLink]="['/players/detail', senior?.assignedPlayerId]">
+                {{senior?.assignedPlayerTitle}}
+              </a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="entryDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Eintritt
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">
+              {{ senior.entryDate | date: 'mediumDate' }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="exitDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Austritt
+            </mat-header-cell>
+            <mat-cell *matCellDef="let senior">
+              {{ senior.exitDate | date: 'mediumDate' }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let senior">
+              <button [routerLink]="['/seniors/detail', senior.id]" class="btn btn-primary btn-sm mr-1"
+                tooltip="Details">
+                <span class="fa fa-info" aria-hidden="true"></span>
+              </button>
+              <button [routerLink]="['/seniors/edit', senior.id]" class="btn btn-warning btn-sm" tooltip="Editieren">
+                <span class="fa fa-pen" aria-hidden="true"></span>
+              </button>&nbsp;
+              <button class="btn btn-danger btn-sm" tooltip="Löschen" (click)="deleteSenior(senior)">
+                <span class="fa fa-trash" aria-hidden="true"></span>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </table>
+      </div>
+
+      <div class="mat-table__bottom">
+        <mat-paginator [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" [length]="dataSource.data.length"
+          [pageSize]="pageSizes[0]">
+        </mat-paginator>
+      </div>
+    </div>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 py-3">
+        <div class="d-flex flex-row m-3 justify-content-end">
+
+          <button class="btn btn-secondary mr-1">
+            <i class="far fa-file-pdf fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-md-inline">
+              Exportieren
+            </span>
+          </button>
+
+          <button [routerLink]="['/seniors/create']" class="btn btn-primary m-1" type="button">
+            <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-md-inline">Neues Mitglied</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

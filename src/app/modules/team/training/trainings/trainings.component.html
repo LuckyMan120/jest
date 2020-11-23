@@ -1,0 +1,41 @@
+<app-portlet [formGroup]="form">
+  <app-portlet-header title="Training erstellen" class="app-portlet__head--lg d-flex flex-column flex-md-row">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-column flex-md-row m-3">
+        <mat-form-field class="mat-form-field-fluid mr-3">
+          <mat-select matInput type="text" formControlName="location" placeholder="Trainingsort">
+            <mat-option [value]="">Bitte wähle den Trainingsort</mat-option>
+            <mat-option *ngFor="let location of locations$ | async | orderBy: ['title']" [value]="location.id">
+              {{location.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="mat-form-field-fluid mr-3">
+          <mat-select matInput type="text" formControlName="season" placeholder="Saison">
+            <mat-option *ngFor="let season of seasons$ | async" [value]="season.id">
+              {{season.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div>
+          <a [routerLink]="['/teams/trainings/create']" class="btn btn-primary">
+            Training hinzufügen
+          </a>
+        </div>
+
+      </div>
+
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+    <div class="row">
+      <div class="col-lg-12" *ngIf="form.get('season')?.value">
+        <training-list [seasonId]="form.get('season')?.value" [locationId]="form.get('location')?.value">
+        </training-list>
+      </div>
+    </div>
+  </app-portlet-body>
+</app-portlet>

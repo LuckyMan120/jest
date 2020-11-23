@@ -1,0 +1,53 @@
+/**** MEDIA QUERY *****/
+@mixin laptop {
+  @media (min-width: 1525px){
+    @content;
+  }
+}
+@mixin desktoplarge {
+  @media (min-width: 1401px) and (max-width: 1524px) {
+    @content;
+  }
+}
+@mixin desktopnormal {
+  @media (min-width: 1280px) and (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin desk1280{
+    @media (min-width: 1200px) and (max-width: 1300px) {
+        @content;
+      }
+}
+@mixin desktopsmall {
+  @media (min-width: 992px) and (max-width: 1199px) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+@mixin phone_wide {
+  @media (min-width: 320px) and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin phone_extra {
+  @media (min-width: 575px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin retina {
+  @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) {
+    @content;
+  }
+}

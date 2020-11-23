@@ -1,0 +1,96 @@
+//
+// Aside Brand
+//
+
+.app-aside__brand {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	padding: 0 app-get($app-page-padding, desktop);
+	height: app-get($app-header-config, base, desktop, default, height);
+
+	.app-aside__brand-logo {
+		display: flex;
+		justify-content: flex-begin;
+
+		img {
+			.app-aside--minimize & {
+				display: none;
+			}
+		}
+	}
+
+	.app-aside__brand-tools {
+		display: flex;
+		justify-content: flex-end;
+
+		.app-aside__brand-aside-toggler {
+			display: inline-block;
+			padding: 0;
+			@include app-input-reset();
+
+			> span {
+				display: inline-block;
+
+				&:nth-child(2) {
+					display: none;
+				}
+			}
+
+			svg {
+				height: 26px;
+				width: 26px;
+				margin-right: -2px;
+			}
+		}
+	}
+}
+
+@include app-desktop {
+	.app-aside__brand {
+		transition: app-get($app-aside-config, base, minimize, transition);
+
+		// Header fixed & aside static mode
+		.app-header--fixed.app-aside--static & {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: app-get($app-aside-config, base, default, width);
+			z-index: app-get($app-header-config, base, desktop, fixed, zindex);
+		}
+
+		// Aside minimize mode
+		.app-header--fixed.app-aside--minimize & {
+			justify-content: center;
+
+			.app-aside__brand-tools {
+				justify-content: center;
+
+				.app-aside__brand-aside-toggler {
+					> span {
+						&:nth-child(1) {
+							display: none;
+						}
+
+						&:nth-child(2) {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+
+		// Aside minimize, header fixed & aside static mode
+		.app-header--fixed.app-aside--static.app-aside--minimize & {
+			transition: app-get($app-aside-config, base, minimize, transition);
+			width: app-get($app-aside-config, base, minimize, width);
+		}
+	}
+}
+
+@include app-tablet-and-mobile {
+	.app-aside__brand {
+		display: none;
+	}
+}

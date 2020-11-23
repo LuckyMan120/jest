@@ -1,0 +1,40 @@
+<div *ngIf="article" class="app-portlet app-widget19 mt-4 app-portlet--height-fluid">
+  <div class="app-portlet__body app-portlet__body--fit app-portlet__body--unfill">
+    <div class="app-widget19__pic app-portlet-fit--top" style="min-height: 300px;"
+      [style.background-image]="article.image | displayFirstMedia : [false] | background | safe:'style'">
+      <h3 class="app-widget19__title app-font-light">
+        <a class="app-font-light" [routerLink]="['/articles/detail', article.id]">{{article.title | truncate: [35]}}</a>
+      </h3>
+      <div class="app-widget19__shadow"></div>
+      <div class="app-widget19__labels">
+        <span class="btn btn-label-light-o2 btn-bold ">Letzter Artikel</span>
+      </div>
+    </div>
+  </div>
+  <div class="app-portlet__body">
+    <div class="app-widget19__wrapper">
+      <div class="app-widget19__content" *ngIf="article.publication && article.publication?.user as user">
+        <div class="app-widget19__userpic">
+          <img [src]="user?.photoUrl" [alt]="user?.displayName" />
+        </div>
+        <div class="app-widget19__info">
+          <a [routerLink]="['/users/detail', article.publication?.by]" class="app-widget19__username">
+            {{user?.displayName}}
+          </a>
+          <span class="app-widget19__time">{{article.articleDate | date: 'medium'}}</span>
+        </div>
+        <div class="app-widget19__stats">
+          <span class="app-widget19__number app-font-brand">TODO</span>
+          <a href="#" class="app-widget19__comment">Ansichten</a>
+        </div>
+      </div>
+      <div class="app-widget19__text"
+        [innerHTML]="(article.excerpt ? article.excerpt : article.text) | stripHTML | truncate: [chars]">
+      </div>
+    </div>
+    <div class="app-widget19__action">
+      <a [routerLink]="['/articles/detail', article.id]" class="btn btn-sm btn-label-brand btn-bold">weiterlesen ...
+      </a>
+    </div>
+  </div>
+</div>

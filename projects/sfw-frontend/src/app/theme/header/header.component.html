@@ -1,0 +1,100 @@
+<header class="header" [class.menu-open]="isOpen">
+  <div class="container">
+    <div class="row">
+      <div class="logo col-md-2">
+        <a [routerLink]="'/'" itemprop="url" title="Sportfreunde Winterbach">
+          <img src="/assets/images/Logo.svg" itemprop="Sportfreunde Winterbach" alt="Sportfreunde Winterbach">
+        </a>
+      </div>
+      <div class="hamburger" (click)="toggleMenu()" [class.menu-close]="isOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="navigation col-md-8" [class.menu-open]="isOpen">
+        <ul>
+          <li class="droppable" *ngFor="let item of application?.frontendMenu">
+
+            <ng-container *ngIf="item.hasMegaMenu">
+              <a itemprop="url" [routerLinkActive]="'active'" [routerLink]="item.link" (click)="openMegaMenu()">
+                {{item.title}}
+                <span class="submenus_open" (click)="openMegaMenu()"></span>
+              </a>
+              <div class="mega-menu" [class.submenu_open]="isMegaMenuOpen">
+                <div class="container">
+                  <span class="menu_text">{{item.title}}</span>
+                  <div class="row">
+                    <div class="col-md-10 offset-md-2 main_mega">
+                      <div class="row">
+                        <div class="col-md-6 menu_listing">
+                          <ul class="ul-reset">
+                            <li *ngFor="let subMenu of item.subMenu">
+                              <a itemprop="url" [routerLink]="subMenu.link">
+                                {{subMenu.title}}
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="ul-reset">
+                            <li *ngFor="let article of item.fixedArticles$ | async">
+                              <a itemprop="url" [routerLink]="article.link">
+                                {{article.title}}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-md-6 menu_article">
+                          <span class="latest_text">Letzte</span>
+
+                          <ng-container *ngFor="let article of item.newestArticles$ | async">
+                            <div class="short_article">
+                              <div class="row align-items-center">
+                                <div class="short_img">
+                                  <img src="/assets/images/image1.jpg" alt="{{article.title}}" title="{{article.title}}"
+                                    class="img-fluid">
+                                </div>
+                                <div class="short_content">
+                                  <div class="categories">
+                                    <ul>
+                                      <li>KATEGORIE</li>
+                                      <li>
+                                        {{article?.publication?.at | date: 'shortDate'}}
+                                      </li>
+                                    </ul>
+                                    <h5>
+                                      <a itemprop="url" [routerLink]="article.link">{{article.title}}</a>
+                                    </h5>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="!item.hasMegaMenu">
+              <a itemprop="url" [href]="item.link">{{item.title}}</a>
+            </ng-container>
+          </li>
+        </ul>
+      </div>
+      <div class="social_links col-md-2">
+        <ul>
+          <ng-container *ngFor="let link of application.assignedLinks | linkByCategoryTitle: socialLinks">
+            <li>
+              <a itemprop="url" [target]="link.target" [title]="link.title" [href]="link.link">
+                {{link.title}}
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

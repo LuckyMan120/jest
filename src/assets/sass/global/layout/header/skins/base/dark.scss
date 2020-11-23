@@ -1,0 +1,194 @@
+//
+// Header Dark Skin
+//
+
+// Include global config
+@import "../../../../../config";
+
+// Include layout config
+@import "../../../config";
+
+// Include header config
+@import "../../config";
+
+$app-header-itek-font-color: #ffffff;
+$app-header-icon-font-color: #6e7899;
+$app-header-item-hover-bg: #282f48;
+$app-header-bg-color: #536be2;
+
+// Desktop mode
+@include app-desktop {
+	.app-header {
+		background-color: app-get($app-layout-skins, dark);
+		box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+
+		// Menu
+		.app-header-menu {
+			.app-menu__nav {
+				> .app-menu__item {
+					> .app-menu__link {
+						border-radius: 4px;
+
+						.app-menu__link-text {
+							color: #c0c4d1;
+							font-weight: 500;
+						}
+
+						.app-menu__hor-arrow {
+							color: #677191;
+						}
+
+						.app-menu__hor-icon {
+							color: #677191;
+						}
+					}
+
+					&.app-menu__item--here,
+					&.app-menu__item--active,
+					&:hover {
+						> .app-menu__link {
+							background-color: $app-header-item-hover-bg;
+
+							.app-menu__link-text {
+								color: $app-header-itek-font-color;
+							}
+
+							.app-menu__hor-arrow {
+								color: $app-header-itek-font-color;
+							}
+
+							.app-menu__hor-icon {
+								color: $app-header-itek-font-color;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// General mode
+.app-header {
+	.app-header__topbar {
+		padding-right: 15px;
+
+		.app-aside-secondary--enabled & {
+			padding-right: 0;
+		}
+
+		.app-header__topbar-item {
+			.app-header__topbar-icon {
+				i {
+					color: $app-header-icon-font-color;
+				}
+
+				svg {
+					g {
+						[fill] {
+							fill: $app-header-icon-font-color;
+						}
+					}
+				}
+			}
+
+			// User profile
+			&.app-header__topbar-item--user {
+				.app-header__topbar-welcome {
+					color: #6b7594;
+				}
+
+				.app-header__topbar-username {
+					color: #c0c4d1;
+				}
+			}
+
+			// Quick panel
+			&.app-header__topbar--quick-panel-toggler {
+				.app-header__topbar-icon {
+					i {
+						color: $app-header-icon-font-color;
+					}
+				}
+			}
+
+			&:hover,
+			&.show {
+				.app-header__topbar-icon {
+					background-color: $app-header-item-hover-bg;
+
+					i {
+						color: #fff;
+					}
+
+					svg {
+						g {
+							[fill] {
+								fill: #fff;
+							}
+						}
+					}
+				}
+
+				&.app-header__topbar-item--user {
+					.app-header__topbar-user {
+						@include app-transition();
+						background-color: $app-header-item-hover-bg;
+
+						.app-header__topbar-username {
+							color: $app-header-itek-font-color;
+						}
+					}
+				}
+
+				&.app-header__topbar--quick-panel-toggler {
+					background-color: app-brand-color();
+
+					.app-header__topbar-icon {
+						i {
+							color: app-brand-color(inverse);
+						}
+					}
+				}
+			}
+
+			// Search
+			&.app-header__topbar-item--search {
+				.app-input-icon {
+					.app-input-icon__icon {
+						i {
+							color: app-base-color(label, 2);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Mobile mode
+@include app-tablet-and-mobile {
+	// Menu wrapper
+	.app-header-menu-wrapper {
+		background-color: app-get($app-layout-skins, dark);
+
+		// Scrollbar
+		@include app-perfect-scrollbar-skin(#637099);
+	}
+
+	// Topbar
+	.app-header__topbar {
+		background-color: app-get($app-layout-skins, dark);
+		box-shadow: none;
+	}
+
+	.app-header__topbar--mobile-on {
+		.app-header__topbar {
+			box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+			border-top: 1px solid #2e3448;
+		}
+	}
+
+	// Build Header Menu Skin
+	@include app-menu-hor-build-skin(app-get($app-header-config, menu, desktop), dark);
+}

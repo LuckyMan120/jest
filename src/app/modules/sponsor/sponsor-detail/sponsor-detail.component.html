@@ -1,0 +1,249 @@
+<app-portlet *ngIf="sponsor$ | async as sponsor">
+  <app-portlet-header title="Sponsordetails anzeigen" icon="fa fa-info">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/sponsors/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/sponsors/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/sponsors/edit', sponsor.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteSponsor(sponsor)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+    <tabset type="pills">
+      <tab heading="Wichtigste Infos">
+        <div class="row">
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Grunddaten">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover">
+                    <tr>
+                      <td>Name des Sponsors</td>
+                      <th>{{sponsor.title}}</th>
+                    </tr>
+                    <tr>
+                      <td>Homepage des Sponsors</td>
+                      <th><a [href]="sponsor.externalLink" target="_blank">{{sponsor.externalLink}}</a></th>
+                    </tr>
+                    <tr>
+                      <td>Sponsoring-Art</td>
+                      <th>
+                        <ul class="list-group">
+                          <ng-container *ngFor="let categoryTitle of sponsor.assignedCategoryTitles; let i = index">
+                            <li class="list-group-item"
+                              *ngIf="sponsor.assignedCategoryIds && sponsor.assignedCategoryIds[i]">
+                              <a [routerLink]="['/categories/detail', sponsor.assignedCategoryIds[i]]">
+                                {{categoryTitle}}
+                              </a>
+                            </li>
+                          </ng-container>
+                        </ul>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>Beginn des Sponsorings</td>
+                      <th>{{sponsor.startDate | date: 'mediumDate'}}</th>
+                    </tr>
+                    <tr>
+                      <td>Ende</td>
+                      <th>{{sponsor.endDate | date: 'mediumDate'}}</th>
+                    </tr>
+                    <tr>
+                      <td>Im Footer anzeigen</td>
+                      <th>{{sponsor.displayInFooter ? 'Ja' : 'Nein' }}</th>
+                    </tr>
+                    <tr>
+                      <td>Auf der Startseite anzeigen</td>
+                      <th>{{sponsor.displayOnHomepage ? 'Ja' : 'Nein' }}</th>
+                    </tr>
+                    <tr>
+                      <td>Als Topsponsor anzeigen</td>
+                      <th>{{sponsor.displayAsTopSponsor ? 'Ja' : 'Nein' }}</th>
+                    </tr>
+                  </table>
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Kontakt"></app-portlet-header>
+              <app-portlet-body>
+                <div class="table-responsive">
+                  <table class="table">
+                    <tr>
+                      <th>Ansprechpartner</th>
+                      <td>{{sponsor.contact.name}}</td>
+                    </tr>
+                    <tr>
+                      <th>E-Mail Adresse</th>
+                      <td>{{sponsor.contact.email}}</td>
+                    </tr>
+                    <tr>
+                      <th>Telefon</th>
+                      <td>{{sponsor.contact.phoneWork}}</td>
+                    </tr>
+                    <tr>
+                      <th>Fax</th>
+                      <td>{{sponsor.contact.fax}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Adresse">
+              </app-portlet-header>
+              <app-portlet-body>
+                <div class="table-responsive">
+                  <table class="table">
+                    <tr>
+                      <th>Straße und Hausnummer</th>
+                      <td>{{sponsor.address.streetName}} {{sponsor.address.houseNumber}}</td>
+                    </tr>
+                    <tr>
+                      <th>Postleitzahl und Stadt</th>
+                      <td>{{sponsor.address.zip}} {{sponsor.address.city}}</td>
+                    </tr>
+                    <tr>
+                      <th>Landkreis</th>
+                      <td>{{sponsor.address.county}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Freier Text zum Sponsor">
+              </app-portlet-header>
+              <app-portlet-body [innerHTML]="sponsor.description"></app-portlet-body>
+            </app-portlet>
+          </div>
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Interne Infos">
+              </app-portlet-header>
+              <app-portlet-body [innerHTML]="sponsor.internalInfo"></app-portlet-body>
+            </app-portlet>
+          </div>
+          <div class="col-lg-4">
+            <app-portlet>
+              <app-portlet-header title="Verknüpfte Artikel">
+              </app-portlet-header>
+              <app-portlet-body>
+
+                <app-alert type="warning" [showCloseButton]="false" *ngIf="!sponsor.assignedArticleIds">
+                  Zu diesem Sponsor wurden noch keine Artikel verfasst.
+                </app-alert>
+
+                <ul class="list-group" *ngIf="sponsor.assignedArticleIds">
+                  <li class="list-group-item" *ngFor="let articleTitle of sponsor.assignedArticleTitles; let i = index">
+                    <a [routerLink]="['/articles/detail', sponsor.assignedArticleIds[i]]">{{articleTitle}}</a>
+                  </li>
+                </ul>
+              </app-portlet-body>
+            </app-portlet>
+          </div>
+        </div>
+      </tab>
+
+      <tab heading="Galerien">
+        <app-media-gallery-list [galleries]="sponsor.galleries" mode="view">
+        </app-media-gallery-list>
+      </tab>
+
+      <tab heading="Dateien">
+        <app-media-gallery-list [galleries]="sponsor.files" mode="view">
+        </app-media-gallery-list>
+      </tab>
+
+      <tab heading="Erstellung und Veröffentlichung">
+        <creation-publication-info [creation]="sponsor.creation" [publication]="sponsor.publication">
+        </creation-publication-info>
+      </tab>
+    </tabset>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/sponsors/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/sponsors/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/sponsors/edit', sponsor.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteSponsor(sponsor)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

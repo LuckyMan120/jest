@@ -1,0 +1,60 @@
+//
+// Widget15
+//
+
+.app-widget15 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    // Items
+    .app-widget15__items {
+        flex-grow: 1;
+
+        &.app-widget15__items--bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        // Item
+        .app-widget15__item {
+            // Stats
+            .app-widget15__stats {
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: app-base-color(label, 2);
+            }
+
+            // Text
+            .app-widget15__text {
+                font-size: 1rem;
+                float: right;
+                margin-top: 0.3rem;
+                font-weight: 400;
+                color: app-base-color(label, 2);
+            }
+
+            // Progress
+            .progress {
+                margin-bottom: 1.6rem;
+                height: 0.45rem;
+            }
+        }
+
+        // Description
+        .app-widget15__desc {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: app-base-color(label, 2);
+        }
+    }
+
+    .app-widget4__chart {
+    }
+
+    .app-widget15__map {
+    }
+}

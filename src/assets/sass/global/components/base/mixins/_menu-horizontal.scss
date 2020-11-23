@@ -1,0 +1,1041 @@
+//
+// Horizontal Menu Mixins
+//
+
+// Helpers
+@mixin app-menu-hor-item-base($item) {
+	// item
+	@include app-attr(margin, app-get($item, self, margin));
+	@include app-attr(padding, app-get($item, self, padding));
+
+	// link
+	> .app-menu__link {
+		transition: all 0.3s ease;
+		cursor: pointer;
+		@include app-attr(padding, app-get($item, link, self, padding));
+		@include app-attr(margin, app-get($item, link, self, margin));
+
+		&:hover {
+			transition: all 0.3s ease;
+		}
+
+		// link icon
+		.app-menu__link-icon {
+			font-size: app-get($item, link, icon, font-size);
+			width: app-get($item, link, icon, width);
+			padding: app-get($item, link, icon, padding);
+			line-height: 0;
+
+			// duo-tone svg icon
+			svg {
+				@include app-attr(height, app-get($item, link, icon, svg-width));
+				@include app-attr(width, app-get($item, link, icon, svg-width));
+				margin-left: -2px;
+			}
+		}
+
+		// link bullet
+		.app-menu__link-bullet {
+			width: app-get($item, link, bullet, self, width);
+
+			@if app-has($item, link, bullet, padding) {
+				padding: app-get($item, link, bullet, padding);
+			}
+
+			> span {
+				vertical-align: middle;
+				display: inline-block;
+			}
+
+			&.app-menu__link-bullet--dot {
+				> span {
+					width: app-get($item, link, bullet, dot, size);
+					height: app-get($item, link, bullet, dot, size);
+					border-radius: 100%;
+				}
+			}
+
+			&.app-menu__link-bullet--line {
+				> span {
+					width: app-get($item, link, bullet, line, width);
+					height: app-get($item, link, bullet, line, height);
+				}
+			}
+		}
+
+		// link text
+		.app-menu__link-text {
+			font-weight: app-get($item, link, text, font-weight);
+			font-size: app-get($item, link, text, font-size);
+			text-transform: app-get($item, link, text, font-transform);
+
+			@if app-has($item, link, text, padding) {
+				padding: app-get($item, link, text, padding);
+			}
+		}
+
+		// link badge
+		.app-menu__link-badge {
+			padding: app-get($item, link, badge, padding);
+			justify-content: app-get($item, link, badge, align);
+		}
+
+		// link arrow icon
+		.app-menu__hor-arrow {
+			font-size: app-get($item, link, arrow, font-size);
+			width: app-get($item, link, arrow, width);
+			justify-content: flex-end;
+
+			@if app-has($item, link, arrow, padding) {
+				padding: app-get($item, link, arrow, padding);
+			}
+
+			&:before {
+				[direction="rtl"] & {
+					content: "#{app-get($app-action-icons, left)}" !important;
+				}
+			}
+		}
+
+		// link border radius
+		@include app-rounded {
+			@include app-attr(border-radius, app-get($item, link, self, border-radius));
+		}
+
+		// menu root level "here" arrow
+		.app-menu__item-here {
+			display: none;
+		}
+	}
+}
+
+@mixin app-menu-hor-item-skin($item) {
+	// link
+	> .app-menu__link {
+		background-color: app-get($item, link, self, bg-color, default);
+
+		// link icon
+		.app-menu__link-icon {
+			color: app-get($item, link, icon, font-color, default);
+
+			// Due-tone icon
+			svg {
+				@include app-svg-icon-color(app-get($item, link, icon, font-color, default));
+			}
+		}
+
+		// link bullet
+		.app-menu__link-bullet {
+			&.app-menu__link-bullet--dot {
+				> span {
+					background-color: app-get($item, link, bullet, dot, bg-color, default);
+				}
+			}
+
+			&.app-menu__link-bullet--line {
+				> span {
+					background-color: app-get($item, link, bullet, line, bg-color, default);
+				}
+			}
+		}
+
+		// link text
+		.app-menu__link-text {
+			color: app-get($item, link, text, font-color, default);
+
+			@if app-has($item, link, text, font-weight) {
+				font-weight: app-get($item, link, text, font-weight);
+			}
+		}
+
+		// link arrow icon
+		.app-menu__hor-arrow {
+			color: app-get($item, link, arrow, font-color, default);
+		}
+	}
+
+	// active state
+	&.app-menu__item--active {
+		> .app-menu__link {
+			// link bg color
+			background-color: app-get($item, link, self, bg-color, active);
+
+			// link icon
+			.app-menu__link-icon {
+				color: app-get($item, link, icon, font-color, active);
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, active));
+				}
+			}
+
+			// link bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						background-color: app-get($item, link, bullet, dot, bg-color, active);
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						background-color: app-get($item, link, bullet, line, bg-color, active);
+					}
+				}
+			}
+
+			.app-menu__link-text {
+				color: app-get($item, link, text, font-color, active);
+			}
+
+			// link arrow icon
+			> .app-menu__hor-arrow {
+				color: app-get($item, link, arrow, font-color, active);
+			}
+		}
+	}
+
+	// here state
+	&.app-menu__item--here {
+		> .app-menu__link {
+			// link bg color
+			background-color: app-get($item, link, self, bg-color, here);
+
+			// link icon
+			.app-menu__link-icon {
+				color: app-get($item, link, icon, font-color, here);
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, here));
+				}
+			}
+
+			// link bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						background-color: app-get($item, link, bullet, dot, bg-color, here);
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						background-color: app-get($item, link, bullet, line, bg-color, here);
+					}
+				}
+			}
+
+			.app-menu__link-text {
+				color: app-get($item, link, text, font-color, here);
+			}
+
+			// link arrow icon
+			> .app-menu__hor-arrow {
+				color: app-get($item, link, arrow, font-color, here);
+			}
+		}
+	}
+
+	// hover state
+	&:hover:not(.app-menu__item--here):not(.app-menu__item--active),
+	&.app-menu__item--hover:not(.app-menu__item--here):not(.app-menu__item--active) {
+		> .app-menu__link {
+			// link bg color
+			background-color: app-get($item, link, self, bg-color, hover);
+
+			// link icon
+			.app-menu__link-icon {
+				color: app-get($item, link, icon, font-color, hover);
+
+				// Due-tone icon
+				svg {
+					@include app-svg-icon-color(app-get($item, link, icon, font-color, hover));
+				}
+			}
+
+			// link bullet
+			.app-menu__link-bullet {
+				&.app-menu__link-bullet--dot {
+					> span {
+						background-color: app-get($item, link, bullet, dot, bg-color, hover);
+					}
+				}
+
+				&.app-menu__link-bullet--line {
+					> span {
+						background-color: app-get($item, link, bullet, line, bg-color, hover);
+					}
+				}
+			}
+
+			// link text
+			.app-menu__link-text {
+				color: app-get($item, link, text, font-color, hover);
+			}
+
+			// link arrow icon
+			> .app-menu__hor-arrow {
+				color: app-get($item, link, arrow, font-color, hover);
+			}
+		}
+	}
+}
+
+@mixin app-menu-hor-item-heading-base($item) {
+	// heading
+	padding: app-get($item, self, padding);
+
+	// text
+	> .app-menu__link-text {
+		font-weight: app-get($item, caption, text, font-weight);
+		font-size: app-get($item, caption, text, font-size);
+		text-transform: app-get($item, caption, text, font-transform);
+	}
+
+	// icon
+	> .app-menu__link-icon {
+		font-size: app-get($item, caption, icon, font-size);
+		flex: 0 0 app-get($item, caption, icon, width);
+		justify-content: app-get($item, caption, icon, align);
+		padding: app-get($item, caption, icon, padding);
+	}
+
+	// badge
+	.app-menu__link-badge {
+		padding: app-get($item, caption, badge, padding);
+		text-align: app-get($item, caption, badge, align);
+	}
+}
+
+@mixin app-menu-hor-item-heading-skin($item) {
+	// text
+	> .app-menu__link-text {
+		color: app-get($item, caption, text, font-color);
+	}
+
+	// icon
+	> .app-menu__link-icon {
+		color: app-get($item, caption, icon, font-color);
+	}
+}
+
+@mixin app-menu-hor-submenu-width($config) {
+	@include app-media-range(lg, xl) {
+		.#{app-get($config, base, class)} {
+			.app-menu__nav {
+				// menu root item
+				> .app-menu__item {
+					// general submenu
+					.app-menu__submenu {
+						&.app-menu__submenu--full,
+						&.app-menu__submenu--fixed,
+						&.app-menu__submenu--auto,
+						&.app-menu__submenu--auto.app-menu__submenu--mimimal-desktop-wide,
+						&.app-menu__submenu--fixed-xl,
+						&.app-menu__submenu--fixed-xxl {
+							margin: 0 auto;
+							width: auto;
+							left: 20px;
+							right: 20px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Responsive container widths
+	@each $breakpoint, $breakpoint-width in $app-media-breakpoints {
+		@media (min-width: $breakpoint-width) {
+			.#{app-get($config, base, class)} {
+				.app-menu__nav {
+					// menu root item
+					> .app-menu__item {
+						// general submenu
+						.app-menu__submenu.app-menu__submenu--fixed-#{$breakpoint} {
+							width: map-get($app-media-breakpoints, $breakpoint) - 60px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin app-menu-hor-base($config) {
+	.#{app-get($config, base, class)} {
+		display: flex;
+		align-items: stretch;
+		height: 100%;
+		margin: app-get($config, build, layout, self, margin);
+
+		// general menu
+		.app-menu__nav {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: stretch;
+
+			// menu root item
+			> .app-menu__item {
+				// general link
+				.app-menu__link {
+					display: flex;
+					text-decoration: none;
+					position: relative;
+					vertical-align: middle;
+					align-items: stretch;
+					outline: none !important;
+					text-decoration: none;
+					cursor: pointer;
+
+					.app-menu__link-text {
+						display: flex;
+						align-items: center;
+						flex-grow: 1;
+						padding: 0;
+					}
+
+					.app-menu__link-badge {
+						display: flex;
+						align-items: center;
+						line-height: 0;
+						white-space: nowrap;
+					}
+
+					// link icon
+					.app-menu__link-icon {
+						display: flex;
+						align-items: center;
+					}
+
+					// sub menu link arrow icon
+					.app-menu__hor-arrow {
+						display: flex;
+						align-items: center;
+					}
+
+					// hide sidebar sub menu link arrow icon
+					.app-menu__ver-arrow {
+						display: none;
+					}
+
+					&:hover,
+					&:active,
+					&:focus {
+						text-decoration: none;
+					}
+				}
+
+				// primary link
+				> .app-menu__link {
+					> .app-menu__link-text {
+						width: auto;
+					}
+				}
+
+				// icon only menu item
+				&.app-menu__item--icon-only {
+					> .app-menu__link {
+						justify-content: center;
+
+						> .app-menu__link-icon {
+							justify-content: center;
+						}
+					}
+				}
+
+				// general submenu
+				.app-menu__submenu {
+					@include app-fix-animation-lags();
+					display: none;
+					z-index: app-get($config, build, layout, item, submenu, self, zindex);
+					position: absolute;
+					top: 100%;
+
+					@include app-rounded {
+						border-radius: app-get($config, build, layout, item, submenu, self, border-radius);
+					}
+
+					@include app-attr(margin, app-get($config, build, layout, item, submenu, self, margin));
+					@include app-attr(padding, app-get($config, build, layout, item, submenu, self, padding, classic));
+
+					.app-menu__scroll {
+						position: relative;
+						overflow: hidden;
+						display: flex;
+						flex-direction: column;
+						flex-grow: 1;
+					}
+
+					.app-menu__subnav {
+						list-style: none !important;
+						padding: 0;
+						margin: 0;
+					}
+
+					// classic submenu
+					& {
+						width: app-get($config, build, layout, item, submenu, self, width, classic);
+						margin: 0 auto;
+						left: auto;
+						right: auto;
+					}
+
+					// full width
+					&.app-menu__submenu--full {
+						margin: 0 auto;
+						width: auto;
+						left: app-get($config, build, layout, item, submenu, self, width, full, offset);
+						right: app-get($config, build, layout, item, submenu, self, width, full, offset);
+					}
+
+					// fixed width options
+					&.app-menu__submenu--fixed {
+						left: auto;
+						right: auto;
+						width: auto;
+					}
+
+					// alignment right
+					&.app-menu__submenu--right {
+						right: 0;
+						left: auto;
+
+						&.app-menu__submenu--pull {
+							margin-right: -40px;
+						}
+					}
+
+					// alignment left
+					&.app-menu__submenu--left {
+						right: auto;
+						left: 0;
+
+						&.app-menu__submenu--pull {
+							margin-left: -40px;
+						}
+					}
+
+					// alignment center
+					&.app-menu__submenu--center {
+						margin: 0 auto;
+						left: 0;
+						right: 0;
+					}
+
+					// sub menu dropdown
+					> .app-menu__subnav {
+						> .app-menu__item.app-menu__item--submenu {
+							position: relative;
+							padding: 0;
+							margin: 0;
+
+							> .app-menu__submenu {
+								top: 0;
+								display: none;
+								margin-top: 0;
+
+								&.app-menu__submenu--left {
+									right: 100%;
+									left: auto;
+								}
+
+								&.app-menu__submenu--right {
+									left: 100%;
+									right: auto;
+								}
+							}
+						}
+					}
+
+					// mega menu content
+					.app-menu__content {
+						display: flex;
+						list-style: none;
+						padding: 0;
+						margin: 0;
+
+						> .app-menu__item {
+							padding: 0;
+							margin: 0;
+							display: flex;
+							flex-direction: column;
+							flex-grow: 1;
+
+							&:last-child {
+								border-right: 0;
+							}
+						}
+					}
+
+					// mega heading
+					.app-menu__heading {
+						display: flex;
+						align-items: center;
+						padding: 0;
+						margin: 0;
+						text-decoration: none;
+						position: relative;
+
+						.app-menu__link-text {
+							display: flex;
+							align-items: center;
+							flex-grow: 1;
+						}
+
+						.app-menu__link-badge {
+							display: flex;
+							align-items: center;
+							white-space: nowrap;
+						}
+
+						// link icon
+						.app-menu__link-icon {
+							display: flex;
+							align-items: center;
+							font-size: 18px;
+							padding: 0 10px 0 0;
+						}
+
+						// sub menu link arrow icon
+						.app-menu__hor-arrow {
+							display: flex;
+							align-items: center;
+							padding: 0 0 0 10px;
+						}
+
+						// hide sidebar sub menu link arrow icon
+						.app-menu__ver-arrow {
+							display: none;
+						}
+					}
+				}
+
+				.app-menu__inner,
+				.app-menu__subnav {
+					list-style: none;
+					margin: 0;
+					padding: 0;
+
+					> .app-menu__item {
+						display: flex;
+						flex-grow: 1;
+						margin: 0;
+						padding: 10px 20px;
+
+						.app-menu__link {
+							display: flex;
+							align-items: center;
+							flex-grow: 1;
+							text-decoration: none;
+							position: relative;
+
+							&:hover,
+							&:active,
+							&:focus {
+								outline: none;
+								text-decoration: none;
+							}
+
+							.app-menu__link-text {
+								display: flex;
+								align-items: center;
+								font-weight: app-get(
+									$config,
+									build,
+									layout,
+									item,
+									submenu,
+									item,
+									link,
+									text,
+									font-weight
+								);
+								color: app-get(
+									$config,
+									build,
+									layout,
+									item,
+									submenu,
+									item,
+									link,
+									text,
+									font-color,
+									default
+								);
+								font-size: app-get($config, build, layout, item, submenu, item, link, text, font-size);
+								text-transform: app-get(
+									$config,
+									build,
+									layout,
+									item,
+									submenu,
+									item,
+									link,
+									text,
+									font-transform
+								);
+							}
+
+							.app-menu__link-badge {
+								display: flex;
+								align-items: center;
+								white-space: nowrap;
+								padding: app-get($config, build, layout, item, submenu, item, link, badge, padding);
+								text-align: app-get($config, build, layout, item, submenu, item, link, badge, align);
+							}
+
+							// link icon
+							.app-menu__link-icon {
+								display: flex;
+								align-items: center;
+								flex: 0 0 app-get($config, build, layout, item, submenu, item, link, icon, width);
+								padding: app-get($config, build, layout, item, submenu, item, link, icon, padding);
+								color: app-get(
+									$config,
+									build,
+									layout,
+									item,
+									submenu,
+									item,
+									link,
+									icon,
+									font-color,
+									default
+								);
+								font-size: app-get($config, build, layout, item, submenu, item, link, icon, font-size);
+								text-align: app-get($config, build, layout, item, submenu, item, link, icon, align);
+							}
+
+							// menu item link's icon part
+							.app-menu__link-bullet {
+								display: flex;
+								align-items: center;
+								line-height: 0;
+							}
+
+							// sub menu link arrow icon
+							.app-menu__hor-arrow {
+								display: flex;
+								align-items: center;
+								padding: app-get($config, build, layout, item, submenu, item, link, arrow, padding);
+							}
+
+							// hide sidebar sub menu link arrow icon
+							.app-menu__ver-arrow {
+								display: none;
+							}
+						}
+					}
+				}
+
+				.app-menu__inner {
+					padding: 0;
+				}
+
+				// sub dropdown menu space
+				@if app-has($config, build, layout, item, submenu, self, space) {
+					.app-menu__submenu {
+						.app-menu__submenu {
+							margin-left: app-get($config, build, layout, item, submenu, self, space);
+
+							&.app-menu__submenu--left {
+								margin-right: app-get($config, build, layout, item, submenu, self, space);
+							}
+						}
+					}
+				}
+
+				// tabs integration
+				&.app-menu__item--submenu.app-menu__item--tabs
+					> .app-menu__submenu
+					> .app-menu__subnav
+					> .app-menu__item.app-menu__item--submenu {
+					> .app-menu__submenu {
+						top: 100%;
+
+						&.app-menu__submenu--left {
+							right: 100%;
+							left: 0;
+						}
+
+						&.app-menu__submenu--right {
+							left: 100%;
+							right: 0;
+						}
+					}
+				}
+			}
+		}
+
+		// root menu
+		.app-menu__nav {
+			> .app-menu__item {
+				display: flex;
+				align-items: center;
+				padding: app-get($config, build, layout, item, self, padding);
+
+				// used for classic submenus
+				&.app-menu__item--rel {
+					position: relative;
+				}
+
+				@include app-menu-hor-item-base(app-get($config, build, layout, item));
+
+				// submenu
+				.app-menu__submenu {
+					padding: app-get($config, build, layout, item, submenu, self, padding, megamenu);
+					@include app-rounded {
+						border-radius: app-get($config, build, layout, item, submenu, self, border-radius);
+					}
+
+					> .app-menu__subnav {
+						> .app-menu__item {
+							@include app-menu-hor-item-base(app-get($config, build, layout, item, submenu, item));
+						}
+
+						// mega submenu
+						.app-menu__content {
+							align-items: stretch;
+							// separator
+							> .app-menu__item {
+								flex-grow: 1;
+								flex-basis: 0;
+
+								&:last-child {
+									border-right: 0 !important;
+								}
+							}
+
+							// heading
+							.app-menu__heading {
+								@include app-menu-hor-item-heading-base(
+									app-get($config, build, layout, item, submenu, item, column, heading)
+								);
+							}
+
+							// mega menu
+							.app-menu__inner {
+								padding: app-get($config, build, layout, item, submenu, item, column, self, padding);
+
+								> .app-menu__item {
+									@include app-menu-hor-item-base(
+										app-get($config, build, layout, item, submenu, item)
+									);
+								}
+							}
+						}
+					}
+
+					&.app-menu__submenu--classic {
+						padding: app-get($config, build, layout, item, submenu, self, padding, classic);
+						> .app-menu__subnav {
+						}
+					}
+
+					// inline submenu
+					&.app-menu__submenu--inline {
+						display: flex;
+						flex: 0 0 auto;
+
+						> .app-menu__subnav {
+							> .app-menu__item {
+								display: flex;
+								padding: 5px 0;
+							}
+						}
+					}
+				}
+			}
+
+			// general submenu hover effect
+			.app-menu__item {
+				// menu resize item
+				&.app-menu__item--resize {
+					display: none;
+				}
+
+				// menu item hover
+				&.app-menu__item--active-tab,
+				&.app-menu__item--hover {
+					.app-menu__submenu {
+						display: block;
+						animation: #{app-get($config, base, class)}-submenu-fade-in 0.3s ease 1,
+							#{app-get($config, base, class)}-submenu-move-down 0.3s ease-out 1;
+
+						// ie8-11 versions hack
+						@include app-hack-ie {
+							animation: none;
+						}
+
+						> .app-menu__subnav > .app-menu__item.app-menu__item--hover {
+							> .app-menu__submenu {
+								display: block;
+								animation: #{app-get($config, base, class)}-submenu-fade-in 0.3s ease 1,
+									#{app-get($config, base, class)}-submenu-move-up 0.3s ease-out 1;
+
+								// ie8-11 versions hack
+								@include app-hack-ie {
+									animation: none;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin app-menu-hor-skin($base-class, $config) {
+	.#{$base-class} {
+		// root level items
+		@if app-has($config, item, link) {
+			.app-menu__nav {
+				> .app-menu__item {
+					@if app-get($config, item, self) {
+						&.app-menu__item--hover,
+						&:hover {
+							background-color: app-get($config, item, self, bg-color, hover);
+						}
+
+						&.app-menu__item--here {
+							background-color: app-get($config, item, self, bg-color, here);
+						}
+
+						&.app-menu__item--open,
+						&.app-menu__item--active {
+							background-color: app-get($config, item, self, bg-color, active);
+						}
+					}
+
+					@include app-menu-hor-item-skin(app-get($config, item));
+				}
+			}
+		}
+
+		// submenu level items
+		.app-menu__nav {
+			> .app-menu__item {
+				// classic submenu
+				.app-menu__submenu {
+					background-color: app-get($config, item, submenu, self, bg-color);
+					box-shadow: app-get($config, item, submenu, self, box-shadow);
+
+					> .app-menu__subnav {
+						// submenu item
+						> .app-menu__item {
+							@include app-menu-hor-item-skin(app-get($config, item, submenu, item));
+						}
+
+						// mega submenu
+						.app-menu__content {
+							// separator
+							> .app-menu__item {
+								border-right: app-get($config, item, submenu, item, column, separator, border);
+							}
+
+							// heading
+							.app-menu__heading {
+								@include app-menu-hor-item-heading-skin(
+									app-get($config, item, submenu, item, column, heading)
+								);
+							}
+
+							// mega menu
+							.app-menu__inner {
+								> .app-menu__item {
+									@include app-menu-hor-item-skin(app-get($config, item, submenu, item));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Build
+// Build Skin
+@mixin app-menu-hor-build-skin($config, $skin) {
+	$skin-config: ();
+
+	@if ($skin == default) {
+		$skin-config: app-get($config, build, skin);
+	} @else {
+		$skin-config: app-get($config, build, skins, $skin);
+	}
+
+	// Base vertical menu
+	@if (app-get($config, base, mode) == general) {
+		@include app-menu-hor-skin(app-get($config, base, class), $skin-config);
+	} @else if (app-get($config, base, mode) == desktop) {
+		@include app-desktop {
+			@include app-menu-hor-skin(app-get($config, base, class), $skin-config);
+		}
+	} @else if (app-get($config, base, mode) == desktop-and-tablet) {
+		@include app-desktop-and-tablet {
+			@include app-menu-hor-skin(app-get($config, base, class), $skin-config);
+		}
+	}
+}
+
+// Build Layout
+@mixin app-menu-hor-build-layout($config) {
+	// Base vertical menu
+	@if (app-get($config, base, mode) == general) {
+		@include app-menu-hor-base($config);
+	} @else if (app-get($config, base, mode) == desktop) {
+		@include app-desktop {
+			@include app-menu-hor-base($config);
+		}
+
+		@include app-menu-hor-submenu-width($config);
+	} @else if (app-get($config, base, mode) == desktop-and-tablet) {
+		@include app-desktop-and-tablet {
+			@include app-menu-hor-base($config);
+		}
+	}
+
+	// Horizontal Menu Hoverable Submenu Animations
+	@keyframes #{app-get($config, base, class)}-submenu-fade-out {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+
+	@keyframes #{app-get($config, base, class)}-submenu-fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes #{app-get($config, base, class)}-submenu-move-up {
+		from {
+			margin-top: app-get($config, build, layout, item, submenu, self, animation, offset);
+		}
+		to {
+			margin-top: 0;
+		}
+	}
+
+	@keyframes #{app-get($config, base, class)}-submenu-move-down {
+		from {
+			margin-top: -(app-get($config, build, layout, item, submenu, self, animation, offset));
+		}
+		to {
+			margin-top: 0;
+		}
+	}
+}

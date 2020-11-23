@@ -1,0 +1,53 @@
+<app-portlet>
+  <app-portlet-header [title]="title ">
+    <ng-container portletTools>
+      <button type="button" class="btn btn-warning" (click)="createTeamManagement()">
+        <i class="fas fa-plus-square" aria-hidden="true"></i>
+      </button>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body [formGroup]="form" *ngIf="categories$ | async as categories">
+
+    <div class="alert alert-info" *ngIf="managementTypeControls?.length === 0">
+      <p>Es wurden noch keine Aufgaben vergeben.</p>
+    </div>
+
+    <ng-container [formArrayName]="managementType" *ngIf="managementTypeControls?.length > 0">
+      <div class="table-responsive">
+        <table class="table table bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Aktionen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let control of managementTypeControls; let i = index">
+              <ng-container [formGroupName]="i">
+                <td>
+                  <app-autocomplete [itemsType]="managementType === 'externMgmt' ? 'members' : 'players'"
+                    [placeholder]="managementType" [multiple]="false"
+                    [control]="control.controls[managementType === 'externMgmt' ? 'assignedMemberId' : 'assignedPlayerId']">
+                  </app-autocomplete>
+                </td>
+                <td>
+                  <mat-form-field class="mat-form-field-fluid">
+                    <mat-select placeholder="Aufgabe wählen" formControlName="assignedCategoryId">
+                      <mat-option *ngFor="let category of categories | orderBy: ['title']; trackBy: trackByFn"
+                        [value]="category.id">
+                        {{category.title}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="removeTeamManagement(i)">Löschen</button>
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+  </app-portlet-body>
+</app-portlet>

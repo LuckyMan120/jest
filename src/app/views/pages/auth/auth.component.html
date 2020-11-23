@@ -1,0 +1,38 @@
+<div class="app-grid app-grid--hor app-grid--root app-login app-login--v1" id="app_login"
+  *ngIf="application$ | async as application">
+  <div
+    class="app-grid__item app-grid__item--fluid app-grid app-grid--desktop app-grid--ver-desktop app-grid--hor-tablet-and-mobile">
+    <div class="app-grid__item app-grid__item--order-tablet-and-mobile-2 app-grid app-grid--hor app-login__aside"
+      [ngStyle]="{'background-image': 'url('+ backgroundImage +')'}">
+      <div class="app-grid__item">
+        <a [routerLink]="['/']" class="app-login__logo" [title]="application.site.subTitle">
+          <img [src]="mainLogo" [alt]="application.site.subTitle">
+        </a>
+      </div>
+      <div class="app-grid__item app-grid__item--fluid app-grid app-grid--ver">
+        <div class="app-grid__item app-grid__item--middle">
+          <h3 class="app-login__title">{{ application.site.subTitle }}</h3>
+          <h4 class="app-login__subtitle">{{application.site.description }}</h4>
+        </div>
+      </div>
+      <div class="app-grid__item">
+        <div class="app-login__info">
+          <div class="app-login__copyright">
+            © {{today|date:'yyyy'}} {{application.site.title}}
+          </div>
+          <div class="app-login__menu">
+            <!-- <ng-container *ngFor="let article of articles$ | async">
+              <a style="cursor: pointer;" (click)="showArticle(article)" class="app-link">{{article.title}}</a>
+            </ng-container>-->
+            TODO
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-grid__item app-grid__item--fluid  app-grid__item--order-tablet-and-mobile-1 app-login__wrapper">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

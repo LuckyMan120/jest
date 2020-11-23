@@ -1,0 +1,24 @@
+<section class="partnerintro-wrap text-center">
+  <div class="container">
+    <div class="inner">
+      <h2>Erfolgreiche Vereinsarbeit ist nur mit starken Partnern möglich!</h2>
+      <p>Wir bedanken uns hiermit für die Unterstützung durch:</p>
+    </div>
+  </div>
+</section>
+
+<section class="partner-wrap text-center" style="margin-bottom: 150px;">
+  <div class="container">
+    <div class="inner">
+      <ul class="p-logo">
+        <li *ngFor="let sponsor of sponsors">
+          <a href="#">
+            <img class="item" [src]="sponsor" alt="Example image" data-aos="fade-up" data-aos-easing="linear"
+              data-aos-duration="750">
+          </a>
+        </li>
+      </ul>
+      <a class="btn" itemprop="url" [routerLink]="'/verein/sponsor-werden'">Sponsor werden</a>
+    </div>
+  </div>
+</section>

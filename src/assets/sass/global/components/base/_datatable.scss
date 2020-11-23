@@ -1,0 +1,879 @@
+//
+// KTDatatable
+//
+
+// Base
+@mixin app-datatable-base() {
+	// Pagination
+	$page-size: 2.25rem;
+	$table-space: app-get($app-portlet, space, desktop);
+	$table-space-mobile: app-get($app-portlet, space, mobile);
+
+	.app-datatable {
+		display: none;
+	}
+
+	.app-datatable.app-datatable--default {
+		display: block;
+		margin-bottom: $table-space;
+
+		// Base
+		> .app-datatable__table {
+			border-collapse: collapse;
+			overflow: hidden;
+			display: none;
+			width: 100%;
+
+			> .app-datatable__head,
+			> .app-datatable__body,
+			> .app-datatable__foot {
+				visibility: hidden;
+				display: block;
+
+				.app-datatable__row {
+					width: 100%;
+
+					> .app-datatable__cell {
+						// Row cell base
+						vertical-align: middle;
+						padding: 10px;
+						font-size: 1rem;
+
+						&:first-child {
+							padding-left: $table-space;
+						}
+
+						&:last-child {
+							padding-right: $table-space;
+						}
+
+						i {
+							//font-size: 1.4rem;
+						}
+
+						&.app-datatable__cell--left {
+							text-align: left;
+							> span {
+								text-align: left;
+							}
+						}
+
+						&.app-datatable__cell--right {
+							text-align: right;
+							> span {
+								text-align: right;
+								> i {
+									right: 0;
+								}
+							}
+						}
+
+						&.app-datatable__cell--center {
+							text-align: center;
+							> span {
+								text-align: center;
+							}
+						}
+
+						&.app-datatable__cell--sort {
+							cursor: pointer;
+
+							i {
+								font-size: 0.6rem;
+							}
+						}
+
+						&.app-datatable__cell--resizing {
+							cursor: col-resize;
+						}
+
+						> span {
+							display: block;
+							overflow: hidden;
+							text-overflow: ellipsis;
+						}
+
+						// Row checkbox
+						&.app-datatable__cell--check {
+							text-align: center;
+
+							> span {
+								overflow: visible;
+
+								> .app-checkbox {
+									top: 2px;
+									padding: 0;
+									margin: 0 0 0 0;
+								}
+							}
+						}
+
+						// Row details
+						&.app-datatable__toggle-detail {
+							> span {
+								width: 12px;
+							}
+							> .app-datatable__toggle-detail {
+								display: inline-block;
+								text-align: right;
+
+								> i {
+									font-size: 1.4rem;
+									width: 12px;
+								}
+							}
+						}
+
+						// Cell dropdown menu
+						.dropdown {
+							display: inline-block;
+
+							.dropdown-menu {
+								margin-top: 0.5rem;
+							}
+
+							&.dropup {
+								.dropdown-menu {
+									margin-top: auto;
+									margin-bottom: 0.5rem;
+								}
+							}
+
+							.dropdown-menu.dropdown-menu-right {
+								margin-right: -0.8rem;
+								/*rtl:ignore*/
+								margin-left: 65px;
+							}
+
+							.dropdown-menu.dropdown-menu-left {
+								margin-left: -10rem;
+							}
+						}
+					}
+				}
+
+				> .app-datatable__lock {
+					border: 0;
+				}
+			}
+
+			> .app-datatable__head,
+			> .app-datatable__foot {
+				.app-datatable__row {
+					> .app-datatable__cell {
+						> span {
+							font-weight: 500;
+							vertical-align: middle;
+						}
+					}
+				}
+			}
+
+			> .app-datatable__head {
+				.app-datatable__row {
+					> .app-datatable__cell {
+						padding: 16px 10px;
+
+						> span {
+							> i {
+								display: inline-block;
+								position: relative;
+								right: -10px;
+								line-height: 0;
+								vertical-align: middle;
+								font-size: 1.1rem;
+							}
+						}
+					}
+				}
+			}
+
+			> .app-datatable__body {
+				&.ps {
+					padding-bottom: 0;
+				}
+
+				.app-datatable__row {
+					> .app-datatable__cell {
+						font-weight: regular;
+
+						&.app-datatable__cell--check {
+							> span {
+								> .app-checkbox {
+									top: 1px;
+								}
+							}
+						}
+					}
+				}
+
+				.app-datatable__row-detail {
+					display: block;
+					.app-datatable__detail {
+						display: block;
+						padding: 0 ($table-space + 35px);
+
+						.app-datatable__row {
+							display: table-row;
+
+							> .app-datatable__cell {
+								padding: 8px 12px;
+								text-align: left;
+								vertical-align: top;
+
+								> span {
+									width: auto !important;
+								}
+
+								&:first-child {
+									font-weight: 500;
+								}
+
+								&:last-child {
+									font-weight: regular;
+									padding-left: 20px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Error message
+		&.app-datatable--error {
+			.app-datatable__body {
+				padding: 30px;
+				text-align: center;
+			}
+		}
+
+		// Lock state
+		&.app-datatable--lock {
+			> .app-datatable__table {
+				> .app-datatable__head,
+				> .app-datatable__body,
+				> .app-datatable__foot {
+					> .app-datatable__lock {
+						display: inline-block;
+						position: relative;
+						vertical-align: top;
+						overflow: hidden;
+					}
+				}
+			}
+		}
+
+		// Loaded state
+		&.app-datatable--loaded {
+			display: block;
+
+			> .app-datatable__table {
+				display: block;
+
+				> .app-datatable__head,
+				> .app-datatable__body,
+				> .app-datatable__foot {
+					visibility: visible;
+					display: block;
+					position: relative;
+
+					.app-datatable__row {
+						display: table;
+						table-layout: initial;
+
+						> .app-datatable__cell {
+							//display: table-cell;
+						}
+					}
+				}
+			}
+		}
+
+		// Scrollable state
+		&.app-datatable--scroll {
+			> .app-datatable__table {
+				display: block;
+
+				> .app-datatable__head,
+				> .app-datatable__body,
+				> .app-datatable__foot {
+				}
+
+				> .app-datatable__head,
+				> .app-datatable__foot {
+					overflow: hidden;
+
+					.app-datatable__row {
+						position: relative;
+					}
+				}
+
+				> .app-datatable__body {
+					overflow: hidden;
+				}
+			}
+		}
+
+		> .app-datatable__pager {
+			margin: 0px;
+			padding: $table-space;
+			padding-bottom: 0;
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+
+			&.app-datatable__pager--top {
+				margin-bottom: 20px;
+			}
+
+			> .app-datatable__pager-nav {
+				margin: 0;
+				padding: 0;
+				display: flex;
+
+				> li {
+					padding: 0;
+					margin-right: 5px;
+					display: inline-block;
+
+					&:last-child {
+						margin-right: 0;
+					}
+
+					> .app-datatable__pager-link {
+						cursor: pointer;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						height: $page-size;
+						min-width: $page-size;
+						padding: 0.5rem;
+						border-radius: 3px;
+
+						@include app-not-rounded {
+							border-radius: 0;
+						}
+
+						position: relative;
+						font-size: 1rem;
+						line-height: 1rem;
+						font-weight: 500;
+
+						> i {
+							font-size: 0.6rem;
+							text-align: center;
+							display: inline-block;
+						}
+
+						&.app-datatable__pager-link--more-prev,
+						&.app-datatable__pager-link--more-next {
+							font-weight: 600;
+						}
+					}
+
+					> .app-pager-input {
+						height: $page-size;
+						width: 3.5rem;
+						text-align: center;
+
+						@include app-rounded {
+							border-radius: 3px !important;
+						}
+					}
+				}
+			}
+
+			> .app-datatable__pager-info {
+				display: flex;
+				align-items: center;
+
+				.app-datatable__pager-size {
+					margin-right: 10px;
+
+					.btn.dropdown-toggle {
+						//border-radius: 3px !important;
+						height: $page-size;
+						padding: 0.45rem 1rem;
+
+						@include app-not-rounded {
+							border-radius: 0 !important;
+						}
+					}
+
+					.dropdown-menu.inner > li.selected > a span.check-mark {
+						margin-top: -0.6rem;
+					}
+				}
+			}
+		}
+
+		// Subtable
+		&.app-datatable--subtable {
+			> .app-datatable__table {
+				margin-bottom: 0;
+
+				> .app-datatable__head,
+				> .app-datatable__body,
+				> .app-datatable__foot {
+					.app-datatable__row {
+						//width: 100%;
+					}
+
+					.app-datatable__toggle-subtable {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						> i {
+							line-height: 0;
+							font-size: 1.4rem;
+						}
+
+						&:hover {
+							text-decoration: none;
+						}
+					}
+
+					.app-datatable__row-subtable {
+						display: table;
+						width: 100%;
+
+						> .app-datatable__subtable {
+							padding: 20px;
+
+							> .app-datatable {
+								> .app-datatable__pager {
+									padding-top: 10px;
+									padding-bottom: 10px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@include app-mobile {
+		.app-datatable.app-datatable--default {
+			margin-bottom: $table-space-mobile;
+
+			> .app-datatable__table {
+				> .app-datatable__head,
+				> .app-datatable__body,
+				> .app-datatable__foot {
+					.app-datatable__row {
+						> .app-datatable__cell {
+							&:first-child {
+								padding-left: $table-space-mobile;
+							}
+
+							&:last-child {
+								padding-right: $table-space-mobile;
+							}
+						}
+					}
+				}
+			}
+
+			> .app-datatable__pager {
+				margin: 0;
+				padding: $table-space-mobile $table-space-mobile $table-space-mobile/2 $table-space-mobile;
+
+				.app-datatable__pager-nav,
+				.app-datatable__pager-info {
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+}
+
+// Skin
+@mixin app-datatable-skin() {
+	.app-datatable {
+		// Base color
+		$base_color: #f9fbfe;
+
+		// Scrollbar
+		$scrollbar_color: darken(app-base-color(shape, 2), 3%);
+
+		// Table
+		$base_bg: #fff;
+
+		// Head
+		$head_cell_bg: transparent;
+		$head_cell_color: app-base-color(label, 3);
+		$head_cell_sorted_color: app-state-color(brand);
+		$head_cell_icon_color: app-state-color(brand);
+
+		// Checkbox
+		$checkbox_bg: app-base-color(shape, 1);
+		$checkbox_checked_bg: app-base-color(shape, 2);
+
+		// Row colors
+		$row-border-color: app-base-color(shape, 1);
+		$row-even: transparent;
+		$row-hover: transparent;
+		$row-active: app-base-color(grey, 1);
+
+		// Body cell
+		$body_cell_font_color: app-base-color(label, 3);
+
+		// Lock table shadow
+		$lock-shadow: 0px 0px 17px 5px rgba(113, 106, 202, 0.14);
+
+		// Subtable
+		$subtable_toggle_icon: app-state-color(brand);
+		$subtable_expanded: $row-active;
+		$subtable_pager_pagel: $base-color;
+		$subtable_shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
+
+		$detail_icon_color: app-state-color(brand); //app-base-color(shape, 2);
+		$detail_icon_color_hover: app-state-color(brand);
+
+		// Pagination colors
+		$page-default: app-base-color(shape, 1);
+		$page-default-font: app-base-color(shape, 3);
+		$page-hover: app-state-color(brand);
+		$page-hover-font: app-state-color(brand, inverse);
+		$page-active: app-state-color(brand);
+		$page-active-font: app-state-color(brand, inverse);
+
+		$page-info: app-base-color(shape, 1);
+		$page-info-font: app-base-color(shape, 3);
+		$page-info-hover: app-state-color(brand);
+		$page-info-hover-font: app-state-color(brand, inverse);
+
+		// Base Table
+		> .app-datatable__table {
+			background-color: $base_bg;
+			//border-bottom: 1px solid $row-border-color;
+
+			// General
+			> .app-datatable__head,
+			> .app-datatable__body,
+			> .app-datatable__foot {
+				> .app-datatable__lock {
+					&.app-datatable__lock--left {
+						z-index: 1;
+						box-shadow: $lock-shadow;
+					}
+
+					&.app-datatable__lock--right {
+						box-shadow: $lock-shadow;
+					}
+
+					&.app-datatable__lock--scroll {
+						position: relative;
+					}
+				}
+
+				.app-datatable__row {
+					border-bottom: 1px solid $row-border-color;
+
+					> .app-datatable__cell {
+						.app-checkbox.app-checkbox--solid > span {
+							background: $checkbox_bg;
+						}
+
+						.app-checkbox.app-checkbox--solid > input:checked ~ span {
+							background: $checkbox_checked_bg;
+						}
+					}
+				}
+			}
+
+			// Body
+			> .app-datatable__body {
+				.app-datatable__toggle-detail {
+					vertical-align: middle;
+					i {
+						transition: color 0.3s ease;
+						color: $detail_icon_color;
+
+						&:before {
+							line-height: 0;
+							vertical-align: middle;
+						}
+					}
+
+					&:hover,
+					&.app-datatable__toggle-detail--active {
+						i {
+							transition: color 0.3s ease;
+							color: $detail_icon_color_hover;
+						}
+					}
+				}
+
+				.app-datatable__row-detail {
+					.app-datatable__detail {
+						table {
+							border-left: 1px solid $row-border-color;
+							border-right: 1px solid $row-border-color;
+						}
+					}
+				}
+			}
+
+			// Head & Foot
+			> .app-datatable__head,
+			> .app-datatable__foot {
+				.app-datatable__row {
+					> .app-datatable__cell {
+						background: $head_cell_bg;
+
+						> span {
+							color: $head_cell_color;
+						}
+					}
+				}
+			}
+
+			// Head
+			> .app-datatable__head {
+				.app-datatable__row {
+					> .app-datatable__cell {
+						> span {
+							> i {
+								color: $head_cell_icon_color;
+							}
+						}
+					}
+				}
+			}
+
+			// Error message
+			&.app-datatable--error {
+				.app-datatable__body {
+					.app-datatable__error {
+					}
+				}
+			}
+		}
+
+		// Pagination
+		> .app-datatable__pager {
+			> .app-datatable__pager-nav {
+				> li {
+					> .app-datatable__pager-link {
+						color: $page-default-font;
+
+						@include app-transition();
+
+						&.app-datatable__pager-link--first,
+						&.app-datatable__pager-link--prev,
+						&.app-datatable__pager-link--next,
+						&.app-datatable__pager-link--last {
+							background: $page-default;
+
+							&:hover {
+								background: $page-hover;
+								color: $page-hover-font;
+							}
+						}
+
+						&:hover {
+							@include app-transition();
+							background: $page-hover;
+							color: $page-hover-font;
+						}
+
+						&.app-datatable__pager-link--active {
+							background: $page-active;
+							color: $page-active-font;
+						}
+
+						&.app-datatable__pager-link--disabled,
+						&.app-datatable__pager-link--disabled:hover {
+							color: $page-default-font;
+							background: $page-default;
+							opacity: 0.3;
+						}
+					}
+
+					> .app-pager-input {
+						@include app-transition();
+						background: $page-default;
+						border-color: $page-default;
+
+						&:focus {
+							@include app-transition();
+							background: $page-hover;
+							border-color: $page-hover;
+						}
+					}
+				}
+			}
+
+			> .app-datatable__pager-info {
+				.app-datatable__pager-size {
+					.btn.dropdown-toggle {
+						font-size: 1rem;
+						font-weight: 500;
+						border: 0 !important;
+						color: $page-info-font;
+						background: $page-info;
+
+						i {
+							color: $page-info-hover-font;
+						}
+					}
+
+					.btn.dropdown-toggle:focus,
+					.btn.dropdown-toggle:hover,
+					&.show > .btn.dropdown-toggle {
+						border: 0 !important;
+						color: $page-info-hover-font !important;
+						background: $page-info-hover;
+
+						i {
+							color: $page-info-hover-font !important;
+						}
+					}
+
+					.dropdown-menu {
+						z-index: 100;
+
+						.modal & {
+							z-index: $app-modal-zindex + 1;
+						}
+					}
+				}
+			}
+		}
+
+		// Subtable
+		&.app-datatable--subtable {
+			> .app-datatable__table {
+				> .app-datatable__body {
+					.app-datatable__toggle-subtable {
+						> i {
+							color: $subtable_toggle_icon;
+						}
+					}
+
+					.app-datatable__row-subtable {
+						border-top: 0;
+
+						.app-datatable__pager {
+							//background: $subtable_pager_pagel;
+						}
+					}
+				}
+			}
+		}
+
+		// Default Skin
+		&.app-datatable--default {
+			// Base Table
+			> .app-datatable__table {
+				> .app-datatable__body {
+					.app-datatable__row {
+						> .app-datatable__cell {
+							transition: background 0.3s ease;
+
+							> span {
+								color: $body_cell_font_color;
+							}
+
+							&.app-datatable__cell--hover {
+								transition: background 0.3s ease;
+								background: $row-hover;
+							}
+						}
+
+						&.app-datatable__row--even {
+							> .app-datatable__cell {
+								background: $row-even;
+							}
+						}
+
+						&.app-datatable__row--active {
+							> .app-datatable__cell {
+								background: $row-active;
+							}
+						}
+
+						&.app-datatable__row--hover:not(.app-datatable__row--active) {
+							transition: background 0.3s ease;
+
+							> .app-datatable__cell {
+								transition: background 0.3s ease;
+								background: $row-hover;
+							}
+						}
+					}
+				}
+
+				> .app-datatable__head,
+				> .app-datatable__foot {
+					.app-datatable__row {
+						> .app-datatable__cell {
+							&.app-datatable__cell--sorted {
+								> span {
+									color: $head_cell_sorted_color;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// Subtable
+			&.app-datatable--subtable {
+				> .app-datatable__table {
+					> .app-datatable__body {
+						.app-datatable__row {
+							&.app-datatable__row--subtable-expanded {
+								> .app-datatable__cell {
+									background: $subtable_expanded !important;
+								}
+							}
+						}
+
+						.app-datatable__row-subtable {
+							background: $row-even;
+
+							> .app-datatable__subtable {
+								> .app-datatable {
+									box-shadow: $subtable_shadow;
+								}
+							}
+
+							&.app-datatable__row-loading {
+								> .app-datatable__subtable {
+									> .app-datatable {
+										> .app-datatable__table {
+											background: $row-even;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Scrollbar
+		.ps > .ps__rail-y > .ps__thumb-y,
+		.ps > .ps__rail-x > .ps__thumb-x {
+			background: $scrollbar_color;
+
+			&:hover,
+			&:focus {
+				background: $scrollbar_color;
+			}
+		}
+	}
+}
+
+// Build
+// Base
+@include app-datatable-base();
+
+// Skin
+@include app-datatable-skin();

@@ -1,0 +1,453 @@
+//
+// Subheader
+//
+
+// Config
+$app-subheader-config: (
+	fixed: (
+		height: 54px,
+	),
+	toggle: (
+		width: 20px,
+		height: 22px,
+		transition-duration: 0.4s,
+		thickness: 2px,
+		space: 4px,
+		radius: 2px,
+		color: (
+			default: app-base-color(label, 2),
+			hover: app-brand-color(),
+			active: app-brand-color(),
+		),
+	),
+);
+
+// Base
+.app-subheader {
+	background-color: #fff;
+	display: flex;
+	align-items: stretch;
+	margin: 10px 0;
+
+	.app-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: stretch;
+		flex-wrap: wrap;
+	}
+
+	// Head actions buttons
+	.btn {
+		display: inline-flex;
+		height: 32px !important;
+		padding-top: 0;
+		padding-bottom: 0;
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
+
+		i {
+			font-size: 1rem !important;
+		}
+
+		&.btn-icon {
+			width: 32px !important;
+		}
+
+		&:not(.dropdown-toggle-split) {
+			margin-left: 0.5rem;
+		}
+	}
+
+	// Main
+	.app-subheader__main {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		padding: 0.25rem 0;
+
+		// Buttons
+		.btn {
+			&:not(.dropdown-toggle-split) {
+				margin-left: 0;
+				margin-right: 0.5rem;
+			}
+		}
+
+		// Mobile Toggler
+		.app-subheader__mobile-toggle {
+			display: none;
+		}
+
+		// Title
+		.app-subheader__title {
+			margin: 0;
+			padding: 0 1rem 0 0;
+			font-size: 1.2rem;
+			font-weight: 500;
+			color: #434349;
+			display: flex;
+			align-items: center;
+
+			small {
+				padding-left: 0.25rem;
+				font-size: 0.9rem;
+				color: app-base-color(label, 2);
+			}
+		}
+
+		// Desc
+		.app-subheader__desc {
+			padding: 0 0.5rem 0 0;
+			font-size: 1rem;
+			font-weight: 500;
+			color: #959cb6;
+		}
+
+		// Separator
+		.app-subheader__separator {
+			display: block;
+			width: 12px;
+			height: 4px;
+			border-radius: 2px;
+			background: #e7e8ef;
+			margin: 0 1rem 0 0;
+
+			&.app-subheader__separator--v {
+				width: 1px;
+				height: 22px;
+			}
+		}
+
+		// Breadcrumbs
+		.app-subheader__breadcrumbs {
+			display: flex;
+			align-items: center;
+			list-style-type: none;
+			flex-wrap: wrap;
+			margin: 0;
+			padding: 0;
+
+			.app-subheader__breadcrumbs-home {
+				padding: 0px 0.65rem 0px 0px;
+				@include app-transition();
+
+				> i {
+					font-size: 1rem;
+					color: #c5cbe7;
+				}
+
+				&:hover {
+					> i {
+						@include app-transition();
+						color: app-brand-color();
+					}
+				}
+
+				&.app-subheader__breadcrumbs-home--active {
+					> i {
+						color: app-brand-color();
+					}
+				}
+			}
+
+			.app-subheader__breadcrumbs-link {
+				padding: 0 0.35rem 0 0;
+				font-size: 1rem;
+				font-weight: 500;
+				color: #959cb6;
+
+				&:hover {
+					color: app-brand-color();
+				}
+
+				&.app-subheader__breadcrumbs-link--active {
+					color: app-brand-color();
+				}
+
+				@include app-hover-transition();
+			}
+
+			.app-subheader__breadcrumbs-separator {
+				display: flex;
+				justify-content: content;
+				align-items: center;
+				padding: 0 0.35rem 0 0;
+
+				&:after {
+					display: block;
+					width: 4px;
+					height: 4px;
+					border-radius: 50%;
+					content: " ";
+					background: #e7e8ef;
+				}
+			}
+		}
+
+		// Group
+		.app-subheader__group {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	// Toolbar
+	.app-subheader__toolbar {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 0;
+
+		// Toolbar buttons
+		.btn:not(.dropdown-toggle-split) {
+			margin-left: 0.25rem;
+		}
+	}
+
+	// Primary button
+	.app-subheader__btn-primary {
+		background: #f2f3f7;
+		color: #959cb6;
+		font-weight: 500;
+
+		i {
+			color: #959cb6;
+		}
+
+		&:hover,
+		&.active,
+		&:active,
+		&:focus {
+			color: app-brand-color(inverse);
+			background: app-brand-color();
+
+			i {
+				color: app-brand-color(inverse);
+			}
+
+			@include app-svg-icon-color(app-brand-color(inverse));
+		}
+	}
+
+	// Secondary button
+	.app-subheader__btn-secondary {
+		color: #959cb6;
+		font-weight: 500;
+
+		i {
+			color: #aab1df;
+		}
+
+		@include app-svg-icon-color(#aab1df);
+
+		&:hover,
+		&.active,
+		&:active,
+		&:focus {
+			background: #f2f3f7;
+			color: app-brand-color();
+			@include app-svg-icon-color(app-brand-color());
+		}
+	}
+
+	// Daterange
+	.app-subheader__btn-daterange {
+		background: #f2f3f7;
+
+		.app-subheader__btn-daterange-title {
+			display: inline-block;
+			color: #959cb6;
+			font-weight: 500;
+		}
+
+		.app-subheader__btn-daterange-date {
+			display: inline-block;
+			color: app-brand-color();
+			margin-right: 0.75rem;
+			font-weight: 500;
+		}
+
+		i {
+			color: app-brand-color();
+		}
+
+		&:hover,
+		&.active,
+		&:active,
+		&:focus {
+			background: #f2f3f7;
+
+			i {
+				color: app-brand-color();
+			}
+		}
+	}
+
+	// Search
+	.app-subheader__search {
+		width: 175px;
+		display: inline-block;
+
+		.form-control {
+			font-size: 0.9rem;
+			height: 33px;
+			background: #f2f3f7;
+			border-color: #f2f3f7 !important;
+		}
+
+		.app-input-icon__icon {
+			i {
+				font-size: 1.2rem;
+				color: app-base-color(label, 2);
+			}
+		}
+	}
+
+	// Solid style
+	.app-subheader--solid & {
+		margin: 0 0 app-get($app-page-padding, desktop) 0;
+		min-height: app-get($app-subheader-config, fixed, height);
+	}
+
+	// Transparent style
+	.app-subheader--transparent & {
+		background-color: transparent;
+
+		// Main
+		.app-subheader__main {
+			.app-subheader__separator {
+				background: darken(#e7e8ef, 4%);
+			}
+
+			.app-subheader__breadcrumbs {
+				.app-subheader__breadcrumbs-home {
+					> i {
+						color: darken(#c5cbe7, 4%);
+					}
+				}
+
+				.app-subheader__breadcrumbs-link {
+					color: #959cb6;
+				}
+
+				.app-subheader__breadcrumbs-separator {
+					&:after {
+						background: darken(#e7e8ef, 4%);
+					}
+				}
+			}
+		}
+
+		// Primary button
+		.app-subheader__btn-primary {
+			background: darken(#eaecf2, 3%);
+			color: #959cb6;
+
+			i {
+				color: #959cb6;
+			}
+
+			@include app-svg-icon-color(#959cb6);
+
+			&:hover,
+			&.active,
+			&:active,
+			&:focus {
+				background: app-brand-color();
+				color: app-brand-color(inverse);
+
+				i {
+					color: app-brand-color(inverse);
+				}
+
+				@include app-svg-icon-color(app-brand-color(inverse));
+			}
+		}
+
+		// Secondary button
+		.app-subheader__btn-secondary {
+			color: darken(#959cb6, 3%);
+
+			i {
+				color: darken(#aab1df, 3%);
+			}
+
+			&:hover,
+			&.active,
+			&:active,
+			&:focus {
+				background: #eaecf2;
+			}
+		}
+
+		// Daterange
+		.app-subheader__btn-daterange {
+			background: darken(#eaecf2, 3%);
+
+			&:hover,
+			&.active,
+			&:active,
+			&:focus {
+				background: darken(#eaecf2, 6%);
+			}
+		}
+
+		// Search
+		.app-subheader__search {
+			.form-control {
+				background: #eaecf2;
+				border-color: #eaecf2 !important;
+			}
+		}
+	}
+}
+
+@include app-tablet-and-mobile {
+	// Subheader
+	.app-subheader {
+		margin: 2px 0;
+
+		// Main
+		.app-subheader__main {
+			// Mobile Toggler
+			@include app-burger-icon-build(app-subheader__mobile-toggle, app-get($app-subheader-config, toggle));
+			@include app-burger-icon-skin(app-subheader__mobile-toggle, app-get($app-subheader-config, toggle, color));
+
+			.app-subheader__mobile-toggle {
+				display: inline-block;
+				margin-right: 1rem;
+			}
+
+			// Title
+			.app-subheader__title {
+				padding: 0.5rem 1.25rem 0.5rem 0;
+			}
+
+			// Breadcrumbs
+			.app-subheader__breadcrumbs {
+				padding: 0.5rem 0;
+			}
+		}
+
+		// Toolbar
+		.app-subheader__toolbar {
+			padding: 0.5rem 0;
+		}
+
+		// Light style
+		.app-subheader--transparent & {
+			background-color: transparent;
+		}
+	}
+}
+
+@include app-mobile {
+	// Subheader
+	.app-subheader {
+		// Toolbar
+		.app-subheader__toolbar {
+			padding-top: 0.5rem;
+		}
+	}
+}

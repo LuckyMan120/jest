@@ -1,0 +1,15 @@
+app-base {
+	opacity: 0;
+	height: 100%;
+
+	.app-grid--root {
+		height: 100%;
+	}
+}
+
+.app-page--loaded {
+	app-base {
+		opacity: 1;
+		transition: opacity 1s ease-in-out;
+	}
+}

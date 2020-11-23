@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "sfw-frontend",
+      "script": "./dist/server.js",
+      "instances": 2,
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": "4001"
+      }
+    }
+  ]
+}

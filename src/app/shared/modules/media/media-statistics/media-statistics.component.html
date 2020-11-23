@@ -1,0 +1,29 @@
+<div class="app-portlet">
+  <div class="app-portlet__head app-portlet__head__custom">
+    <div class="app-portlet__head-label">
+      <h3 class="app-portlet__head-title">Statistiken</h3>
+    </div>
+  </div>
+  <div class="app-portlet__body">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <ul class="list-group" *ngIf="data | async as data">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let entry of data | keyvalue; let i = index">
+            TODO
+            {{ entry.key }}
+            <span>{{entry.value}}</span>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+  <div class="app-portlet__foot app-portlet__no-border app-portlet__foot--fit text-right">
+    <div class="app-form__actions app-form__actions--sm pt-3">
+      <button class="btn btn-primary" (click)="close()">Schließen
+      </button>
+    </div>
+  </div>
+</div>

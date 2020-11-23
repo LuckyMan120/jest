@@ -1,0 +1,122 @@
+<div class="row">
+
+  <div class="col-lg-3 d-flex h-100 flex-column">
+
+    <app-portlet class="d-flex">
+      <app-portlet-header icon="fa fa-upload" title="Datei-Statistik">
+      </app-portlet-header>
+      <app-portlet-body>
+        <ul class="list-group" *ngIf="mediaStats$ | async as data">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let entry of data | keyvalue; let i = index">
+            {{entry.key}}
+            <span class="badge badge-info">{{entry.value}}</span>
+          </li>
+        </ul>
+      </app-portlet-body>
+    </app-portlet>
+
+    <app-portlet class="d-flex flex-fill mb-0">
+      <app-portlet-header icon="fa fa-stream" title="Inhaltsstatistiken">
+      </app-portlet-header>
+      <app-portlet-body>
+        <ul class="list-group" *ngIf="applicationStats$ | async as data">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let entry of data | keyvalue | orderBy: ['key']; let i = index">
+            {{entry.key}}
+            <span class="badge badge-pill badge-info">{{entry.value}}</span>
+          </li>
+        </ul>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-social-post *ngFor="let metaType of socialMetaTypes | keyvalue" [metaType]="metaType"></app-social-post>
+  </div>
+
+  <div class="col-lg-3 d-flex h-100 flex-column">
+
+    <app-portlet class="d-flex">
+      <app-portlet-header icon="fa fa-file" title="Datenimport">
+      </app-portlet-header>
+      <app-portlet-body>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            (click)="callFn('callAlgoliaExport')">
+            <span>Algolia Export</span>
+            <i *ngIf="loading$.callAlgoliaExport | async" class="fas fa-spinner fa-spin"></i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            (click)="callFn('callScrapFussballdeMatchplan')">
+            <span>Fussball.de-Spielplan-Import</span>
+            <i *ngIf="loading$.callScrapFussballdeMatchplan  | async" class="fas fa-spinner fa-spin"></i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            (click)="callFn('callScrapDFBnetPlayers')">
+            <span>DFB.net Mitglieder-Import</span>
+            <i *ngIf="loading$.callScrapDFBnetPlayers  | async" class="fas fa-spinner fa-spin"></i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            (click)="callFn('callScrapGoogleDriveMembers')">
+            <span>GoogleDrive Mitglieder-Import</span>
+            <i *ngIf="loading$.callScrapGoogleDriveMembers  | async" class="fas fa-spinner fa-spin"></i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            (click)="callFn('callScrapStandings')">
+            <span>Tabellenstände-Import</span>
+            <i *ngIf="loading$.callScrapStandings  | async" class="fas fa-spinner fa-spin"></i>
+          </li>
+        </ul>
+      </app-portlet-body>
+    </app-portlet>
+
+    <app-calendar-event></app-calendar-event>
+  </div>
+
+  <div class="col-lg-3">
+    <birthday-list></birthday-list>
+  </div>
+
+  <div class="col-lg-3">
+    <app-latest-article *ngIf="latestArticles$ | async as latestArticles" [article]="latestArticles[0]" [chars]="300">
+    </app-latest-article>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet class="app-portlet--height-fluid">
+      <app-portlet-header icon="fa fa-file" title="Neue Dateien">
+      </app-portlet-header>
+      <app-portlet-body>
+        <app-widget4 *ngIf="latestFiles$ | async as latestFiles" [data]="latestFiles">
+          <ng-template #actionTemplate let-item="item">
+            <div class="app-widget4__tools">
+              <a [routerLink]="['/media-center/dashboard']"
+                [queryParams]="{dialog: true, mediaId: item.id, mode: 'edit'}" class="btn btn-clean btn-icon btn-sm">
+                <i class="fas fa-info-circle"></i>
+              </a>
+            </div>
+          </ng-template>
+        </app-widget4>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+  <div class="col-lg-3">
+    <app-portlet class="app-portlet--height-fluid">
+      <app-portlet-header icon="fa fa-users" title="Neue Benutzer">
+      </app-portlet-header>
+      <app-portlet-body>
+        <app-widget4 *ngIf="latestUsers$ | async as latestUsers" [data]="latestUsers">
+          <ng-template #actionTemplate let-item="item">
+            <button [routerLink]="['/users/edit', item.id]" aria-label="Edit User"
+              class="btn btn-outline-hover-warning btn-sm">
+              <span class="fa fa-pen" aria-hidden="true"></span>
+            </button>
+          </ng-template>
+        </app-widget4>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+
+</div>

@@ -1,0 +1,78 @@
+//
+// Users
+//
+
+.app-widget.app-widget--users {
+    .app-widget__item {
+        display: flex;
+        margin: 1.3rem 0 2.3rem 0;
+
+        .app-media img {
+            width: 100%;
+            max-width: 43px;
+            height: 43px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .app-widget__info {
+            padding-top: 0.1rem;
+            flex: 3;
+            margin-left: 1rem;
+
+            .app-widget__section {
+                display: flex;
+                align-items: center;
+
+                .app-widget__username {
+                    font-size: 1.1rem;
+                    color: app-base-color(label, 4);
+                    font-weight: 500;
+
+                    &:hover {
+                        color: app-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+
+                .app-badge {
+                    margin-left: 0.5rem;
+                }
+            }
+
+            .app-widget__desc {
+                display: block;
+                color: app-base-color(label, 2);
+                font-weight: 500;
+            }
+        }
+
+        .app-widget__action {
+            text-align: right;
+            padding-top: 0.2rem;
+            flex: 1.1;
+
+            .app-widget__date {
+                display: block;
+                color: app-base-color(label, 2);
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+@include app-tablet-and-mobile {
+    .app-widget.app-widget--users {
+        .app-widget__item {
+            .app-widget__info {
+                flex: 1.5;
+            }
+
+            .app-widget__action {
+                flex: 1;
+            }
+        }
+    }
+}

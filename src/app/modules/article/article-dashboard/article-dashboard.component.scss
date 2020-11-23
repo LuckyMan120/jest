@@ -1,0 +1,16 @@
+:host {
+	::ng-deep {
+		tabset > .nav-tabs {
+            display: none;
+            border-bottom: none;
+        }
+
+        .nav-tabs-line-3x {
+            border-bottom-width: 0;
+        }
+
+        .nav-tabs-line-3x {
+            border-bottom: 0;
+        }
+	}
+}

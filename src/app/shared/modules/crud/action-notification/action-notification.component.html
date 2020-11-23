@@ -1,0 +1,23 @@
+<div *ngIf="data.color !== ''" class="alert alert-{{data.color}} alert-dismissible fade show" role="alert">
+  <button *ngIf="data.showCloseButton" type="button" class="close" data-dismiss="alert" aria-label="Close"
+    (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{data.message }}
+</div>
+
+<div class="app-mat-snackbar" *ngIf="data.color === ''">
+  <div class="app-mat-snackbar__message">
+    {{data.message }}
+  </div>
+  <div class="app-mat-snackbar__btn">
+    <button *ngIf="data.showUndoButton" type="button" class="btn btn-icon btn-primary" (click)="onDismissWithAction()">
+      Rückgängig machen
+    </button>
+  </div>
+  <div class="app-mat-snackbar__close">
+    <button *ngIf="data.showCloseButton" class="btn btn-icon btn-secondary" (click)="onDismiss()">
+      <i class="fas fa-window-close"></i>
+    </button>
+  </div>
+</div>

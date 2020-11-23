@@ -1,0 +1,227 @@
+<app-portlet *ngIf="location$ | async as location">
+  <app-portlet-header icon="fa fa-info" title="Treffpunktdetails anzeigen">
+    <ng-container portletTools>
+
+      <div class="d-flex flex-row m-3">
+
+        <a class="d-none d-sm-block btn btn-success" [routerLink]="['/locations/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li class="d-block d-sm-none" role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/locations/list']">
+                <i class="fas fa-list-ul" aria-hidden="true"></i>
+                Zur Übersicht
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/locations/edit', location.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteLocation(location)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+
+  <app-portlet-body>
+
+    <ng-container *ngIf="categories$ | async as categories">
+
+      <div class="row">
+
+        <div class="col-lg-12">
+          <tabset>
+
+            <tab heading="Wichtigste Infos">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <tr>
+                        <th>Name</th>
+                        <td>{{location?.title}}</td>
+                      </tr>
+
+                      <tr>
+                        <th>Verknüpfte Kategorien</th>
+                        <td>
+                          <ul class="list-group">
+                            <ng-container *ngFor="let categoryId of location?.assignedCategoryIds; let i = index">
+                              <li class="list-group-item">
+                                <a
+                                  [routerLink]="['/categories/detail', categoryId]">{{getLocationCategoryTitle(location, i)}}</a>
+                              </li>
+                            </ng-container>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Beschreibung</th>
+                        <td>{{location?.text || '-' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Öffnungszeiten</th>
+                        <td>{{location?.opening || '-' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Fupa-Link</th>
+                        <td>{{location?.fupaLink || '-' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Importiert</th>
+                        <td>
+                          {{location?.isImported ? 'ja' : 'nein'}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Addresse</th>
+                        <td>
+                          {{location?.address?.streetName}} {{location?.address?.houseNumber}}<br />
+                          {{location?.address?.zip}} {{location?.address?.city}}
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <app-portlet>
+                    <app-portlet-header title="Foto">
+                    </app-portlet-header>
+                    <app-portlet-body>
+                      <img class="img-fluid img-thumbnail" [src]="location?.galleries?.Profilfotos | displayFirstMedia"
+                        alt="{{location?.title}}" />
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+              </div>
+            </tab>
+
+            <tab heading="Verknüpfte Inhalte" (tabChange)="onSelectAssignedItemsTab($event)">
+              <div class="row">
+                <div class="col-lg-6">
+                  <app-portlet>
+                    <app-portlet-header title="Spiele">
+                    </app-portlet-header>
+                    <app-portlet-body *ngIf="assignedMatches$ | async as assignedMatches">
+                      <div class="table table-responsive" *ngIf="assignedMatches.length > 0">
+                        <table class="table table-bordered table-hover table-striped table-sm">
+                          <tr>
+                            <th>Datum</th>
+                            <th>Begegnung</th>
+                            <th>Mannschaft</th>
+                          </tr>
+                          <tr *ngFor="let match of assignedMatches | orderBy: ['matchStartDate']">
+                            <td>{{match.matchStartDate | date: 'medium'}}</td>
+                            <td>
+                              <a [routerLink]="['/matches/detail', match.id]">{{match.homeTeam.title}} &ndash;
+                                {{match.guestTeam.title}}</a>
+                            </td>
+                            <td>
+                              <a [routerLink]="['/teams/detail', match.assignedTeamId]">{{match.assignedTeamTitle}}</a>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+                <div class="col-lg-6">
+                  <app-portlet>
+                    <app-portlet-header title="Artikel">
+                    </app-portlet-header>
+                    <app-portlet-body *ngIf="assignedArticles$ | async as assignedArticles">
+                      <app-alert *ngIf="!assignedArticles || assignedArticles.length === 0" [showCloseButton]="false"
+                        type="info">
+                        Mit keinen Artikel verknüpft.
+                      </app-alert>
+                      <div class="table table-responsive" *ngIf="assignedArticles.length > 0">
+                        <ul class="list-group">
+                          <li class="list-group-item" *ngFor="let article of assignedArticles">
+                            <a [routerLink]="['/articles/detail', article.id]">{{article.title}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </app-portlet-body>
+                  </app-portlet>
+                </div>
+                <!--<div class="col-lg-6">
+										<app-portlet>
+											<app-portlet-header [title]="Verknüpfte Kontakte">
+											</app-portlet-header>
+											<app-portlet-body>ToDo</app-portlet-body>
+										</app-portlet>
+									</div>-->
+              </div>
+            </tab>
+
+            <tab heading="Galerien">
+              <div class="row">
+                <div class="col-lg-12">
+                  <app-media-gallery-list [galleries]="location?.galleries" mode="view">
+                  </app-media-gallery-list>
+                </div>
+              </div>
+            </tab>
+
+            <tab heading="Erstellung und Veröffentlichung">
+              <creation-publication-info [creation]="location?.creation" [publication]="location?.publication">
+              </creation-publication-info>
+            </tab>
+
+          </tabset>
+        </div>
+      </div>
+    </ng-container>
+
+  </app-portlet-body>
+  <app-portlet-footer>
+    <div class="row">
+      <div class="col-lg-12 text-right py-3 pr-5">
+
+        <a class="btn btn-success" [routerLink]="['/locations/list']">
+          <i class="fas fa-list-ul" aria-hidden="true"></i>
+          Zur Übersicht
+        </a>
+
+        <div class="btn-group" dropdown>
+          <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+            <span class="fas fa-bars"></span>
+          </button>
+
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/locations/edit', location?.id]">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+                Editieren
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="javascript:;" (click)="deleteLocation(location)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                Löschen
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </app-portlet-footer>
+</app-portlet>

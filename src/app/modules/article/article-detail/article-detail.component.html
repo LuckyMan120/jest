@@ -1,0 +1,222 @@
+<div class="row" *ngIf="article$ | async as article">
+  <div class="col-lg-8">
+    <app-portlet>
+      <app-portlet-header [title]="article?.title || 'Kein Titel vorhanden'">
+        <ng-container portletTools>
+
+          <div class="d-flex flex-row m-3">
+
+            <a class="d-none d-sm-block btn btn-success mr-1" [routerLink]="['/articles/list']">
+              <i class="fas fa-list-ul" aria-hidden="true"></i>
+              Zur Übersicht
+            </a>
+
+            <div class="btn-group" dropdown>
+              <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle
+                type="button">
+                <span class="fas fa-bars"></span>
+              </button>
+
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                aria-labelledby="button-animated">
+                <li class="d-block d-sm-none" role="menuitem">
+                  <a class="dropdown-item" [routerLink]="['/articles/list']">
+                    <i class="fas fa-list-ul" aria-hidden="true"></i>
+                    Zur Artikelliste
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" [routerLink]="['/articles/edit', article?.id]">
+                    <i class="fas fa-undo" aria-hidden="true"></i>
+                    Editieren
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:;" (click)="deleteArticle(article)">
+                    <i class="fas fa-trash" aria-hidden="true"></i>
+                    Löschen
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-container>
+      </app-portlet-header>
+      <app-portlet-body>
+
+        <img class="img-fluid img-thumbnail" [src]="article?.image | displayFirstMedia : [false]"
+          alt="{{article?.title}}" />
+
+        <div class="row" *ngIf="article?.assignedCategoryTitles">
+          <div class="col-lg-12 my-3">
+            <ng-container *ngFor="let categoryId of article?.assignedCategoryIds; let i = index">
+              <a class="badge badge-primary mr-1"
+                [routerLink]="['/categories/detail', categoryId]">{{getArticleCategoryTitle(article,i) }}
+              </a>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 [innerHTML]="article?.subTitle"></h3>
+            <div [innerHTML]="article?.excerpt"></div>
+            <div [innerHTML]="article?.text"></div>
+          </div>
+        </div>
+
+      </app-portlet-body>
+    </app-portlet>
+
+    <app-portlet>
+      <app-portlet-header title="Galerien"></app-portlet-header>
+      <app-portlet-body>
+        <app-media-gallery-list [galleries]="article?.galleries" mode="view">
+        </app-media-gallery-list>
+      </app-portlet-body>
+    </app-portlet>
+
+  </div>
+  <div class="col-lg-4">
+    <app-portlet>
+      <app-portlet-header title="Detailinfos"></app-portlet-header>
+      <app-portlet-body>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Artikeldatum</span>
+            <span class="font-weight-bold">
+              {{article?.articleDate | date: 'medium'}}
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Auhtor</span>
+            <a [routerLink]="['/users/detail', article?.creation?.by]" class="font-weight-bold">
+              {{article?.creation?.user?.displayName}}
+            </a>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Erstellungsdatum</span>
+            <span class="font-weight-bold">
+              {{article?.creation?.at | date: 'medium'}}
+            </span>
+          </li>
+          <ng-container *ngIf="article?.publication as pub">
+            <li *ngIf="pub?.user" class="list-group-item d-flex justify-content-between">
+              <span>Veröffentlicht von</span>
+              <a [routerLink]="['/users/detail', pub?.by]" class="font-weight-bold">
+                {{pub?.user?.displayName}}
+              </a>
+            </li>
+            <li *ngIf="pub?.user" class="list-group-item d-flex justify-content-between">
+              <span>Veröffentlicht am</span>
+              <span class="font-weight-bold">
+                {{ pub?.at | date: 'medium'}}
+              </span>
+            </li>
+          </ng-container>
+        </ul>
+      </app-portlet-body>
+    </app-portlet>
+
+    <app-portlet>
+      <app-portlet-header title="Verknüpfte Inhalte"></app-portlet-header>
+      <app-portlet-body>
+        <div class="row">
+          <div class="col-lg-12">
+
+            <ng-container *ngIf="article?.assignedLocationIds">
+              <h5 class="mb-3">Verknüpfte Spielorte</h5>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let locationId of article?.assignedLocationIds; let i = index">
+                  <a [routerLink]="['/locations/detail', locationId]">{{getArticleLocationTitle(article, i)}}</a>
+                </li>
+              </ul>
+            </ng-container>
+
+            <ng-container *ngIf="article?.assignedMatchIds">
+              <h5 class="mt-5 mb-3">Verknüpfte Spiele</h5>
+              <ul class="list-group">
+                <ng-container *ngFor="let matchId of article?.assignedMatchIds, let i = index">
+                  <li class="list-group-item">
+                    <a [routerLink]="['/matches/detail', matchId]">{{getArticleMatchTitle(article, i)}}</a>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-container>
+
+            <ng-container *ngIf="article?.assignedTeamIds">
+              <h5 class="mt-5 mb-3">Verknüpfte Mannschaften</h5>
+
+              <ul class="list-group">
+                <ng-container *ngFor="let teamId of article?.assignedTeamIds; let i = index">
+                  <li class="list-group-item">
+                    <a [routerLink]="['/teams/detail', teamId]">{{getArticleTeamTitle(article, i)}}</a>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-container>
+
+          </div>
+        </div>
+      </app-portlet-body>
+    </app-portlet>
+
+    <app-portlet>
+      <app-portlet-header title="Einstellungen"></app-portlet-header>
+      <app-portlet-body>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Im Footer der Adminseite anzeigen?</span>
+            <span class="font-weight-bold">
+              {{ (article?.displayInBackendFooter
+                ? 'article.displayInBackendFooter.true'
+                : 'article.displayInBackendFooter.false') }}
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>In den Artikellisten der Webseite anzeigen</span>
+            <span class="font-weight-bold">
+              {{ (article?.displayInArticleList ? 'article.displayInArticleList.true' : 'article.displayInArticleList.false') }}
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Im Footer der Webseite anzeigen</span>
+            <span class="font-weight-bold">
+              {{ (article?.displayInFooter ? 'article.displayInFooter.true' : 'article.displayInFooter.false') }}
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Hervorgehobener Artikel</span>
+            <span class="font-weight-bold">
+              {{ (article?.isFeaturedPost ? 'article.isFeaturedPost.true' : 'article.isFeaturedPost.false') }}
+            </span>
+          </li>
+        </ul>
+      </app-portlet-body>
+    </app-portlet>
+
+    <app-portlet>
+      <app-portlet-header title="Soziale Medien"></app-portlet-header>
+      <app-portlet-body>
+        <div class="row">
+          <div class="col-lg-12" *ngFor="let meta of article?.meta | keyvalue | orderBy: ['key']; let first = first">
+            <ng-container *ngIf="meta.key !== 'main'">
+              <h5 [ngClass]="first ? 'mb-3' : 'mt-5 mb-3'" class="text-uppercase">{{meta.key}}</h5>
+              <ul class="list-group" *ngFor="let entry of meta.value | keyvalue">
+                <li class="text-danger">TODO!!!!!!!!!!</li>
+                <!-- <li class="list-group-item flex-column">
+                  <span [innerHTML]="entry.key"></span>
+                  <span *ngIf="entry.key !== 'imageURL'" class="font-weight-bold">
+                    {{entry.value === true ? 'Ja' : entry.value === false ? 'Nein' : entry.value || '-'}}
+                  </span>
+                  <img class="img-fluid img-thumbnail" *ngIf="entry.key === 'imageURL' && entry.value?.originalUrl"
+                    [src]="entry.value?.originalUrl" />
+                </li>--->
+              </ul>
+            </ng-container>
+          </div>
+        </div>
+      </app-portlet-body>
+    </app-portlet>
+  </div>
+</div>

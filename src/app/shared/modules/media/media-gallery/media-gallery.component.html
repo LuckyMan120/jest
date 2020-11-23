@@ -1,0 +1,36 @@
+<app-portlet *ngIf="_gallery | async as g">
+
+  <h1 class="text-danger">ToDo</h1>
+  <pre>{{g | json}}</pre>
+  <!-- <app-portlet-header [title]="g.title">
+    <ng-container portletTools *ngIf="mode === 'remove' || mode === 'remove-with-default'">
+      <div class="d-flex flex-row m-3">
+        <button class="btn btn-outline-danger" type="button" (click)="deleteGallery.next()">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">Galerie löschen</span>
+        </button>
+      </div>
+    </ng-container>
+  </app-portlet-header>
+  <app-portlet-body>
+
+    <div class="alert alert-info" *ngIf="!g?.files || (g?.files | isEmptyObject)">
+      <p>Es sind noch keine Dateien in dieser Galerie vorhanden.</p>
+    </div>
+
+    <div class="list-files">
+      <ng-container *ngIf="g?.files">
+        <pre>{{g?.files | json}}</pre>
+        <div *ngFor="let file of g?.files | keyvalue;trackBy:trackByMedia">
+          <app-media-item [media]="file.value" [mode]="mode" [isDefault]="g?.default === file.key"
+            (default)="defaultFile($event)" (remove)="removeFile($event)">
+          </app-media-item>
+        </div>
+      </ng-container>
+      <div class="add-button" (click)="showMediasDialog()" *ngIf="mode !== 'view'">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </div>
+    </div>
+  </app-portlet-body>-->
+
+</app-portlet>

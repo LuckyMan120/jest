@@ -1,0 +1,117 @@
+<app-portlet *ngIf="permission$ | async as permission">
+  <form [formGroup]="form" (submit)="onSubmit(true)">
+    <app-portlet-header [title]="permission?.id ? 'Berechtigung editieren' : 'Berechtigung speichern'">
+      <ng-container portletTools>
+
+        <div class="d-flex flex-row m-3">
+
+          <button type="submit" formtarget="form" [disabled]="!form.valid"
+            [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+            <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">
+              {{ permission?.id ? 'Editieren' : 'Speichern' }}
+            </span>
+          </button>
+
+          <div class="btn-group" dropdown>
+            <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle type="button">
+              <span class="fas fa-bars fa-fw"></span>
+            </button>
+
+            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+              aria-labelledby="button-animated">
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/permissions/list']">
+                  <i class="fas fa-list-ul" aria-hidden="true"></i>
+                  Zur Übersicht
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                  <i class="fas fa-undo" aria-hidden="true"></i>
+                  Zurücksetzen
+                </a>
+              </li>
+              <li role="menuitem" *ngIf="!permission?.isCorePermission && permission?.id">
+                <a class="dropdown-item" href="javascript:;" (click)="deletePermission(permission)">
+                  <i class="fas fa-trash" aria-hidden="true"></i>
+                  Löschen
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </ng-container>
+    </app-portlet-header>
+    <app-portlet-body>
+
+      <app-alert *ngIf="hasFormErrors" type="warning" [showCloseButton]="true" [duration]="10000"
+        (close)="onAlertClose()">
+        Achtung! Beim Speicherversuch sind Fehler aufgetreten. Bitte überprüfe Deine Eingaben!
+      </app-alert>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <mat-form-field class="mat-form-field-fluid mb-3">
+            <input id="displayName" matInput minlength="3" maxlength="50" placeholder="Titel der Berechtigung"
+              formControlName="displayName">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="mat-form-field-fluid mb-3">
+            <mat-checkbox formControlName="isCorePermission"> Grundlegende Berechtigung</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </app-portlet-body>
+
+    <app-portlet-footer>
+      <div class="row">
+        <div class="col-lg-12 text-right py-3 px-5">
+          <div class="btn-group" role="group">
+
+            <button type="submit" formtarget="form" [disabled]="!form.valid"
+              [ngClass]="!form.valid  ? 'btn btn-outline-success mr-1' : 'btn btn-success mr-1'">
+              <i class="fa fa-save fa-fw" aria-hidden="true"></i>
+              <span class="d-none d-sm-inline">
+                {{ permission?.id ? 'Editieren' : 'Speichern' }}
+              </span>
+            </button>
+
+            <div class="btn-group" dropdown>
+              <button class="btn btn-outline-secondary dropdown-toggle" id="button-animated" dropdownToggle
+                type="button">
+                <span class="fas fa-bars fa-fw"></span>
+              </button>
+
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem">
+                  <a class="dropdown-item" [routerLink]="['/permissions/list']">
+                    <i class="fas fa-list-ul" aria-hidden="true"></i>
+                    Zur Übersicht
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:;" (click)="reset()">
+                    <i class="fas fa-undo" aria-hidden="true"></i>
+                    Zurücksetzen
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="!permission?.isCorePermission && permission?.id">
+                  <a class="dropdown-item" href="javascript:;" (click)="deletePermission(permission)">
+                    <i class="fas fa-trash" aria-hidden="true"></i>
+                    Löschen
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </app-portlet-footer>
+  </form>
+</app-portlet>

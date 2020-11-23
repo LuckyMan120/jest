@@ -1,0 +1,426 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "sfw-backend": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "aot": true,
+            "outputPath": "dist/sfw-backend/browser",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/robots.txt"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "src/assets/sass/style.angular.scss",
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "src/assets/js/avatar.js",
+              "src/assets/js/dialog.js",
+              "src/assets/js/header.js",
+              "src/assets/js/menu.js",
+              "src/assets/js/offcanvas.js",
+              "src/assets/js/portlet.js",
+              "src/assets/js/scrolltop.js",
+              "src/assets/js/toggle.js",
+              "src/assets/js/util.js",
+              "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets"
+              ]
+            },
+            "allowedCommonJsDependencies": [
+              "@angular/fire/firestore",
+              "firebase",
+              "@firebase/app",
+              "@firebase/analytics",
+              "@firebase/app",
+              "@firebase/auth",
+              "@firebase/component",
+              "@firebase/database",
+              "@firebase/firestore",
+              "@firebase/functions",
+              "@firebase/installations",
+              "@firebase/messaging",
+              "@firebase/storage",
+              "@firebase/performance",
+              "@firebase/remote-config",
+              "@firebase/util",
+              "@uppy/companion-client",
+              "@uppy/url",
+              "@uppy/instagram",
+              "@uppy/google-drive",
+              "@uppy/image-editor",
+              "@uppy/facebook",
+              "@uppy/dropbox",
+              "@uppy/dashboard",
+              "@uppy/core",
+              "@uppy/drag-drop",
+              "@uppy/file-input",
+              "@uppy/status-bar",
+              "@uppy/webcam",
+              "@uppy/transloadit",
+              "@uppy/unsplash",
+              "@uppy/xhr-upload",
+              "@uppy/thumbnail-generator",
+              "@uppy/store-redux",
+              "@uppy/provider-views",
+              "@uppy/progress-bar",
+              "@uppy/informer",
+              "@uppy/onedrive",
+              "@uppy/screen-capture",
+              "@uppy/aws-s3-multipart",
+              "@uppy/aws-s3",
+              "@uppy/tus",
+              "@uppy/form",
+              "@uppy/golden-retriever",
+              "@uppy/redux-dev-tools",
+              "mime-match",
+              "cuid",
+              "@uppy/utils/lib/Translator",
+              "@uppy/utils/lib/getFileType",
+              "@uppy/utils/lib/findAllDOMElements",
+              "@uppy/utils/lib/emitSocketProgress",
+              "@uppy/utils/lib/getDroppedFiles",
+              "@uppy/utils/lib/canvasToBlob",
+              "@uppy/utils/lib/findDOMElement",
+              "chart.js",
+              "url-parse",
+              "tus-js-client",
+              "js-base64"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "12mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "sfw-backend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "sfw-backend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sfw-backend:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "./karma.conf.ts",
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/ng-pick-datetime/assets/style/picker.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "src/assets/sass/style.angular.scss"
+            ],
+            "scripts": [
+              "node_modules/popper.js/dist/umd/popper.js",
+              "node_modules/tooltip.js/dist/umd/tooltip.min.js",
+              "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js"
+            ],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/robots.txt"
+            ]
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/sfw-backend/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "bundleDependencies": true
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "ssr": true
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "sfw-backend:build",
+            "serverTarget": "sfw-backend:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "sfw-backend:build:production",
+              "serverTarget": "sfw-backend:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "sfw-backend:build:production",
+            "serverTarget": "sfw-backend:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.component.html"
+            ]
+          }
+        }
+      }
+    },
+    "sfw-backend-e2e": {
+      "root": "e2e/",
+      "sourceRoot": "",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "sfw-backend:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "sfw-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/sfw-frontend",
+      "sourceRoot": "projects/sfw-frontend/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/sfw-frontend",
+            "index": "projects/sfw-frontend/src/index.html",
+            "main": "projects/sfw-frontend/src/main.ts",
+            "polyfills": "projects/sfw-frontend/src/polyfills.ts",
+            "tsConfig": "projects/sfw-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "/node_modules/slick-carousel/slick",
+                "output": "assets/slick"
+              },
+              "projects/sfw-frontend/src/favicon.ico",
+              "projects/sfw-frontend/src/assets",
+              "projects/sfw-frontend/src/manifest.webmanifest"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/aos/dist/aos.css",
+              "projects/sfw-frontend/src/styles.scss"
+            ],
+            "scripts": [
+              "projects/sfw-frontend/src/assets/js/slick.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/sfw-frontend/src/environments/environment.ts",
+                  "with": "projects/sfw-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "sfw-frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "sfw-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sfw-frontend:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sfw-frontend/src/test.ts",
+            "polyfills": "projects/sfw-frontend/src/polyfills.ts",
+            "tsConfig": "projects/sfw-frontend/tsconfig.spec.json",
+            "karmaConfig": "projects/sfw-frontend/karma.conf.js",
+            "assets": [
+              "projects/sfw-frontend/src/favicon.ico",
+              "projects/sfw-frontend/src/assets"
+            ],
+            "styles": [
+              "projects/sfw-frontend/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sfw-frontend/tsconfig.app.json",
+              "projects/sfw-frontend/tsconfig.spec.json",
+              "projects/sfw-frontend/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/sfw-frontend/e2e/protractor.conf.js",
+            "devServerTarget": "sfw-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sfw-frontend:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "sfw-backend",
+  "cli": {
+    "analytics": false
+  }
+}

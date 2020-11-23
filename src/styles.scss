@@ -1,0 +1,89 @@
+// header base skins
+.app-header-base-light {
+  @import "./assets/sass/global/layout/header/skins/base/light.scss";
+}
+.app-header-base-dark {
+  @import "./assets/sass/global/layout/header/skins/base/dark.scss";
+}
+
+// header menu skins
+.app-header-menu-light {
+  @import "./assets/sass/global/layout/header/skins/menu/light.scss";
+}
+.app-header-menu-dark {
+  @import "./assets/sass/global/layout/header/skins/menu/dark.scss";
+}
+
+// brand skins
+.app-brand-dark {
+  @import "./assets/sass/global/layout/brand/skins/dark.scss";
+}
+.app-brand-light {
+  @import "./assets/sass/global/layout/brand/skins/light.scss";
+}
+
+// aside skins
+.app-aside-dark {
+  @import "./assets/sass/global/layout/aside/skins/dark.scss";
+}
+.app-aside-light {
+  @import "./assets/sass/global/layout/aside/skins/light.scss";
+}
+
+// hide bootstrap dropdown arrow globally
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.mat-table__wrapper--dashboard .mat-table {
+  min-width: 600px !important;
+  width: 100% !important;
+}
+
+.position-static {
+  position: static;
+}
+
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+.mat-radio-label {
+  white-space: normal !important;
+}
+
+.mat-column-id {
+  flex-grow: 1;
+  flex: 100px;
+  flex-shrink: inherit;
+}
+
+@media (max-width: #{app-media-breakpoint(md)}) {
+  .mat-cell {
+    min-width: 400px;
+  }
+
+  .mat-column-actions {
+    min-width: 180px;
+  }
+}
+
+.loader-overlay {
+  margin: 20px 10px;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  div {
+    margin: 5px;
+  }
+}
