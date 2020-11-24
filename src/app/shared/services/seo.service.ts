@@ -1,7 +1,7 @@
 import { DOCUMENT, formatDate, FormatWidth, getLocaleDateFormat } from '@angular/common';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { environment } from './../../../environments/environment';
+import { defaults } from './../../../environments/defaults';
 
 @Injectable()
 export class SeoService { // implements OnDestroy
@@ -21,7 +21,6 @@ export class SeoService { // implements OnDestroy
     this.dateFormat = getLocaleDateFormat(this.locale, FormatWidth.Medium);
 
     const now = formatDate(new Date(), this.dateFormat, this.locale);
-    const defaults = environment.appDefaults;
 
     this.title.setTitle(defaults.site.title);
     this.meta.updateTag({ name: 'description', content: defaults.site.description }, 'name="description"');

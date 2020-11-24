@@ -7,6 +7,7 @@ import { Publication } from '@shared/_interfaces/publication.interface';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { CallableContext } from 'firebase-functions/lib/providers/https';
+import { defaults } from './../../../src/environments/defaults';
 
 require('cors')({ origin: true });
 
@@ -15,7 +16,6 @@ export interface Step1Data {
     id: string;
     key: string
   };
-  categories: Category[];
   communities: string[];
   dfbnet: {
     username: string;
@@ -107,24 +107,27 @@ const setupStep1 = functions
       // create categories and set their parentIds
       const creation: Creation = { at: new Date().valueOf(), by: 'System-Installer' };
       const publication: Publication = { at: new Date().valueOf(), status: 1, by: 'System-Installer' };
-      const pr = data.categories.map(category => createCategories(category, creation, publication));
+      const pr = defaults.categories.map(category => createCategories(category, creation, publication));
       const categories = await Promise.all(pr);
       const categoryPromises = categories.map(category => setParentCategories(category));
 
       const rolePromises = data.roles.map((role: Role) => {
         const id = admin.firestore().collection(`roles`).doc().id;
-        return admin.firestore().doc(`roles/${id}`).set({ ...role, id, assignedUserIds: [] }, { merge: true });
+        return admin.firestore().doc(`roles/${id}`).set({
+          title: role, id, assignedUserIds: [], assignedPermissionIds: [], isImported: true
+        }, { merge: true });
       });
 
       const permissionsPromises = data.permissions.map((permission: Permission) => {
         const id = admin.firestore().collection(`permissions`).doc().id;
-        return admin.firestore().doc(`permissions/${id}`).set({ ...permission, id }, { merge: true });
+        return admin.firestore().doc(`permissions/${id}`).set({
+          title: permission, id, isCorePermission: true, isImported: true
+        }, { merge: true });
       });
 
       // delete fields that are no config fields
       delete data.permissions;
       delete data.roles;
-      delete data.categories;
 
       data.id = 1;
 

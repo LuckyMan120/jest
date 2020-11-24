@@ -9,7 +9,7 @@ import { initAlgolia } from './app/algolia';
 
 const DEBUG = true;
 
-export const SERVICE_ACCOUNT = require('./../serviceAccounts/sf-wtb.json');
+export const SERVICE_ACCOUNT = require('./../../../service_account.json');
 
 if (DEBUG) {
   admin.initializeApp({

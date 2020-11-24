@@ -46,14 +46,13 @@ package-lock.json
 yarn-error.log
 yarn.lock
 
-functions-cron/appengine/vendor
 functions/lib
 functions/node_modules
 *.log
 
-functions/credentials.json
 functions/.runtimeconfig.json
 functions/firestore_export
+functions/service_account.json
 
 uppy-companion/node_modules
 uppy-companion/dist

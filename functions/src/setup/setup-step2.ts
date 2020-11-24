@@ -56,7 +56,7 @@ const setupStep2 = functions
       const entries = Object.values(data.rolesToPermissions);
 
       const rolePromises = entries.map((value: { roleId: string, assignedPermissions: string[] }) =>
-        admin.firestore().doc(`roles/${value.roleId}`).set({ assignedPermissions: value.assignedPermissions }, { merge: true })
+        admin.firestore().doc(`roles/${value.roleId}`).set({ assignedPermissionIds: value.assignedPermissions }, { merge: true })
       );
 
       // set the assignedCategoryIds as we sent the titles only

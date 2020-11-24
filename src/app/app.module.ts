@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
-import { APP_INITIALIZER, isDevMode, LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule, USE_DEVICE_LANGUAGE, USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
 import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
@@ -58,7 +58,7 @@ export function initializeConfig(layoutConfig: LayoutConfig, layoutConfigService
     { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
     { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
     { provide: NEW_ORIGIN_BEHAVIOR, useValue: true },
-    { provide: FUNCTIONS_ORIGIN, useFactory: () => isDevMode() ? undefined : 'europe-west1' },
+    { provide: FUNCTIONS_ORIGIN, useValue: 'europe-west1' },
     { provide: USE_DEVICE_LANGUAGE, useValue: true },
     { provide: APP_INITIALIZER, useFactory: initializeConfig, deps: [LayoutConfig, LayoutConfigService], multi: true },
     { provide: LOCALE_ID, useValue: 'de' }

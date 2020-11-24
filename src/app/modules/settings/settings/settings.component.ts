@@ -2,19 +2,19 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { CategoryService } from '@category/category.service';
+import { Category } from '@category/_interfaces/category.interface';
+import { Role } from '@role/_interfaces/role.interface';
+import { FirestoreService } from '@shared/services/firestore.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { FirestoreService } from '../../../shared/services/firestore.service';
-import { CategoryService } from '../../category/category.service';
-import { Category } from '../../category/_interfaces/category.interface';
 import { ApplicationService } from '../application.service';
 import { SettingService } from '../setting.service';
 import { Application } from '../_interfaces/application.interface';
 import { Calendar } from '../_interfaces/calendar.interface';
 import { Link } from '../_interfaces/link.interface';
 import { MailList } from '../_interfaces/mail-list.interface';
-import { environment } from './../../../../environments/environment';
-import { Role } from './../../role/_interfaces/role.interface';
+import { defaults } from './../../../../environments/defaults';
 
 @Component({
   selector: 'settings',
@@ -62,7 +62,7 @@ export class SettingsComponent implements OnInit {
       })
     );
 
-    this.colors = environment.appDefaults.colors;
+    this.colors = defaults.colors;
     this.categories$ = this.categoryService.getCategoryListByParentCategoryTitle('Links');
     this.mailListCategories$ = this.categoryService.getCategoryListByParentCategoryTitle('E-Mail Verteiler');
     this.roles$ = this.firestoreService.col<Role>(`roles`).valueChanges();

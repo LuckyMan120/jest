@@ -4,12 +4,9 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
+import { Config } from '@shared/_interfaces/config.interface';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { Role } from '../../../../../modules/role/_interfaces/role.interface';
-import { environment } from './../../../../../../environments/environment';
-import { Category } from './../../../../../modules/category/_interfaces/category.interface';
-import { Permission } from './../../../../../modules/permission/_interfaces/permission.interface';
-import { Config } from './../../../../../shared/_interfaces/config.interface';
+import { defaults } from './../../../../../../environments/defaults';
 
 @Component({
   selector: 'app-first-step',
@@ -20,20 +17,15 @@ export class FirstStepComponent implements OnInit, OnDestroy {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  roles!: Role[];
+  roles!: string[];
   visibleRole = true;
   selectableRole = true;
   removableRole = false;
 
-  permissions!: Permission[];
+  permissions!: string[];
   visiblePermission = true;
   selectablePermission = true;
   removablePermission = false;
-
-  categories!: Category[];
-  visibleCategory = true;
-  selectableCategory = true;
-  removableCategory = false;
 
   communities!: string[];
   visibleCommunity = true;
@@ -64,49 +56,49 @@ export class FirstStepComponent implements OnInit, OnDestroy {
     startDate.setMonth(6);
     startDate.setDate(1);
 
+    console.log(defaults);
+
     this.form = this.fb.group({
       algolia: this.fb.group({
-        id: [environment.appDefaults.algolia.id || ''],
-        key: [environment.appDefaults.algolia.key || '']
+        id: [defaults.algolia.id || ''],
+        key: [defaults.algolia.key || '']
       }),
       communities: [],
       dfbnet: this.fb.group({
-        username: environment.appDefaults.dfbnet.username || '',
-        password: environment.appDefaults.dfbnet.password || ''
+        username: defaults.dfbnet.username || '',
+        password: defaults.dfbnet.password || ''
       }),
       fussball: this.fb.group({
-        clubId: [environment.appDefaults.fussball.clubId || '', [Validators.required]],
-        endDateOffset: [environment.appDefaults.fussball.endDateOffset,
+        clubId: [defaults.fussball.clubId || '', [Validators.required]],
+        endDateOffset: [defaults.fussball.endDateOffset,
         [Validators.required, Validators.min(1), Validators.max(12)]
         ],
         startDate,
       }),
-      googleDriveMemberSheet: environment.appDefaults.memberSheetId || '',
+      memberSheetId: defaults.memberSheetId || '',
       mailjet: this.fb.group({
-        key: [environment.appDefaults.mailjet.key || ''],
-        secret: [environment.appDefaults.mailjet.secret || ''],
+        key: [defaults.mailjet.key || ''],
+        secret: [defaults.mailjet.secret || ''],
       }),
       permissions: [[], [Validators.required]],
-      categories: [[], [Validators.required]],
       roles: [[], [Validators.required]],
-      slackWebHookUrl: environment.appDefaults.slackWebHookUrl || '',
+      slackWebHookUrl: defaults.slackWebHookUrl || '',
       uppy: this.fb.group({
-        companionUrl: environment.appDefaults.uppy.companionUrl,
-        facebook: environment.appDefaults.uppy.facebook,
-        instagram: environment.appDefaults.uppy.instagram,
-        googleDrive: environment.appDefaults.uppy.googleDrive,
-        oneDrive: environment.appDefaults.uppy.oneDrive,
-        zoom: environment.appDefaults.uppy.zoom,
-        dropbox: environment.appDefaults.uppy.dropbox,
-        url: environment.appDefaults.uppy.url,
-        unsplash: environment.appDefaults.uppy.unsplash
+        companionUrl: defaults.uppy.companionUrl,
+        facebook: defaults.uppy.facebook,
+        instagram: defaults.uppy.instagram,
+        googleDrive: defaults.uppy.googleDrive,
+        oneDrive: defaults.uppy.oneDrive,
+        zoom: defaults.uppy.zoom,
+        dropbox: defaults.uppy.dropbox,
+        url: defaults.uppy.url,
+        unsplash: defaults.uppy.unsplash
       })
     });
 
-    this.communities = environment.appDefaults.communities;
-    this.permissions = environment.appDefaults.permissions;
-    this.categories = environment.appDefaults.categories;
-    this.roles = environment.appDefaults.roles;
+    this.communities = defaults.communities;
+    this.permissions = defaults.permissions;
+    this.roles = defaults.roles;
   }
 
   ngOnDestroy() {
@@ -119,7 +111,6 @@ export class FirstStepComponent implements OnInit, OnDestroy {
 
     this.form.patchValue({ communities: this.communities });
     this.form.patchValue({ permissions: this.permissions });
-    this.form.patchValue({ categories: this.categories });
     this.form.patchValue({ roles: this.roles });
 
     if (!this.form.valid) {
@@ -141,19 +132,18 @@ export class FirstStepComponent implements OnInit, OnDestroy {
     }
   }
 
-  add(event: MatChipInputEvent, type: 'roles' | 'permissions' | 'communities' | 'categories'): void {
+  add(event: MatChipInputEvent, type: 'roles' | 'permissions' | 'communities'): void {
     const input = event.input;
     const value = event.value;
 
     if ((value || '').trim()) {
 
-      const newItem =
-        type === 'roles' ? { title: value, assignedPermissions: [], isCoreRole: false }
-          : type === 'categories' ? { title: value, isCoreCategory: false }
-            : type === 'permissions' ? { displayName: value, isCorePermission: false }
-              : value;
+      /* const newItem =
+        type === 'roles' ? { title: value, isCoreRole: false }
+          : type === 'permissions' ? { title: value, isCorePermission: false }
+            : value; */
 
-      this[type].push(newItem as any);
+      this[type].push(value);
     }
 
     if (input) {
@@ -161,13 +151,13 @@ export class FirstStepComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove(item: Role | Permission | Category | string, type: 'roles' | 'permissions' | 'communities' | 'categories'): void {
+  remove(item: string, type: 'roles' | 'permissions' | 'communities'): void {
 
-    const index =
-      type === 'roles' ? this.roles.indexOf(item as Role)
-        : type === 'categories' ? this.categories.indexOf(item as Category)
-          : type === 'permissions' ? this.permissions.indexOf(item as Permission)
-            : this.communities.indexOf(item as string);
+    const index = this[type].indexOf(item);
+
+    /*  type === 'roles' ? this.roles.indexOf(item)
+        : type === 'permissions' ? this.permissions.indexOf(item)
+          : this.communities.indexOf(item); */
 
     if (index >= 0) {
       this[type].splice(index, 1);

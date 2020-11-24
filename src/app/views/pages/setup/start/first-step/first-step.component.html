@@ -25,8 +25,7 @@
             <mat-chip-list #chipList aria-label="roles">
               <mat-chip *ngFor="let role of roles" [selectable]="selectableRole" [removable]="removableRole"
                 (removed)="remove(role, 'roles')" color="primary">
-                {{role.title}}
-                <span class="ml-3 fa fa-trash" *ngIf="!role.isCoreRole" (click)="remove(role, 'roles')"></span>
+                {{role}}
               </mat-chip>
               <input placeholder="Benutzerrollen festlegen" [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
@@ -40,29 +39,11 @@
             <mat-chip-list #chipList2 aria-label="permissions">
               <mat-chip *ngFor="let permission of permissions" [selectable]="selectablePermission"
                 [removable]="removablePermission" (removed)="remove(permission, 'permissions')" color="primary">
-                {{permission.displayName}}
-                <span class="ml-3 fa fa-trash" *ngIf="!permission.isCorePermission"
-                  (click)="remove(permission, 'permissions')"></span>
+                {{permission}}
               </mat-chip>
               <input placeholder="Berechtigungen erstellen" [matChipInputFor]="chipList2"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                 (matChipInputTokenEnd)="add($event, 'permissions')">
-            </mat-chip-list>
-          </mat-form-field>
-        </div>
-
-        <div class="form-group mt-5">
-          <mat-form-field class="mat-form-field-fluid">
-            <mat-chip-list #chipList4 aria-label="categories">
-              <mat-chip *ngFor="let category of categories" [selectable]="selectableCategory"
-                [removable]="removableCategory" (removed)="remove(category, 'categories')" color="primary">
-                {{category.title}}
-                <span class="ml-3 fa fa-trash" *ngIf="!category.isCoreCategory"
-                  (click)="remove(category, 'categories')"></span>
-              </mat-chip>
-              <input placeholder="Kategorien festlegen" [matChipInputFor]="chipList4"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event, 'categories')">
             </mat-chip-list>
           </mat-form-field>
         </div>
@@ -74,7 +55,7 @@
             <div class="form-group d-flex">
               <mat-form-field class="mat-form-field-fluid w-100 mr-5">
                 <mat-label>ID der Mitgliederliste</mat-label>
-                <input matInput placeholder="ID der Mitgliederliste" formControlName="googleDriveMemberSheet" />
+                <input matInput placeholder="ID der Mitgliederliste" formControlName="memberSheetId" />
               </mat-form-field>
             </div>
           </div>

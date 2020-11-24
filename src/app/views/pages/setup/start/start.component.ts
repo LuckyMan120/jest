@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from './../../../../../environments/environment';
+import { defaults } from './../../../../../environments/defaults';
 
 @Component({
   selector: 'app-start',
@@ -9,14 +9,14 @@ import { environment } from './../../../../../environments/environment';
 export class StartComponent implements OnInit {
 
   today = new Date();
-  env: any;
+  defaults: any;
 
   constructor(
   ) {
   }
 
   ngOnInit(): void {
-    this.env = environment;
+    this.defaults = defaults;
   }
 
 }

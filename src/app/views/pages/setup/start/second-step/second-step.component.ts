@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
 import { Calendar } from '@application/_interfaces/calendar.interface';
 import { MailList } from '@application/_interfaces/mail-list.interface';
 import { Category } from '@category/_interfaces/category.interface';
+import { Permission } from '@permission/_interfaces/permission.interface';
 import { Role } from '@role/_interfaces/role.interface';
+import { ErrorResponse } from '@shared/_interfaces/error-response.interface';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from './../../../../../../environments/environment';
-import { Permission } from './../../../../../modules/permission/_interfaces/permission.interface';
-import { ErrorResponse } from './../../../../../shared/_interfaces/error-response.interface';
+import { defaults } from './../../../../../../environments/defaults';
 
 @Component({
   selector: 'app-second-step',
@@ -56,14 +56,14 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.form = this.fb.group({
       site: this.fb.group({
-        assignedKeywords: [environment.appDefaults.site.keywords || '', [Validators.required]],
-        author: [environment.appDefaults.site.author, [Validators.required]],
-        backendUrl: [environment.appDefaults.site.backendUrl || '', [Validators.required]],
-        description: [environment.appDefaults.site.description || '', [Validators.required]],
-        email: [environment.appDefaults.site.email || '', [Validators.required]],
-        frontendUrl: [environment.appDefaults.site.frontendUrl || '', [Validators.required]],
-        subTitle: [environment.appDefaults.site.subTitle || '', [Validators.required]],
-        title: [environment.appDefaults.site.title || '', [Validators.required]],
+        assignedKeywords: [defaults.site.keywords || '', [Validators.required]],
+        author: [defaults.site.author, [Validators.required]],
+        backendUrl: [defaults.site.backendUrl || '', [Validators.required]],
+        description: [defaults.site.description || '', [Validators.required]],
+        email: [defaults.site.email || '', [Validators.required]],
+        frontendUrl: [defaults.site.frontendUrl || '', [Validators.required]],
+        subTitle: [defaults.site.subTitle || '', [Validators.required]],
+        title: [defaults.site.title || '', [Validators.required]],
       }),
       registration: this.fb.group({
         defaultRole: ['', [Validators.required]],
@@ -80,11 +80,11 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     );
 
     this.permissions$ = this.afs.collection<Permission>('permissions', (ref: Query) => ref.orderBy('displayName')).valueChanges();
-    this.initCalendars(environment.appDefaults.assignedCalendars);
+    this.initCalendars(defaults.assignedCalendars);
 
-    this.initMailing(environment.appDefaults.mailing);
-    this.mailing = environment.appDefaults.mailing;
-    this.mailListCategories = environment.appDefaults.categories.filter(cat => cat.assignedCategoryTitles?.includes('E-Mail Verteiler'));
+    this.initMailing(defaults.mailing);
+    this.mailing = defaults.mailing;
+    this.mailListCategories = defaults.categories.filter(cat => cat.assignedCategoryTitles?.includes('E-Mail Verteiler'));
   }
 
   ngOnDestroy() {
@@ -112,7 +112,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
 
   initCalendars(calendars: Calendar[]): FormArray {
     const control = this.form.get('assignedCalendars') as FormArray;
-    const colors = environment.appDefaults.colors;
+    const colors = defaults.colors;
 
     calendars.map((calendar: Calendar, idx: number) => {
       const color = this.getRandomColor(colors);
