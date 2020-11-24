@@ -118,7 +118,7 @@ export class AuthService {
     }
 
     const dbPermissions = reqPermissions.map(reqPermission =>
-      permissions.find(permission => permission.displayName.toLocaleLowerCase() === reqPermission)
+      permissions.find(permission => permission.title?.toLocaleLowerCase() === reqPermission)
     );
 
     const dbRoles = Object.keys(user.assignedRoles).map(role => roles.find(singleRole => singleRole.title === role));
@@ -127,7 +127,7 @@ export class AuthService {
       return false;
     }
 
-    return dbRoles.some((role) => dbPermissions.find((perm) => perm && role && role.assignedPermissions.includes(perm.id as string)));
+    return dbRoles.some((role) => dbPermissions.find((perm) => perm && role && role.assignedPermissionIds.includes(perm.id as string)));
   }
 
 }

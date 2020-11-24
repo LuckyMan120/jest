@@ -18,7 +18,7 @@ export class RoleService {
   }
 
   private initNewRole(): Observable<Role> {
-    return of({ isCoreRole: false, assignedPermissions: [], title: '' });
+    return of({ isCoreRole: false, assignedPermissionIds: [], title: '' });
   }
 
   loadRole(id: string): Observable<Role | undefined> {

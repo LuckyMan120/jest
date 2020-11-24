@@ -1,4 +1,4 @@
-import { BaseInterface } from '../../../shared/_interfaces/base.interface';
+import { BaseInterface } from '@shared/_interfaces/base.interface';
 
 export interface Article extends BaseInterface {
   excerpt: string;

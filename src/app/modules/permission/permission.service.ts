@@ -22,7 +22,7 @@ export class PermissionService {
   }
 
   initNewPermission(): Observable<Permission> {
-    return of({ title: '', displayName: '', isCorePermission: false });
+    return of({ title: '', isCorePermission: false });
   }
 
   loadPermission(id: string): Observable<Permission | undefined> {
@@ -32,13 +32,13 @@ export class PermissionService {
   getFormFields(): FormGroup {
     return this.fb.group({
       id: null,
-      displayName: '',
+      title: '',
       isCorePermission: [false]
     });
   }
 
   async save(permission: Permission) {
-    permission.id = permission.displayName.toLowerCase().replace(/[^a-zA-Z]/g, '');
+    permission.id = permission.title?.toLowerCase().replace(/[^a-zA-Z]/g, '');
     return this.firestoreService.save(permission, 'permissions', 'permission');
   }
 

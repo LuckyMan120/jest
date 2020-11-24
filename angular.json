@@ -320,7 +320,6 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "node_modules/aos/dist/aos.css",
               "projects/sfw-frontend/src/styles.scss"
             ],
             "scripts": [

@@ -110,12 +110,7 @@ export class RoleFormComponent implements OnInit {
   }
 
   isAssignedPermission(role: Role, permission: Permission) {
-    for (const assignedPermission in role.assignedPermissions) {
-      if (assignedPermission === permission.id) {
-        return true;
-      }
-    }
-    return false;
+    return role.assignedPermissionIds.find(id => id === permission.id);
   }
 
 }
