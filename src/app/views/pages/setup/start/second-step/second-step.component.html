@@ -104,7 +104,7 @@
                   <mat-checkbox (change)="toggleAllSelection($event, i)">Alle auswählen</mat-checkbox>
                 </div>
                 <mat-option *ngFor="let permission of permissions$ | async" [value]="permission.id">
-                  {{ permission.displayName }}
+                  {{ permission.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

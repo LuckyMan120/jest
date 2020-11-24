@@ -35,16 +35,13 @@ export const onUserAuthCreate = functions
 
       const userCount = (await admin.firestore().collection('users').get()).size;
 
-      if (userCount === 1) {
+      if (userCount === 0) {
 
         promises.push(admin.firestore().doc('applications/currentApplication').set({ adminUserId: user.uid }, { merge: true }));
         fsUser.isGodAdmin = true;
-        fsUser.assignedRoles = {
-          Administrator: true,
-          Gast: false,
-          Spieler: false,
-          Trainer: true
-        };
+
+        const roles = (await admin.firestore().collection('roles').get()).docs;
+        roles.map(role => fsUser[role.data().title] = true);
 
       } else {
         // disable user by default

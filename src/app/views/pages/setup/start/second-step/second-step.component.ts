@@ -79,7 +79,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
       )
     );
 
-    this.permissions$ = this.afs.collection<Permission>('permissions', (ref: Query) => ref.orderBy('displayName')).valueChanges();
+    this.permissions$ = this.afs.collection<Permission>('permissions', (ref: Query) => ref.orderBy('title')).valueChanges();
     this.initCalendars(defaults.assignedCalendars);
 
     this.initMailing(defaults.mailing);
