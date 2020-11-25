@@ -24,6 +24,6 @@ describe('NewComponentComponent', () => {
   });
 
   it('just check ', ()=> {
-     expect(component.componentName).toBe("user")
+     expect(component.componentName).toBe("user");
   });
 });
