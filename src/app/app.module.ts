@@ -18,6 +18,7 @@ import { LayoutConfigService } from './shared/services/layout-config.service';
 import { SeoService } from './shared/services/seo.service';
 import { SplashScreenService } from './shared/services/splash-screen.service';
 import { SplashScreenComponent } from './views/themes/default/splash-screen/splash-screen.component';
+import { NewComponentComponent } from './new-component/new-component.component';
 registerLocaleData(localeDe, localeDeExtra);
 
 export function initializeConfig(layoutConfig: LayoutConfig, layoutConfigService: LayoutConfigService) {
@@ -27,7 +28,8 @@ export function initializeConfig(layoutConfig: LayoutConfig, layoutConfigService
 @NgModule({
   declarations: [
     AppComponent,
-    SplashScreenComponent
+    SplashScreenComponent,
+    NewComponentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'sfw-backend' }),

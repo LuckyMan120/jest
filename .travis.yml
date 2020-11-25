@@ -1,28 +1,24 @@
+dist: trusty
 sudo: false
 
 language: node_js
-
 node_js:
-  - "node"
+  - "10"
 
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+      - google-chrome
     packages:
-      - g++-4.8
+      - google-chrome-stable
 
-#before_install:
-#  - curl -o- -L https://yarnpkg.com/install.sh | bash
-#  - export PATH=$HOME/.yarn/bin:$PATH
+cache:
+  directories:
+     - ./node_modules
 
 install:
   - npm install
 
 script:
-  - ng build --prod
-
-notifications:
-  email:
-    on_failure: change
-    on_success: change
+  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
