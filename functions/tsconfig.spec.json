@@ -9,10 +9,7 @@
   },
   "files": [
     "src/test.ts",
-    "src/polyfills.ts",
-    "E:/winterbach/jest/functions/src/test.ts",
-    "E:/winterbach/jest/functions/src/polyfills.ts"
-    //E:/winterbach/jest/projects/sfw-frontend/*.ts
+    "src/polyfills.ts"
   ],
   "include": [
     "src/**/*.spec.ts",

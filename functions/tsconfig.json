@@ -13,7 +13,8 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "types": [
-      "jest"
+      "jest","jasmine",
+      "node"
     ],
     "paths": {
       "@shared/*": ["./../src/app/shared/*", ],

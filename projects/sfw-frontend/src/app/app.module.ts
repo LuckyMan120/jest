@@ -13,10 +13,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ThemeModule } from './theme/theme.module';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UserDeleteComponent } from './user-delete/user-delete.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
+import { UserAuthCreateComponent } from './user-auth-create/user-auth-create.component';
 registerLocaleData(localeDe, localeDeExtra);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UserCreateComponent, UserDeleteComponent, UserUpdateComponent, UserAuthCreateComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'sfw-frontend' }),
     AngularFireModule.initializeApp(environment.firebaseConfig),

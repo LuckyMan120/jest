@@ -12,6 +12,7 @@ import { defaults } from './../../../src/environments/defaults';
 require('cors')({ origin: true });
 
 export interface Step1Data {
+  categories: any;
   algolia: {
     id: string;
     key: string
