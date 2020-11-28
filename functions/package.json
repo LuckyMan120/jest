@@ -84,6 +84,7 @@
     "eslint-plugin-import": "^2.22.0",
     "firebase-functions-test": "^0.2.3",
     "jest": "^26.6.3",
+    "jest-extended": "^0.11.5",
     "karma-jasmine": "^4.0.1",
     "ts-jest": "^26.4.4",
     "tslint": "^6.0.0",

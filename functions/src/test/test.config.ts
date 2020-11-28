@@ -1,10 +1,10 @@
-import * as admin from 'firebase-admin';
+//import * as admin from 'firebase-admin';
 import * as testFunctions from 'firebase-functions-test';
 import * as path from 'path';
 
-admin.initializeApp( {
+/*admin.initializeApp( {
   databaseURL: 'https://sfw-test-db.firebaseio.com',
-});
+}); */
 
 
 export const firebaseConfig = {

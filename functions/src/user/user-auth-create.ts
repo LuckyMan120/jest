@@ -5,6 +5,8 @@ import * as functions from 'firebase-functions';
 import * as gravatarUrl from 'gravatar-url';
 import { currentApplication } from './../db';
 
+export let fsUser: User = null;
+
 export const onUserAuthCreate = functions
   .region('europe-west1')
   .runWith({ memory: '2GB', timeoutSeconds: 15 })
@@ -20,7 +22,7 @@ export const onUserAuthCreate = functions
     }
 
     try {
-      const fsUser: User = {
+      fsUser = {
         id: user.uid,
         email: user.email,
         emailVerified: user.emailVerified,

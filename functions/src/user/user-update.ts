@@ -6,6 +6,8 @@ import { getUserTitle } from './../app-functions';
 import { initAlgolia } from './../app/algolia';
 import { updateDetailStatisticsCounter } from './../statistics';
 
+export let afterData: User = null;
+
 export const onUserUpdate = functions
   .region('europe-west1')
   .runWith({ memory: '512MB', timeoutSeconds: 10 })
@@ -14,7 +16,8 @@ export const onUserUpdate = functions
 
     const promises = [];
 
-    const afterData = change.after.data() as User;
+    afterData = change.after.data() as User;
+    
     const beforeData = change.before.data() as User;
 
     const afterTitle = getUserTitle(change.after.data() as User);

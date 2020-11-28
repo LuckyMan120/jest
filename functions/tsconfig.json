@@ -2,6 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
+    "lib": [
+      "es6",
+      "dom",
+      "es2017"
+    ],
     "noUnusedLocals": true,
     "baseUrl": "./",
     "outDir": "./lib",
@@ -13,25 +18,56 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "types": [
-      "jest","jasmine",
+      "jest",
+      "jasmine",
       "node"
     ],
     "paths": {
-      "@shared/*": ["./../src/app/shared/*", ],
-      "@application/*": ["./../src/app/modules/settings/*", ],
-      "@article/*": ["./../src/app/modules/article/*", ],
-      "@category/*": ["./../src/app/modules/category/*", ],
-      "@club/*": ["./../src/app/modules/club/*", ],
-      "@location/*": ["./../src/app/modules/location/*", ],
-      "@match/*": ["./../src/app/modules/match/*", ],
-      "@member/*": ["./../src/app/modules/member/*", ],
-      "@permission/*": ["./../src/app/modules/permission/*", ],
-      "@player/*": ["./../src/app/modules/player/*", ],
-      "@role/*": ["./../src/app/modules/role/*", ],
-      "@senior/*": ["./../src/app/modules/senior/*", ],
-      "@sponsor/*": ["./../src/app/modules/sponsor/*", ],
-      "@team/*": ["./../src/app/modules/team/*", ],
-      "@user/*": ["./../src/app/modules/user/*", ],
+      "@shared/*": [
+        "./../src/app/shared/*",
+      ],
+      "@application/*": [
+        "./../src/app/modules/settings/*",
+      ],
+      "@article/*": [
+        "./../src/app/modules/article/*",
+      ],
+      "@category/*": [
+        "./../src/app/modules/category/*",
+      ],
+      "@club/*": [
+        "./../src/app/modules/club/*",
+      ],
+      "@location/*": [
+        "./../src/app/modules/location/*",
+      ],
+      "@match/*": [
+        "./../src/app/modules/match/*",
+      ],
+      "@member/*": [
+        "./../src/app/modules/member/*",
+      ],
+      "@permission/*": [
+        "./../src/app/modules/permission/*",
+      ],
+      "@player/*": [
+        "./../src/app/modules/player/*",
+      ],
+      "@role/*": [
+        "./../src/app/modules/role/*",
+      ],
+      "@senior/*": [
+        "./../src/app/modules/senior/*",
+      ],
+      "@sponsor/*": [
+        "./../src/app/modules/sponsor/*",
+      ],
+      "@team/*": [
+        "./../src/app/modules/team/*",
+      ],
+      "@user/*": [
+        "./../src/app/modules/user/*",
+      ],
     }
   },
   "compileOnSave": true,

@@ -8,6 +8,9 @@ import { createInfoMail } from './../shared/_classes/mail-engine';
 import { NotificationEngine } from './../shared/_classes/notification-engine';
 import { updateStatisticsCounter } from './../statistics';
 
+
+
+
 export const onUserCreate = functions
   .region('europe-west1')
   .runWith({ memory: '1GB', timeoutSeconds: 15 })
